@@ -425,6 +425,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("浴帘 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGL());
                 break;
+            case "HA":
+                tv_title.setText("束包 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentHA());
+                break;
             default:
                 firstOK = false;
                 showDialogTip("错误！", "订单号 " + orderItems.get(currentID).order_number + " 商品暂未添加，跳过此单号并继续？");
