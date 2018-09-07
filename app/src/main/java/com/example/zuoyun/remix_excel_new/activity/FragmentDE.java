@@ -184,7 +184,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         canvasRR.drawRect(1020, 520, 1450, 570, rectPaint);
         canvasRR.drawText(orderItems.get(currentID).newCode + " 右外", 1020, 565, paintRed);
-        canvasRR.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color, 1360, 565, paint);
+        canvasRR.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FX") ? "(新)" : ""), 1360, 565, paint);
         canvasRR.drawText(orderItems.get(currentID).order_number, 1200, 610, paint);
         canvasRR.drawRect(100, 520, 300, 570, rectPaint);
         canvasRR.drawText(time, 100, 565, paint);
@@ -200,7 +200,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasRL.drawBitmap(bitmapDBLeft,0,0,null);
 
         canvasRL.drawRect(70,520,450,570,rectPaint);
-        canvasRL.drawText(orderItems.get(currentID).size+orderItems.get(currentID).color,70,565,paint);
+        canvasRL.drawText(orderItems.get(currentID).size+orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FX") ? "(新)" : ""),70,565,paint);
         canvasRL.drawText("右内 " + orderItems.get(currentID).newCode, 180, 565, paintRed);
         canvasRL.drawText(orderItems.get(currentID).order_number,110,610,paint);
         canvasRL.drawRect(1100, 520, 1300, 570, rectPaint);
@@ -221,7 +221,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         canvasLR.drawRect(1020, 520, 1450, 570, rectPaint);
         canvasLR.drawText(orderItems.get(currentID).newCode + " 左内", 1170, 565, paintRed);
-        canvasLR.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color, 1360, 565, paint);
+        canvasLR.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FX") ? "(新)" : ""), 1360, 565, paint);
         canvasLR.drawText(orderItems.get(currentID).order_number, 1200, 610, paint);
         canvasLR.drawRect(100, 520, 300, 570, rectPaint);
         canvasLR.drawText(time, 100, 565, paint);
@@ -240,7 +240,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasLL.drawBitmap(bitmapDBLeft, 0, 0, null);
 
         canvasLL.drawRect(70, 520, 450, 570, rectPaint);
-        canvasLL.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color, 70, 565, paint);
+        canvasLL.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FX") ? "(新)" : ""), 70, 565, paint);
         canvasLL.drawText("左外 " + orderItems.get(currentID).newCode, 180, 565, paintRed);
         canvasLL.drawText(orderItems.get(currentID).order_number, 110, 610, paint);
         canvasLL.drawRect(1100, 520, 1300, 570, rectPaint);
@@ -260,7 +260,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             Bitmap bitmapPrint = Bitmap.createScaledBitmap(bitmapCombine, (int) ((1525 + 59) * scaleX), (int) ((2828 + 59) * scaleY), true);
             String printColor = orderItems.get(currentID).color.equals("黑") ? "B" : "W";
             String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku + orderItems.get(currentID).size : "";
-            String nameCombine = noNewCode + orderItems.get(currentID).newCode + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = noNewCode + orderItems.get(currentID).newCode + orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FX") ? "(新)" : "") + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

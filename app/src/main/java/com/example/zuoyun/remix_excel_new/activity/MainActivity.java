@@ -389,6 +389,14 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("童鞋高帮魔术贴 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentFS());
                 break;
+            case "FW":
+                tv_title.setText("高帮换鞋底 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentDD());
+                break;
+            case "FX":
+                tv_title.setText("低帮换鞋底 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentDE());
+                break;
             case "AY":
                 tv_title.setText("丁字裤 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentAY());
@@ -424,6 +432,10 @@ public class MainActivity extends FragmentActivity {
             case "GL":
                 tv_title.setText("浴帘 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGL());
+                break;
+            case "GV":
+                tv_title.setText("polo衫 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentGV());
                 break;
             case "HA":
                 tv_title.setText("束包 " + orderItems.get(currentID).order_number);
