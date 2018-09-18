@@ -384,8 +384,20 @@ public class FragmentDD extends BaseFragment {
                 height = 873;
                 break;
             case 47:
-                width = 1787;
+                width = 1788;
                 height = 886;
+                break;
+            case 48:
+                width = 1815;
+                height = 924;
+                break;
+            case 49:
+                width = 1850;
+                height = 939;
+                break;
+            case 50:
+                width = 1887;
+                height = 952;
                 break;
         }
     }

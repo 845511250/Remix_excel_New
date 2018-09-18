@@ -385,8 +385,16 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 scaleY = 1.078f;
                 break;
             case 47:
-                scaleX = 1.112f;
-                scaleY = 1.078f;
+                scaleX = 1.174f;
+                scaleY = 1.153f;
+                break;
+            case 48:
+                scaleX = 1.199f;
+                scaleY = 1.169f;
+                break;
+            case 49:
+                scaleX = 1.222f;
+                scaleY = 1.187f;
                 break;
         }
     }
