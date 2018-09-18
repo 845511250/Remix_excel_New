@@ -101,6 +101,7 @@ public class MainActivity extends FragmentActivity {
     public Bitmap bitmapLeft, bitmapRight, bitmapPillow;
     public Bitmap bitmapLL,bitmapLR,bitmapRL, bitmapRR;
     public Bitmap bitmap1, bitmap2, bitmap3, bitmap4, bitmap5, bitmap6;
+    public ArrayList<Bitmap> bitmaps = new ArrayList<>();
 
     FragmentManager fragmentManager;
     MessageListener messageListener;
@@ -401,6 +402,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("丁字裤 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentAY());
                 break;
+            case "G":
+                tv_title.setText("午餐包 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentG());
+                break;
             case "GC":
                 tv_title.setText("男背心 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGC());
@@ -598,6 +603,43 @@ public class MainActivity extends FragmentActivity {
                                     }
                                 }
                             }.start();
+                        } else if (orderItems.get(currentID).imgs != null) {
+                            tv_finishRemixx.setText("加载中...");
+                            new Thread() {
+                                @Override
+                                public void run() {
+                                    super.run();
+                                    for (String imgName : orderItems.get(currentID).imgs) {
+                                        Log.e("aaa", imgName);
+                                        bitmaps.add(BitmapFactory.decodeFile(sdCardPath + "/pictures/" + imgName));
+                                    }
+                                    int signLoaded = -1;
+                                    for (int i = 0; i < bitmaps.size(); i++) {
+                                        if (bitmaps.get(i) == null) {
+                                            signLoaded = i;
+                                            break;
+                                        }
+                                    }
+                                    if (signLoaded != -1) {
+                                        Log.e("aaa", orderItems.get(currentID).imgs.get(signLoaded));
+                                        final int finalSignLoaded = signLoaded;
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                showDialogNoImage(orderItems.get(currentID).imgs.get(finalSignLoaded));
+                                            }
+                                        });
+                                    } else {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                tv_finishRemixx.setText("加载完成");
+                                                messageListener.listen(5, orderItems.get(currentID).img_1);
+                                            }
+                                        });
+                                    }
+                                }
+                            }.start();
                         } else {
                             writeWrong();
                             tv_tip.setText("当前表格行无法解析图片名");
@@ -759,6 +801,11 @@ public class MainActivity extends FragmentActivity {
                         orderItem.img_4 = getImageName(images[3]);
                         orderItem.img_5 = getImageName(images[4]);
                         orderItem.img_6 = getImageName(images[5]);
+                    } else {
+                        orderItem.imgs = new ArrayList<>();
+                        for (String str : images) {
+                            orderItem.imgs.add(getImageName(str));
+                        }
                     }
 
                     images=sheet.getCell(14, i).getContents().trim().split(" ");
@@ -941,7 +988,13 @@ public class MainActivity extends FragmentActivity {
         });
     }
 
-    public void showDialogNoImage(){
+    public  void showDialogNoImage(){
+        showDialogNoImage("");
+    }
+    public void showDialogNoImage(String imgName){
+        if (imgName == null) {
+            imgName = "";
+        }
         final AlertDialog dialog_noimage;
         AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.DialogTransBackGround);
         dialog_noimage = builder.create();
@@ -954,7 +1007,7 @@ public class MainActivity extends FragmentActivity {
         Button bt_yes = (Button) view_dialog.findViewById(R.id.bt_dialog_yes);
         Button bt_skip = (Button) view_dialog.findViewById(R.id.bt_dialog_skip);
 
-        tv_title.setText("缺少原图！");
+        tv_title.setText("缺少原图 " + imgName);
         tv_title.setTextColor(0xffdd0000);
         tv_content.setText("订单号 "+orderItems.get(currentID).order_number+" 缺少原图，请下载后继续！");
         tv_content.setTextColor(0xffdd0000);

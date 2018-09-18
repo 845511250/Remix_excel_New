@@ -31,7 +31,7 @@ import jxl.write.WritableWorkbook;
  * Created by zuoyun on 2016/11/4.
  */
 
-public class FragmentQ extends BaseFragment {
+public class FragmentG extends BaseFragment {
     Context context;
 //    String sdCardPath = "/mnt/asec/share";
 String sdCardPath = "/storage/emulated/0/Pictures";
@@ -108,8 +108,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        MainActivity.instance.bitmapPillow = Bitmap.createScaledBitmap(MainActivity.instance.bitmapPillow, 1893, 2758, true);
-        Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.q);
+//        MainActivity.instance.bitmapPillow = Bitmap.createScaledBitmap(MainActivity.instance.bitmapPillow, 1165, 1496, true);
+        Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.g);
         Paint rectPaint = new Paint();
         rectPaint.setColor(0xffffffff);
         rectPaint.setStyle(Paint.Style.FILL);
@@ -131,19 +131,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             File file=new File(sdCardPath+"/生产图/"+childPath+"/");
             if(!file.exists())
                 file.mkdirs();
-            Bitmap bitmapremix = Bitmap.createBitmap(1893, 2758 + 40, Bitmap.Config.ARGB_8888);
+            Bitmap bitmapremix = Bitmap.createBitmap(1165, 1496, Bitmap.Config.ARGB_8888);
             Canvas canvasremix = new Canvas(bitmapremix);
             canvasremix.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasremix.drawColor(0xffffffff);
             canvasremix.drawBitmap(MainActivity.instance.bitmapPillow, 0, 0, null);
             canvasremix.drawBitmap(bitmapDB, 0, 0, null);
-
-            canvasremix.drawText("Q" + "(" + orderItems.get(currentID).sizeStr + ") " + time + " " + orderItems.get(currentID).order_number, 900, 2795, paint);
-            if (orderItems.get(currentID).sizeStr.equals("M")) {
-                bitmapremix = Bitmap.createScaledBitmap(bitmapremix, 1742, 2451, true);
-            } else {
-                bitmapremix = Bitmap.createScaledBitmap(bitmapremix, 1980, 2840, true);
-            }
 
             String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
