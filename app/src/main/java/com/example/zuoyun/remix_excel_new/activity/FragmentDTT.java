@@ -34,7 +34,7 @@ import static com.example.zuoyun.remix_excel_new.activity.MainActivity.getLastNe
  * Created by zuoyun on 2016/11/4.
  */
 
-public class FragmentDT extends BaseFragment {
+public class FragmentDTT extends BaseFragment {
     Context context;
 //    String sdCardPath = "/mnt/asec/share";
 String sdCardPath = "/storage/emulated/0/Pictures";
@@ -75,13 +75,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         //paint
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(46);
+        paint.setTextSize(40);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setAntiAlias(true);
 
         paintRed = new Paint();
         paintRed.setColor(0xffff0000);
-        paintRed.setTextSize(46);
+        paintRed.setTextSize(30);
         paintRed.setTypeface(Typeface.DEFAULT_BOLD);
         paintRed.setAntiAlias(true);
 
@@ -150,13 +150,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
     void drawTextLeftSide(Canvas canvas){
-        canvas.drawRect(1655, 48, 1805, 88, rectPaint);
-        canvas.drawText(getLastNewCode(orderItems.get(currentID).newCode) + "左", 1656, 84, paintRed);
+        canvas.drawRect(1655, 85, 1800, 115, rectPaint);
+        canvas.drawText(getLastNewCode("左 " + orderItems.get(currentID).newCode), 1656, 111, paintRed);
     }
     void drawTextLeftMain(Canvas canvasLeftMain){
-        canvasLeftMain.drawRect(615, 1160, 1011, 1212, rectPaint);
-        canvasLeftMain.drawText("     左", 612, 1206, paintRed);
-        canvasLeftMain.drawText(orderItems.get(currentID).size + "码" + orderItems.get(currentID).color, 860, 1206, paint);
+        canvasLeftMain.drawRect(615, 1170, 1011, 1212, rectPaint);
+        canvasLeftMain.drawText("     左", 615, 1206, paintRed);
+        canvasLeftMain.drawText(orderItems.get(currentID).size + "码" + orderItems.get(currentID).color, 750, 1206, paint);
         canvasLeftMain.save();
         canvasLeftMain.rotate(-68.5f, 1296, 882);
         canvasLeftMain.drawRect(1298, 832, 1800, 882, rectPaint);
@@ -171,12 +171,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasLeftMain.restore();
     }
     void drawTextRightSide(Canvas canvasRightSide){
-        canvasRightSide.drawRect(1655, 48, 1805, 88, rectPaint);
-        canvasRightSide.drawText(getLastNewCode(orderItems.get(currentID).newCode) + "右", 1656, 84, paintRed);
+        canvasRightSide.drawRect(1655, 85, 1800, 115, rectPaint);
+        canvasRightSide.drawText("右 " + getLastNewCode(orderItems.get(currentID).newCode), 1656, 111, paintRed);
     }
     void drawTextRightMain(Canvas canvasRightMain){
-        canvasRightMain.drawRect(615, 1160, 1011, 1212, rectPaint);
-        canvasRightMain.drawText(orderItems.get(currentID).size + "码" + orderItems.get(currentID).color, 612, 1206, paint);
+        canvasRightMain.drawRect(615, 1170, 1011, 1212, rectPaint);
+        canvasRightMain.drawText(orderItems.get(currentID).size + "码" + orderItems.get(currentID).color, 615, 1206, paint);
         canvasRightMain.drawText(" 右", 860, 1206, paintRed);
         canvasRightMain.save();
         canvasRightMain.rotate(-111.5f, 373, 862);
@@ -198,7 +198,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         int margin = 60;
         Matrix matrixCombine = new Matrix();
 
-        Bitmap bitmapCombine = Bitmap.createBitmap(width_side + height_main * 2 + margin, width_main + 100, Bitmap.Config.ARGB_8888);
+        Bitmap bitmapCombine = Bitmap.createBitmap(width_sideNew + height_main * 2 + margin, width_main + 100, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine = new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
@@ -208,7 +208,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         //main:1612*1262
         //side:2172*578
         Bitmap bitmapDB_main = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.df41_main);
-        Bitmap bitmapDB_side = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.df41_side);
+        Bitmap bitmapDB_side = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dt_side_new);
 
         //left_main
         Bitmap bitmapLeftMain = Bitmap.createBitmap(MainActivity.instance.bitmapLeft, 0, 680, 1612, 1262);
@@ -220,7 +220,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         matrixCombine.reset();
         matrixCombine.postRotate(-90);
-        matrixCombine.postTranslate(width_side, width_main);
+        matrixCombine.postTranslate(width_sideNew, width_main);
         canvasCombine.drawBitmap(bitmapLeftMain, matrixCombine, null);
         bitmapLeftMain.recycle();
 
@@ -240,7 +240,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasLeftSide.drawBitmap(bitmapLeftSide2, matrixSide, null);
         canvasLeftSide.drawBitmap(bitmapDB_side, 0, 0, null);
         drawTextLeftSide(canvasLeftSide);
-        bitmapLeftSide = Bitmap.createScaledBitmap(bitmapLeftSide, width_side, height_side, true);
+        bitmapLeftSide = Bitmap.createScaledBitmap(bitmapLeftSide, width_sideNew, height_sideNew, true);
 
         canvasCombine.drawBitmap(bitmapLeftSide, 0, 0, null);
         bitmapLeftSide1.recycle();
@@ -257,7 +257,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         matrixCombine.reset();
         matrixCombine.postRotate(-90);
-        matrixCombine.postTranslate(width_side + height_main + margin, width_main);
+        matrixCombine.postTranslate(width_sideNew + height_main + margin, width_main);
         canvasCombine.drawBitmap(bitmapRightMain, matrixCombine, null);
         bitmapRightMain.recycle();
         bitmapDB_main.recycle();
@@ -278,10 +278,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasRightSide.drawBitmap(bitmapRightSide2, matrixSide, null);
         canvasRightSide.drawBitmap(bitmapDB_side, 0, 0, null);
         drawTextRightSide(canvasRightSide);
-        bitmapRightSide = Bitmap.createScaledBitmap(bitmapRightSide, width_side, height_side, true);
+        bitmapRightSide = Bitmap.createScaledBitmap(bitmapRightSide, width_sideNew, height_sideNew, true);
 
         matrixCombine.reset();
-        matrixCombine.postTranslate(0, height_side + 120);
+        matrixCombine.postTranslate(0, height_sideNew + 130);
         canvasCombine.drawBitmap(bitmapRightSide, matrixCombine, null);
         bitmapRightSide1.recycle();
         bitmapRightSide2.recycle();
