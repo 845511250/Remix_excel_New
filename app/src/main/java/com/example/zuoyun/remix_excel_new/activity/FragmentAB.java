@@ -39,7 +39,7 @@ public class FragmentAB extends BaseFragment {
 //    String sdCardPath = "/mnt/asec/share";
 String sdCardPath = "/storage/emulated/0/Pictures";
     ArrayList<OrderItem> orderItems;
-    int currentID;
+    int currentID;int nothing;
     String childPath;
     
     @BindView(R.id.bt_remix)
