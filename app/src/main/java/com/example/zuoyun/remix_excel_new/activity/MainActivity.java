@@ -402,6 +402,18 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("低帮换鞋底 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentDE());
                 break;
+            case "FY":
+                tv_title.setText("毛毯 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFY());
+                break;
+            case "FYS":
+                tv_title.setText("毛毯 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFY());
+                break;
+            case "FYL":
+                tv_title.setText("毛毯 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFY());
+                break;
             case "AY":
                 tv_title.setText("丁字裤 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentAY());
