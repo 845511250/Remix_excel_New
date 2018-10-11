@@ -123,7 +123,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 } else if(message==2){
                     Log.e("fragment_dq", "message2");
                     bt_remix.setClickable(true);
+                    checkremix();
+                } else if(message==4){
+                    Log.e("fragment_dq", "message4");
+                    bt_remix.setClickable(true);
                     if(!MainActivity.instance.cb_fastmode.isChecked())
+                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapPillow);
                     checkremix();
                 } else if (message == 5) {
                     Log.e("imgs", "message5");
@@ -528,9 +533,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 MainActivity.instance.bitmapLeft.recycle();
                 MainActivity.instance.bitmapRight.recycle();
             }
-            if (MainActivity.instance.bitmaps.get(0) != null) {
-                for(int i=0;i<MainActivity.instance.bitmaps.size();i++) {
-                    if(MainActivity.instance.bitmaps.get(i)!=null)
+            if (MainActivity.instance.bitmaps.size() != 0) {
+                for (int i = 0; i < MainActivity.instance.bitmaps.size(); i++) {
+                    if (MainActivity.instance.bitmaps.get(i) != null)
                         MainActivity.instance.bitmaps.get(i).recycle();
                 }
             }
