@@ -159,13 +159,13 @@ public class FragmentFE extends BaseFragment {
     }
 
     void drawTextR(Canvas canvas, String LR) {
-        canvas.drawRect(100, 562-26, 500, 562, rectPaint);
-        canvas.drawText(time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).size + "码 " + LR, 100, 560, paint);
+        canvas.drawRect(100, 562 - 26, 100 + 500, 562, rectPaint);
+        canvas.drawText(time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).size + "码 " + LR + orderItems.get(currentID).color, 100, 560, paint);
     }
 
     void drawTextL(Canvas canvas, String LR) {
-        canvas.drawRect(1000, 562-26, 1400, 562, rectPaint);
-        canvas.drawText(time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).size + "码 " + LR, 1000, 560, paint);
+        canvas.drawRect(1000, 562 - 26, 1000 + 500, 562, rectPaint);
+        canvas.drawText(time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).size + "码 " + LR + orderItems.get(currentID).color, 1000, 560, paint);
     }
     public void remixx(){
         setScale(orderItems.get(currentID).size);

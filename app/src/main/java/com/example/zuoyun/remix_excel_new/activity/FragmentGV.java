@@ -350,6 +350,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gv_houpian);
         canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
         bitmapDB.recycle();
+        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 886, 689, true);
         canvasCombine.drawBitmap(bitmapTemp, width_front + margin, height_arm * 2 + height_collar_big * 2 + height_collar_small * 2 + margin * 6 + 100, null);
         bitmapTemp.recycle();
 

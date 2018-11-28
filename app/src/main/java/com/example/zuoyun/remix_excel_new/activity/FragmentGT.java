@@ -1,15 +1,19 @@
 package com.example.zuoyun.remix_excel_new.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.zuoyun.remix_excel_new.R;
 import com.example.zuoyun.remix_excel_new.bean.OrderItem;
@@ -30,7 +34,7 @@ import jxl.write.WritableWorkbook;
  * Created by zuoyun on 2016/11/4.
  */
 
-public class FragmentGL extends BaseFragment {
+public class FragmentGT extends BaseFragment {
     Context context;
 //    String sdCardPath = "/mnt/asec/share";
 String sdCardPath = "/storage/emulated/0/Pictures";
@@ -46,10 +50,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     int num;
     String strPlus = "";
     int intPlus = 1;
+    boolean sizeOK = true;
+
+    Paint rectPaint, paint, paintRed, paintBlue, rectBorderPaint, paintSmall;
+    String time;
 
     @Override
     public int getLayout() {
-        return R.layout.fragmentdg;
+        return R.layout.fragment_dg;
     }
 
     @Override
@@ -60,15 +68,53 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         currentID = MainActivity.instance.currentID;
         childPath = MainActivity.instance.childPath;
 
+        //paint
+        rectPaint = new Paint();
+        rectPaint.setColor(0xffffffff);
+        rectPaint.setStyle(Paint.Style.FILL);
+
+        rectBorderPaint = new Paint();
+        rectBorderPaint.setColor(0xff000000);
+        rectBorderPaint.setStyle(Paint.Style.STROKE);
+        rectBorderPaint.setStrokeWidth(10);
+
+        paint = new Paint();
+        paint.setColor(0xff000000);
+        paint.setTextSize(60);
+        paint.setTypeface(Typeface.DEFAULT_BOLD);
+        paint.setAntiAlias(true);
+
+        paintRed = new Paint();
+        paintRed.setColor(0xffff0000);
+        paintRed.setTextSize(30);
+        paintRed.setTypeface(Typeface.DEFAULT_BOLD);
+        paintRed.setAntiAlias(true);
+
+        paintBlue = new Paint();
+        paintBlue.setColor(0xff0000ff);
+        paintBlue.setTextSize(30);
+        paintBlue.setTypeface(Typeface.DEFAULT_BOLD);
+        paintBlue.setAntiAlias(true);
+
+        paintSmall = new Paint();
+        paintSmall.setColor(0xff000000);
+        paintSmall.setTextSize(23);
+        paintSmall.setTypeface(Typeface.DEFAULT_BOLD);
+        paintSmall.setAntiAlias(true);
+
+        time = MainActivity.instance.orderDate_Print;
+
         MainActivity.instance.setMessageListener(new MainActivity.MessageListener() {
             @Override
             public void listen(int message, String sampleurl) {
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
+                    bt_remix.setClickable(false);
                 } else if (message == 4) {
-                    Log.e("fragmentDL", "message4");
+                    Log.e("fy", "message4");
                     if(!MainActivity.instance.cb_fastmode.isChecked())
                         iv_pillow.setImageBitmap(MainActivity.instance.bitmapPillow);
+                    bt_remix.setClickable(true);
                     checkremix();
                 } else if (message == 3) {
                     bt_remix.setClickable(false);
@@ -84,6 +130,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 remix();
             }
         });
+        bt_remix.setClickable(false);
     }
 
     public void remix(){
@@ -91,55 +138,50 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             @Override
             public void run() {
                 super.run();
-                for(num=orderItems.get(currentID).num;num>=1;num--) {
-                    for(int i=0;i<currentID;i++) {
-                        if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                            intPlus += 1;
+
+                if (sizeOK) {
+                    for(num=orderItems.get(currentID).num;num>=1;num--) {
+                        for(int i=0;i<currentID;i++) {
+                            if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
+                                intPlus += 1;
+                            }
                         }
+                        strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
+                        remixx();
+                        intPlus += 1;
                     }
-                    strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
-                    remixx();
-                    intPlus += 1;
                 }
             }
         }.start();
 
     }
 
+    void drawText(Canvas canvas) {
+        canvas.drawRect(2500, 10, 3000, 10 + 22, rectPaint);
+        canvas.drawText(time + "   " + orderItems.get(currentID).order_number + "    " + orderItems.get(currentID).newCode, 2520, 10 + 20, paintSmall);
+    }
+
     public void remixx(){
-        Paint rectPaint = new Paint();
-        rectPaint.setColor(0xffffffff);
-        rectPaint.setStyle(Paint.Style.FILL);
-
-        Paint paint = new Paint();
-        paint.setColor(0xff000000);
-        paint.setTextSize(18);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
-        paint.setAntiAlias(true);
-
-        Paint paintRed = new Paint();
-        paintRed.setColor(0xffff0000);
-        paintRed.setTextSize(18);
-        paintRed.setTypeface(Typeface.DEFAULT_BOLD);
-        paintRed.setAntiAlias(true);
-
-        String time = MainActivity.instance.orderDate_Print;
-
-        Bitmap bitmapCombine = Bitmap.createBitmap(7028, 6772, Bitmap.Config.ARGB_8888);
+        Bitmap bitmapCombine = Bitmap.createBitmap(5300, 8000 + 60, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        canvasCombine.drawBitmap(MainActivity.instance.bitmapPillow, 0, 0, null);
-        canvasCombine.drawRect(20, 0, 20 + 300, 17, rectPaint);
-        canvasCombine.drawText("GL浴帘 " + time + "  " + orderItems.get(currentID).order_number, 20, 17 - 2, paint);
+        Matrix matrix = new Matrix();
+        matrix.postRotate(90);
+        matrix.postTranslate(5300, 0);
+
+        canvasCombine.drawBitmap(MainActivity.instance.bitmapPillow, matrix, null);
+        canvasCombine.drawRect(0, 0, 5295, 7995, rectBorderPaint);
+        canvasCombine.drawRect(5, 5, 5295, 7995, rectBorderPaint);
+        drawText(canvasCombine);
+
+//        matrix.reset();
+//        matrix.postRotate(-90, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
+//        bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
 
         try {
-            File file=new File(sdCardPath+"/生产图/"+childPath+"/");
-            if(!file.exists())
-                file.mkdirs();
-
-            String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -149,9 +191,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 100);
+            BitmapToJpg.save(bitmapCombine, fileSave, 120);
 
-            //释放bitmap
             bitmapCombine.recycle();
 
             //写入excel
@@ -190,7 +231,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             sheet.addCell(number2);
             Label label3 = new Label(3, currentID+1, "小左");
             sheet.addCell(label3);
-            Label label4 = new Label(4, currentID+1, MainActivity.instance.orderDate_Excel);
+            Label label4 = new Label(4, currentID + 1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);
             Label label6 = new Label(6, currentID+1, "平台大货");
             sheet.addCell(label6);
@@ -201,10 +242,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }catch (Exception e){
         }
         if (num == 1) {
+            MainActivity.instance.bitmapPillow.recycle();
+
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    MainActivity.instance.bitmapPillow.recycle();
                     MainActivity.instance.tv_finishRemixx.setText("完成");
                     if (MainActivity.instance.tb_auto.isChecked()) {
                         MainActivity.instance.setnext();
@@ -217,6 +259,35 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         if (MainActivity.instance.tb_auto.isChecked()){
             remix();
         }
+    }
+
+
+    public void showDialogSizeWrong(final String order_number){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final AlertDialog dialog_finish;
+                AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.DialogTransBackGround);
+                dialog_finish = builder.create();
+                dialog_finish.setCancelable(false);
+                dialog_finish.show();
+                View view_dialog = LayoutInflater.from(context).inflate(R.layout.item_dialog_finish, null);
+                dialog_finish.setContentView(view_dialog);
+                TextView tv_title = (TextView) view_dialog.findViewById(R.id.tv_dialog_title);
+                TextView tv_content = (TextView) view_dialog.findViewById(R.id.tv_dialog_content);
+                Button bt_yes = (Button) view_dialog.findViewById(R.id.bt_dialog_yes);
+
+                tv_title.setText("错误！");
+                tv_content.setText("单号："+order_number+"读取尺码失败");
+                bt_yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog_finish.dismiss();
+                        getActivity().finish();
+                    }
+                });
+            }
+        });
     }
 
 }
