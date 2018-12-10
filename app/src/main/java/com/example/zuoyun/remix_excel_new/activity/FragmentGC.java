@@ -170,12 +170,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawTextFront(Canvas canvas) {
+        String color = orderItems.get(currentID).skuStr.equals("GCF") ? "荧光" : "";
         canvas.drawRect(1000, 4370-25, 1000+500, 4370, rectPaint);
-        canvas.drawText("GC男背心  " + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 1000, 4370 - 2, paint);
+        canvas.drawText("GC男背心 " + color + " " + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 1000, 4370 - 2, paint);
     }
     void drawTextBack(Canvas canvas) {
+        String color = orderItems.get(currentID).skuStr.equals("GCF") ? "荧光" : "";
         canvas.drawRect(1000, 4164-25, 1000+500, 4164, rectPaint);
-        canvas.drawText("GC男背心  " + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 1000, 4164 - 2, paint);
+        canvas.drawText("GC男背心 " + color + " " + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 1000, 4164 - 2, paint);
     }
 
     public void remixx(){

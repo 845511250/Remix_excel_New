@@ -382,6 +382,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("夹克 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentFJ());
                 break;
+            case "FJJ":
+                tv_title.setText("夹克 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFJ());
+                break;
             case "FI":
                 tv_title.setText("卫衣 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentFI());
@@ -426,6 +430,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("男背心 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGC());
                 break;
+            case "GCF":
+                tv_title.setText("男背心 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentGC());
+                break;
             case "GD":
                 tv_title.setText("女背心 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGD());
@@ -453,6 +461,10 @@ public class MainActivity extends FragmentActivity {
             case "GL":
                 tv_title.setText("浴帘 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGL());
+                break;
+            case "GT":
+                tv_title.setText("丝巾 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentGT());
                 break;
             case "GV":
                 tv_title.setText("polo衫 " + orderItems.get(currentID).order_number);
@@ -621,6 +633,7 @@ public class MainActivity extends FragmentActivity {
                             }.start();
                         } else if (orderItems.get(currentID).imgs != null) {
                             tv_finishRemixx.setText("加载中...");
+                            bitmaps.clear();
                             new Thread() {
                                 @Override
                                 public void run() {
