@@ -45,11 +45,15 @@ import com.yolanda.nohttp.rest.Request;
 import com.yolanda.nohttp.rest.RequestQueue;
 import com.yolanda.nohttp.rest.Response;
 
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -57,7 +61,6 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import jxl.Sheet;
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
@@ -112,6 +115,8 @@ public class MainActivity extends FragmentActivity {
     AlertDialog mydialog;
     int onePicWidth, onePicHeight;
 
+    DataFormatter dataFormatter = new DataFormatter();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -159,14 +164,19 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("aaa", orders.get(position).path);
+
+                if(orders.get(position).path.endsWith("xls")){
+                    childPath = orders.get(position).name.substring(0, orders.get(position).name.length() - 4);
+                    readExcelOrderOld(orders.get(position).path);
+                }else {
+                    childPath = orders.get(position).name.substring(0, orders.get(position).name.length() - 5);
+                    readExcelOrderNew(orders.get(position).path);
+                }
+
+                totalNum = orderItems.size();
+                showDialogDatePicker();
                 frame_select.setVisibility(View.GONE);
                 frame_program.setVisibility(View.VISIBLE);
-
-                childPath = orders.get(position).name.substring(0, orders.get(position).name.length() - 4);
-                readExcelOrder(orders.get(position).path);
-                totalNum = orderItems.size();
-
-                showDialogDatePicker();
             }
         });
     }
@@ -680,136 +690,130 @@ public class MainActivity extends FragmentActivity {
         }).start();
     }
 
-    public void readExcelOrder(String path){
+    public void readExcelOrderOld(String path){
         orderItems.clear();
-        Sheet sheet=null;
         try{
-            InputStream is = new FileInputStream(path);
-            Workbook workbook = Workbook.getWorkbook(is);
-            int sheetNum = workbook.getNumberOfSheets();
-            Log.e("as","the num of sheets is " + sheetNum+ "\n");
+            org.apache.poi.ss.usermodel.Workbook workbook = WorkbookFactory.create(new File(path));
+            org.apache.poi.ss.usermodel.Sheet sheet = workbook.getSheetAt(0);
+            Row row;
+            int rows = sheet.getLastRowNum() + 1;
+            Log.e("aaa", "total rows: " + rows);
 
-            sheet = workbook.getSheet(0);
-            int rows = sheet.getRows();
-            int cols = sheet.getColumns();
-            Log.e("sdss","the name of sheet is " + sheet.getName() + "\n");
-            Log.e("sdss","total rows is " + rows + "\n");
-            Log.e("sdss","total cols is " + cols + "\n");
-
-            for(int i=2;i<rows;i++){
-                if(sheet.getCell(0,i).getContents()!=""){
+            for (int i = 0; i < rows; i++) {
+                row = sheet.getRow(i);
+                if (row != null && getContent(row, 0) != "" && getContent(row, 13).contains(".")) {
                     OrderItem orderItem = new OrderItem();
-                    orderItem.order_number = sheet.getCell(0, i).getContents();
-                    orderItem.num = Integer.parseInt(sheet.getCell(2, i).getContents());
-                    orderItem.newCode = sheet.getCell(3, i).getContents();
-                    orderItem.codeE = sheet.getCell(4, i).getContents();
-                    if(cols>=16) {
-                        orderItem.color = sheet.getCell(15, i).getContents();
-                        orderItem.colorStr = sheet.getCell(15, i).getContents();
-                        if(sheet.getCell(15, i).getContents().equalsIgnoreCase("Black"))
-                            orderItem.color = "黑";
-                        else if (sheet.getCell(15, i).getContents().equalsIgnoreCase("Trans"))
-                            orderItem.color = "透";
-                        else if(sheet.getCell(15, i).getContents().equalsIgnoreCase("White"))
-                            orderItem.color = "白";
-                        else if(sheet.getCell(15, i).getContents().equalsIgnoreCase("Brown"))
-                            orderItem.color = "棕色";
-                        else if(sheet.getCell(15,i).getContents().equalsIgnoreCase("Beige"))
-                            orderItem.color = "米色";
-                    }
+                    orderItem.newCode = getContent(row, 3);
+                    orderItem.order_number = getContent(row, 0);
+                    orderItem.num = Integer.parseInt(getContent(row, 2));
+                    orderItem.codeE = getContent(row, 4);
 
-                    if (cols >= 17) {
-                        String sizestr = sheet.getCell(16, i).getContents();
-                        orderItem.sizeStr = sizestr;
-                        if(sizestr!="") {
-                            if (sizestr.equalsIgnoreCase("S/M")) {
-                                orderItem.size = 0;
-                            } else if (sizestr.equalsIgnoreCase("L/XL")) {
-                                orderItem.size = 1;
-                            } else if (sizestr.endsWith(")")) {
-                                try {
-                                    orderItem.size = Integer.parseInt(sizestr.substring(sizestr.length() - 3, sizestr.length() - 1));
-                                } catch (Exception e) {
-                                    Log.e("aaa", "size parseInt Error!!!");
-                                }
-                            } else {
-                                try {
-                                    orderItem.size = Integer.parseInt(sizestr);
-                                } catch (Exception e) {
-                                    Log.e("aaa", "size parseInt Error!!!");
-                                }
+                    orderItem.colorStr = getContent(row, 15);
+                    orderItem.color = orderItem.colorStr;
+                    if (orderItem.color.equalsIgnoreCase("Black"))
+                        orderItem.color = "黑";
+                    else if (orderItem.color.equalsIgnoreCase("Trans"))
+                        orderItem.color = "透";
+                    else if (orderItem.color.equalsIgnoreCase("White"))
+                        orderItem.color = "白";
+                    else if (orderItem.color.equalsIgnoreCase("Brown"))
+                        orderItem.color = "棕色";
+                    else if (orderItem.color.equalsIgnoreCase("Beige"))
+                        orderItem.color = "米色";
+                    else if (orderItem.color.equalsIgnoreCase(""))
+                        orderItem.color = "白";
+
+                    String sizestr = getContent(row, 16);
+                    orderItem.sizeStr = sizestr;
+                    if (sizestr != "") {
+                        if (sizestr.equalsIgnoreCase("S/M")) {
+                            orderItem.size = 0;
+                        } else if (sizestr.equalsIgnoreCase("L/XL")) {
+                            orderItem.size = 1;
+                        } else if (sizestr.endsWith(")")) {
+                            try {
+                                orderItem.size = Integer.parseInt(sizestr.substring(sizestr.length() - 3, sizestr.length() - 1));
+                            } catch (Exception e) {
+                                Log.e("aaa", "size parseInt Error!!!");
+                            }
+                        } else {
+                            try {
+                                orderItem.size = Integer.parseInt(sizestr);
+                            } catch (Exception e) {
+                                Log.e("aaa", "size parseInt Error!!!");
                             }
                         }
+
                     }
 
-                    String SKU = sheet.getCell(1, i).getContents();
+                    String SKU = getContent(row, 1);
                     orderItem.skuStr = SKU;
                     orderItem.sku = SKU;
                     if (SKU.equals("DD") || SKU.equals("DDDHL") || SKU.equals("DDMEN"))
                         orderItem.sku = "DD";
-                    else if(SKU.equals("ABMEN") || SKU.equals("ABMENDHL")||SKU.equals("ABWOMEN") || SKU.equals("ABWOMENDHL"))
+                    else if (SKU.equals("ABMEN") || SKU.equals("ABMENDHL") || SKU.equals("ABWOMEN") || SKU.equals("ABWOMENDHL"))
                         orderItem.sku = "AB";
-                    else if(SKU.equals("AZ") || SKU.equals("AZDHL"))
+                    else if (SKU.equals("AZ") || SKU.equals("AZDHL"))
                         orderItem.sku = "AZ";
-                    else if(SKU.equals("DE") || SKU.equals("DEDHL") || SKU.equals("DEMEN"))
+                    else if (SKU.equals("DE") || SKU.equals("DEDHL") || SKU.equals("DEMEN"))
                         orderItem.sku = "DE";
-                    else if(SKU.equals("DG") || SKU.equals("DGDHL")||SKU.equals("CHCPC52")||SKU.equals("CHCPC52DHL"))
+                    else if (SKU.equals("DG") || SKU.equals("DGDHL") || SKU.equals("CHCPC52") || SKU.equals("CHCPC52DHL"))
                         orderItem.sku = "DG";
-                    else if(SKU.equals("DH") || SKU.equals("DHDHL"))
+                    else if (SKU.equals("DH") || SKU.equals("DHDHL"))
                         orderItem.sku = "DH";
-                    else if(SKU.equals("DL") || SKU.equals("DLDHL"))
+                    else if (SKU.equals("DL") || SKU.equals("DLDHL"))
                         orderItem.sku = "DL";
-                    else if(SKU.equals("DM") || SKU.equals("DMDHL"))
+                    else if (SKU.equals("DM") || SKU.equals("DMDHL"))
                         orderItem.sku = "DM";
-                    else if(SKU.equals("DN") || SKU.equals("DNDHL")||SKU.equals("CASB055DHL"))
+                    else if (SKU.equals("DN") || SKU.equals("DNDHL") || SKU.equals("CASB055DHL"))
                         orderItem.sku = "DN";
-                    else if(SKU.equals("DP") || SKU.equals("DPDHL"))
+                    else if (SKU.equals("DP") || SKU.equals("DPDHL"))
                         orderItem.sku = "DP";
-                    else if(SKU.equals("DQ") || SKU.equals("DQDHL") || SKU.equals("DQMEN"))
+                    else if (SKU.equals("DQ") || SKU.equals("DQDHL") || SKU.equals("DQMEN"))
                         orderItem.sku = "DQ";
-                    else if(SKU.equals("DT") || SKU.equals("DTDHL") || SKU.equals("DTMEN"))
+                    else if (SKU.equals("DT") || SKU.equals("DTDHL") || SKU.equals("DTMEN"))
                         orderItem.sku = "DT";
-                    else if(SKU.equals("DU") || SKU.equals("DUDHL"))
+                    else if (SKU.equals("DU") || SKU.equals("DUDHL"))
                         orderItem.sku = "DU";
-                    else if(SKU.equals("DV") || SKU.equals("DVDHL"))
+                    else if (SKU.equals("DV") || SKU.equals("DVDHL"))
                         orderItem.sku = "DV";
-                    else if(SKU.equals("DW") || SKU.equals("DWDHL"))
+                    else if (SKU.equals("DW") || SKU.equals("DWDHL"))
                         orderItem.sku = "DW";
-                    else if(SKU.equals("E") || SKU.equals("EDHL"))
+                    else if (SKU.equals("E") || SKU.equals("EDHL"))
                         orderItem.sku = "E";
-                    else if(SKU.equals("DB") || SKU.equals("DBDHL"))
+                    else if (SKU.equals("DB") || SKU.equals("DBDHL"))
                         orderItem.sku = "DB";
-                    else if(SKU.equals("DC") || SKU.equals("DCDHL"))
+                    else if (SKU.equals("DC") || SKU.equals("DCDHL"))
                         orderItem.sku = "DC";
-                    else if(SKU.equals("DK") || SKU.equals("DKDHL"))
+                    else if (SKU.equals("DK") || SKU.equals("DKDHL"))
                         orderItem.sku = "DK";
-                    else if(SKU.equals("AG") || SKU.equals("AGDHL"))
+                    else if (SKU.equals("AG") || SKU.equals("AGDHL"))
                         orderItem.sku = "AG";
-                    else if(SKU.equals("R") || SKU.equals("RDHL"))
+                    else if (SKU.equals("R") || SKU.equals("RDHL"))
                         orderItem.sku = "R";
-                    else if(SKU.equals("AM") || SKU.equals("AMDHL"))
+                    else if (SKU.equals("AM") || SKU.equals("AMDHL"))
                         orderItem.sku = "AM";
-                    else if(SKU.equals("FA") || SKU.equals("FADHL"))
+                    else if (SKU.equals("FA") || SKU.equals("FADHL"))
                         orderItem.sku = "FA";//被套
-                    else if(SKU.equals("DX") || SKU.equals("DXDHL"))
+                    else if (SKU.equals("DX") || SKU.equals("DXDHL"))
                         orderItem.sku = "DX";//背包
-                    else if(SKU.equals("DJ") || SKU.equals("DJDHL"))
+                    else if (SKU.equals("DJ") || SKU.equals("DJDHL"))
                         orderItem.sku = "DJ";//Toms
-                    else if(SKU.equals("DZ") || SKU.equals("DZDHL"))
+                    else if (SKU.equals("DZ") || SKU.equals("DZDHL"))
                         orderItem.sku = "DZ";//行李包套
-                    else if(SKU.equals("BT") || SKU.equals("BTDHL"))
+                    else if (SKU.equals("BT") || SKU.equals("BTDHL"))
                         orderItem.sku = "BT";//化妆包
-                    else if(SKU.equals("V") || SKU.equals("VDHL"))
+                    else if (SKU.equals("V") || SKU.equals("VDHL"))
                         orderItem.sku = "V";//鼠标垫
-                    else if(SKU.equals("I") || SKU.equals("IDHL"))
+                    else if (SKU.equals("I") || SKU.equals("IDHL"))
                         orderItem.sku = "I";//圆包
-                    else if(SKU.equals("Q") || SKU.equals("QDHL"))
+                    else if (SKU.equals("Q") || SKU.equals("QDHL"))
                         orderItem.sku = "Q";//背包
                     else if (SKU.equals("HEELS") || SKU.equals("HEELSDHL") || SKU.equals("HEELSFEDEX"))
                         orderItem.sku = "FB";//高跟鞋
 
-                    String[] images=sheet.getCell(13, i).getContents().trim().split(" ");
-                    if(images.length==2){
+                    String[] images = getContent(row, 13).trim().split(" ");
+                    if (images.length == 2) {
                         orderItem.img_left = getImageName(images[0]);
                         orderItem.img_right = getImageName(images[1]);
                     } else if (images.length == 1) {
@@ -837,18 +841,117 @@ public class MainActivity extends FragmentActivity {
                         }
                     }
 
-                    images=sheet.getCell(14, i).getContents().trim().split(" ");
-                    if (images.length == 2) {
-                        orderItem.img_design_left = images[1];
-                        orderItem.img_design_right = images[0];
-                    }
                     orderItems.add(orderItem);
                 }
             }
         }
         catch (Exception e){
+            Toast.makeText(context, "读取订单失败！", Toast.LENGTH_SHORT).show();
             Log.e("aaa", e.getMessage());
         }
+    }
+    public void readExcelOrderNew(String path){
+        orderItems.clear();
+        try{
+            org.apache.poi.ss.usermodel.Workbook workbook = WorkbookFactory.create(new File(path));
+            Sheet sheet = workbook.getSheetAt(0);
+            Row row;
+            int rows = sheet.getLastRowNum() + 1;
+            Log.e("aaa", "total rows: " + rows);
+
+            for (int i = 0; i < rows; i++) {
+                row = sheet.getRow(i);
+                if (row != null && getContent(row, 0) != "" && getContent(row, 5).contains(".")) {
+                    OrderItem orderItem = new OrderItem();
+                    orderItem.newCode = getContent(row, 3);
+                    orderItem.order_number = getContent(row, 0);
+                    orderItem.num = Integer.parseInt(getContent(row, 2));
+                    orderItem.codeE = getContent(row, 4);
+
+                    orderItem.colorStr = getContent(row, 7);
+                    orderItem.color = orderItem.colorStr;
+                    if (orderItem.color.equalsIgnoreCase("Black"))
+                        orderItem.color = "黑";
+                    else if (orderItem.color.equalsIgnoreCase("Trans"))
+                        orderItem.color = "透";
+                    else if (orderItem.color.equalsIgnoreCase("White"))
+                        orderItem.color = "白";
+                    else if (orderItem.color.equalsIgnoreCase("Brown"))
+                        orderItem.color = "棕色";
+                    else if (orderItem.color.equalsIgnoreCase("Beige"))
+                        orderItem.color = "米色";
+                    else if (orderItem.color.equalsIgnoreCase(""))
+                        orderItem.color = "白";
+
+                    String sizestr = getContent(row, 8);
+                    orderItem.sizeStr = sizestr;
+                    if (!sizestr.equals("")) {
+                        if (sizestr.equalsIgnoreCase("S/M")) {
+                            orderItem.size = 0;
+                        } else if (sizestr.equalsIgnoreCase("L/XL")) {
+                            orderItem.size = 1;
+                        } else if (sizestr.endsWith(")")) {
+                            try {
+                                orderItem.size = Integer.parseInt(sizestr.substring(sizestr.length() - 3, sizestr.length() - 1));
+                            } catch (Exception e) {
+                                Log.e("aaa", "size parseInt Error!!!");
+                            }
+                        } else {
+                            try {
+                                orderItem.size = Integer.parseInt(sizestr);
+                            } catch (Exception e) {
+                                Log.e("aaa", "size parseInt Error!!!");
+                            }
+                        }
+
+                    }
+
+                    String SKU = getContent(row, 1);
+                    orderItem.skuStr = SKU;
+                    orderItem.sku = SKU;
+                    if (SKU.equals("ABMEN") || SKU.equals("ABMENDHL") || SKU.equals("ABWOMEN") || SKU.equals("ABWOMENDHL"))
+                        orderItem.sku = "AB";
+
+                    String[] images = getContent(row, 5).trim().split(" ");
+                    if (images.length == 2) {
+                        orderItem.img_left = getImageName(images[0]);
+                        orderItem.img_right = getImageName(images[1]);
+                    } else if (images.length == 1) {
+                        orderItem.img_pillow = getImageName(images[0]);
+                    } else if (images.length == 4) {
+                        orderItem.img_ll = getImageName(images[0]);
+                        orderItem.img_lr = getImageName(images[1]);
+                        orderItem.img_rl = getImageName(images[2]);
+                        orderItem.img_rr = getImageName(images[3]);
+                    } else if (images.length == 3) {
+                        orderItem.img_1 = getImageName(images[0]);
+                        orderItem.img_2 = getImageName(images[1]);
+                        orderItem.img_3 = getImageName(images[2]);
+                    } else if (images.length == 6) {
+                        orderItem.img_1 = getImageName(images[0]);
+                        orderItem.img_2 = getImageName(images[1]);
+                        orderItem.img_3 = getImageName(images[2]);
+                        orderItem.img_4 = getImageName(images[3]);
+                        orderItem.img_5 = getImageName(images[4]);
+                        orderItem.img_6 = getImageName(images[5]);
+                    } else {
+                        orderItem.imgs = new ArrayList<>();
+                        for (String str : images) {
+                            orderItem.imgs.add(getImageName(str));
+                        }
+                    }
+
+                    orderItems.add(orderItem);
+                }
+            }
+        }
+        catch (Exception e){
+            Toast.makeText(context, "读取订单失败！", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private String getContent(Row row, int column) {
+        return dataFormatter.formatCellValue(row.getCell(column));
     }
 
     String getImageName(String str){
@@ -857,12 +960,6 @@ public class MainActivity extends FragmentActivity {
 
     public static String getLastNewCode(String str){
         return str.substring(str.lastIndexOf("-")+1, str.length());
-    }
-    public static String getLast2NewCode(String str){
-        return str.substring(str.indexOf("-"), str.length());
-    }
-    public static String getRedNewCode(String str){
-        return str.substring(str.indexOf("-") + 1, str.length());
     }
 
     public void writeWrong(){
@@ -1086,7 +1183,7 @@ public class MainActivity extends FragmentActivity {
     FilenameFilter filenameFilter = new FilenameFilter() {
         @Override
         public boolean accept(File dir, String name) {
-            return name.endsWith(".xls");
+            return name.endsWith(".xls") || name.endsWith(".xlsx");
         }
     };
 

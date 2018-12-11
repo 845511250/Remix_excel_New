@@ -4,19 +4,27 @@ apply plugin: 'android-apt'
 android {
     compileSdkVersion 23
     buildToolsVersion '25.0.3'
+
     defaultConfig {
         applicationId "com.example.zuoyun.remix_excel_new"
-        minSdkVersion 15
-        targetSdkVersion 22
+        minSdkVersion 21
+        targetSdkVersion 21
         versionCode 1
-        versionName "1.2.3"
+        versionName "1.2.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
+
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
     }
 }
 
