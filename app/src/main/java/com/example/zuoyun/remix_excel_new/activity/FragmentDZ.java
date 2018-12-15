@@ -8,7 +8,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -92,14 +91,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             public void listen(int message, String sampleurl) {
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
-                } else if (message == 1) {
-                    Log.e("aaa", "message1");
-                    bt_remix.setClickable(true);
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapLeft);
-                    checkremix();
-                } else if(message==2){
-                    Log.e("aaa", "message2");
+                } else if (message == MainActivity.LOADED_IMGS) {
                     bt_remix.setClickable(true);
                     checkremix();
                 } else if (message == 3) {
@@ -146,8 +138,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         setScale(orderItems.get(currentID).sizeStr);
 
         Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dz_m);
-        MainActivity.instance.bitmapLeft = Bitmap.createScaledBitmap(MainActivity.instance.bitmapLeft, 3141, 4538, true);
-        MainActivity.instance.bitmapRight = Bitmap.createScaledBitmap(MainActivity.instance.bitmapRight, 3141, 4538, true);
+        MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 3141, 4538, true));
+        MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 3141, 4538, true));
         Paint rectPaint = new Paint();
         rectPaint.setColor(0xffffffff);
         rectPaint.setStyle(Paint.Style.FILL);
@@ -155,14 +147,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         Bitmap bitmapFront = Bitmap.createBitmap(3141, 4538, Bitmap.Config.ARGB_8888);
         Canvas canvaFront = new Canvas(bitmapFront);
         canvaFront.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvaFront.drawBitmap(MainActivity.instance.bitmapLeft, 0, 0, null);
+        canvaFront.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
         canvaFront.drawBitmap(bitmapDB,0,0,null);
         drawText(canvaFront,"正面");
 
         Bitmap bitmapBack = Bitmap.createBitmap(3141, 4538, Bitmap.Config.ARGB_8888);
         Canvas canvaBack= new Canvas(bitmapBack);
         canvaBack.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvaBack.drawBitmap(MainActivity.instance.bitmapRight, 0, 0, null);
+        canvaBack.drawBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, null);
         canvaBack.drawBitmap(bitmapDB,0,0,null);
         drawText(canvaBack,"后面");
 
@@ -248,6 +240,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }catch (Exception e){
         }
         if (num == 1) {
+            MainActivity.recycleExcelImages();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

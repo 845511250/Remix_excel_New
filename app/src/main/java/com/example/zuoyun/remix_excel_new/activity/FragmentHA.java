@@ -7,7 +7,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -66,20 +65,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             public void listen(int message, String sampleurl) {
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
-                } else if (message == 1) {
-                    Log.e("fragmentDL", "message1");
-                    bt_remix.setClickable(true);
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapLeft);
-                    checkremix();
-                } else if(message==2){
-                    Log.e("fragmentDL", "message2");
-                    bt_remix.setClickable(true);
-                    checkremix();
-                } else if (message == 4) {
-                    Log.e("fragmentDNP", "message4");
+                } else if (message == MainActivity.LOADED_IMGS) {
                     if(!MainActivity.instance.cb_fastmode.isChecked()){
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapPillow);
+                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     }
                     checkremix();
                 } else if (message == 3) {
@@ -149,12 +137,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasCombine.drawColor(0xffffffff);
 
-            canvasCombine.drawBitmap(MainActivity.instance.bitmapLeft, 0, 0, null);
+            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
             
             Matrix matrix = new Matrix();
             matrix.postRotate(180);
             matrix.postTranslate(2126, 2598 * 2);
-            canvasCombine.drawBitmap(MainActivity.instance.bitmapRight, matrix, null);
+            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(1), matrix, null);
             canvasCombine.drawRect(0, 0, 2126, 2598 * 2, rectBorderPaint);
             canvasCombine.drawRect(1000, 5, 1400, 5 + 23, rectPaint);
             canvasCombine.drawText(time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode, 1000, 5 + 21, paint);
@@ -226,14 +214,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
 
         if (num == 1) {
-
-            if (MainActivity.instance.bitmapPillow != null) {
-                MainActivity.instance.bitmapPillow.recycle();
-            }
-            if (MainActivity.instance.bitmapLeft != null) {
-                MainActivity.instance.bitmapLeft.recycle();
-                MainActivity.instance.bitmapRight.recycle();
-            }
+            MainActivity.recycleExcelImages();
             
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -248,11 +229,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
     public void checkremix(){
         if (MainActivity.instance.tb_auto.isChecked()){
-            if(orderItems.get(currentID).img_pillow!=null){
-                remix();
-            } else if (MainActivity.instance.leftsucceed && MainActivity.instance.rightsucceed) {
-                remix();
-            }
+            remix();
         }
     }
 

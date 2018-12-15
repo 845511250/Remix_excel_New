@@ -30,6 +30,8 @@ import jxl.write.Number;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
+import static com.example.zuoyun.remix_excel_new.activity.MainActivity.recycleExcelImages;
+
 /**
  * Created by zuoyun on 2016/11/4.
  */
@@ -46,6 +48,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     Button bt_remix;
     @BindView(R.id.iv_pillow)
     ImageView iv_pillow;
+
+    Paint paint, paintRed, rectPaint;
+    String time;
 
     float scaleX=1.0f, scaleY = 1.0f;
     int num;
@@ -65,15 +70,33 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         currentID = MainActivity.instance.currentID;
         childPath = MainActivity.instance.childPath;
 
+        rectPaint = new Paint();
+        rectPaint.setColor(0xffffffff);
+        rectPaint.setStyle(Paint.Style.FILL);
+
+        paint = new Paint();
+        paint.setColor(0xff000000);
+        paint.setTextSize(30);
+        paint.setTypeface(Typeface.DEFAULT_BOLD);
+        paint.setAntiAlias(true);
+
+        paintRed = new Paint();
+        paintRed.setColor(0xffff0000);
+        paintRed.setTextSize(30);
+        paintRed.setTypeface(Typeface.DEFAULT_BOLD);
+        paintRed.setAntiAlias(true);
+
+        time = MainActivity.instance.orderDate_Print;
+
+
         MainActivity.instance.setMessageListener(new MainActivity.MessageListener() {
             @Override
             public void listen(int message, String sampleurl) {
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
-                } else if (message == 4) {
-                    Log.e("fragmentDL", "message4");
+                } else if (message == MainActivity.LOADED_IMGS) {
                     if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapPillow);
+                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     checkremix();
                 } else if (message == 3) {
                     bt_remix.setClickable(false);
@@ -112,35 +135,23 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        MainActivity.instance.bitmapPillow = Bitmap.createScaledBitmap(MainActivity.instance.bitmapPillow, 1241, 1603, true);
-        Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ds);
-        Paint rectPaint = new Paint();
-        rectPaint.setColor(0xffffffff);
-        rectPaint.setStyle(Paint.Style.FILL);
 
-        Paint paint = new Paint();
-        paint.setColor(0xff000000);
-        paint.setTextSize(30);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
-        paint.setAntiAlias(true);
+        Bitmap bitmapCombine = null;
+        String intSize = orderItems.get(currentID).sizeStr;
 
-        Paint paintRed = new Paint();
-        paintRed.setColor(0xffff0000);
-        paintRed.setTextSize(30);
-        paintRed.setTypeface(Typeface.DEFAULT_BOLD);
-        paintRed.setAntiAlias(true);
+        if (!orderItems.get(currentID).platform.equals("4u2")) {
+            MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1241, 1603, true));
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ds);
 
-        String time = MainActivity.instance.orderDate_Print;
-        try {
-            Bitmap bitmapCombine = Bitmap.createBitmap(1241+59, 1603+59, Bitmap.Config.ARGB_8888);
+            bitmapCombine = Bitmap.createBitmap(1241+59, 1603+59, Bitmap.Config.ARGB_8888);
             Canvas canvasCombine = new Canvas(bitmapCombine);
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasCombine.drawColor(0xffffffff);
-            canvasCombine.drawBitmap(MainActivity.instance.bitmapPillow, 0, 0, null);
+            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
             canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapDB.recycle();
 
             String gender = orderItems.get(currentID).skuStr.substring(2, 3).equals("M") ? "男" : "女";
-            String intSize = orderItems.get(currentID).sizeStr;
 
             canvasCombine.drawText(gender + intSize + "黑", 563, 1599, paint);
             canvasCombine.save();
@@ -150,7 +161,49 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.restore();
 
             setScale(orderItems.get(currentID).skuStr.substring(2, 3) + intSize);
-            Bitmap bitmapPrint = Bitmap.createScaledBitmap(bitmapCombine, (int) ((1241 + 59) * scaleX), (int) ((1603 + 59) * scaleY), true);
+            bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, (int) ((1241 + 59) * scaleX), (int) ((1603 + 59) * scaleY), true);
+
+        } else if (!orderItems.get(currentID).imgs.get(0).contains("batch")) {//如果不是批量定制
+
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ds);
+
+            bitmapCombine = Bitmap.createBitmap(1241 + 59, 1603 + 59, Bitmap.Config.ARGB_8888);
+            Canvas canvasCombine = new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasCombine.drawColor(0xffffffff);
+
+            Bitmap bitmapTemp = MainActivity.instance.bitmaps.get(0);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 609, 1592, true);
+            canvasCombine.drawBitmap(bitmapTemp, 6, 7, null);
+
+            bitmapTemp = MainActivity.instance.bitmaps.get(1);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 609, 1592, true);
+            canvasCombine.drawBitmap(bitmapTemp, 629, 7, null);
+            bitmapTemp.recycle();
+
+            canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapDB.recycle();
+
+            String gender = orderItems.get(currentID).skuStr.substring(0, 1).equals("M") ? "男" : "女";
+
+            canvasCombine.drawText(gender + intSize + "黑", 563, 1599, paint);
+            canvasCombine.save();
+            canvasCombine.rotate(90, 10, 1000);
+            canvasCombine.drawText(time + "  " + orderItems.get(currentID).order_number, 10, 996, paint);
+            canvasCombine.drawText("流水号：" + (currentID + 1), 300, 996, paintRed);
+            canvasCombine.restore();
+
+            setScale(orderItems.get(currentID).skuStr.substring(0, 1) + intSize);
+            bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, (int) ((1241 + 59) * scaleX), (int) ((1603 + 59) * scaleY), true);
+
+        } else {
+
+
+        }
+
+
+        try {
+
             String printColor = "B";
             String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).skuStr.substring(2, 3) + intSize + printColor + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
@@ -162,12 +215,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapPrint, fileSave, 148);
+            BitmapToJpg.save(bitmapCombine, fileSave, 148);
 
             //释放bitmap
-            bitmapDB.recycle();
             bitmapCombine.recycle();
-            bitmapPrint.recycle();
 
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";
@@ -217,6 +268,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             Log.e("aaa", e.getMessage());
         }
         if (num == 1) {
+            recycleExcelImages();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

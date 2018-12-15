@@ -100,26 +100,10 @@ public class FragmentFD extends BaseFragment {
                 if(message==0){
                     iv_leftup.setImageDrawable(null);
                     iv_rightup.setImageDrawable(null);
-                    Log.e("fragment_dq", "message0");
-                } else if (message == 1) {
-                    Log.e("fragment_dq", "message1");
+                } else if(message==MainActivity.LOADED_IMGS){
                     bt_remix.setClickable(true);
                     if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_leftup.setImageBitmap(MainActivity.instance.bitmapLeft);
-//                    Glide.with(context).load(sampleurl).into(iv_sample1);
-                    checkremix();
-                } else if(message==2){
-                    Log.e("fragment_dq", "message2");
-                    bt_remix.setClickable(true);
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_rightup.setImageBitmap(MainActivity.instance.bitmapRight);
-//                    Glide.with(context).load(sampleurl).into(iv_sample2);
-                    checkremix();
-                } else if(message==5){
-                    Log.e("fragment_dq", "message5");
-                    bt_remix.setClickable(true);
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_rightup.setImageBitmap(MainActivity.instance.bitmap1);
+                        iv_rightup.setImageBitmap(MainActivity.instance.bitmaps.get(0));
 //                    Glide.with(context).load(sampleurl).into(iv_sample2);
                     checkremix();
                 } else if (message==3){
@@ -153,7 +137,6 @@ public class FragmentFD extends BaseFragment {
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                     remixx();
-                    strPlus += "+";
                     intPlus += 1;
                 }
             }
@@ -186,7 +169,7 @@ public class FragmentFD extends BaseFragment {
         canvas.restore();
 
 //        canvas.drawRect(270, 630, 640, 660, rectPaint);
-//        canvas.drawText(orderItems.get(currentID).newCode + "      验片码" + orderItems.get(currentID).codeE, 270, 657, paintRed);
+//        canvas.drawText(orderItems.get(currentID).newCode + "      验片码" + orderItems.get(currentID).platform, 270, 657, paintRed);
     }
 
     void drawTextTongue(Canvas canvas, String LR) {
@@ -194,7 +177,7 @@ public class FragmentFD extends BaseFragment {
         canvas.drawText(orderItems.get(currentID).size + "码 " + LR + "  " + orderItems.get(currentID).order_number, 282, 1133, paint);
 
 //        canvas.drawRect(645, 630, 1020, 660, rectPaint);
-//        canvas.drawText(orderItems.get(currentID).newCode + "      验片码" + orderItems.get(currentID).codeE, 645, 657, paintRed);
+//        canvas.drawText(orderItems.get(currentID).newCode + "      验片码" + orderItems.get(currentID).platform, 645, 657, paintRed);
     }
     public void remixx(){
         setScale(orderItems.get(currentID).size);
@@ -211,9 +194,9 @@ public class FragmentFD extends BaseFragment {
         Bitmap bitmapDB_side2 = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.light_high_41side2);
         Bitmap bitmapDB_side = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fd_side);
 
-        if (orderItems.get(currentID).img_left != null) {
+        if (orderItems.get(currentID).imgs.size() == 2) {
             //left mian
-            Bitmap bitmapLeft_main = Bitmap.createBitmap(MainActivity.instance.bitmapLeft, 179, 361, 1387, 1577);
+            Bitmap bitmapLeft_main = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 179, 361, 1387, 1577);
             Canvas canvasLeft_main = new Canvas(bitmapLeft_main);
             canvasLeft_main.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasLeft_main.drawBitmap(bitmapDB_main, 0, 0, null);
@@ -224,7 +207,7 @@ public class FragmentFD extends BaseFragment {
             bitmapLeft_main.recycle();
 
             //left tongue
-            Bitmap bitmapLeft_tongue = Bitmap.createBitmap(MainActivity.instance.bitmapLeft, 497, 304, 751, 1149);
+            Bitmap bitmapLeft_tongue = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 497, 304, 751, 1149);
             Canvas canvasLeft_tongue = new Canvas(bitmapLeft_tongue);
             canvasLeft_tongue.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasLeft_tongue.drawBitmap(bitmapDB_tongue, 0, 0, null);
@@ -235,8 +218,8 @@ public class FragmentFD extends BaseFragment {
             bitmapLeft_tongue.recycle();
 
             //left side
-            Bitmap bitmap_cut1 = Bitmap.createBitmap(MainActivity.instance.bitmapLeft, 0, 0, 1046, 891);
-            Bitmap bitmap_cut2 = Bitmap.createBitmap(MainActivity.instance.bitmapLeft, 701, 0, 1046, 891);
+            Bitmap bitmap_cut1 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 1046, 891);
+            Bitmap bitmap_cut2 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 701, 0, 1046, 891);
 
             Bitmap bitmap_side1 = Bitmap.createBitmap(762, 914, Bitmap.Config.ARGB_8888);
             Canvas canvas_side1 = new Canvas(bitmap_side1);
@@ -275,7 +258,7 @@ public class FragmentFD extends BaseFragment {
             bitmapLeft_side.recycle();
 
             //right main
-            Bitmap bitmapRight_main = Bitmap.createBitmap(MainActivity.instance.bitmapRight, 179, 361, 1387, 1577);
+            Bitmap bitmapRight_main = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 179, 361, 1387, 1577);
             Canvas canvasRight_main = new Canvas(bitmapRight_main);
             canvasRight_main.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasRight_main.drawBitmap(bitmapDB_main, 0, 0, null);
@@ -286,7 +269,7 @@ public class FragmentFD extends BaseFragment {
             bitmapRight_main.recycle();
 
             //right tongue
-            Bitmap bitmapRight_tongue = Bitmap.createBitmap(MainActivity.instance.bitmapRight, 497, 304, 751, 1149);
+            Bitmap bitmapRight_tongue = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 497, 304, 751, 1149);
             Canvas canvasright_tongue = new Canvas(bitmapRight_tongue);
             canvasright_tongue.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasright_tongue.drawBitmap(bitmapDB_tongue, 0, 0, null);
@@ -297,8 +280,8 @@ public class FragmentFD extends BaseFragment {
             bitmapRight_tongue.recycle();
 
             //right side
-            bitmap_cut1 = Bitmap.createBitmap(MainActivity.instance.bitmapRight, 0, 0, 1046, 891);
-            bitmap_cut2 = Bitmap.createBitmap(MainActivity.instance.bitmapRight, 701, 0, 1046, 891);
+            bitmap_cut1 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 1046, 891);
+            bitmap_cut2 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 701, 0, 1046, 891);
 
             bitmap_side1 = Bitmap.createBitmap(762, 914, Bitmap.Config.ARGB_8888);
             canvas_side1 = new Canvas(bitmap_side1);
@@ -335,11 +318,9 @@ public class FragmentFD extends BaseFragment {
             bitmapRight_side = Bitmap.createScaledBitmap(bitmapRight_side, widthSide, heightSide, true);
             canvasCombine.drawBitmap(bitmapRight_side, x_r_side, y_r_side, null);
             bitmapRight_side.recycle();
-        }
-
-        if (orderItems.get(currentID).img_6 != null) {
+        } else if (orderItems.get(currentID).imgs.size() == 6) {
             //left mian
-            Bitmap bitmapLeft_main = MainActivity.instance.bitmap1.copy(Bitmap.Config.ARGB_8888, true);
+            Bitmap bitmapLeft_main = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
             Canvas canvasLeft_main = new Canvas(bitmapLeft_main);
             canvasLeft_main.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasLeft_main.drawBitmap(bitmapDB_main, 0, 0, null);
@@ -350,7 +331,7 @@ public class FragmentFD extends BaseFragment {
             bitmapLeft_main.recycle();
 
             //left side
-            Bitmap bitmapLeft_side = MainActivity.instance.bitmap2.copy(Bitmap.Config.ARGB_8888, true);
+            Bitmap bitmapLeft_side = MainActivity.instance.bitmaps.get(1).copy(Bitmap.Config.ARGB_8888, true);
             Matrix matrix = new Matrix();
             matrix.postRotate(180, bitmapLeft_side.getWidth() / 2, bitmapLeft_side.getHeight() / 2);
             bitmapLeft_side = Bitmap.createBitmap(bitmapLeft_side, 0, 0, bitmapLeft_side.getWidth(), bitmapLeft_side.getHeight(), matrix, true);
@@ -366,7 +347,7 @@ public class FragmentFD extends BaseFragment {
             bitmapLeft_side.recycle();
 
             //left tongue
-            Bitmap bitmapLeft_tongue = MainActivity.instance.bitmap3.copy(Bitmap.Config.ARGB_8888, true);
+            Bitmap bitmapLeft_tongue = MainActivity.instance.bitmaps.get(2).copy(Bitmap.Config.ARGB_8888, true);
             Canvas canvasLeft_tongue = new Canvas(bitmapLeft_tongue);
             canvasLeft_tongue.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasLeft_tongue.drawBitmap(bitmapDB_tongue, 0, 0, null);
@@ -377,7 +358,7 @@ public class FragmentFD extends BaseFragment {
             bitmapLeft_tongue.recycle();
 
             //right main
-            Bitmap bitmapRight_main = MainActivity.instance.bitmap4.copy(Bitmap.Config.ARGB_8888, true);
+            Bitmap bitmapRight_main = MainActivity.instance.bitmaps.get(3).copy(Bitmap.Config.ARGB_8888, true);
             Canvas canvasRight_main = new Canvas(bitmapRight_main);
             canvasRight_main.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasRight_main.drawBitmap(bitmapDB_main, 0, 0, null);
@@ -388,7 +369,7 @@ public class FragmentFD extends BaseFragment {
             bitmapRight_main.recycle();
 
             //right tongue
-            Bitmap bitmapRight_tongue = MainActivity.instance.bitmap6.copy(Bitmap.Config.ARGB_8888, true);
+            Bitmap bitmapRight_tongue = MainActivity.instance.bitmaps.get(5).copy(Bitmap.Config.ARGB_8888, true);
             Canvas canvasright_tongue = new Canvas(bitmapRight_tongue);
             canvasright_tongue.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasright_tongue.drawBitmap(bitmapDB_tongue, 0, 0, null);
@@ -399,7 +380,7 @@ public class FragmentFD extends BaseFragment {
             bitmapRight_tongue.recycle();
 
             //right side
-            Bitmap bitmapRight_side = MainActivity.instance.bitmap5.copy(Bitmap.Config.ARGB_8888, true);
+            Bitmap bitmapRight_side = MainActivity.instance.bitmaps.get(4).copy(Bitmap.Config.ARGB_8888, true);
             matrix = new Matrix();
             matrix.postRotate(180, bitmapRight_side.getWidth() / 2, bitmapRight_side.getHeight() / 2);
             bitmapRight_side = Bitmap.createBitmap(bitmapRight_side, 0, 0, bitmapRight_side.getWidth(), bitmapRight_side.getHeight(), matrix, true);
@@ -487,18 +468,7 @@ public class FragmentFD extends BaseFragment {
             Log.e("aaa", e.toString());
         }
         if (num == 1) {
-            if (MainActivity.instance.bitmapLeft != null) {
-                MainActivity.instance.bitmapLeft.recycle();
-                MainActivity.instance.bitmapRight.recycle();
-            }
-            if (MainActivity.instance.bitmap1 != null) {
-                MainActivity.instance.bitmap1.recycle();
-                MainActivity.instance.bitmap2.recycle();
-                MainActivity.instance.bitmap3.recycle();
-                MainActivity.instance.bitmap4.recycle();
-                MainActivity.instance.bitmap5.recycle();
-                MainActivity.instance.bitmap6.recycle();
-            }
+            MainActivity.recycleExcelImages();
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -514,14 +484,7 @@ public class FragmentFD extends BaseFragment {
 
     public void checkremix(){
         if (MainActivity.instance.tb_auto.isChecked()){
-            if (orderItems.get(currentID).img_left != null) {
-                if (MainActivity.instance.leftsucceed && MainActivity.instance.rightsucceed) {
-                    remix();
-                }
-            }
-            if (orderItems.get(currentID).img_6 != null) {
-                remix();
-            }
+            remix();
         }
     }
 

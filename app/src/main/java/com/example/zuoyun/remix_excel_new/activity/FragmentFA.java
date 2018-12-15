@@ -115,11 +115,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
                     bt_remix.setClickable(false);
-                } else if (message == 5) {
-                    Log.e("fragmentSheet", "message5");
+                } else if (message == MainActivity.LOADED_IMGS) {
                     bt_remix.setClickable(true);
                     if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmap1);
+                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     checkremix();
                 } else if (message == 3) {
                     bt_remix.setClickable(false);
@@ -188,12 +187,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasPrintPillow.drawColor(0xffffffff);
 
         Rect rectDraw = new Rect(0, 0, pillowWidthPrint, pillowHeightPrint);
-        canvasPrintPillow.drawBitmap(MainActivity.instance.bitmap1, null, rectDraw, null);
+        canvasPrintPillow.drawBitmap(MainActivity.instance.bitmaps.get(0), null, rectDraw, null);
         canvasPrintPillow.drawRect(rectDraw, rectBorderPaint);
         drawText(canvasPrintPillow, pillowWidthPrint / 2, pillowHeightPrint);
 
         rectDraw = new Rect(0, pillowHeightPrint + 6, pillowWidthPrint, pillowHeightPrint + 6 + pillowHeightPrint);
-        canvasPrintPillow.drawBitmap(MainActivity.instance.bitmap2, null, rectDraw, null);
+        canvasPrintPillow.drawBitmap(MainActivity.instance.bitmaps.get(1), null, rectDraw, null);
         canvasPrintPillow.drawRect(rectDraw, rectBorderPaint);
         drawText(canvasPrintPillow, pillowWidthPrint / 2, pillowHeightPrint + 6 + pillowHeightPrint);
 
@@ -227,7 +226,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasPrintQuilt.rotate(90, drawHeight, 0);
         Rect rectCut = new Rect(quiltX, quiltY, quiltX + quiltWidth, quiltY + quiltHeight);
         rectDraw = new Rect(drawHeight, 0, drawHeight + drawWidth, drawHeight);
-        canvasPrintQuilt.drawBitmap(MainActivity.instance.bitmap3, rectCut, rectDraw, null);
+        canvasPrintQuilt.drawBitmap(MainActivity.instance.bitmaps.get(2), rectCut, rectDraw, null);
         canvasPrintQuilt.drawRect(rectDraw, rectBorderPaint);
 
         Bitmap bitmapTriangleBottom = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_triangle_bottom);
@@ -298,9 +297,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }catch (Exception e){
         }
         if (num == 1) {
-            MainActivity.instance.bitmap1.recycle();
-            MainActivity.instance.bitmap2.recycle();
-            MainActivity.instance.bitmap3.recycle();
+            MainActivity.recycleExcelImages();
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override

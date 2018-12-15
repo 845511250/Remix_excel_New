@@ -8,7 +8,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -110,10 +109,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
                     bt_remix.setClickable(false);
-                } else if (message == 4) {
-                    Log.e("fy", "message4");
+                } else if (message == MainActivity.LOADED_IMGS) {
                     if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapPillow);
+                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     bt_remix.setClickable(true);
                     checkremix();
                 } else if (message == 3) {
@@ -171,7 +169,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         matrix.postRotate(90);
         matrix.postTranslate(5300, 0);
 
-        canvasCombine.drawBitmap(MainActivity.instance.bitmapPillow, matrix, null);
+        canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
         canvasCombine.drawRect(0, 0, 5295, 7995, rectBorderPaint);
         canvasCombine.drawRect(5, 5, 5295, 7995, rectBorderPaint);
         drawText(canvasCombine);
@@ -242,7 +240,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }catch (Exception e){
         }
         if (num == 1) {
-            MainActivity.instance.bitmapPillow.recycle();
+            MainActivity.recycleExcelImages();
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override

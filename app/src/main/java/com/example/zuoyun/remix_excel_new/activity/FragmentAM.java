@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -66,21 +65,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             public void listen(int message, String sampleurl) {
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
-                } else if (message == 1) {
-                    Log.e("fragment", "message1");
-                    bt_remix.setClickable(true);
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapLeft);
-//                    Glide.with(context).load(sampleurl).into(iv_sample1);
-                    checkremix();
-                } else if(message==2){
-                    Log.e("fragment", "message2");
-                    bt_remix.setClickable(true);
-                    checkremix();
-                } else if (message == 4) {
-                    Log.e("fragment", "message4");
+                } else if (message == MainActivity.LOADED_IMGS) {
                     if(!MainActivity.instance.cb_fastmode.isChecked()){
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapPillow);
+                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     }
                     checkremix();
                 } else if (message == 3) {
@@ -141,7 +128,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             height = 1774;
             dbID = R.drawable.am_xl;
         }
-        MainActivity.instance.bitmapPillow = Bitmap.createScaledBitmap(MainActivity.instance.bitmapPillow, width, height, true);
+        MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true));
         bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), dbID);
 
         bitmapCombine = Bitmap.createBitmap(width, height * 2 + 120, Bitmap.Config.ARGB_8888);
@@ -153,8 +140,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         matrixCombine.reset();
         matrixCombine.postRotate(180);
         matrixCombine.postTranslate(width, height);
-        canvasCombine.drawBitmap(MainActivity.instance.bitmapPillow, matrixCombine, null);
-        canvasCombine.drawBitmap(MainActivity.instance.bitmapPillow, 0, height, null);
+        canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), matrixCombine, null);
+        canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, height, null);
         canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
         bitmapDB.recycle();
 
@@ -221,8 +208,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }catch (Exception e){
         }
         if (num == 1) {
-            MainActivity.instance.bitmapPillow.recycle();
-            System.gc();
+            MainActivity.recycleExcelImages();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -236,11 +222,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
     public void checkremix(){
         if (MainActivity.instance.tb_auto.isChecked()){
-            if(orderItems.get(currentID).img_pillow!=null){
-                remix();
-            } else if (MainActivity.instance.leftsucceed && MainActivity.instance.rightsucceed) {
-                remix();
-            }
+            remix();
         }
     }
 

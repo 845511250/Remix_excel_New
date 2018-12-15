@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -66,21 +65,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             public void listen(int message, String sampleurl) {
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
-                } else if (message == 1) {
-                    Log.e("fragmentDL", "message1");
-                    bt_remix.setClickable(true);
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapLeft);
-//                    Glide.with(context).load(sampleurl).into(iv_sample1);
-                    checkremix();
-                } else if(message==2){
-                    Log.e("fragmentDL", "message2");
-                    bt_remix.setClickable(true);
-                    checkremix();
-                } else if (message == 4) {
-                    Log.e("fragmentDL", "message4");
+                } else if (message == MainActivity.LOADED_IMGS) {
                     if(!MainActivity.instance.cb_fastmode.isChecked()){
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapPillow);
+                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     }
                     checkremix();
                 } else if (message == 3) {
@@ -122,12 +109,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     public void remixx(){
         Bitmap bitmapFront,bitmapBack;
         Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dl);
-        if(orderItems.get(currentID).img_pillow!=null){
-            bitmapFront = Bitmap.createScaledBitmap(MainActivity.instance.bitmapPillow, 1565, 1388, true);
+        if (orderItems.get(currentID).imgs.size() == 1) {
+            bitmapFront = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1565, 1388, true);
             bitmapBack = bitmapFront;
-        }else{
-            bitmapFront = Bitmap.createScaledBitmap(MainActivity.instance.bitmapLeft, 1565, 1388, true);
-            bitmapBack = Bitmap.createScaledBitmap(MainActivity.instance.bitmapRight, 1565, 1388, true);
+        } else {
+            bitmapFront = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1565, 1388, true);
+            bitmapBack = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 1565, 1388, true);
         }
 
         Paint rectPaint = new Paint();
@@ -148,7 +135,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         String time = MainActivity.instance.orderDate_Print;
         try {
-            Bitmap bitmapremix = Bitmap.createBitmap(1565, 1388+1388, Bitmap.Config.ARGB_8888);//26.5 23.5
+            Bitmap bitmapremix = Bitmap.createBitmap(1565, 1388 + 1388, Bitmap.Config.ARGB_8888);//26.5 23.5
             Canvas canvasremix = new Canvas(bitmapremix);
             canvasremix.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
 
@@ -161,16 +148,16 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasremix.drawText("DL", 1500, 1385, paint);
             canvasremix.drawRect(0, 1358, 400, 1388, rectPaint);
             canvasremix.drawText(time, 2, 1385, paint);
-            canvasremix.drawText(orderItems.get(currentID).order_number,180,1385,paint);
+            canvasremix.drawText(orderItems.get(currentID).order_number, 180, 1385, paint);
             canvasremix.drawRect(500, 1358, 750, 1388, rectPaint);
             canvasremix.drawText(orderItems.get(currentID).newCode, 501, 1385, paintRed);
 
             canvasremix.drawRect(1500, 1358+1388, 1565, 1388+1388, rectPaint);
             canvasremix.drawText("DL", 1500, 1385+1388, paint);
-            canvasremix.drawRect(0, 1358+1388, 400, 1388+1388, rectPaint);
+            canvasremix.drawRect(0, 1358 + 1388, 400, 1388 + 1388, rectPaint);
             canvasremix.drawText(time, 2, 1385+1388, paint);
-            canvasremix.drawText(orderItems.get(currentID).order_number,200,1385+1388,paint);
-            canvasremix.drawRect(500, 1358+1388, 750, 1388+1388, rectPaint);
+            canvasremix.drawText(orderItems.get(currentID).order_number, 200, 1385 + 1388, paint);
+            canvasremix.drawRect(500, 1358 + 1388, 750, 1388 + 1388, rectPaint);
             canvasremix.drawText(orderItems.get(currentID).newCode, 501, 1385 + 1388, paintRed);
 
             String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku : "";
@@ -239,6 +226,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }catch (Exception e){
         }
         if (num == 1) {
+            MainActivity.recycleExcelImages();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -252,11 +240,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
     public void checkremix(){
         if (MainActivity.instance.tb_auto.isChecked()){
-            if(orderItems.get(currentID).img_pillow!=null){
-                remix();
-            } else if (MainActivity.instance.leftsucceed && MainActivity.instance.rightsucceed) {
-                remix();
-            }
+            remix();
         }
     }
 

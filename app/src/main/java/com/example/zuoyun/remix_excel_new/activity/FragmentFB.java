@@ -8,7 +8,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -100,12 +99,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             public void listen(int message, String sampleurl) {
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
-                    Log.e("fragment2", "message0");
-                } else if (message == 5) {
-                    Log.e("fragment2", "message1");
+                } else if (message == MainActivity.LOADED_IMGS) {
                     bt_remix.setClickable(true);
                     if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapLL);
+                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     checkremix();
                 } else if (message == 3) {
                     bt_remix.setClickable(false);
@@ -189,43 +186,42 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         //left
         Bitmap bitmapDBLeft = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fbl_android);
 
-        Bitmap bitmapLeft = Bitmap.createBitmap(MainActivity.instance.bitmapLL, 0, 0, 1514, 1941, matrix180, true);
-        Canvas canvasLeft = new Canvas(bitmapLeft);
+        Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 1514, 1941, matrix180, true);
+        Canvas canvasLeft = new Canvas(bitmapTemp);
         canvasLeft.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasLeft.drawBitmap(bitmapDBLeft, 0, 0, null);
         bitmapDBLeft.recycle();
 
         drawTextRotate(canvasLeft, 87, 228, 1400, "左");
-        bitmapLeft = Bitmap.createScaledBitmap(bitmapLeft, heelWidth, heelHeight, true);
+        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, heelWidth, heelHeight, true);
 
         matrixCombine.reset();
         matrixCombine.postTranslate(dxLeft, dyLeft);
-        canvasCombine.drawBitmap(bitmapLeft, matrixCombine, null);
-        bitmapLeft.recycle();
+        canvasCombine.drawBitmap(bitmapTemp, matrixCombine, null);
+        bitmapTemp.recycle();
 
         //right
         Bitmap bitmapDBRight = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fbr_android);
 
-        Bitmap bitmapRight = Bitmap.createBitmap(MainActivity.instance.bitmapLR, 0, 0, 1514, 1941, matrix180, true);
-        Canvas canvasRight = new Canvas(bitmapRight);
+        bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 1514, 1941, matrix180, true);
+        Canvas canvasRight = new Canvas(bitmapTemp);
         canvasRight.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasRight.drawBitmap(bitmapDBRight, 0, 0, null);
         bitmapDBRight.recycle();
 
         drawTextRotate(canvasRight, 86, 255, 1400, "右");
-        bitmapRight = Bitmap.createScaledBitmap(bitmapRight, heelWidth, heelHeight, true);
+        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, heelWidth, heelHeight, true);
 
         matrixCombine.reset();
         matrixCombine.postTranslate(dxRight, dyRight);
-        canvasCombine.drawBitmap(bitmapRight, matrixCombine, null);
-        bitmapRight.recycle();
-        bitmapDBRight.recycle();
+        canvasCombine.drawBitmap(bitmapTemp, matrixCombine, null);
+        bitmapTemp.recycle();
 
         //heel
         Bitmap bitmapDBHeel = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fb36_heel);
         //left
-        Bitmap bitmapHeelLeft = MainActivity.instance.bitmapRL.copy(Bitmap.Config.ARGB_8888, true);
-        Canvas canvasHeelLeft = new Canvas(bitmapHeelLeft);
+        bitmapTemp = MainActivity.instance.bitmaps.get(2).copy(Bitmap.Config.ARGB_8888, true);
+        Canvas canvasHeelLeft = new Canvas(bitmapTemp);
         canvasHeelLeft.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasHeelLeft.drawBitmap(bitmapDBHeel, 0, 0, null);
         drawTextRotateHeel1(canvasHeelLeft, -43, 39, 217);
@@ -233,28 +229,28 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         matrixCombine.reset();
         matrixCombine.postTranslate(3127, 0);
-        canvasCombine.drawBitmap(bitmapHeelLeft, matrixCombine, null);
-        bitmapHeelLeft.recycle();
+        canvasCombine.drawBitmap(bitmapTemp, matrixCombine, null);
 
         //right
-        Bitmap bitmapHeelRight = MainActivity.instance.bitmapRR.copy(Bitmap.Config.ARGB_8888, true);
-        Canvas canvasHeelRight = new Canvas(bitmapHeelRight);
+        bitmapTemp = MainActivity.instance.bitmaps.get(3).copy(Bitmap.Config.ARGB_8888, true);
+        Canvas canvasHeelRight = new Canvas(bitmapTemp);
         canvasHeelRight.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasHeelRight.drawBitmap(bitmapDBHeel, 0, 0, null);
+        bitmapDBHeel.recycle();
         drawTextRotateHeel1(canvasHeelRight, -43, 39, 217);
         drawTextRotateHeel2(canvasHeelRight, 44, 482, 77, "右");
 
         matrixCombine.reset();
         matrixCombine.postTranslate(3127, 901);
-        canvasCombine.drawBitmap(bitmapHeelRight, matrixCombine, null);
-        bitmapHeelRight.recycle();
-        bitmapDBHeel.recycle();
+        canvasCombine.drawBitmap(bitmapTemp, matrixCombine, null);
+        bitmapTemp.recycle();
+
+        Matrix matrix90 = new Matrix();
+        matrix90.postRotate(90);
+        matrix90.postTranslate(1890, 0);
+        bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, 3791, 1890, matrix90, true);
 
         try {
-            Matrix matrix90 = new Matrix();
-            matrix90.postRotate(90);
-            matrix90.postTranslate(1890, 0);
-            bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, 3791, 1890, matrix90, true);
 
             String printColor = orderItems.get(currentID).color.equals("黑") ? "B" : "W";
             String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku + orderItems.get(currentID).size : "";
@@ -318,6 +314,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }catch (Exception e){
         }
         if (num == 1) {
+            MainActivity.recycleExcelImages();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

@@ -8,7 +8,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -113,20 +112,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
                     bt_remix.setClickable(false);
-                } else if (message == 1) {
-                    Log.e("fragment_dq", "message1");
-                    bt_remix.setClickable(true);
+                } else if (message == MainActivity.LOADED_IMGS) {
                     if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapLeft);
-                    checkremix();
-                } else if(message==2){
-                    Log.e("fragment_dq", "message2");
-                    bt_remix.setClickable(true);
-                    checkremix();
-                } else if (message == 4) {
-                    Log.e("jiake", "message4");
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapPillow);
+                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     bt_remix.setClickable(true);
                     checkremix();
                 } else if (message == 3) {
@@ -186,8 +174,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        Bitmap bitmapF = orderItems.get(currentID).img_left == null ? MainActivity.instance.bitmapPillow : MainActivity.instance.bitmapLeft;
-        Bitmap bitmapB = orderItems.get(currentID).img_left == null ? MainActivity.instance.bitmapPillow : MainActivity.instance.bitmapRight;
+        Bitmap bitmapF = MainActivity.instance.bitmaps.get(0);
+        Bitmap bitmapB = orderItems.get(currentID).imgs.size() == 1 ? bitmapF : MainActivity.instance.bitmaps.get(1);
 
         //前
         Bitmap bitmapTemp = Bitmap.createBitmap(3304, 4375, Bitmap.Config.ARGB_8888);
@@ -283,13 +271,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }catch (Exception e){
         }
         if (num == 1) {
-            if (MainActivity.instance.bitmapPillow != null) {
-                MainActivity.instance.bitmapPillow.recycle();
-            }
-            if (MainActivity.instance.bitmapLeft != null) {
-                MainActivity.instance.bitmapLeft.recycle();
-                MainActivity.instance.bitmapRight.recycle();
-            }
+            MainActivity.recycleExcelImages();
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -303,16 +285,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
     }
     public void checkremix(){
-        if (orderItems.get(currentID).img_left == null) {
-            if (MainActivity.instance.tb_auto.isChecked()) {
-                remix();
-            }
-        } else {
-            if (MainActivity.instance.tb_auto.isChecked()) {
-                if (MainActivity.instance.leftsucceed && MainActivity.instance.rightsucceed) {
-                    remix();
-                }
-            }
+        if (MainActivity.instance.tb_auto.isChecked()) {
+            remix();
         }
     }
 

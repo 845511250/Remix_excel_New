@@ -9,7 +9,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -115,10 +114,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
                     bt_remix.setClickable(false);
-                } else if (message == 4) {
-                    Log.e("jiake", "message4");
+                } else if (message == MainActivity.LOADED_IMGS) {
                     if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapPillow);
+                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     bt_remix.setClickable(true);
                     checkremix();
                 } else if (message == 3) {
@@ -175,16 +173,16 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawColor(0xffffffff);
 
         Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), dbID);
-        MainActivity.instance.bitmapPillow = Bitmap.createScaledBitmap(MainActivity.instance.bitmapPillow, width, height, true);
+        MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true));
 
         Matrix matrix = new Matrix();
         matrix.postTranslate(0, height);
 
-        canvasCombine.drawBitmap(MainActivity.instance.bitmapPillow, matrix, null);
+        canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
         matrix.reset();
         matrix.postRotate(180);
         matrix.postTranslate(width, height);
-        canvasCombine.drawBitmap(MainActivity.instance.bitmapPillow, matrix, null);
+        canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
         canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
         drawText(canvasCombine);
         bitmapDB.recycle();
@@ -250,7 +248,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }catch (Exception e){
         }
         if (num == 1) {
-            MainActivity.instance.bitmapPillow.recycle();
+            MainActivity.recycleExcelImages();
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override

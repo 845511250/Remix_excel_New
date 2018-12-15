@@ -73,29 +73,18 @@ public class FragmentDV extends BaseFragment {
                 if(message==0){
                     iv_leftup.setImageDrawable(null);
                     iv_rightup.setImageDrawable(null);
-                    Log.e("fragment_dq", "message0");
-                }
-                else if (message == 1) {
-                    Log.e("fragment_dq", "message1");
+                } else if (message == MainActivity.LOADED_IMGS) {
                     bt_remix.setClickable(true);
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_leftup.setImageBitmap(MainActivity.instance.bitmapLeft);
-//                    Glide.with(context).load(sampleurl).into(iv_sample1);
-                    checkremix();
-                }
-                else if(message==2){
-                    Log.e("fragment_dq", "message2");
-                    bt_remix.setClickable(true);
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_rightup.setImageBitmap(MainActivity.instance.bitmapRight);
+                    if (!MainActivity.instance.cb_fastmode.isChecked())
+                        iv_rightup.setImageBitmap(MainActivity.instance.bitmaps.get(0));
 //                    Glide.with(context).load(sampleurl).into(iv_sample2);
                     checkremix();
-                }
-                else if (message==3){
-                    bt_remix.setClickable(false);
-                }
-                else if (message == 10) {
-                    remix();
+                } else {
+                    if (message == 3) {
+                        bt_remix.setClickable(false);
+                    } else if (message == 10) {
+                        remix();
+                    }
                 }
             }
         });
@@ -135,12 +124,12 @@ public class FragmentDV extends BaseFragment {
         //tongue:370*484
         Bitmap bitmapDB_main = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dq31_main);
         Bitmap bitmapDB_tongue = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dq31_tongue);
-        MainActivity.instance.bitmapLeft = Bitmap.createScaledBitmap(MainActivity.instance.bitmapLeft, 1060, 1042, true);
-        MainActivity.instance.bitmapRight = Bitmap.createScaledBitmap(MainActivity.instance.bitmapRight, 1060, 1042, true);
+        MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1060, 1042, true));
+        MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 1060, 1042, true));
 
         //left
-        Bitmap bitmapLeft_main = Bitmap.createBitmap(MainActivity.instance.bitmapLeft, 29, 0, 1000, 1042);
-        Bitmap bitmapLeft_tongue = Bitmap.createBitmap(MainActivity.instance.bitmapLeft, 345, 258, 370, 484);
+        Bitmap bitmapLeft_main = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 29, 0, 1000, 1042);
+        Bitmap bitmapLeft_tongue = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 345, 258, 370, 484);
 
         Canvas canvasLeft_main = new Canvas(bitmapLeft_main);
         canvasLeft_main.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
@@ -151,8 +140,8 @@ public class FragmentDV extends BaseFragment {
         canvasLeft_tongue.drawBitmap(bitmapDB_tongue, 0, 0, null);
 
         //right
-        Bitmap bitmapRight_main = Bitmap.createBitmap(MainActivity.instance.bitmapRight, 29, 0, 1000, 1042);
-        Bitmap bitmapRight_tongue = Bitmap.createBitmap(MainActivity.instance.bitmapRight, 345, 258, 370, 484);
+        Bitmap bitmapRight_main = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 29, 0, 1000, 1042);
+        Bitmap bitmapRight_tongue = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 345, 258, 370, 484);
 
         Canvas canvasRight_main = new Canvas(bitmapRight_main);
         canvasRight_main.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
@@ -326,6 +315,7 @@ public class FragmentDV extends BaseFragment {
 
         }
         if (num == 1) {
+            MainActivity.recycleExcelImages();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -340,8 +330,7 @@ public class FragmentDV extends BaseFragment {
 
     public void checkremix(){
         if (MainActivity.instance.tb_auto.isChecked()){
-            if(MainActivity.instance.leftsucceed&&MainActivity.instance.rightsucceed)
-                remix();
+            remix();
         }
     }
 

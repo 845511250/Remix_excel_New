@@ -8,7 +8,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -97,29 +96,18 @@ public class FragmentDQ extends BaseFragment {
                 if(message==0){
                     iv_leftup.setImageDrawable(null);
                     iv_rightup.setImageDrawable(null);
-                    Log.e("fragment_aq", "message0");
-                }
-                else if (message == 1) {
-                    Log.e("fragment_aq", "message1");
+                } else if (message == MainActivity.LOADED_IMGS) {
                     bt_remix.setClickable(true);
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_leftup.setImageBitmap(MainActivity.instance.bitmapLeft);
-//                    Glide.with(context).load(sampleurl).into(iv_sample1);
-                    checkremix();
-                }
-                else if(message==2){
-                    Log.e("fragment_aq", "message2");
-                    bt_remix.setClickable(true);
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_rightup.setImageBitmap(MainActivity.instance.bitmapRight);
+                    if (!MainActivity.instance.cb_fastmode.isChecked())
+                        iv_rightup.setImageBitmap(MainActivity.instance.bitmaps.get(1));
 //                    Glide.with(context).load(sampleurl).into(iv_sample2);
                     checkremix();
-                }
-                else if (message==3){
-                    bt_remix.setClickable(false);
-                }
-                else if (message == 10) {
-                    remix();
+                } else {
+                    if (message == 3) {
+                        bt_remix.setClickable(false);
+                    } else if (message == 10) {
+                        remix();
+                    }
                 }
             }
         });
@@ -188,14 +176,14 @@ public class FragmentDQ extends BaseFragment {
     public void remixx(){
         setScale(orderItems.get(currentID).size);
 
-        MainActivity.instance.bitmapLeft = Bitmap.createScaledBitmap(MainActivity.instance.bitmapLeft, 885, 1099, true);
-        MainActivity.instance.bitmapRight = Bitmap.createScaledBitmap(MainActivity.instance.bitmapRight, 885, 1099, true);
+        MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 885, 1099, true));
+        MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 885, 1099, true));
         Bitmap bitmapDB_main = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.aq40_main);
         Bitmap bitmapDB_tongue = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.aq40_tongue);
 
         //left
-        Bitmap bitmapLeft_main = MainActivity.instance.bitmapLeft.copy(Bitmap.Config.ARGB_8888, true);
-        Bitmap bitmapLeft_tongue = Bitmap.createBitmap(MainActivity.instance.bitmapLeft, 253, 301, 390, 468);
+        Bitmap bitmapLeft_main = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+        Bitmap bitmapLeft_tongue = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 253, 301, 390, 468);
 
         Canvas canvasLeft_main = new Canvas(bitmapLeft_main);
         canvasLeft_main.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
@@ -206,8 +194,8 @@ public class FragmentDQ extends BaseFragment {
         canvasLeft_tongue.drawBitmap(bitmapDB_tongue, 0, 0, null);
 
         //right
-        Bitmap bitmapRight_main = MainActivity.instance.bitmapRight.copy(Bitmap.Config.ARGB_8888, true);
-        Bitmap bitmapRight_tongue = Bitmap.createBitmap(MainActivity.instance.bitmapRight, 253, 301, 390, 468);
+        Bitmap bitmapRight_main = MainActivity.instance.bitmaps.get(1).copy(Bitmap.Config.ARGB_8888, true);
+        Bitmap bitmapRight_tongue = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 253, 301, 390, 468);
 
         Canvas canvasRight_main = new Canvas(bitmapRight_main);
         canvasRight_main.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
@@ -331,8 +319,7 @@ public class FragmentDQ extends BaseFragment {
 
         }
         if (num == 1) {
-            MainActivity.instance.bitmapLeft.recycle();
-            MainActivity.instance.bitmapRight.recycle();
+            MainActivity.recycleExcelImages();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -347,8 +334,7 @@ public class FragmentDQ extends BaseFragment {
 
     public void checkremix(){
         if (MainActivity.instance.tb_auto.isChecked()){
-            if(MainActivity.instance.leftsucceed&&MainActivity.instance.rightsucceed)
-                remix();
+            remix();
         }
     }
 

@@ -9,7 +9,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -114,24 +113,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
                     bt_remix.setClickable(false);
-                } else if (message == 1) {
-                    Log.e("fragment_dq", "message1");
-                    bt_remix.setClickable(true);
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapLeft);
-                    checkremix();
-                } else if(message==2){
-                    Log.e("fragment_dq", "message2");
-                    bt_remix.setClickable(true);
-                    checkremix();
-                } else if(message==4){
-                    Log.e("fragment_dq", "message4");
-                    bt_remix.setClickable(true);
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapPillow);
-                    checkremix();
-                } else if (message == 5) {
-                    Log.e("imgs", "message5");
+                } else if (message == MainActivity.LOADED_IMGS) {
                     if(!MainActivity.instance.cb_fastmode.isChecked())
                         iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     bt_remix.setClickable(true);
@@ -221,9 +203,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         Matrix matrix = new Matrix();
 
-        if (orderItems.get(currentID).imgs == null) {
-            Bitmap bitmapF = orderItems.get(currentID).img_left == null ? MainActivity.instance.bitmapPillow : MainActivity.instance.bitmapLeft;
-            Bitmap bitmapB = orderItems.get(currentID).img_left == null ? MainActivity.instance.bitmapPillow : MainActivity.instance.bitmapRight;
+        if (orderItems.get(currentID).imgs.size() < 3) {
+            Bitmap bitmapF = MainActivity.instance.bitmaps.get(0);
+            Bitmap bitmapB = orderItems.get(currentID).imgs.size() == 1 ? bitmapF : MainActivity.instance.bitmaps.get(1);
 
             //前
             Bitmap bitmapTemp = Bitmap.createBitmap(bitmapF, 403, 0, 2202, 3192);
@@ -371,7 +353,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gh_lingkou);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             bitmapDB.recycle();
-//        drawTextLingkou(canvasTemp);
+//            drawTextLingkou(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_lingkou, height_lingkou, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front + width_back + 140, height_xiuzi * 2 + 300, null);
             bitmapTemp.recycle();
@@ -526,19 +508,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }catch (Exception e){
         }
         if (num == 1) {
-            if (MainActivity.instance.bitmapPillow != null) {
-                MainActivity.instance.bitmapPillow.recycle();
-            }
-            if (MainActivity.instance.bitmapLeft != null) {
-                MainActivity.instance.bitmapLeft.recycle();
-                MainActivity.instance.bitmapRight.recycle();
-            }
-            if (MainActivity.instance.bitmaps.size() != 0) {
-                for (int i = 0; i < MainActivity.instance.bitmaps.size(); i++) {
-                    if (MainActivity.instance.bitmaps.get(i) != null)
-                        MainActivity.instance.bitmaps.get(i).recycle();
-                }
-            }
+            MainActivity.recycleExcelImages();
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override

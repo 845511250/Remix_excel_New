@@ -66,10 +66,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             public void listen(int message, String sampleurl) {
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
-                } else if (message == 4) {
+                } else if (message == MainActivity.LOADED_IMGS) {
                     Log.e("fragmentDG", "message4");
                     if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapPillow);
+                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     checkremix();
                 } else if (message == 3) {
                     bt_remix.setClickable(false);
@@ -126,35 +126,36 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         String time = MainActivity.instance.orderDate_Print;
         try {
-            Bitmap bitmapPillow;
             Bitmap bitmapremix;
             Canvas canvasremix;
             Bitmap bitmapBorderDG = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.border_dg);
             Bitmap bitmapBorderDH = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.border_dh);
 
             if (orderItems.get(currentID).sku.equals("DG")) {
-                bitmapPillow = Bitmap.createScaledBitmap(MainActivity.instance.bitmapPillow, 2300, 2300, true);
-                bitmapremix = Bitmap.createBitmap(2300+93, 2300+93, Bitmap.Config.ARGB_8888);//43*43cm
+                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2300, 2300, true));
+                bitmapremix = Bitmap.createBitmap(2300 + 93, 2300 + 93, Bitmap.Config.ARGB_8888);//43*43cm
                 canvasremix = new Canvas(bitmapremix);
                 canvasremix.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
                 canvasremix.drawColor(0xffffffff);
-                canvasremix.drawBitmap(bitmapPillow, 0, 0, null);
+                canvasremix.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
                 canvasremix.drawBitmap(bitmapBorderDG, 0, 0, null);
+                bitmapBorderDG.recycle();
 
                 canvasremix.drawRect(600, 2274, 770, 2300, rectPaint);
                 canvasremix.drawText("流水号:"+(currentID+1),601,2297,paintRed);
                 canvasremix.drawRect(850, 2274, 1270, 2300, rectPaint);
                 canvasremix.drawText(time+"    "+orderItems.get(currentID).order_number+"    抱枕套", 852, 2297, paint);
             } else {
-                bitmapPillow = Bitmap.createScaledBitmap(MainActivity.instance.bitmapPillow, 2000, 2000, true);
-                bitmapremix = Bitmap.createBitmap(2000+2100, 2000+220, Bitmap.Config.ARGB_8888);//88.2*43cm
+                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2000, 2000, true));
+                bitmapremix = Bitmap.createBitmap(2000 + 2100, 2000 + 220, Bitmap.Config.ARGB_8888);//88.2*43cm
                 canvasremix = new Canvas(bitmapremix);
                 canvasremix.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
                 canvasremix.drawColor(0xffffffff);
-                canvasremix.drawBitmap(bitmapPillow, 0, 0, null);
+                canvasremix.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
                 canvasremix.drawBitmap(bitmapBorderDH, 0, 0, null);
-                canvasremix.drawBitmap(bitmapPillow, 2100, 0, null);
+                canvasremix.drawBitmap(MainActivity.instance.bitmaps.get(0), 2100, 0, null);
                 canvasremix.drawBitmap(bitmapBorderDH, 2100, 0, null);
+                bitmapBorderDH.recycle();
 
                 canvasremix.drawRect(600, 1974, 770, 2000, rectPaint);
                 canvasremix.drawText("流水号:"+(currentID+1),601,1997,paintRed);
@@ -180,9 +181,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             //释放bitmap
             bitmapremix.recycle();
-//            bitmapPillow.recycle();
-            bitmapBorderDG.recycle();
-            bitmapBorderDH.recycle();
 
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";
@@ -232,6 +230,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             Log.e("aaa", e.toString());
         }
         if (num == 1) {
+            MainActivity.recycleExcelImages();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

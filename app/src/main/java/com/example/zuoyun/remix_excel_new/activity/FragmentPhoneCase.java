@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -65,10 +64,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             public void listen(int message, String sampleurl) {
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
-                } else if (message == 4) {
-                    Log.e("fragmentDL", "message4");
+                } else if (message == MainActivity.LOADED_IMGS) {
                     if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapPillow);
+                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     checkremix();
                 } else if (message == 3) {
                     bt_remix.setClickable(false);
@@ -136,31 +134,37 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
         Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), DBId);
 
+        int DBWidth = bitmapDB.getWidth();
+        int DBHeight = bitmapDB.getHeight();
+
+        Bitmap bitmapremix = Bitmap.createBitmap(DBWidth, DBHeight, Bitmap.Config.ARGB_8888);
+        Canvas canvasremix = new Canvas(bitmapremix);
+        canvasremix.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+        canvasremix.drawColor(0xffffffff);
+        canvasremix.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
+        canvasremix.drawBitmap(bitmapDB, 0, 0, null);
+        bitmapDB.recycle();
+
+        canvasremix.drawRect(0, DBHeight-16, 120, DBHeight, rectPaint);
+        canvasremix.drawText(time, 1, DBHeight - 3, paint);
+        canvasremix.drawText(orderItems.get(currentID).sku, 80, DBHeight - 3, paintRed);
+        canvasremix.drawRect(200, DBHeight-16, 380, DBHeight, rectPaint);
+        canvasremix.drawText(orderItems.get(currentID).order_number, 201, DBHeight - 3, paint);
+        canvasremix.drawText(phoneModel + " " + orderItems.get(currentID).color, 280, DBHeight - 3, paint);
+
+
         try {
-            int DBWidth = bitmapDB.getWidth();
-            int DBHeight = bitmapDB.getHeight();
-
-            Bitmap bitmapremix = Bitmap.createBitmap(DBWidth, DBHeight, Bitmap.Config.ARGB_8888);
-            Canvas canvasremix = new Canvas(bitmapremix);
-            canvasremix.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasremix.drawColor(0xffffffff);
-            canvasremix.drawBitmap(MainActivity.instance.bitmapPillow, 0, 0, null);
-            canvasremix.drawBitmap(bitmapDB, 0, 0, null);
-
-            canvasremix.drawRect(0, DBHeight-16, 120, DBHeight, rectPaint);
-            canvasremix.drawText(time, 1, DBHeight-3, paint);
-            canvasremix.drawText(orderItems.get(currentID).sku, 80, DBHeight - 3, paintRed);
-            canvasremix.drawRect(200, DBHeight-16, 380, DBHeight, rectPaint);
-            canvasremix.drawText(orderItems.get(currentID).order_number,201,DBHeight-3,paint);
-            canvasremix.drawText(phoneModel+" "+orderItems.get(currentID).color, 280, DBHeight-3, paint);
-
-            String printColor="黑";
-            if(orderItems.get(currentID).color.equals("黑"))
+            String printColor = "黑";
+            if (orderItems.get(currentID).color.equals("黑")) {
                 printColor = "B";
-            else if(orderItems.get(currentID).color.equals("白"))
-                printColor = "W";
-            else if(orderItems.get(currentID).color.equals("透"))
-                printColor = "T";
+            } else {
+                if (orderItems.get(currentID).color.equals("白")) {
+                    printColor = "W";
+                } else {
+                    if (orderItems.get(currentID).color.equals("透"))
+                        printColor = "T";
+                }
+            }
 
             String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
@@ -175,7 +179,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             BitmapToJpg.save(bitmapremix, fileSave, 150);
 
             //释放bitmap
-            bitmapDB.recycle();
             bitmapremix.recycle();
 
             //写入excel
@@ -225,6 +228,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }catch (Exception e){
         }
         if (num == 1) {
+            MainActivity.recycleExcelImages();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

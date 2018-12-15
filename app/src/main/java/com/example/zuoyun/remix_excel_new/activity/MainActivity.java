@@ -94,16 +94,13 @@ public class MainActivity extends FragmentActivity {
     @BindView(R.id.tv_finishRemixx)
     TextView tv_finishRemixx;
 
-    int currentID = 0,totalWrong=0,totalNum;
-    boolean leftdone=false, rightdone = false,leftsucceed=false, rightsucceed = false;
+    int currentID = 0,totalWrong=0, totalNum;
+    public static int LOADED_IMGS = 5;
 
     //    String sdCardPath = "/mnt/asec/share";
     String sdCardPath = "/storage/emulated/0/Pictures";
     ArrayList<OrderItem> orderItems = new ArrayList<>();
     ArrayList<RemakeItem> remakeItems=new ArrayList<>();
-    public Bitmap bitmapLeft, bitmapRight, bitmapPillow;
-    public Bitmap bitmapLL,bitmapLR,bitmapRL, bitmapRR;
-    public Bitmap bitmap1, bitmap2, bitmap3, bitmap4, bitmap5, bitmap6;
     public ArrayList<Bitmap> bitmaps = new ArrayList<>();
 
     FragmentManager fragmentManager;
@@ -130,7 +127,6 @@ public class MainActivity extends FragmentActivity {
         //initDialog();
 
         initviews();
-        showDialogPassword();
         new UpdateUtil(context).checkUpdate();
     }
 
@@ -179,6 +175,10 @@ public class MainActivity extends FragmentActivity {
                 frame_program.setVisibility(View.VISIBLE);
             }
         });
+
+        if (!new File("/storage/emulated/0/Movies/admin.txt").exists()) {
+            showDialogPassword();
+        }
     }
 
     @OnClick(R.id.bt_next)
@@ -189,8 +189,6 @@ public class MainActivity extends FragmentActivity {
 
         currentID++;
         if (currentID < orderItems.size()) {
-            leftsucceed = false;
-            rightsucceed = false;
             setfg();
         } else {
             showDialogFinish();
@@ -476,6 +474,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("丝巾 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGT());
                 break;
+            case "GUM":
+                tv_title.setText("GU夹克 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentGUM());
+                break;
             case "GV":
                 tv_title.setText("polo衫 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGV());
@@ -501,191 +503,53 @@ public class MainActivity extends FragmentActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.e("aaa", "开始 "+orderItems.get(currentID).order_number);
-                        if(orderItems.get(currentID).img_left!=null){
-                            String img_left = orderItems.get(currentID).img_left;
-                            bitmapLeft = BitmapFactory.decodeFile(sdCardPath + "/pictures/" + img_left);
-                            String img_right = orderItems.get(currentID).img_right;
-                            bitmapRight = BitmapFactory.decodeFile(sdCardPath + "/pictures/" + img_right);
-                            tv_finishRemixx.setText("");
+                //-----------
+                Log.e("aaa", "开始 " + orderItems.get(currentID).order_number);
+                if (orderItems.get(currentID).imgs.size() != 0) {
 
-                            if (bitmapLeft == null || bitmapRight == null) {
-                                Log.e("aaa", "*" + img_left + "*");
-                                showDialogNoImage();
-                            }else{
-                                leftsucceed = true;
-                                messageListener.listen(1,orderItems.get(currentID).img_design_left);
-                                rightsucceed = true;
-                                messageListener.listen(2,orderItems.get(currentID).img_design_right);
-                            }
-                        } else if(orderItems.get(currentID).img_ll!=null){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
                             tv_finishRemixx.setText("加载中...");
-                            String img_ll = orderItems.get(currentID).img_ll;
-                            String img_lr = orderItems.get(currentID).img_lr;
-                            String img_rl = orderItems.get(currentID).img_rl;
-                            String img_rr = orderItems.get(currentID).img_rr;
-                            bitmapLL = BitmapFactory.decodeFile(sdCardPath + "/pictures/" + img_ll);
-                            bitmapLR = BitmapFactory.decodeFile(sdCardPath + "/pictures/" + img_lr);
-                            bitmapRL = BitmapFactory.decodeFile(sdCardPath + "/pictures/" + img_rl);
-                            bitmapRR = BitmapFactory.decodeFile(sdCardPath + "/pictures/" + img_rr);
-                            tv_finishRemixx.setText("");
-                            if (bitmapLL == null || bitmapLR == null || bitmapRL == null || bitmapRR == null) {
-                                showDialogNoImage();
-                            }else {
-                                tv_finishRemixx.setText("加载完成..");
-                                messageListener.listen(5, "");
-                            }
-                        } else if (orderItems.get(currentID).img_pillow!=null) {
-                            tv_finishRemixx.setText("加载中...");
-                            new Thread(){
-                                @Override
-                                public void run() {
-                                    super.run();
-                                    String img_pillow = orderItems.get(currentID).img_pillow;
-                                    bitmapPillow = BitmapFactory.decodeFile(sdCardPath + "/pictures/" + img_pillow);
-                                    if (bitmapPillow == null) {
-                                        Log.e("aaa", img_pillow);
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                showDialogNoImage();
-                                            }
-                                        });
-                                    } else {
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                tv_finishRemixx.setText("加载完成");
-                                                messageListener.listen(4,orderItems.get(currentID).img_pillow);
-                                            }
-                                        });
-                                    }
+                        }
+                    });
 
-                                }
-                            }.start();
-                        } else if (orderItems.get(currentID).img_1 != null && orderItems.get(currentID).img_4 == null) {
-                            tv_finishRemixx.setText("加载中...");
-                            new Thread() {
-                                @Override
-                                public void run() {
-                                    super.run();
-                                    bitmap1 = BitmapFactory.decodeFile(sdCardPath + "/pictures/" + orderItems.get(currentID).img_1);
-                                    bitmap2 = BitmapFactory.decodeFile(sdCardPath + "/pictures/" + orderItems.get(currentID).img_2);
-                                    bitmap3 = BitmapFactory.decodeFile(sdCardPath + "/pictures/" + orderItems.get(currentID).img_3);
-                                    if (bitmap1 == null) {
-                                        Log.e("aaa", orderItems.get(currentID).img_1);
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                showDialogNoImage();
-                                            }
-                                        });
-                                    } else if (bitmap2 == null) {
-                                        Log.e("aaa", orderItems.get(currentID).img_2);
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                showDialogNoImage();
-                                            }
-                                        });
-                                    } else if (bitmap3 == null) {
-                                        Log.e("aaa", orderItems.get(currentID).img_3);
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                showDialogNoImage();
-                                            }
-                                        });
-                                    } else {
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                tv_finishRemixx.setText("加载完成");
-                                                messageListener.listen(5, orderItems.get(currentID).img_1);
-                                            }
-                                        });
-                                    }
-                                }
-                            }.start();
-                        } else if (orderItems.get(currentID).img_6 != null) {
-                            tv_finishRemixx.setText("加载中...");
-                            new Thread() {
-                                @Override
-                                public void run() {
-                                    super.run();
-                                    bitmap1 = BitmapFactory.decodeFile(sdCardPath + "/pictures/" + orderItems.get(currentID).img_1);
-                                    bitmap2 = BitmapFactory.decodeFile(sdCardPath + "/pictures/" + orderItems.get(currentID).img_2);
-                                    bitmap3 = BitmapFactory.decodeFile(sdCardPath + "/pictures/" + orderItems.get(currentID).img_3);
-                                    bitmap4 = BitmapFactory.decodeFile(sdCardPath + "/pictures/" + orderItems.get(currentID).img_4);
-                                    bitmap5 = BitmapFactory.decodeFile(sdCardPath + "/pictures/" + orderItems.get(currentID).img_5);
-                                    bitmap6 = BitmapFactory.decodeFile(sdCardPath + "/pictures/" + orderItems.get(currentID).img_6);
-                                    if (bitmap1 == null || bitmap2 == null || bitmap3 == null || bitmap4 == null || bitmap5 == null || bitmap6 == null) {
-                                        Log.e("aaa", orderItems.get(currentID).img_1);
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                showDialogNoImage();
-                                            }
-                                        });
-                                    } else {
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                tv_finishRemixx.setText("加载完成");
-                                                messageListener.listen(5, orderItems.get(currentID).img_1);
-                                            }
-                                        });
-                                    }
-                                }
-                            }.start();
-                        } else if (orderItems.get(currentID).imgs != null) {
-                            tv_finishRemixx.setText("加载中...");
-                            bitmaps.clear();
-                            new Thread() {
-                                @Override
-                                public void run() {
-                                    super.run();
-                                    for (String imgName : orderItems.get(currentID).imgs) {
-                                        Log.e("aaa", imgName);
-                                        bitmaps.add(BitmapFactory.decodeFile(sdCardPath + "/pictures/" + imgName));
-                                    }
-                                    int signLoaded = -1;
-                                    for (int i = 0; i < bitmaps.size(); i++) {
-                                        if (bitmaps.get(i) == null) {
-                                            signLoaded = i;
-                                            break;
-                                        }
-                                    }
-                                    if (signLoaded != -1) {
-                                        Log.e("aaa", orderItems.get(currentID).imgs.get(signLoaded));
-                                        final int finalSignLoaded = signLoaded;
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                showDialogNoImage(orderItems.get(currentID).imgs.get(finalSignLoaded));
-                                            }
-                                        });
-                                    } else {
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                tv_finishRemixx.setText("加载完成");
-                                                messageListener.listen(5, orderItems.get(currentID).img_1);
-                                            }
-                                        });
-                                    }
-                                }
-                            }.start();
-                        } else {
-                            writeWrong();
-                            tv_tip.setText("当前表格行无法解析图片名");
-                            messageListener.listen(3, "");
+                    bitmaps.clear();
+                    for (String imgName : orderItems.get(currentID).imgs) {
+                        Log.e("aaa", imgName);
+                        bitmaps.add(BitmapFactory.decodeFile(sdCardPath + "/pictures/" + imgName));
+                    }
+                    int signLoaded = -1;
+                    for (int i = 0; i < bitmaps.size(); i++) {
+                        if (bitmaps.get(i) == null) {
+                            signLoaded = i;
+                            break;
                         }
                     }
-                });
+                    if (signLoaded != -1) {
+                        Log.e("aaa", orderItems.get(currentID).imgs.get(signLoaded));
+                        final int finalSignLoaded = signLoaded;
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                showDialogNoImage(orderItems.get(currentID).imgs.get(finalSignLoaded));
+                            }
+                        });
+                    } else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tv_finishRemixx.setText("加载完成");
+                                messageListener.listen(LOADED_IMGS, "");
+                            }
+                        });
+                    }
+                } else {
+                    writeWrong();
+                    tv_tip.setText(orderItems.get(currentID).order_number + "无法解析图片名");
+                    messageListener.listen(3, "");
+                }
+                //-------------
             }
         }).start();
     }
@@ -706,7 +570,7 @@ public class MainActivity extends FragmentActivity {
                     orderItem.newCode = getContent(row, 3);
                     orderItem.order_number = getContent(row, 0);
                     orderItem.num = Integer.parseInt(getContent(row, 2));
-                    orderItem.codeE = getContent(row, 4);
+                    orderItem.platform = getContent(row, 4);
 
                     orderItem.colorStr = getContent(row, 15);
                     orderItem.color = orderItem.colorStr;
@@ -813,32 +677,8 @@ public class MainActivity extends FragmentActivity {
                         orderItem.sku = "FB";//高跟鞋
 
                     String[] images = getContent(row, 13).trim().split(" ");
-                    if (images.length == 2) {
-                        orderItem.img_left = getImageName(images[0]);
-                        orderItem.img_right = getImageName(images[1]);
-                    } else if (images.length == 1) {
-                        orderItem.img_pillow = getImageName(images[0]);
-                    } else if (images.length == 4) {
-                        orderItem.img_ll = getImageName(images[0]);
-                        orderItem.img_lr = getImageName(images[1]);
-                        orderItem.img_rl = getImageName(images[2]);
-                        orderItem.img_rr = getImageName(images[3]);
-                    } else if (images.length == 3) {
-                        orderItem.img_1 = getImageName(images[0]);
-                        orderItem.img_2 = getImageName(images[1]);
-                        orderItem.img_3 = getImageName(images[2]);
-                    } else if (images.length == 6) {
-                        orderItem.img_1 = getImageName(images[0]);
-                        orderItem.img_2 = getImageName(images[1]);
-                        orderItem.img_3 = getImageName(images[2]);
-                        orderItem.img_4 = getImageName(images[3]);
-                        orderItem.img_5 = getImageName(images[4]);
-                        orderItem.img_6 = getImageName(images[5]);
-                    } else {
-                        orderItem.imgs = new ArrayList<>();
-                        for (String str : images) {
-                            orderItem.imgs.add(getImageName(str));
-                        }
+                    for (String str : images) {
+                        orderItem.imgs.add(getImageName(str));
                     }
 
                     orderItems.add(orderItem);
@@ -866,7 +706,7 @@ public class MainActivity extends FragmentActivity {
                     orderItem.newCode = getContent(row, 3);
                     orderItem.order_number = getContent(row, 0);
                     orderItem.num = Integer.parseInt(getContent(row, 2));
-                    orderItem.codeE = getContent(row, 4);
+                    orderItem.platform = getContent(row, 4);
 
                     orderItem.colorStr = getContent(row, 7);
                     orderItem.color = orderItem.colorStr;
@@ -909,36 +749,12 @@ public class MainActivity extends FragmentActivity {
                     String SKU = getContent(row, 1);
                     orderItem.skuStr = SKU;
                     orderItem.sku = SKU;
-                    if (SKU.equals("ABMEN") || SKU.equals("ABMENDHL") || SKU.equals("ABWOMEN") || SKU.equals("ABWOMENDHL"))
+                    if (SKU.equals("ABMEN") || SKU.equals("MENFLIPFLOP") || SKU.equals("ABWOMEN") || SKU.equals("WOMENFLIPFLOP"))
                         orderItem.sku = "AB";
 
                     String[] images = getContent(row, 5).trim().split(" ");
-                    if (images.length == 2) {
-                        orderItem.img_left = getImageName(images[0]);
-                        orderItem.img_right = getImageName(images[1]);
-                    } else if (images.length == 1) {
-                        orderItem.img_pillow = getImageName(images[0]);
-                    } else if (images.length == 4) {
-                        orderItem.img_ll = getImageName(images[0]);
-                        orderItem.img_lr = getImageName(images[1]);
-                        orderItem.img_rl = getImageName(images[2]);
-                        orderItem.img_rr = getImageName(images[3]);
-                    } else if (images.length == 3) {
-                        orderItem.img_1 = getImageName(images[0]);
-                        orderItem.img_2 = getImageName(images[1]);
-                        orderItem.img_3 = getImageName(images[2]);
-                    } else if (images.length == 6) {
-                        orderItem.img_1 = getImageName(images[0]);
-                        orderItem.img_2 = getImageName(images[1]);
-                        orderItem.img_3 = getImageName(images[2]);
-                        orderItem.img_4 = getImageName(images[3]);
-                        orderItem.img_5 = getImageName(images[4]);
-                        orderItem.img_6 = getImageName(images[5]);
-                    } else {
-                        orderItem.imgs = new ArrayList<>();
-                        for (String str : images) {
-                            orderItem.imgs.add(getImageName(str));
-                        }
+                    for (String str : images) {
+                        orderItem.imgs.add(getImageName(str));
                     }
 
                     orderItems.add(orderItem);
@@ -947,6 +763,7 @@ public class MainActivity extends FragmentActivity {
         }
         catch (Exception e){
             Toast.makeText(context, "读取订单失败！", Toast.LENGTH_SHORT).show();
+            Log.e("aaa", e.getMessage());
         }
     }
 
@@ -1112,6 +929,8 @@ public class MainActivity extends FragmentActivity {
                 finish();
             }
         });
+        bitmaps.clear();
+        orderItems.clear();
     }
 
     public  void showDialogNoImage(){
@@ -1230,9 +1049,8 @@ public class MainActivity extends FragmentActivity {
         }
     };
 
-    void setOnePicSize(int width, int height) {
-        onePicWidth = width;
-        onePicHeight = height;
+    public static void recycleExcelImages(){
+        MainActivity.instance.bitmaps.clear();
     }
 
     @Override

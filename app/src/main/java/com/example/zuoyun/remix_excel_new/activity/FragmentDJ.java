@@ -68,15 +68,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             public void listen(int message, String sampleurl) {
                 if (message == 0) {
                     Log.e("fragment2", "message0");
-                } else if (message == 1) {
-                    Log.e("fragment2", "message1");
-                    bt_remix.setClickable(true);
-                    if (!MainActivity.instance.cb_fastmode.isChecked()) {
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapLeft);
-                    }
-                    checkremix();
-                } else if (message == 2) {
-                    Log.e("fragment2", "message2");
+                } else if (message == MainActivity.LOADED_IMGS) {
                     bt_remix.setClickable(true);
                     checkremix();
                 } else if (message == 3) {
@@ -121,13 +113,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         Bitmap bitmapDB_side = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dj_drop_side);
 
         //left_main
-        Bitmap bitmapLeftMain = Bitmap.createBitmap(MainActivity.instance.bitmapLeft, 192, 1866 - 1152, 1366, 1152);
+        Bitmap bitmapLeftMain = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 192, 1866 - 1152, 1366, 1152);
         Canvas canvasLeftMain = new Canvas(bitmapLeftMain);
         canvasLeftMain.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasLeftMain.drawBitmap(bitmapDB_main, 0, 0, null);
         //left_side
-        Bitmap bitmapLeftSide1 = Bitmap.createBitmap(MainActivity.instance.bitmapLeft, 0, 0, 669, 892);
-        Bitmap bitmapLeftSide2 = Bitmap.createBitmap(MainActivity.instance.bitmapLeft, 1759 - 669, 0, 669, 892);
+        Bitmap bitmapLeftSide1 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 669, 892);
+        Bitmap bitmapLeftSide2 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1759 - 669, 0, 669, 892);
         Bitmap bitmapLeftSide = Bitmap.createBitmap(1784, 669, Bitmap.Config.ARGB_8888);
         Canvas canvasLeftSide = new Canvas(bitmapLeftSide);
         canvasLeftSide.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
@@ -142,13 +134,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasLeftSide.drawBitmap(bitmapDB_side, 0, 0, null);
 
         //right_main
-        Bitmap bitmapRightMain = Bitmap.createBitmap(MainActivity.instance.bitmapRight, 192, 1866 - 1152, 1366, 1152);
+        Bitmap bitmapRightMain = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 192, 1866 - 1152, 1366, 1152);
         Canvas canvasRightMain = new Canvas(bitmapRightMain);
         canvasRightMain.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasRightMain.drawBitmap(bitmapDB_main, 0, 0, null);
         //right_side
-        Bitmap bitmapRightSide1 = Bitmap.createBitmap(MainActivity.instance.bitmapRight, 0, 0, 669, 892);
-        Bitmap bitmapRightSide2 = Bitmap.createBitmap(MainActivity.instance.bitmapRight, 1759 - 669, 0, 669, 892);
+        Bitmap bitmapRightSide1 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 669, 892);
+        Bitmap bitmapRightSide2 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 1759 - 669, 0, 669, 892);
         Bitmap bitmapRightSide = Bitmap.createBitmap(1784, 669, Bitmap.Config.ARGB_8888);
         Canvas canvasRightSide = new Canvas(bitmapRightSide);
         canvasRightSide.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
@@ -343,6 +335,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }catch (Exception e){
         }
         if (num == 1) {
+            MainActivity.recycleExcelImages();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -358,8 +351,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     public void checkremix(){
         if (MainActivity.instance.tb_auto.isChecked()){
-            if(MainActivity.instance.leftsucceed&&MainActivity.instance.rightsucceed)
-                remix();
+            remix();
         }
     }
 

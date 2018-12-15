@@ -110,10 +110,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
                     bt_remix.setClickable(false);
-                } else if (message == 4) {
-                    Log.e("fy", "message4");
+                } else if (message == MainActivity.LOADED_IMGS) {
                     if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapPillow);
+                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     bt_remix.setClickable(true);
                     checkremix();
                 } else if (message == 3) {
@@ -171,7 +170,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fy_s);
 
-            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmapPillow, 35, 0, 7126, 5492);
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 35, 0, 7126, 5492);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -189,7 +188,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fy_l);
 
-            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmapPillow, 0, 0, 7190, 5491);
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 7190, 5491);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -218,7 +217,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             }else if (orderItems.get(currentID).sizeStr.equals("L")) {
                 BitmapToJpg.save(bitmapCombine, fileSave, 90);
             }
-
 
             bitmapCombine.recycle();
 
@@ -269,7 +267,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }catch (Exception e){
         }
         if (num == 1) {
-            MainActivity.instance.bitmapPillow.recycle();
+            MainActivity.recycleExcelImages();
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override

@@ -100,17 +100,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     iv_left.setImageDrawable(null);
                     iv_right.setImageDrawable(null);
                     Log.e("fragment2", "message0");
-                } else if (message == 1) {
-                    Log.e("fragment2", "message1");
-                    bt_remix.setClickable(true);
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_left.setImageBitmap(MainActivity.instance.bitmapLeft);
-                    checkremix();
-                } else if (message == 2) {
+                } else if (message == MainActivity.LOADED_IMGS) {
                     Log.e("fragment2", "message2");
                     bt_remix.setClickable(true);
                     if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_right.setImageBitmap(MainActivity.instance.bitmapRight);
+                        iv_right.setImageBitmap(MainActivity.instance.bitmaps.get(1));
                     checkremix();
                 } else if (message == 3) {
                     bt_remix.setClickable(false);
@@ -203,15 +197,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        MainActivity.instance.bitmapLeft = Bitmap.createScaledBitmap(MainActivity.instance.bitmapLeft, 1613, 1942, true);
-        MainActivity.instance.bitmapRight = Bitmap.createScaledBitmap(MainActivity.instance.bitmapRight, 1613, 1942, true);
+        MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1613, 1942, true));
+        MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 1613, 1942, true));
         //main:1612*1262
         //side:2172*578
         Bitmap bitmapDB_main = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.df41_main);
         Bitmap bitmapDB_side = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dt_side_new);
 
         //left_main
-        Bitmap bitmapLeftMain = Bitmap.createBitmap(MainActivity.instance.bitmapLeft, 0, 680, 1612, 1262);
+        Bitmap bitmapLeftMain = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 680, 1612, 1262);
         Canvas canvasLeftMain = new Canvas(bitmapLeftMain);
         canvasLeftMain.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasLeftMain.drawBitmap(bitmapDB_main, 0, 0, null);
@@ -225,8 +219,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         bitmapLeftMain.recycle();
 
         //left_side
-        Bitmap bitmapLeftSide1 = Bitmap.createBitmap(MainActivity.instance.bitmapLeft, 0, 0, 578, 1086);
-        Bitmap bitmapLeftSide2 = Bitmap.createBitmap(MainActivity.instance.bitmapLeft, 1034, 0, 578, 1086);
+        Bitmap bitmapLeftSide1 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 578, 1086);
+        Bitmap bitmapLeftSide2 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1034, 0, 578, 1086);
         Bitmap bitmapLeftSide = Bitmap.createBitmap(2172, 578, Bitmap.Config.ARGB_8888);
         Canvas canvasLeftSide = new Canvas(bitmapLeftSide);
         canvasLeftSide.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
@@ -248,7 +242,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         bitmapLeftSide.recycle();
 
         //right_main
-        Bitmap bitmapRightMain = Bitmap.createBitmap(MainActivity.instance.bitmapRight, 0, 680, 1612, 1262);
+        Bitmap bitmapRightMain = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 680, 1612, 1262);
         Canvas canvasRightMain = new Canvas(bitmapRightMain);
         canvasRightMain.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasRightMain.drawBitmap(bitmapDB_main, 0, 0, null);
@@ -263,8 +257,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         bitmapDB_main.recycle();
 
         //right_side
-        Bitmap bitmapRightSide1 = Bitmap.createBitmap(MainActivity.instance.bitmapRight, 0, 0, 578, 1086);
-        Bitmap bitmapRightSide2 = Bitmap.createBitmap(MainActivity.instance.bitmapRight, 1034, 0, 578, 1086);
+        Bitmap bitmapRightSide1 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 578, 1086);
+        Bitmap bitmapRightSide2 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 1034, 0, 578, 1086);
         Bitmap bitmapRightSide = Bitmap.createBitmap(2172, 578, Bitmap.Config.ARGB_8888);
         Canvas canvasRightSide = new Canvas(bitmapRightSide);
         canvasRightSide.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
@@ -352,6 +346,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }catch (Exception e){
         }
         if (num == 1) {
+            MainActivity.recycleExcelImages();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -367,8 +362,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     public void checkremix(){
         if (MainActivity.instance.tb_auto.isChecked()){
-            if(MainActivity.instance.leftsucceed&&MainActivity.instance.rightsucceed)
-                remix();
+            remix();
         }
     }
     void setScale(int size){

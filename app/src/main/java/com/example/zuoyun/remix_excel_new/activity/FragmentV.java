@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -66,10 +65,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             public void listen(int message, String sampleurl) {
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
-                } else if (message == 4) {
-                    Log.e("fragmentDL", "message4");
+                } else if (message == MainActivity.LOADED_IMGS) {
                     if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapPillow);
+                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     checkremix();
                 } else if (message == 3) {
                     bt_remix.setClickable(false);
@@ -108,7 +106,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        MainActivity.instance.bitmapPillow = Bitmap.createScaledBitmap(MainActivity.instance.bitmapPillow, 1477, 1240, true);
+        MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1477, 1240, true));
         Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.v);
         Paint rectPaint = new Paint();
         rectPaint.setColor(0xffffffff);
@@ -127,19 +125,18 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         paintRed.setAntiAlias(true);
 
         String time = MainActivity.instance.orderDate_Print;
+
+        Bitmap bitmapremix = Bitmap.createBitmap(1477, 1240 + 40, Bitmap.Config.ARGB_8888);
+        Canvas canvasremix = new Canvas(bitmapremix);
+        canvasremix.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+        canvasremix.drawColor(0xffffffff);
+        canvasremix.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
+        canvasremix.drawBitmap(bitmapDB, 0, 0, null);
+        bitmapDB.recycle();
+
+        canvasremix.drawText("V-鼠标垫 " + time + " " + orderItems.get(currentID).order_number, 600, 1277, paint);
+
         try {
-            File file=new File(sdCardPath+"/生产图/"+childPath+"/");
-            if(!file.exists())
-                file.mkdirs();
-            Bitmap bitmapremix = Bitmap.createBitmap(1477, 1240 + 40, Bitmap.Config.ARGB_8888);
-            Canvas canvasremix = new Canvas(bitmapremix);
-            canvasremix.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasremix.drawColor(0xffffffff);
-            canvasremix.drawBitmap(MainActivity.instance.bitmapPillow, 0, 0, null);
-            canvasremix.drawBitmap(bitmapDB, 0, 0, null);
-
-            canvasremix.drawText("V-鼠标垫 " + time + " " + orderItems.get(currentID).order_number, 600, 1277, paint);
-
             String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
@@ -151,9 +148,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapremix, fileSave, 150);
-
-            //释放bitmap
-            bitmapDB.recycle();
             bitmapremix.recycle();
 
             //写入excel
@@ -203,10 +197,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }catch (Exception e){
         }
         if (num == 1) {
+            MainActivity.recycleExcelImages();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    MainActivity.instance.bitmapPillow.recycle();
                     MainActivity.instance.tv_finishRemixx.setText("完成");
                     if (MainActivity.instance.tb_auto.isChecked()) {
                         MainActivity.instance.setnext();

@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -66,10 +65,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             public void listen(int message, String sampleurl) {
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
-                } else if (message == 4) {
-                    Log.e("fragmentDL", "message4");
+                } else if (message == MainActivity.LOADED_IMGS) {
                     if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmapPillow);
+                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     checkremix();
                 } else if (message == 3) {
                     bt_remix.setClickable(false);
@@ -108,7 +106,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        MainActivity.instance.bitmapPillow = Bitmap.createScaledBitmap(MainActivity.instance.bitmapPillow, 1772, 2657, true);
+        MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1772, 2657, true));
         Paint rectPaint = new Paint();
         rectPaint.setColor(0xffffffff);
         rectPaint.setStyle(Paint.Style.FILL);
@@ -133,10 +131,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             Canvas canvasCombine = new Canvas(bitmapCombine);
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasCombine.drawColor(0xffffffff);
-            canvasCombine.drawBitmap(MainActivity.instance.bitmapPillow, 0, 0, null);
+            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
             canvasCombine.drawText(time + "   " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).sku + " " + orderItems.get(currentID).sizeStr, 800, 2657 + 170, paint);
 
-            Bitmap bitmapPrint = Bitmap.createScaledBitmap(bitmapCombine, (int) (1772 * scaleX), (int) ((2657 + 180) * scaleY), true);
+            bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, (int) (1772 * scaleX), (int) ((2657 + 180) * scaleY), true);
             String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).sizeStr + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
@@ -147,11 +145,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapPrint, fileSave, 150);
+            BitmapToJpg.save(bitmapCombine, fileSave, 150);
 
             //释放bitmap
             bitmapCombine.recycle();
-            bitmapPrint.recycle();
 
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";
@@ -200,6 +197,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }catch (Exception e){
         }
         if (num == 1) {
+            MainActivity.recycleExcelImages();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
