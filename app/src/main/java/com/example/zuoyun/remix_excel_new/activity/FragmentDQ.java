@@ -93,20 +93,21 @@ public class FragmentDQ extends BaseFragment {
         MainActivity.instance.setMessageListener(new MainActivity.MessageListener() {
             @Override
             public void listen(int message,String sampleurl) {
-                if(message==0){
+                if (message == 0) {
                     iv_leftup.setImageDrawable(null);
                     iv_rightup.setImageDrawable(null);
-                } else if (message == MainActivity.LOADED_IMGS) {
-                    bt_remix.setClickable(true);
-                    if (!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_rightup.setImageBitmap(MainActivity.instance.bitmaps.get(1));
-//                    Glide.with(context).load(sampleurl).into(iv_sample2);
-                    checkremix();
                 } else {
-                    if (message == 3) {
-                        bt_remix.setClickable(false);
-                    } else if (message == 10) {
-                        remix();
+                    if (message == MainActivity.LOADED_IMGS) {
+                        bt_remix.setClickable(true);
+                        if (!MainActivity.instance.cb_fastmode.isChecked())
+                            iv_rightup.setImageBitmap(MainActivity.instance.bitmaps.get(0));
+                        checkremix();
+                    } else {
+                        if (message == 3) {
+                            bt_remix.setClickable(false);
+                        } else if (message == 10) {
+                            remix();
+                        }
                     }
                 }
             }
@@ -176,8 +177,12 @@ public class FragmentDQ extends BaseFragment {
     public void remixx(){
         setScale(orderItems.get(currentID).size);
 
-        MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 885, 1099, true));
-        MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 885, 1099, true));
+        if (orderItems.get(currentID).imgs.size() == 1) {
+            Matrix matrix = new Matrix();
+            matrix.postScale(-1, 1);
+
+            MainActivity.instance.bitmaps.add(Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, MainActivity.instance.bitmaps.get(0).getWidth(), MainActivity.instance.bitmaps.get(0).getHeight(), matrix, true));
+        }
         Bitmap bitmapDB_main = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.aq40_main);
         Bitmap bitmapDB_tongue = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.aq40_tongue);
 

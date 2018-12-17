@@ -139,11 +139,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-//        MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1525, 652, true));
-//        MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 1525, 652, true));
-//        MainActivity.instance.bitmaps.set(2, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(2), 1525, 652, true));
-//        MainActivity.instance.bitmaps.set(3, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(3), 1525, 652, true));
-
         Paint paint = new Paint();
         paint.setColor(0xff000000);
         paint.setTextSize(40);
@@ -161,7 +156,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         rectPaint.setStyle(Paint.Style.FILL);
 
         String time = MainActivity.instance.orderDate_Print;
-//        Bitmap bitmapBarCode = BarCodeUtil.creatBarcode(orderItems.get(currentID).order_number.replace("_", ""), 500, 50);
 
         //
         Bitmap bitmapDBLeft = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.de41left);
@@ -171,85 +165,167 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         Canvas canvasCombine = new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
-        Matrix matrixCombine = new Matrix();
+        Matrix matrix = new Matrix();
 
-        //RR
-        Bitmap bitmap3 = Bitmap.createBitmap(1525, 652, Bitmap.Config.ARGB_8888);
-        Canvas canvasRR = new Canvas(bitmap3);
-        canvasRR.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasRR.drawBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, null);
-        canvasRR.drawBitmap(bitmapDBRight, 0, 0, null);
+        if (orderItems.get(currentID).imgs.size() == 4) {
+            //RR
+            Bitmap bitmapTemp = Bitmap.createBitmap(1525, 652, Bitmap.Config.ARGB_8888);
+            Canvas canvasRR = new Canvas(bitmapTemp);
+            canvasRR.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasRR.drawBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, null);
+            canvasRR.drawBitmap(bitmapDBRight, 0, 0, null);
 
-        canvasRR.drawRect(1020, 520, 1450, 570, rectPaint);
-        canvasRR.drawText(orderItems.get(currentID).newCode + " 右外", 1020, 565, paintRed);
-        canvasRR.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FX") ? "(新)" : ""), 1360, 565, paint);
-        canvasRR.drawText(orderItems.get(currentID).order_number, 1200, 610, paint);
-        canvasRR.drawRect(100, 520, 300, 570, rectPaint);
-        canvasRR.drawText(time, 100, 565, paint);
+            canvasRR.drawRect(1020, 520, 1450, 570, rectPaint);
+            canvasRR.drawText(orderItems.get(currentID).newCode + " 右外", 1020, 565, paintRed);
+            canvasRR.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FX") ? "(新)" : ""), 1360, 565, paint);
+            canvasRR.drawText(orderItems.get(currentID).order_number, 1200, 610, paint);
+            canvasRR.drawRect(100, 520, 300, 570, rectPaint);
+            canvasRR.drawText(time, 100, 565, paint);
 
-        canvasCombine.drawBitmap(bitmap3, 0, 0, null);
-        bitmap3.recycle();
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
-        //RL
-        Bitmap bitmap2 = Bitmap.createBitmap(1525, 652, Bitmap.Config.ARGB_8888);
-        Canvas canvasRL = new Canvas(bitmap2);
-        canvasRL.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasRL.drawBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, null);
-        canvasRL.drawBitmap(bitmapDBLeft,0,0,null);
+            //RL
+            bitmapTemp = Bitmap.createBitmap(1525, 652, Bitmap.Config.ARGB_8888);
+            Canvas canvasRL = new Canvas(bitmapTemp);
+            canvasRL.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasRL.drawBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, null);
+            canvasRL.drawBitmap(bitmapDBLeft,0,0,null);
 
-        canvasRL.drawRect(70,520,450,570,rectPaint);
-        canvasRL.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FX") ? "(新)" : ""), 70, 565, paint);
-        canvasRL.drawText("右内 " + orderItems.get(currentID).newCode, 180, 565, paintRed);
-        canvasRL.drawText(orderItems.get(currentID).order_number,110,610,paint);
-        canvasRL.drawRect(1100, 520, 1300, 570, rectPaint);
-        canvasRL.drawText(time, 1100, 565, paint);
+            canvasRL.drawRect(70,520,450,570,rectPaint);
+            canvasRL.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FX") ? "(新)" : ""), 70, 565, paint);
+            canvasRL.drawText("右内 " + orderItems.get(currentID).newCode, 180, 565, paintRed);
+            canvasRL.drawText(orderItems.get(currentID).order_number,110,610,paint);
+            canvasRL.drawRect(1100, 520, 1300, 570, rectPaint);
+            canvasRL.drawText(time, 1100, 565, paint);
 
-        matrixCombine.reset();
-        matrixCombine.postRotate(180);
-        matrixCombine.postTranslate(1525, 652 * 2 + 80);
-        canvasCombine.drawBitmap(bitmap2, matrixCombine, null);
-        bitmap2.recycle();
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(1525, 652 * 2 + 80);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
-        //LR
-        Bitmap bitmap1 = Bitmap.createBitmap(1525, 652, Bitmap.Config.ARGB_8888);
-        Canvas canvasLR = new Canvas(bitmap1);
-        canvasLR.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasLR.drawBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, null);
-        canvasLR.drawBitmap(bitmapDBRight, 0, 0, null);
+            //LR
+            bitmapTemp = Bitmap.createBitmap(1525, 652, Bitmap.Config.ARGB_8888);
+            Canvas canvasLR = new Canvas(bitmapTemp);
+            canvasLR.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasLR.drawBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, null);
+            canvasLR.drawBitmap(bitmapDBRight, 0, 0, null);
 
-        canvasLR.drawRect(1020, 520, 1450, 570, rectPaint);
-        canvasLR.drawText(orderItems.get(currentID).newCode + " 左内", 1170, 565, paintRed);
-        canvasLR.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FX") ? "(新)" : ""), 1360, 565, paint);
-        canvasLR.drawText(orderItems.get(currentID).order_number, 1200, 610, paint);
-        canvasLR.drawRect(100, 520, 300, 570, rectPaint);
-        canvasLR.drawText(time, 100, 565, paint);
+            canvasLR.drawRect(1020, 520, 1450, 570, rectPaint);
+            canvasLR.drawText(orderItems.get(currentID).newCode + " 左内", 1170, 565, paintRed);
+            canvasLR.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FX") ? "(新)" : ""), 1360, 565, paint);
+            canvasLR.drawText(orderItems.get(currentID).order_number, 1200, 610, paint);
+            canvasLR.drawRect(100, 520, 300, 570, rectPaint);
+            canvasLR.drawText(time, 100, 565, paint);
 
-        matrixCombine.reset();
-        matrixCombine.postTranslate(0, 652 * 2 + 140);
-        canvasCombine.drawBitmap(bitmap1, matrixCombine, null);
-        bitmap1.recycle();
-        bitmapDBRight.recycle();
+            matrix.reset();
+            matrix.postTranslate(0, 652 * 2 + 140);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+            bitmapDBRight.recycle();
 
-        //LL
-        Bitmap bitmap0 = Bitmap.createBitmap(1525, 652, Bitmap.Config.ARGB_8888);
-        Canvas canvasLL = new Canvas(bitmap0);
-        canvasLL.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasLL.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-        canvasLL.drawBitmap(bitmapDBLeft, 0, 0, null);
+            //LL
+            bitmapTemp = Bitmap.createBitmap(1525, 652, Bitmap.Config.ARGB_8888);
+            Canvas canvasLL = new Canvas(bitmapTemp);
+            canvasLL.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasLL.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
+            canvasLL.drawBitmap(bitmapDBLeft, 0, 0, null);
 
-        canvasLL.drawRect(70, 520, 450, 570, rectPaint);
-        canvasLL.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FX") ? "(新)" : ""), 70, 565, paint);
-        canvasLL.drawText("左外 " + orderItems.get(currentID).newCode, 180, 565, paintRed);
-        canvasLL.drawText(orderItems.get(currentID).order_number, 110, 610, paint);
-        canvasLL.drawRect(1100, 520, 1300, 570, rectPaint);
-        canvasLL.drawText(time, 1100, 565, paint);
+            canvasLL.drawRect(70, 520, 450, 570, rectPaint);
+            canvasLL.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FX") ? "(新)" : ""), 70, 565, paint);
+            canvasLL.drawText("左外 " + orderItems.get(currentID).newCode, 180, 565, paintRed);
+            canvasLL.drawText(orderItems.get(currentID).order_number, 110, 610, paint);
+            canvasLL.drawRect(1100, 520, 1300, 570, rectPaint);
+            canvasLL.drawText(time, 1100, 565, paint);
 
-        matrixCombine.reset();
-        matrixCombine.postRotate(180);
-        matrixCombine.postTranslate(1525, 652 * 4 + 220);
-        canvasCombine.drawBitmap(bitmap0, matrixCombine, null);
-        bitmap0.recycle();
-        bitmapDBLeft.recycle();
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(1525, 652 * 4 + 220);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+            bitmapTemp.recycle();
+            bitmapDBLeft.recycle();
+        } else if (orderItems.get(currentID).imgs.size() == 1) {
+            matrix.reset();
+            matrix.postScale(-1, 1);
+            matrix.postTranslate(MainActivity.instance.bitmaps.get(0).getWidth(), 0);
+
+            //RR
+            Bitmap bitmapTemp = Bitmap.createBitmap(1525, 652, Bitmap.Config.ARGB_8888);
+            Canvas canvasRR = new Canvas(bitmapTemp);
+            canvasRR.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasRR.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
+            canvasRR.drawBitmap(bitmapDBRight, 0, 0, null);
+
+            canvasRR.drawRect(1020, 520, 1450, 570, rectPaint);
+            canvasRR.drawText(orderItems.get(currentID).newCode + " 右外", 1020, 565, paintRed);
+            canvasRR.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FX") ? "(新)" : ""), 1360, 565, paint);
+            canvasRR.drawText(orderItems.get(currentID).order_number, 1200, 610, paint);
+            canvasRR.drawRect(100, 520, 300, 570, rectPaint);
+            canvasRR.drawText(time, 100, 565, paint);
+
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            //RL
+            bitmapTemp = Bitmap.createBitmap(1525, 652, Bitmap.Config.ARGB_8888);
+            Canvas canvasRL = new Canvas(bitmapTemp);
+            canvasRL.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasRL.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
+            canvasRL.drawBitmap(bitmapDBLeft,0,0,null);
+
+            canvasRL.drawRect(70,520,450,570,rectPaint);
+            canvasRL.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FX") ? "(新)" : ""), 70, 565, paint);
+            canvasRL.drawText("右内 " + orderItems.get(currentID).newCode, 180, 565, paintRed);
+            canvasRL.drawText(orderItems.get(currentID).order_number,110,610,paint);
+            canvasRL.drawRect(1100, 520, 1300, 570, rectPaint);
+            canvasRL.drawText(time, 1100, 565, paint);
+
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(1525, 652 * 2 + 80);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //LR
+            matrix.reset();
+            matrix.postScale(-1, 1);
+            matrix.postTranslate(MainActivity.instance.bitmaps.get(0).getWidth(), 0);
+
+            bitmapTemp = Bitmap.createBitmap(1525, 652, Bitmap.Config.ARGB_8888);
+            Canvas canvasLR = new Canvas(bitmapTemp);
+            canvasLR.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasLR.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
+            canvasLR.drawBitmap(bitmapDBRight, 0, 0, null);
+
+            canvasLR.drawRect(1020, 520, 1450, 570, rectPaint);
+            canvasLR.drawText(orderItems.get(currentID).newCode + " 左内", 1170, 565, paintRed);
+            canvasLR.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FX") ? "(新)" : ""), 1360, 565, paint);
+            canvasLR.drawText(orderItems.get(currentID).order_number, 1200, 610, paint);
+            canvasLR.drawRect(100, 520, 300, 570, rectPaint);
+            canvasLR.drawText(time, 100, 565, paint);
+
+            matrix.reset();
+            matrix.postTranslate(0, 652 * 2 + 140);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+            bitmapDBRight.recycle();
+
+            //LL
+            bitmapTemp = Bitmap.createBitmap(1525, 652, Bitmap.Config.ARGB_8888);
+            Canvas canvasLL = new Canvas(bitmapTemp);
+            canvasLL.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasLL.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
+            canvasLL.drawBitmap(bitmapDBLeft, 0, 0, null);
+
+            canvasLL.drawRect(70, 520, 450, 570, rectPaint);
+            canvasLL.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FX") ? "(新)" : ""), 70, 565, paint);
+            canvasLL.drawText("左外 " + orderItems.get(currentID).newCode, 180, 565, paintRed);
+            canvasLL.drawText(orderItems.get(currentID).order_number, 110, 610, paint);
+            canvasLL.drawRect(1100, 520, 1300, 570, rectPaint);
+            canvasLL.drawText(time, 1100, 565, paint);
+
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(1525, 652 * 4 + 220);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+            bitmapTemp.recycle();
+            bitmapDBLeft.recycle();
+        }
 
         setScale(orderItems.get(currentID).size);
         bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, (int) ((1525 + 59) * scaleX), (int) ((2828 + 59) * scaleY), true);
