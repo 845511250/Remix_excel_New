@@ -250,6 +250,7 @@ public class FragmentDD extends BaseFragment {
             bitmap1.recycle();
         } else if (orderItems.get(currentID).imgs.size() == 1) {
             matrix.reset();
+            matrix.reset();
             matrix.postScale(-1, 1);
             matrix.postTranslate(MainActivity.instance.bitmaps.get(0).getWidth(), 0);
 
