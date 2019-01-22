@@ -169,6 +169,7 @@ public class MainActivity extends FragmentActivity {
                     readExcelOrderNew(orders.get(position).path);
                 }
 
+                childPath = childPath.replace("...", "");
                 totalNum = orderItems.size();
                 showDialogDatePicker();
                 frame_select.setVisibility(View.GONE);
@@ -310,6 +311,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("领带 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentDW());
                 break;
+            case "DY":
+                tv_title.setText("马丁靴 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentDY());
+                break;
             case "AG":
                 tv_title.setText("包臀裙 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentAG());
@@ -387,6 +392,10 @@ public class MainActivity extends FragmentActivity {
                 transaction.replace(R.id.frame_main, new FragmentFE());
                 break;
             case "FJ":
+                tv_title.setText("夹克 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFJ());
+                break;
+            case "FJF":
                 tv_title.setText("夹克 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentFJ());
                 break;
@@ -481,6 +490,14 @@ public class MainActivity extends FragmentActivity {
             case "GV":
                 tv_title.setText("polo衫 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGV());
+                break;
+            case "GVM":
+                tv_title.setText("polo衫 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentGV());
+                break;
+            case "GVW":
+                tv_title.setText("polo衫 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentGVW());
                 break;
             case "HA":
                 tv_title.setText("束包 " + orderItems.get(currentID).order_number);

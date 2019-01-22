@@ -345,6 +345,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
     public void remixx(){
+
         Bitmap bitmapCombine = Bitmap.createBitmap(width_front * 2 + width_back + width_dadai + 30 * 3, height_front + height_maozi + height_xiuzi + height_xiabai + 30 * 3, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
@@ -421,7 +422,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextXiuziR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiuzi, height_xiuzi, true);
-            canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_maozi, null);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_maozi + 30, null);
 
             //左袖子
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 6786, 3089, 2864, 3523);
@@ -746,7 +747,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
         try {
-            String nameCombine = "卫衣夹克" + orderItems.get(currentID).sizeStr + getColor(orderItems.get(currentID).colorStr) + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String fluo = orderItems.get(currentID).sku.equals("FJF") ? "荧光-" : "";
+            String nameCombine = fluo + "卫衣夹克" + orderItems.get(currentID).sizeStr + getColor(orderItems.get(currentID).colorStr) + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -915,6 +917,28 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 width_xiuzi = 2974;
                 height_xiuzi = 3569;
                 break;
+            case "2XL":
+                width_front = 2072;
+                height_front = 4530;
+                width_back = 4080;
+                height_back = 4526;
+                width_dadai = 1504;
+                height_dadai = 1634;
+                width_xiaodai = 1386;
+                height_xiaodai = 1634;
+                width_daimei = 400;
+                height_daimei = 1426;
+                width_lalian = 929;
+                height_lalian = 4530;
+                width_maozi = 1935;
+                height_maozi = 2664;
+                width_xiabai = 6713;
+                height_xiabai = 778;
+                width_xiukou = 1516;
+                height_xiukou = 778;
+                width_xiuzi = 3098;
+                height_xiuzi = 3629;
+                break;
             case "XXL":
                 width_front = 2072;
                 height_front = 4530;
@@ -936,6 +960,28 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 height_xiukou = 778;
                 width_xiuzi = 3098;
                 height_xiuzi = 3629;
+                break;
+            case "3XL":
+                width_front = 2132;
+                height_front = 4652;
+                width_back = 4199;
+                height_back = 4647;
+                width_dadai = 1563;
+                height_dadai = 1634;
+                width_xiaodai = 1445;
+                height_xiaodai = 1634;
+                width_daimei = 400;
+                height_daimei = 1426;
+                width_lalian = 958;
+                height_lalian = 4652;
+                width_maozi = 2010;
+                height_maozi = 2663;
+                width_xiabai = 6950;
+                height_xiabai = 778;
+                width_xiukou = 1576;
+                height_xiukou = 778;
+                width_xiuzi = 3222;
+                height_xiuzi = 3690;
                 break;
             case "XXXL":
                 width_front = 2132;

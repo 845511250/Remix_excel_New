@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -211,7 +212,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 //            matrix.postRotate(90, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
 //            bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
 
-            String nameCombine = "男背心 " + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String fluo = orderItems.get(currentID).sku.equals("GCF") ? "荧光-" : "";
+            String nameCombine = fluo + "男背心_" + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -220,6 +222,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 pathSave = sdCardPath + "/生产图/" + childPath + "/";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
+            Log.e("aaa", pathSave + nameCombine);
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 150);
             bitmapCombine.recycle();

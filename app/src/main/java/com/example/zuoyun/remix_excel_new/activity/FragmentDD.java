@@ -250,11 +250,11 @@ public class FragmentDD extends BaseFragment {
             bitmap1.recycle();
         } else if (orderItems.get(currentID).imgs.size() == 1) {
             matrix.reset();
-            matrix.reset();
             matrix.postScale(-1, 1);
             matrix.postTranslate(MainActivity.instance.bitmaps.get(0).getWidth(), 0);
 
             //左脚左
+
             Bitmap bitmap1 = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             Canvas canvasLL = new Canvas(bitmap1);
             canvasLL.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
