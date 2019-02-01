@@ -10,7 +10,6 @@ import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -117,8 +116,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     bt_remix.setClickable(false);
                 } else if (message == MainActivity.LOADED_IMGS) {
                     bt_remix.setClickable(true);
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
+//                    if(!MainActivity.instance.cb_fastmode.isChecked())
+//                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     checkremix();
                 } else if (message == 3) {
                     bt_remix.setClickable(false);
@@ -180,76 +179,154 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             pillowWidthPrint = 3960 + (int) (43 * 3.5);
         }
 
-        //bitmapPrintPillow
-        Bitmap bitmapPrintPillow = Bitmap.createBitmap(pillowWidthPrint + 6, pillowHeightPrint * 2 + 6, Bitmap.Config.ARGB_8888);
-        Canvas canvasPrintPillow = new Canvas(bitmapPrintPillow);
-        canvasPrintPillow.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasPrintPillow.drawColor(0xffffffff);
+        if (orderItems.get(currentID).imgs.size() == 3) {
+            //bitmapPrintPillow
+            Bitmap bitmapPrintPillow = Bitmap.createBitmap(pillowWidthPrint + 6, pillowHeightPrint * 2 + 6, Bitmap.Config.ARGB_8888);
+            Canvas canvasPrintPillow = new Canvas(bitmapPrintPillow);
+            canvasPrintPillow.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasPrintPillow.drawColor(0xffffffff);
 
-        Rect rectDraw = new Rect(0, 0, pillowWidthPrint, pillowHeightPrint);
-        canvasPrintPillow.drawBitmap(MainActivity.instance.bitmaps.get(0), null, rectDraw, null);
-        canvasPrintPillow.drawRect(rectDraw, rectBorderPaint);
-        drawText(canvasPrintPillow, pillowWidthPrint / 2, pillowHeightPrint);
+            Rect rectDraw = new Rect(0, 0, pillowWidthPrint, pillowHeightPrint);
+            canvasPrintPillow.drawBitmap(MainActivity.instance.bitmaps.get(0), null, rectDraw, null);
+            canvasPrintPillow.drawRect(rectDraw, rectBorderPaint);
+            drawText(canvasPrintPillow, pillowWidthPrint / 2, pillowHeightPrint);
 
-        rectDraw = new Rect(0, pillowHeightPrint + 6, pillowWidthPrint, pillowHeightPrint + 6 + pillowHeightPrint);
-        canvasPrintPillow.drawBitmap(MainActivity.instance.bitmaps.get(1), null, rectDraw, null);
-        canvasPrintPillow.drawRect(rectDraw, rectBorderPaint);
-        drawText(canvasPrintPillow, pillowWidthPrint / 2, pillowHeightPrint + 6 + pillowHeightPrint);
+            rectDraw = new Rect(0, pillowHeightPrint + 6, pillowWidthPrint, pillowHeightPrint + 6 + pillowHeightPrint);
+            canvasPrintPillow.drawBitmap(MainActivity.instance.bitmaps.get(1), null, rectDraw, null);
+            canvasPrintPillow.drawRect(rectDraw, rectBorderPaint);
+            drawText(canvasPrintPillow, pillowWidthPrint / 2, pillowHeightPrint + 6 + pillowHeightPrint);
 
-        Matrix matrix90 = new Matrix();
-        matrix90.postRotate(90);
-        matrix90.postTranslate(bitmapPrintPillow.getHeight(), 0);
-        bitmapPrintPillow = Bitmap.createBitmap(bitmapPrintPillow, 0, 0, bitmapPrintPillow.getWidth(), bitmapPrintPillow.getHeight(), matrix90, true);
-        //save pillow
-        String nameCombinePillow = "枕套" + orderItems.get(currentID).sizeStr + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            Matrix matrix90 = new Matrix();
+            matrix90.postRotate(90);
+            matrix90.postTranslate(bitmapPrintPillow.getHeight(), 0);
+            bitmapPrintPillow = Bitmap.createBitmap(bitmapPrintPillow, 0, 0, bitmapPrintPillow.getWidth(), bitmapPrintPillow.getHeight(), matrix90, true);
 
-        String pathSave;
-        if(MainActivity.instance.cb_classify.isChecked()){
-            pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
-        } else
-            pathSave = sdCardPath + "/生产图/" + childPath + "/";
-        if(!new File(pathSave).exists())
-            new File(pathSave).mkdirs();
-        File fileSavePillow = new File(pathSave + nameCombinePillow);
-        BitmapToJpg.save(bitmapPrintPillow, fileSavePillow, 110);
-        bitmapPrintPillow.recycle();
-        
+            //save pillow
+            String nameCombinePillow = "枕套" + orderItems.get(currentID).sizeStr + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String pathSave;
+            if(MainActivity.instance.cb_classify.isChecked()){
+                pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
+            } else
+                pathSave = sdCardPath + "/生产图/" + childPath + "/";
+            if(!new File(pathSave).exists())
+                new File(pathSave).mkdirs();
+            File fileSavePillow = new File(pathSave + nameCombinePillow);
+            BitmapToJpg.save(bitmapPrintPillow, fileSavePillow, 110);
+            bitmapPrintPillow.recycle();
 
-        
-        //bitmapPrintQuilt
-        Bitmap bitmapPrintQuilt = Bitmap.createBitmap(drawHeight, drawWidth + 6, Bitmap.Config.ARGB_8888);
-        Canvas canvasPrintQuilt = new Canvas(bitmapPrintQuilt);
-        canvasPrintQuilt.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasPrintQuilt.drawColor(0xffffffff);
 
-        canvasPrintQuilt.save();
-        canvasPrintQuilt.rotate(90, drawHeight, 0);
-        Rect rectCut = new Rect(quiltX, quiltY, quiltX + quiltWidth, quiltY + quiltHeight);
-        rectDraw = new Rect(drawHeight, 0, drawHeight + drawWidth, drawHeight);
-        canvasPrintQuilt.drawBitmap(MainActivity.instance.bitmaps.get(2), rectCut, rectDraw, null);
-        canvasPrintQuilt.drawRect(rectDraw, rectBorderPaint);
 
-        Bitmap bitmapTriangleBottom = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_triangle_bottom);
-        Bitmap bitmapTriangleUp = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_triangle_up);
-        Bitmap bitmapTriangleLeft = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_triangle_left);
-        Bitmap bitmapTriangleRight = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_triangle_right);
-        canvasPrintQuilt.drawBitmap(bitmapTriangleUp, drawHeight + drawWidth / 2, 0, null);
-        canvasPrintQuilt.drawBitmap(bitmapTriangleBottom, drawHeight + drawWidth / 2, drawHeight - 17, null);
-        canvasPrintQuilt.drawBitmap(bitmapTriangleLeft, drawHeight, drawHeight / 2, null);
-        canvasPrintQuilt.drawBitmap(bitmapTriangleRight, drawHeight + drawWidth-17, drawHeight / 2, null);
-        bitmapTriangleBottom.recycle();
-        bitmapTriangleUp.recycle();
-        bitmapTriangleLeft.recycle();
-        bitmapTriangleRight.recycle();
-        canvasPrintQuilt.restore();
-        drawTextRotateQuilt(canvasPrintQuilt, 90, 0, drawWidth / 2 + 100);
+            //bitmapPrintQuilt
+            Bitmap bitmapPrintQuilt = Bitmap.createBitmap(drawHeight, drawWidth + 6, Bitmap.Config.ARGB_8888);
+            Canvas canvasPrintQuilt = new Canvas(bitmapPrintQuilt);
+            canvasPrintQuilt.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasPrintQuilt.drawColor(0xffffffff);
 
-        try {
+            canvasPrintQuilt.save();
+            canvasPrintQuilt.rotate(90, drawHeight, 0);
+            Rect rectCut = new Rect(quiltX, quiltY, quiltX + quiltWidth, quiltY + quiltHeight);
+            rectDraw = new Rect(drawHeight, 0, drawHeight + drawWidth, drawHeight);
+            canvasPrintQuilt.drawBitmap(MainActivity.instance.bitmaps.get(2), rectCut, rectDraw, null);
+            canvasPrintQuilt.drawRect(rectDraw, rectBorderPaint);
+
+            Bitmap bitmapTriangleBottom = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_triangle_bottom);
+            Bitmap bitmapTriangleUp = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_triangle_up);
+            Bitmap bitmapTriangleLeft = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_triangle_left);
+            Bitmap bitmapTriangleRight = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_triangle_right);
+            canvasPrintQuilt.drawBitmap(bitmapTriangleUp, drawHeight + drawWidth / 2, 0, null);
+            canvasPrintQuilt.drawBitmap(bitmapTriangleBottom, drawHeight + drawWidth / 2, drawHeight - 17, null);
+            canvasPrintQuilt.drawBitmap(bitmapTriangleLeft, drawHeight, drawHeight / 2, null);
+            canvasPrintQuilt.drawBitmap(bitmapTriangleRight, drawHeight + drawWidth-17, drawHeight / 2, null);
+            bitmapTriangleBottom.recycle();
+            bitmapTriangleUp.recycle();
+            bitmapTriangleLeft.recycle();
+            bitmapTriangleRight.recycle();
+            canvasPrintQuilt.restore();
+            drawTextRotateQuilt(canvasPrintQuilt, 90, 0, drawWidth / 2 + 100);
+
+            //saveQuilt
             String nameCombine = "被套" + orderItems.get(currentID).sizeStr + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
-
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapPrintQuilt, fileSave, 110);
             bitmapPrintQuilt.recycle();
+        } else if (orderItems.get(currentID).imgs.size() == 1) {
+            //bitmapPrintPillow
+            Bitmap bitmapPrintPillow = Bitmap.createBitmap(pillowWidthPrint + 6, pillowHeightPrint * 2 + 6, Bitmap.Config.ARGB_8888);
+            Canvas canvasPrintPillow = new Canvas(bitmapPrintPillow);
+            canvasPrintPillow.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasPrintPillow.drawColor(0xffffffff);
+
+            Rect rectCut = new Rect(pillow1X, pillow1Y, pillow1X + pillowWidth, pillow1Y + pillowHeight);
+            Rect rectDraw = new Rect(0, 0, pillowWidthPrint, pillowHeightPrint);
+            canvasPrintPillow.drawBitmap(MainActivity.instance.bitmaps.get(0), rectCut, rectDraw, null);
+            canvasPrintPillow.drawRect(rectDraw, rectBorderPaint);
+            drawText(canvasPrintPillow, pillowWidthPrint / 2, pillowHeightPrint - 2);
+
+            rectCut = new Rect(pillow2X, pillow2Y, pillow2X + pillowWidth, pillow2Y + pillowHeight);
+            rectDraw = new Rect(0, pillowHeightPrint + 6, pillowWidthPrint, pillowHeightPrint + 6 + pillowHeightPrint);
+            canvasPrintPillow.drawBitmap(MainActivity.instance.bitmaps.get(0), rectCut, rectDraw, null);
+            canvasPrintPillow.drawRect(rectDraw, rectBorderPaint);
+            drawText(canvasPrintPillow, pillowWidthPrint / 2, pillowHeightPrint + 6 + pillowHeightPrint - 2);
+
+            Matrix matrix90 = new Matrix();
+            matrix90.postRotate(90);
+            matrix90.postTranslate(bitmapPrintPillow.getHeight(), 0);
+            bitmapPrintPillow = Bitmap.createBitmap(bitmapPrintPillow, 0, 0, bitmapPrintPillow.getWidth(), bitmapPrintPillow.getHeight(), matrix90, true);
+            //save pillow
+            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sizeStr : "";
+            String nameCombinePillow = orderItems.get(currentID).sku + "-" + orderItems.get(currentID).newCode + noNewCode + "枕套" + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
+
+            String pathSave;
+            if(MainActivity.instance.cb_classify.isChecked()){
+                pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
+            } else
+                pathSave = sdCardPath + "/生产图/" + childPath + "/";
+            if(!new File(pathSave).exists())
+                new File(pathSave).mkdirs();
+            File fileSavePillow = new File(pathSave + nameCombinePillow);
+            BitmapToJpg.save(bitmapPrintPillow, fileSavePillow, 110);
+            bitmapPrintPillow.recycle();
+
+
+
+            //bitmapPrintQuilt
+            Bitmap bitmapPrintQuilt = Bitmap.createBitmap(drawHeight, drawWidth + 6, Bitmap.Config.ARGB_8888);
+            Canvas canvasPrintQuilt = new Canvas(bitmapPrintQuilt);
+            canvasPrintQuilt.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+//            canvasPrintQuilt.drawColor(0xffffffff);
+
+            canvasPrintQuilt.save();
+            canvasPrintQuilt.rotate(90, drawHeight, 0);
+            rectCut = new Rect(quiltX, quiltY, quiltX + quiltWidth, quiltY + quiltHeight);
+            rectDraw = new Rect(drawHeight, 0, drawHeight + drawWidth, drawHeight);
+            canvasPrintQuilt.drawBitmap(MainActivity.instance.bitmaps.get(0), rectCut, rectDraw, null);
+            canvasPrintQuilt.drawRect(rectDraw, rectBorderPaint);
+
+            Bitmap bitmapTriangleBottom = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_triangle_bottom);
+            Bitmap bitmapTriangleUp = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_triangle_up);
+            Bitmap bitmapTriangleLeft = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_triangle_left);
+            Bitmap bitmapTriangleRight = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_triangle_right);
+            canvasPrintQuilt.drawBitmap(bitmapTriangleUp, drawHeight + drawWidth / 2, 0, null);
+            canvasPrintQuilt.drawBitmap(bitmapTriangleBottom, drawHeight + drawWidth / 2, drawHeight - 17, null);
+            canvasPrintQuilt.drawBitmap(bitmapTriangleLeft, drawHeight, drawHeight / 2, null);
+            canvasPrintQuilt.drawBitmap(bitmapTriangleRight, drawHeight + drawWidth-17, drawHeight / 2, null);
+            bitmapTriangleBottom.recycle();
+            bitmapTriangleUp.recycle();
+            bitmapTriangleLeft.recycle();
+            bitmapTriangleRight.recycle();
+            canvasPrintQuilt.restore();
+            drawTextRotateQuilt(canvasPrintQuilt, 90, 0, drawWidth / 2 + 100);
+
+            //saveQuilt
+            String nameCombine = "被套" + orderItems.get(currentID).sizeStr + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            File fileSave = new File(pathSave + nameCombine);
+            BitmapToJpg.save(bitmapPrintQuilt, fileSave, 110);
+            bitmapPrintQuilt.recycle();
+        }
+
+
+        try {
+
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";
             File fileWrite = new File(writePath);
@@ -317,6 +394,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void setScale(String size) {
+        pillowWidth = 4267;
+        pillowHeight = 2507;
+        pillow1X = 770;
+        pillow1Y = 0;
+        pillow2X = 6576;
+        pillow2Y = 0;
         switch (size) {
             case "S":
                 quiltWidth = 7653;
@@ -346,6 +429,24 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 showDialogSizeWrong(orderItems.get(currentID).order_number);
                 sizeOK = false;
                 break;
+        }
+
+        if (orderItems.get(currentID).imgs.size() == 1) {
+            switch (size) {
+                case "S":
+                    quiltX = 1979;
+                    quiltY = 2598;
+                    break;
+                case "M":
+                    quiltX = 880;
+                    quiltY = 2598;
+                    break;
+                case "L":
+                    quiltX = 0;
+                    quiltY = 2598;
+                    break;
+
+            }
         }
     }
 

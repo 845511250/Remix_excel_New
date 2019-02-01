@@ -29,7 +29,7 @@ import jxl.write.WritableWorkbook;
  * Created by zuoyun on 2016/11/4.
  */
 
-public class FragmentGI extends BaseFragment {
+public class FragmentU extends BaseFragment {
     Context context;
 //    String sdCardPath = "/mnt/asec/share";
 String sdCardPath = "/storage/emulated/0/Pictures";
@@ -111,34 +111,34 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         Paint paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(18);
+        paint.setTextSize(26);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setAntiAlias(true);
 
         Paint paintRed = new Paint();
         paintRed.setColor(0xffff0000);
-        paintRed.setTextSize(18);
+        paintRed.setTextSize(26);
         paintRed.setTypeface(Typeface.DEFAULT_BOLD);
         paintRed.setAntiAlias(true);
 
+        Paint rectBorderPaint = new Paint();
+        rectBorderPaint = new Paint();
+        rectBorderPaint.setColor(0xff000000);
+        rectBorderPaint.setStyle(Paint.Style.STROKE);
+        rectBorderPaint.setStrokeWidth(2);
+
         String time = MainActivity.instance.orderDate_Print;
 
-        Bitmap bitmapCombine = Bitmap.createBitmap(7560, 6426, Bitmap.Config.ARGB_8888);
-        Canvas canvasCombine= new Canvas(bitmapCombine);
-        canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasCombine.drawColor(0xffffffff);
+        Bitmap bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+        Canvas canvasTemp = new Canvas(bitmapTemp);
+        canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
 
-        String fluo = orderItems.get(currentID).sku.equals("GIF") ? "荧光-" : "";
-        canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-        canvasCombine.drawRect(20, 0, 20 + 300, 17, rectPaint);
-        canvasCombine.drawText(fluo + "GI挂毯 " + time + "  " + orderItems.get(currentID).order_number, 20, 17 - 2, paint);
+        canvasTemp.drawRect(1500, 4, 1500 + 400, 4 + 26, rectPaint);
+        canvasTemp.drawText("U-地垫 " + time + " " + orderItems.get(currentID).order_number, 1500, 4 + 24, paint);
+        canvasTemp.drawRect(0, 0, bitmapTemp.getWidth(), bitmapTemp.getHeight(), rectBorderPaint);
 
         try {
-            File file=new File(sdCardPath+"/生产图/"+childPath+"/");
-            if(!file.exists())
-                file.mkdirs();
-
-            String nameCombine = fluo + orderItems.get(currentID).sku + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -148,10 +148,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 126);
-
-            //释放bitmap
-            bitmapCombine.recycle();
+            BitmapToJpg.save(bitmapTemp, fileSave, 150);
+            bitmapTemp.recycle();
 
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";
@@ -201,6 +199,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
         if (num == 1) {
             MainActivity.recycleExcelImages();
+
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

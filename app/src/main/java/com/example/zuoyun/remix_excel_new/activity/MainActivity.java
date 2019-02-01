@@ -467,6 +467,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("挂毯 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGI());
                 break;
+            case "GIF":
+                tv_title.setText("挂毯 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentGI());
+                break;
             case "GJ":
                 tv_title.setText("毛巾 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGJ());
@@ -478,6 +482,10 @@ public class MainActivity extends FragmentActivity {
             case "GL":
                 tv_title.setText("浴帘 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGL());
+                break;
+            case "GQM":
+                tv_title.setText("男卫衣 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentGQM());
                 break;
             case "GT":
                 tv_title.setText("丝巾 " + orderItems.get(currentID).order_number);
@@ -502,6 +510,14 @@ public class MainActivity extends FragmentActivity {
             case "HA":
                 tv_title.setText("束包 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentHA());
+                break;
+            case "HGM":
+                tv_title.setText("男沙滩裤 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentHGM());
+                break;
+            case "HGW":
+                tv_title.setText("女沙滩裤 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentHGW());
                 break;
             default:
                 firstOK = false;
@@ -960,7 +976,7 @@ public class MainActivity extends FragmentActivity {
         final AlertDialog dialog_noimage;
         AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.DialogTransBackGround);
         dialog_noimage = builder.create();
-        dialog_noimage.setCancelable(false);
+        dialog_noimage.setCancelable(true);
         dialog_noimage.show();
         View view_dialog = LayoutInflater.from(context).inflate(R.layout.item_dialog_noimage, null);
         dialog_noimage.setContentView(view_dialog);
