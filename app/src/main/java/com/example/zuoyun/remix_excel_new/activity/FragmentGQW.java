@@ -34,7 +34,7 @@ import jxl.write.WritableWorkbook;
  * Created by zuoyun on 2016/11/4.
  */
 
-public class FragmentGQM extends BaseFragment {
+public class FragmentGQW extends BaseFragment {
     Context context;
 //    String sdCardPath = "/mnt/asec/share";
 String sdCardPath = "/storage/emulated/0/Pictures";
@@ -161,12 +161,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawTextFront(Canvas canvas) {
-        canvas.drawRect(1000, 4159, 1000 + 500, 4159 + 25, rectPaint);
+        canvas.drawRect(1000, 4159, 1000 + 800, 4159 + 25, rectPaint);
         canvas.drawText("正面 " + time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).newCode, 1000, 4159 + 23, paint);
         canvas.drawText(currentID + "", 1440, 4159 + 23, paintRed);
     }
     void drawTextBack(Canvas canvas) {
-        canvas.drawRect(1000, 4222, 1000 + 500, 4222 + 25, rectPaint);
+        canvas.drawRect(1000, 4222, 1000 + 800, 4222 + 25, rectPaint);
         canvas.drawText("背面 " + time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).newCode, 1000, 4222 + 23, paint);
         canvas.drawText(currentID + "", 1440, 4222 + 23, paintRed);
     }
@@ -387,7 +387,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiukou, height_xiukou, true);
             canvasCombine.drawBitmap(bitmapTemp, width_xiukou + margin, height_back + height_front + height_arm * 2 + height_pocket + margin * 5, null);
             bitmapTemp.recycle();
-
+            
         } else if (orderItems.get(currentID).imgs.size() == 1) {
             //front
             Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2903, 2134, 4414, 4193);
@@ -489,7 +489,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
             //xiukou_l
-            bitmapTemp =  Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 7685, 6283, 1628, 619);
+            bitmapTemp =  Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 7685, 6258, 1628, 619);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_xiukou);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -498,7 +498,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_arm * 2 + height_pocket + margin * 5, null);
 
             //xiukou_r
-            bitmapTemp =  Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 634, 6285, 1628, 619);
+            bitmapTemp =  Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 634, 6258, 1628, 619);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_xiukou);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);

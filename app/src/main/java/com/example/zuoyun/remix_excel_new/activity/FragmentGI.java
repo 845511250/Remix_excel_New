@@ -46,6 +46,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     String strPlus = "";
     int intPlus = 1;
 
+
     @Override
     public int getLayout() {
         return R.layout.fragmentdg;
@@ -123,6 +124,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         String time = MainActivity.instance.orderDate_Print;
 
+        int dpi = 126;
+        if (orderItems.get(currentID).sizeStr.equalsIgnoreCase("M")) {
+            dpi = 94;
+        } else if (orderItems.get(currentID).sizeStr.equalsIgnoreCase("L")) {
+            dpi = 72;
+        }
+
         Bitmap bitmapCombine = Bitmap.createBitmap(7560, 6426, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
@@ -130,15 +138,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         String fluo = orderItems.get(currentID).sku.equals("GIF") ? "荧光-" : "";
         canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-        canvasCombine.drawRect(20, 0, 20 + 300, 17, rectPaint);
-        canvasCombine.drawText(fluo + "GI挂毯 " + time + "  " + orderItems.get(currentID).order_number, 20, 17 - 2, paint);
+        canvasCombine.drawRect(20, 0, 20 + 400, 17, rectPaint);
+        canvasCombine.drawText(fluo + "GI挂毯 尺码:" + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 20, 17 - 2, paint);
 
         try {
             File file=new File(sdCardPath+"/生产图/"+childPath+"/");
             if(!file.exists())
                 file.mkdirs();
 
-            String nameCombine = fluo + orderItems.get(currentID).sku + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = fluo + orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -148,7 +156,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 126);
+            BitmapToJpg.save(bitmapCombine, fileSave, dpi);
 
             //释放bitmap
             bitmapCombine.recycle();
@@ -217,5 +225,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             remix();
         }
     }
+
 
 }

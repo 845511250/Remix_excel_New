@@ -244,7 +244,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1561, 746, 1898, 1923);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1561, 746 - 230, 1898, 1923);
             canvasTemp = new Canvas(bitmapTemp);
             matrix.reset();
             matrix.postScale(-1, 1);

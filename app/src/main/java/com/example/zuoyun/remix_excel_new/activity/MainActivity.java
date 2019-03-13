@@ -487,6 +487,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("男卫衣 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGQM());
                 break;
+            case "GQW":
+                tv_title.setText("女卫衣 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentGQW());
+                break;
             case "GT":
                 tv_title.setText("丝巾 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGT());
@@ -959,11 +963,14 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 dialog_finish.dismiss();
-                finish();
+                frame_select.setVisibility(View.VISIBLE);
+                frame_program.setVisibility(View.GONE);
             }
         });
         bitmaps.clear();
         orderItems.clear();
+        currentID = 0;
+        tb_auto.setChecked(false);
     }
 
     public  void showDialogNoImage(){
