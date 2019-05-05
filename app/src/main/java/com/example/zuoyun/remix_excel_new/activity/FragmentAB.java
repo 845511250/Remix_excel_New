@@ -163,7 +163,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             setScale(orderItems.get(currentID).skuStr.substring(2, 3) + intSize);
             bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, (int) ((1241 + 59) * scaleX), (int) ((1603 + 59) * scaleY), true);
 
-        } else if (!orderItems.get(currentID).imgs.get(0).contains("batch")) {//如果不是批量定制
+        } else if (!orderItems.get(currentID).imgs.get(0).contains("batch")) {//分片定制
 
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ds);
 

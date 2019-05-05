@@ -66,8 +66,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
                 } else if (message == MainActivity.LOADED_IMGS) {
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     checkremix();
                 } else if (message == 3) {
                     bt_remix.setClickable(false);

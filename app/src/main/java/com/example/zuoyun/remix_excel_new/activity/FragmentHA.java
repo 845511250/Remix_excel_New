@@ -66,9 +66,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
                 } else if (message == MainActivity.LOADED_IMGS) {
-                    if(!MainActivity.instance.cb_fastmode.isChecked()){
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
-                    }
                     checkremix();
                 } else if (message == 3) {
                     bt_remix.setClickable(false);
@@ -142,7 +139,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             Matrix matrix = new Matrix();
             matrix.postRotate(180);
             matrix.postTranslate(2126, 2598 * 2);
-            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(1), matrix, null);
+            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.size() == 2 ? MainActivity.instance.bitmaps.get(1) : MainActivity.instance.bitmaps.get(0), matrix, null);
+
             canvasCombine.drawRect(0, 0, 2126, 2598 * 2, rectBorderPaint);
             canvasCombine.drawRect(1000, 5, 1400, 5 + 23, rectPaint);
             canvasCombine.drawText(time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode, 1000, 5 + 21, paint);

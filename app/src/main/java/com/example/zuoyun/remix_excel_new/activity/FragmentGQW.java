@@ -115,8 +115,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     bt_remix.setClickable(false);
                 } else if (message == MainActivity.LOADED_IMGS) {
                     bt_remix.setClickable(true);
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-//                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     checkremix();
                 } else if (message == 3) {
                     bt_remix.setClickable(false);
@@ -599,6 +597,22 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     void setScale(String size) {
         switch (size) {
             case "XS":
+                width_front = 3175;
+                height_front = 3755;
+                width_back = 3175;
+                height_back = 3813;
+                width_arm = 2533;
+                height_arm = 3343;
+                width_maozi = 1593;
+                height_maozi = 2386;
+                width_xiabai = 5358;
+                height_xiabai = 835;
+                width_pocket = 2112;
+                height_pocket = 1408;
+                width_xiukou = 1233;
+                height_xiukou = 834;
+                break;
+            case "S":
                 width_front = 3354;
                 height_front = 3872;
                 width_back = 3354;
@@ -614,7 +628,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 width_xiukou = 1292;
                 height_xiukou = 834;
                 break;
-            case "S":
+            case "M":
                 width_front = 3530;
                 height_front = 3990;
                 width_back = 3530;
@@ -630,7 +644,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 width_xiukou = 1352;
                 height_xiukou = 834;
                 break;
-            case "M":
+            case "L":
                 width_front = 3708;
                 height_front = 4106;
                 width_back = 3708;
@@ -646,7 +660,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 width_xiukou = 1411;
                 height_xiukou = 834;
                 break;
-            case "L":
+            case "XL":
                 width_front = 3885;
                 height_front = 4225;
                 width_back = 3885;
@@ -662,7 +676,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 width_xiukou = 1470;
                 height_xiukou = 834;
                 break;
-            case "XL":
+            case "2XL":
                 width_front = 4061;
                 height_front = 4342;
                 width_back = 4061;
@@ -678,7 +692,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 width_xiukou = 1529;
                 height_xiukou = 834;
                 break;
-            case "2XL":
+            case "3XL":
                 width_front = 4238;
                 height_front = 4459;
                 width_back = 4238;
@@ -694,7 +708,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 width_xiukou = 1588;
                 height_xiukou = 834;
                 break;
-            case "3XL":
+            case "4XL":
                 width_front = 4415;
                 height_front = 4576;
                 width_back = 4415;
@@ -708,22 +722,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 width_pocket = 2981;
                 height_pocket = 1719;
                 width_xiukou = 1647;
-                height_xiukou = 834;
-                break;
-            case "4XL":
-                width_front = 4591;
-                height_front = 4576;
-                width_back = 4591;
-                height_back = 4637;
-                width_arm = 3479;
-                height_arm = 4172;
-                width_maozi = 2165;
-                height_maozi = 2853;
-                width_xiabai = 8244;
-                height_xiabai = 834;
-                width_pocket = 3096;
-                height_pocket = 1721;
-                width_xiukou = 1705;
                 height_xiukou = 834;
                 break;
             default:

@@ -183,93 +183,190 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        Bitmap bitmapF = MainActivity.instance.bitmaps.get(0);
-        Bitmap bitmapB = orderItems.get(currentID).imgs.size() == 1 ? bitmapF : MainActivity.instance.bitmaps.get(1);
+        if (!orderItems.get(currentID).platform.equals("4u2")) {
+            Bitmap bitmapF = MainActivity.instance.bitmaps.get(0);
+            Bitmap bitmapB = orderItems.get(currentID).imgs.size() == 1 ? bitmapF : MainActivity.instance.bitmaps.get(1);
 
-        //前
-        Bitmap bitmapTemp = Bitmap.createBitmap(bitmapF, 0, 578, 1760, 2200);
-        Canvas canvasTemp = new Canvas(bitmapTemp);
-        Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_front);
-        canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-        bitmapDB.recycle();
+            //前
+            Bitmap bitmapTemp = Bitmap.createBitmap(bitmapF, 0, 578, 1760, 2200);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_front);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
 //        drawTextFront(canvasTemp);
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
-        canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
-        bitmapTemp.recycle();
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
-        //后面
-        bitmapTemp = Bitmap.createBitmap(bitmapB, 0, 460, 1859, 1920);
-        canvasTemp = new Canvas(bitmapTemp);
-        bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_back);
-        canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-        bitmapDB.recycle();
+            //后面
+            bitmapTemp = Bitmap.createBitmap(bitmapB, 0, 460, 1859, 1920);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_back);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
 //        drawTextBack(canvasTemp);
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
-        canvasCombine.drawBitmap(bitmapTemp, width_front + margin, 0, null);
-        bitmapTemp.recycle();
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front + margin, 0, null);
 
-        //左肩带
-        Bitmap bitmapArm = Bitmap.createBitmap(225, 1036, Bitmap.Config.ARGB_8888);
-        Canvas canvasArm= new Canvas(bitmapArm);
-        canvasArm.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasArm.drawColor(0xffffffff);
+            //左肩带
+            Bitmap bitmapArm = Bitmap.createBitmap(225, 1036, Bitmap.Config.ARGB_8888);
+            Canvas canvasArm = new Canvas(bitmapArm);
+            canvasArm.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasArm.drawColor(0xffffffff);
 
-        bitmapTemp = Bitmap.createBitmap(bitmapB, 405, 0, 225, 500);
-        Matrix matrix = new Matrix();
-        matrix.postRotate(180);
-        matrix.postTranslate(225, 500);
-        canvasArm.drawBitmap(bitmapTemp, matrix, null);
+            bitmapTemp = Bitmap.createBitmap(bitmapB, 405, 0, 225, 500);
+            Matrix matrix = new Matrix();
+            matrix.postRotate(180);
+            matrix.postTranslate(225, 500);
+            canvasArm.drawBitmap(bitmapTemp, matrix, null);
 
-        bitmapTemp = Bitmap.createBitmap(bitmapF, 1178, 82, 225, 536);
-        canvasArm.drawBitmap(bitmapTemp, 0, 500, null);
-        bitmapTemp.recycle();
+            bitmapTemp = Bitmap.createBitmap(bitmapF, 1178, 82, 225, 536);
+            canvasArm.drawBitmap(bitmapTemp, 0, 500, null);
 
-        bitmapArm = Bitmap.createScaledBitmap(bitmapArm, width_strap, height_strap, true);
-        canvasCombine.drawBitmap(bitmapArm, width_front + width_back + margin * 2, 0, null);
-        bitmapArm.recycle();
+            bitmapArm = Bitmap.createScaledBitmap(bitmapArm, width_strap, height_strap, true);
+            canvasCombine.drawBitmap(bitmapArm, width_front + width_back + margin * 2, 0, null);
+            bitmapArm.recycle();
 
-        //右肩带
-        bitmapArm = Bitmap.createBitmap(225, 1036, Bitmap.Config.ARGB_8888);
-        canvasArm= new Canvas(bitmapArm);
-        canvasArm.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasArm.drawColor(0xffffffff);
+            //右肩带
+            bitmapArm = Bitmap.createBitmap(225, 1036, Bitmap.Config.ARGB_8888);
+            canvasArm = new Canvas(bitmapArm);
+            canvasArm.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasArm.drawColor(0xffffffff);
 
-        bitmapTemp = Bitmap.createBitmap(bitmapB, 1233, 0, 225, 500);
-        matrix = new Matrix();
-        matrix.postRotate(180);
-        matrix.postTranslate(225, 500);
-        canvasArm.drawBitmap(bitmapTemp, matrix, null);
+            bitmapTemp = Bitmap.createBitmap(bitmapB, 1233, 0, 225, 500);
+            matrix = new Matrix();
+            matrix.postRotate(180);
+            matrix.postTranslate(225, 500);
+            canvasArm.drawBitmap(bitmapTemp, matrix, null);
 
-        bitmapTemp = Bitmap.createBitmap(bitmapF, 353, 82, 225, 536);
-        canvasArm.drawBitmap(bitmapTemp, 0, 500, null);
-        bitmapTemp.recycle();
+            bitmapTemp = Bitmap.createBitmap(bitmapF, 353, 82, 225, 536);
+            canvasArm.drawBitmap(bitmapTemp, 0, 500, null);
 
-        bitmapArm = Bitmap.createScaledBitmap(bitmapArm, width_strap, height_strap, true);
-        canvasCombine.drawBitmap(bitmapArm, width_front + width_back + margin * 2, height_strap + margin, null);
-        bitmapArm.recycle();
+            bitmapArm = Bitmap.createScaledBitmap(bitmapArm, width_strap, height_strap, true);
+            canvasCombine.drawBitmap(bitmapArm, width_front + width_back + margin * 2, height_strap + margin, null);
+            bitmapArm.recycle();
 
-        //前下片
-        bitmapTemp = Bitmap.createBitmap(bitmapF, 472, 2311, 807, 443);
-        canvasTemp = new Canvas(bitmapTemp);
-        bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_down_front);
-        canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-        bitmapDB.recycle();
-        drawTextDownFront(canvasTemp);
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_down_front, height_down_front, true);
-        canvasCombine.drawBitmap(bitmapTemp, 0, height_front + 60, null);
-        bitmapTemp.recycle();
+            //前下片
+            bitmapTemp = Bitmap.createBitmap(bitmapF, 472, 2311, 807, 443);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_down_front);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextDownFront(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_down_front, height_down_front, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_front + 60, null);
 
-        //后下片
-        bitmapTemp = Bitmap.createBitmap(bitmapB, 506, 2018, 844, 362);
-        canvasTemp = new Canvas(bitmapTemp);
-        bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_down_back);
-        canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-        bitmapDB.recycle();
-        drawTextDownBack(canvasTemp);
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_down_back, height_down_back, true);
-        canvasCombine.drawBitmap(bitmapTemp, 2000, height_front + 60, null);
-        bitmapTemp.recycle();
+            //后下片
+            bitmapTemp = Bitmap.createBitmap(bitmapB, 506, 2018, 844, 362);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_down_back);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapDB.recycle();
+            drawTextDownBack(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_down_back, height_down_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, 2000, height_front + 60, null);
+            bitmapTemp.recycle();
+        } else if (orderItems.get(currentID).imgs.size() == 1) {
+            //前
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 394, 0, 2876, 3735);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_front_4u2);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+//        drawTextFront(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
+            //后面
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 342, 0, 2979, 3980);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_back_4u2);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+//        drawTextBack(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front + margin, 0, null);
+
+            //左肩带
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3270, 0, 394, 1810);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_strap_4u2);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_strap, height_strap, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front + width_back + margin * 2, 0, null);
+
+            //右肩带
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 394, 1810);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_strap_4u2);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_strap, height_strap, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front + width_back + margin * 2, height_strap + margin, null);
+
+            //前下片
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1233, 3045, 1196, 690);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_down_front_4u2);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextDownFront(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_down_front, height_down_front, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_front + 60, null);
+
+            //后下片
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1149, 3290, 1365, 690);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_down_back_4u2);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextDownBack(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_down_back, height_down_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, 2000, height_front + 60, null);
+        } else if (orderItems.get(currentID).imgs.size() == 3) {
+            //前
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 2875, 3734);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_front_4u2);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+//        drawTextFront(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            //后面
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 2978, 3979);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_back_4u2);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+//        drawTextBack(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front + margin, 0, null);
+
+            //左肩带
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, 393, 1809);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_strap_4u2);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_strap, height_strap, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front + width_back + margin * 2, 0, null);
+
+            //右肩带
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, 393, 1809);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_strap_4u2);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_strap, height_strap, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front + width_back + margin * 2, height_strap + margin, null);
+
+            //前下片
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 840, 3044, 1196, 690);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_down_front_4u2);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+//            drawTextDownFront(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_down_front, height_down_front, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_front + 60, null);
+
+            //后下片
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 807, 3289, 1365, 690);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_down_back_4u2);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+//            drawTextDownBack(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_down_back, height_down_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, 2000, height_front + 60, null);
+        }
 
 
 

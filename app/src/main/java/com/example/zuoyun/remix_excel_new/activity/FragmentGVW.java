@@ -115,8 +115,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     iv_pillow.setImageDrawable(null);
                     bt_remix.setClickable(false);
                 } else if (message == MainActivity.LOADED_IMGS) {
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     bt_remix.setClickable(true);
                     checkremix();
                 } else if (message == 3) {
@@ -339,7 +337,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_arm, height_arm, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front + margin, height_arm + margin, null);
 
-            //collarBigF
+            //collarBig
             bitmapTemp = Bitmap.createBitmap(2683, 471, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
@@ -348,17 +346,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_collar_big, height_collar_big, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front + margin, height_arm * 2 + margin * 2, null);
-
-            //collarBigB
-            bitmapTemp = Bitmap.createBitmap(2683, 471, Bitmap.Config.ARGB_8888);
-            canvasTemp = new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, null);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gvw_collar_big);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_collar_big, height_collar_big, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front + margin, height_arm * 2 + height_collar_big + margin * 3, null);
-            bitmapTemp.recycle();
 
             //collarSamllF
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 117, 0, 2907, 348);
@@ -368,14 +356,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_collar_big, height_collar_big, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front + margin, height_arm * 2 + height_collar_big * 2 + margin * 4, null);
-
-            //collarSamllF
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 117, 0, 2907, 348);
-            canvasTemp = new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gvw_collar_small);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_collar_big, height_collar_big, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front + margin, height_arm * 2 + height_collar_big * 2 + height_collar_small + margin * 5, null);
 
             //houpian

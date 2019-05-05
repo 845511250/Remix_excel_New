@@ -114,8 +114,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     iv_pillow.setImageDrawable(null);
                     bt_remix.setClickable(false);
                 } else if (message == MainActivity.LOADED_IMGS) {
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     bt_remix.setClickable(true);
                     checkremix();
                 } else if (message == 3) {
@@ -205,10 +203,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
-        
-        if (!orderItems.get(currentID).platform.equals("4u2")) {
 
-        } else if (!orderItems.get(currentID).imgs.get(0).contains("batch")) {//单片定制
+        if (orderItems.get(currentID).imgs.size() != 1) {//多片定制
             //front
             Bitmap bitmapTemp = Bitmap.createBitmap(1666, 4090, Bitmap.Config.ARGB_8888);
             Canvas canvasTemp = new Canvas(bitmapTemp);
@@ -284,7 +280,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket_in, height_pocket_in, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front + width_pocket_in + margin * 2, height_back + height_arm * 2 + margin * 3, null);
 
-            bitmapTemp = Bitmap.createBitmap( 421, 954, Bitmap.Config.ARGB_8888);
+            bitmapTemp = Bitmap.createBitmap(421, 954, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(1), -2558, -2202, null);
@@ -602,17 +598,20 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         });
     }
 
-    String getColor(String color){
-        if (color.equals("White")) {
-            return "白灯";
-        } else if (color.equals("Green")) {
-            return "绿灯";
-        } else if (color.equals("Blue")) {
-            return "蓝灯";
-        } else if (color.equals("Red")) {
-            return "红灯";
-        } else {
-            return "无灯";
+    boolean checkContains(String nameContains){
+        for (int i = 0; i < orderItems.get(currentID).imgs.size(); i++) {
+            if (orderItems.get(currentID).imgs.get(i).contains(nameContains)) {
+                return true;
+            }
         }
+        return false;
+    }
+    Bitmap getBitmapWith(String nameContains){
+        for (int i = 0; i < orderItems.get(currentID).imgs.size(); i++) {
+            if (orderItems.get(currentID).imgs.get(i).contains(nameContains)) {
+                return MainActivity.instance.bitmaps.get(i);
+            }
+        }
+        return null;
     }
 }

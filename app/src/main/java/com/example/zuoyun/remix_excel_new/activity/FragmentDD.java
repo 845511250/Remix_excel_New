@@ -195,35 +195,35 @@ public class FragmentDD extends BaseFragment {
             Bitmap bitmap1 = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             Canvas canvasLL = new Canvas(bitmap1);
             canvasLL.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasLL.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
+            canvasLL.drawBitmap(orderItems.get(currentID).platform.equals("4u2") ? MainActivity.instance.bitmaps.get(1) : checkContains("LL") ? getBitmapWith("LL") : MainActivity.instance.bitmaps.get(0), 0, 0, null);
             canvasLL.drawBitmap(bitmapDBLeft, 0, 0, null);
             //左脚右
             Bitmap bitmap2 = Bitmap.createBitmap(1567,804, Bitmap.Config.ARGB_8888);
             Canvas canvasLR = new Canvas(bitmap2);
             canvasLR.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasLR.drawBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, null);
+            canvasLR.drawBitmap(orderItems.get(currentID).platform.equals("4u2") ? MainActivity.instance.bitmaps.get(0) : checkContains("LR") ? getBitmapWith("LR") : MainActivity.instance.bitmaps.get(1), 0, 0, null);
             canvasLR.drawBitmap(bitmapDBRight, 0, 0, null);
             //右脚左
             Bitmap bitmap3 = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             Canvas canvasRL = new Canvas(bitmap3);
             canvasRL.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasRL.drawBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, null);
+            canvasRL.drawBitmap(checkContains("RL") ? getBitmapWith("RL") : MainActivity.instance.bitmaps.get(2), 0, 0, null);
             canvasRL.drawBitmap(bitmapDBLeft,0,0,null);
             //右脚右
             Bitmap bitmap4 = Bitmap.createBitmap(1567,804, Bitmap.Config.ARGB_8888);
             Canvas canvasRR = new Canvas(bitmap4);
             canvasRR.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasRR.drawBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, null);
+            canvasRR.drawBitmap(checkContains("RR") ? getBitmapWith("RR") : MainActivity.instance.bitmaps.get(3), 0, 0, null);
             canvasRR.drawBitmap(bitmapDBRight, 0, 0, null);
 
             bitmapDBLeft.recycle();
             bitmapDBRight.recycle();
 
             //drawText
-            drawTextRight(canvasRR, "右外");
+            drawTextLeft(canvasLL, "左外");
             drawTextRight(canvasLR, "左内");
             drawTextLeft(canvasRL, "右内");
-            drawTextLeft(canvasLL, "左外");
+            drawTextRight(canvasRR, "右外");
             bitmap1 = Bitmap.createScaledBitmap(bitmap1, width, height, true);
             bitmap2 = Bitmap.createScaledBitmap(bitmap2, width, height, true);
             bitmap3 = Bitmap.createScaledBitmap(bitmap3, width, height, true);
@@ -443,18 +443,31 @@ public class FragmentDD extends BaseFragment {
                 height = 886;
                 break;
             case 48:
-                width = 1815;
-                height = 924;
+                width = 1828;
+                height = 912;
                 break;
             case 49:
-                width = 1850;
-                height = 939;
-                break;
-            case 50:
-                width = 1887;
-                height = 952;
+                width = 1865;
+                height = 925;
                 break;
         }
+    }
+
+    boolean checkContains(String nameContains){
+        for (int i = 0; i < orderItems.get(currentID).imgs.size(); i++) {
+            if (orderItems.get(currentID).imgs.get(i).contains(nameContains)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    Bitmap getBitmapWith(String nameContains){
+        for (int i = 0; i < orderItems.get(currentID).imgs.size(); i++) {
+            if (orderItems.get(currentID).imgs.get(i).contains(nameContains)) {
+                return MainActivity.instance.bitmaps.get(i);
+            }
+        }
+        return null;
     }
 
 }
