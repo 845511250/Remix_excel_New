@@ -24,8 +24,9 @@ public class BitmapToJpg {
             fileOutputStream.write(imageData);
             fileOutputStream.close();
             imageData = null;
+            Log.e("BitmapToJpg", "saved");
         }catch (Exception e){
-            Log.e("aaa", "Wrong in Class 'BitmapToJpg'");
+            Log.e("BitmapToJpg", "Wrong in Class 'BitmapToJpg'");
         }
     }
 

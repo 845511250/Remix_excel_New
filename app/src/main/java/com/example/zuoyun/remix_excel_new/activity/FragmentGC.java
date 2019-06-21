@@ -159,14 +159,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawTextFront(Canvas canvas) {
-        String color = orderItems.get(currentID).skuStr.equals("GCF") ? "荧光" : "";
-        canvas.drawRect(1000, 4370-25, 1000+500, 4370, rectPaint);
-        canvas.drawText("GC男背心 " + color + " " + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 1000, 4370 - 2, paint);
+        canvas.drawRect(1000, 4775 - 25, 1000 + 500, 4775, rectPaint);
+        canvas.drawText("GC男背心 " + " " + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 1000, 4775 - 2, paint);
     }
     void drawTextBack(Canvas canvas) {
-        String color = orderItems.get(currentID).skuStr.equals("GCF") ? "荧光" : "";
-        canvas.drawRect(1000, 4164-25, 1000+500, 4164, rectPaint);
-        canvas.drawText("GC男背心 " + color + " " + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 1000, 4164 - 2, paint);
+        canvas.drawRect(1000, 4801-25, 1000+500, 4801, rectPaint);
+        canvas.drawText("GC男背心 " + " " + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 1000, 4801 - 2, paint);
     }
 
     public void remixx(){
@@ -175,36 +173,38 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        Bitmap bitmapF = MainActivity.instance.bitmaps.get(0);
-        Bitmap bitmapB = orderItems.get(currentID).imgs.size() == 1 ? bitmapF : MainActivity.instance.bitmaps.get(1);
+        Bitmap bitmapF = checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(0);
+        Bitmap bitmapB;
+        if (orderItems.get(currentID).imgs.size() == 1) {
+            bitmapB = MainActivity.instance.bitmaps.get(0);
+        } else {
+            bitmapB = checkContains("back") ? getBitmapWith("back") : MainActivity.instance.bitmaps.get(1);
+        }
+
+        bitmapF = Bitmap.createScaledBitmap(bitmapF, 3416, 4780, true);
+        bitmapB = Bitmap.createScaledBitmap(bitmapB, 3452, 4806, true);
 
         //前
-        Bitmap bitmapTemp = Bitmap.createBitmap(3304, 4375, Bitmap.Config.ARGB_8888);
-        Canvas canvasTemp = new Canvas(bitmapTemp);
+        Canvas canvasTemp = new Canvas(bitmapF);
         canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasTemp.drawColor(0xffffffff);
-        canvasTemp.drawBitmap(bitmapF, 0, 0, null);
         Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gc_front);
         canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
         bitmapDB.recycle();
         drawTextFront(canvasTemp);
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
-        canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
-        bitmapTemp.recycle();
+        bitmapF = Bitmap.createScaledBitmap(bitmapF, width_front, height_front, true);
+        canvasCombine.drawBitmap(bitmapF, 0, 0, null);
+        bitmapF.recycle();
 
         //后面
-        bitmapTemp = Bitmap.createBitmap(3334, 4169, Bitmap.Config.ARGB_8888);
-        canvasTemp = new Canvas(bitmapTemp);
+        canvasTemp = new Canvas(bitmapB);
         canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasTemp.drawColor(0xffffffff);
-        canvasTemp.drawBitmap(bitmapB, 0, 0, null);
         bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gc_back);
         canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
         bitmapDB.recycle();
         drawTextBack(canvasTemp);
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
-        canvasCombine.drawBitmap(bitmapTemp, width_front + 120, 0, null);
-        bitmapTemp.recycle();
+        bitmapB = Bitmap.createScaledBitmap(bitmapB, width_back, height_back, true);
+        canvasCombine.drawBitmap(bitmapB, width_front + 120, 0, null);
+        bitmapB.recycle();
 
 
         try {
@@ -296,52 +296,52 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     void setScale(String size) {
         switch (size) {
             case "S":
-                width_front = 3068;
-                height_front = 4426;
-                width_back = 3098;
-                height_back = 4438;
+                width_front = 2890;
+                height_front = 4511;
+                width_back = 2908;
+                height_back = 4525;
                 break;
             case "M":
-                width_front = 3186;
-                height_front = 4546;
-                width_back = 3216;
-                height_back = 4561;
+                width_front = 3185;
+                height_front = 4664;
+                width_back = 3215;
+                height_back = 4678;
                 break;
             case "L":
-                width_front = 3304;
-                height_front = 4666;
-                width_back = 3334;
-                height_back = 4683;
+                width_front = 3480;
+                height_front = 4817;
+                width_back = 3522;
+                height_back = 4832;
                 break;
             case "XL":
-                width_front = 3422;
-                height_front = 4786;
-                width_back = 3452;
-                height_back = 4806;
+                width_front = 3776;
+                height_front = 4970;
+                width_back = 3828;
+                height_back = 4985;
                 break;
             case "XXL":
-                width_front = 3540;
-                height_front = 4906;
-                width_back = 3570;
-                height_back = 4928;
+                width_front = 4071;
+                height_front = 5125;
+                width_back = 4136;
+                height_back = 5139;
                 break;
             case "2XL":
-                width_front = 3540;
-                height_front = 4906;
-                width_back = 3570;
-                height_back = 4928;
+                width_front = 4071;
+                height_front = 5125;
+                width_back = 4136;
+                height_back = 5139;
                 break;
             case "XXXL":
-                width_front = 3659;
-                height_front = 5026;
-                width_back = 3689;
-                height_back = 5050;
+                width_front = 4366;
+                height_front = 5278;
+                width_back = 4443;
+                height_back = 5292;
                 break;
             case "3XL":
-                width_front = 3659;
-                height_front = 5026;
-                width_back = 3689;
-                height_back = 5050;
+                width_front = 4366;
+                height_front = 5278;
+                width_back = 4443;
+                height_back = 5292;
                 break;
             default:
                 showDialogSizeWrong(orderItems.get(currentID).order_number);
@@ -376,6 +376,23 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 });
             }
         });
+    }
+
+    boolean checkContains(String nameContains){
+        for (int i = 0; i < orderItems.get(currentID).imgs.size(); i++) {
+            if (orderItems.get(currentID).imgs.get(i).contains(nameContains)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    Bitmap getBitmapWith(String nameContains){
+        for (int i = 0; i < orderItems.get(currentID).imgs.size(); i++) {
+            if (orderItems.get(currentID).imgs.get(i).contains(nameContains)) {
+                return MainActivity.instance.bitmaps.get(i);
+            }
+        }
+        return null;
     }
 
 }

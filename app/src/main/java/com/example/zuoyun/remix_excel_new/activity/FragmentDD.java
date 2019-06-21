@@ -162,17 +162,19 @@ public class FragmentDD extends BaseFragment {
     }
 
     void drawTextRight(Canvas canvas, String LR) {
-        canvas.drawRect(1020, 695, 1450, 731, rectPaint);
-        canvas.drawText(orderItems.get(currentID).newCode + " " + LR, 1020, 730, paintRed);
-        canvas.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FW") ? "(新)" : ""), 1360, 730, paint);
         canvas.drawRect(120, 695, 540, 731, rectPaint);
         canvas.drawText(time, 120, 730, paint);
         canvas.drawText(orderItems.get(currentID).order_number, 320, 730, paint);
+        canvas.drawRect(800, 695, 800 + 200, 731, rectPaint);
+        canvas.drawText(orderItems.get(currentID).newCode, 800, 730, paint);
+        canvas.drawRect(1200, 695, 1200 + 300, 731, rectPaint);
+        canvas.drawText("生产尺寸:" + (orderItems.get(currentID).size - 1) + "码" + orderItems.get(currentID).color + " " + LR, 1200, 730, paintRed);
     }
     void drawTextLeft(Canvas canvas, String LR) {
-        canvas.drawRect(70,695,450,731,rectPaint);
-        canvas.drawText(orderItems.get(currentID).size+orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FW") ? "(新)" : ""),70,730,paint);
-        canvas.drawText(LR + " " + orderItems.get(currentID).newCode, 180, 730, paintRed);
+        canvas.drawRect(70, 695, 70 + 300, 731, rectPaint);
+        canvas.drawText("生产尺寸:" + (orderItems.get(currentID).size - 1) + "码" + orderItems.get(currentID).color + " " + LR, 70, 730, paintRed);
+        canvas.drawRect(500, 695, 500 + 200, 731, rectPaint);
+        canvas.drawText(orderItems.get(currentID).newCode, 500, 730, paint);
         canvas.drawRect(1000, 695, 1400, 731, rectPaint);
         canvas.drawText(time, 1000, 730, paint);
         canvas.drawText(orderItems.get(currentID).order_number, 1200, 730, paint);
@@ -316,7 +318,7 @@ public class FragmentDD extends BaseFragment {
         try {
             String printColor = orderItems.get(currentID).color.equals("黑") ? "B" : "W";
             String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku + orderItems.get(currentID).size : "";
-            String nameCombine = noNewCode + orderItems.get(currentID).newCode + orderItems.get(currentID).color + (orderItems.get(currentID).sku.equals("FW") ? "(新)" : "") + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = noNewCode + orderItems.get(currentID).newCode + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -397,7 +399,11 @@ public class FragmentDD extends BaseFragment {
     }
 
     void setScale(int size){
-        switch (size + 1) {
+        switch (size) {
+            case 36:
+                width = 1376;
+                height = 763;
+                break;
             case 37:
                 width = 1418;
                 height = 749;

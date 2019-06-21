@@ -3,6 +3,8 @@ package com.example.zuoyun.remix_excel_new.activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -93,6 +95,8 @@ public class MainActivity extends FragmentActivity {
     CheckBox cb_classify;
     @BindView(R.id.tv_finishRemixx)
     TextView tv_finishRemixx;
+    @BindView(R.id.tv_version)
+    TextView tv_version;
 
     int currentID = 0,totalWrong=0, totalNum;
     public static int LOADED_IMGS = 5;
@@ -127,6 +131,7 @@ public class MainActivity extends FragmentActivity {
         //initDialog();
 
         initviews();
+        tv_version.setText("版本号：" + getVersionCode());
         new UpdateUtil(context).checkUpdate();
     }
 
@@ -251,6 +256,18 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("AB拖鞋 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentAB());
                 break;
+            case "AG":
+                tv_title.setText("包臀裙 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentAG());
+                break;
+            case "AL":
+                tv_title.setText("AL " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentAL());
+                break;
+            case "AM":
+                tv_title.setText("内裤 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentAM());
+                break;
             case "AZ":
                 tv_title.setText("男短袖T恤 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentAZ());
@@ -258,6 +275,18 @@ public class MainActivity extends FragmentActivity {
             case "BT":
                 tv_title.setText("Toms " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentBT());
+                break;
+            case "BV":
+                tv_title.setText("女T恤 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentBV());
+                break;
+            case "C":
+                tv_title.setText("CA " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentC());
+                break;
+            case "CA":
+                tv_title.setText("CA " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentCA());
                 break;
             case "DB":
                 tv_title.setText("手机壳DB " + orderItems.get(currentID).order_number);
@@ -331,19 +360,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("马丁靴 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentDY());
                 break;
-            case "AG":
-                tv_title.setText("包臀裙 " + orderItems.get(currentID).order_number);
-                transaction.replace(R.id.frame_main, new FragmentAG());
-                break;
             case "R":
                 tv_title.setText("围裙 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentR());
                 break;
-            case "AM":
-                tv_title.setText("内裤 " + orderItems.get(currentID).order_number);
-                transaction.replace(R.id.frame_main, new FragmentAM());
-                break;
-
             case "DX":
                 tv_title.setText("背包 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentDX());
@@ -480,6 +500,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("女连体衣 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGE());
                 break;
+            case "GEF":
+                tv_title.setText("女连体衣 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentGE());
+                break;
             case "GH":
                 tv_title.setText("全印花T恤 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGH());
@@ -503,6 +527,10 @@ public class MainActivity extends FragmentActivity {
             case "GL":
                 tv_title.setText("浴帘 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGL());
+                break;
+            case "GN":
+                tv_title.setText("旅行包 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentGN());
                 break;
             case "GQM":
                 tv_title.setText("男卫衣 " + orderItems.get(currentID).order_number);
@@ -559,6 +587,10 @@ public class MainActivity extends FragmentActivity {
             case "HGW":
                 tv_title.setText("女沙滩裤 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentHGW());
+                break;
+            case "K":
+                tv_title.setText("K笔袋 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentK());
                 break;
             default:
                 firstOK = false;
@@ -1128,6 +1160,19 @@ public class MainActivity extends FragmentActivity {
 
     public static void recycleExcelImages(){
         MainActivity.instance.bitmaps.clear();
+    }
+    // 获取版本号
+    public String getVersionCode() {
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            // getPackageName()是你当前类的包名，0代表是获取版本信息
+            PackageInfo packInfo = packageManager.getPackageInfo(
+                    context.getPackageName(), 0);
+            return packInfo.versionName;
+        } catch (Exception e) {
+            return "wrong";
+        }
+
     }
 
     @Override

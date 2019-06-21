@@ -57,6 +57,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     Paint rectPaint, paint, paintRed, paintBlue, rectBorderPaint, paintSmall;
     String time;
+    String fluo;
 
     @Override
     public int getLayout() {
@@ -106,6 +107,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         paintSmall.setAntiAlias(true);
 
         time = MainActivity.instance.orderDate_Print;
+        fluo = orderItems.get(currentID).sku.equals("GEF") ? "荧光-" : "";
 
         MainActivity.instance.setMessageListener(new MainActivity.MessageListener() {
             @Override
@@ -159,20 +161,20 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawTextFront(Canvas canvas) {
-        canvas.drawRect(1000, 4370-25, 1000+500, 4370, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 1000, 4370 - 2, paint);
+        canvas.drawRect(753, 2163 - 25, 753 + 260, 2163, rectPaint);
+        canvas.drawText(fluo + orderItems.get(currentID).sizeStr + " " + orderItems.get(currentID).order_number, 753, 2163 - 2, paint);
     }
     void drawTextBack(Canvas canvas) {
-        canvas.drawRect(1000, 4164-25, 1000+500, 4164, rectPaint);
-        canvas.drawText( orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 1000, 4164 - 2, paint);
+        canvas.drawRect(800, 1896 - 25, 800 + 260, 1896, rectPaint);
+        canvas.drawText(fluo + orderItems.get(currentID).sizeStr + " " + orderItems.get(currentID).order_number, 800, 1896 - 2, paint);
     }
     void drawTextDownFront(Canvas canvas) {
         canvas.drawRect(300, 439 - 25, 300 + 200, 439, rectPaint);
-        canvas.drawText("前 " + orderItems.get(currentID).order_number, 300, 439 - 2, paint);
+        canvas.drawText(fluo + " 前 " + orderItems.get(currentID).order_number, 300, 439 - 2, paint);
     }
     void drawTextDownBack(Canvas canvas) {
         canvas.drawRect(305, 358 - 25, 305 + 200, 358, rectPaint);
-        canvas.drawText("后 " + orderItems.get(currentID).order_number, 305, 358 - 2, paint);
+        canvas.drawText(fluo + " 后 " + orderItems.get(currentID).order_number, 305, 358 - 2, paint);
     }
 
     public void remixx(){
@@ -192,7 +194,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             Canvas canvasTemp = new Canvas(bitmapTemp);
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_front);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//        drawTextFront(canvasTemp);
+            drawTextFront(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
@@ -201,7 +203,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ge_back);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//        drawTextBack(canvasTemp);
+            drawTextBack(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front + margin, 0, null);
 
@@ -375,7 +377,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 //            matrix.postRotate(90, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
 //            bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
 
-            String nameCombine = "女连体衣 " + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = fluo + "女连体衣 " + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

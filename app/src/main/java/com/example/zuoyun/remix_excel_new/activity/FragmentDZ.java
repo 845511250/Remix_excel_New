@@ -48,8 +48,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     int num;
     String strPlus = "";
     int intPlus = 1;
-    Paint paint,paintRed,paintBlue, rectPaint;
+    Paint paint,paintRed,paintBlue, rectPaint, paintSmall;
     String time = MainActivity.instance.orderDate_Print;
+
+    int dbID;
 
     @Override
     public int getLayout() {
@@ -81,6 +83,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         paintBlue.setTextSize(40);
         paintBlue.setTypeface(Typeface.DEFAULT_BOLD);
         paintBlue.setAntiAlias(true);
+
+        paintSmall = new Paint();
+        paintSmall.setColor(0xff000000);
+        paintSmall.setTextSize(22);
+        paintSmall.setTypeface(Typeface.DEFAULT_BOLD);
+        paintSmall.setAntiAlias(true);
 
         rectPaint = new Paint();
         rectPaint.setColor(0xffffffff);
@@ -133,44 +141,83 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     void drawText(Canvas canvas, String LR) {
         canvas.drawText("DZ  " + orderItems.get(currentID).size + " " + LR + "    " + time + "  " + orderItems.get(currentID).order_number, 50, 50, paint);
     }
+    void drawText4u2(Canvas canvas) {
+        canvas.drawText(orderItems.get(currentID).sizeStr, 2300, 3300, paint);
+        canvas.drawRect(1000, 3684 - 21, 1000 + 500, 3684, rectPaint);
+        canvas.drawText(time + "   " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).sizeStr+"   ", 1000, 3684 - 2, paintSmall);
+        canvas.drawText(orderItems.get(currentID).newCode, 1400, 3684 - 2, paintRed);
+    }
 
     public void remixx(){
-        setScale(orderItems.get(currentID).sizeStr);
+        Bitmap bitmapCombine = null;
 
-        Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dz_m);
-        MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 3141, 4538, true));
-        MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 3141, 4538, true));
-        Paint rectPaint = new Paint();
-        rectPaint.setColor(0xffffffff);
-        rectPaint.setStyle(Paint.Style.FILL);
+        if (orderItems.get(currentID).platform.equals("4u2")) {
+            setScale4u2(orderItems.get(currentID).sizeStr);
 
-        Bitmap bitmapFront = Bitmap.createBitmap(3141, 4538, Bitmap.Config.ARGB_8888);
-        Canvas canvaFront = new Canvas(bitmapFront);
-        canvaFront.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvaFront.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-        canvaFront.drawBitmap(bitmapDB,0,0,null);
-        drawText(canvaFront,"正面");
+            bitmapCombine = Bitmap.createBitmap(height, width * 2 + 60, Bitmap.Config.ARGB_8888);
+            Canvas canvasCombine= new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasCombine.drawColor(0xffffffff);
 
-        Bitmap bitmapBack = Bitmap.createBitmap(3141, 4538, Bitmap.Config.ARGB_8888);
-        Canvas canvaBack= new Canvas(bitmapBack);
-        canvaBack.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvaBack.drawBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, null);
-        canvaBack.drawBitmap(bitmapDB,0,0,null);
-        drawText(canvaBack,"后面");
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), dbID);
 
-        bitmapDB.recycle();
-        bitmapFront = Bitmap.createScaledBitmap(bitmapFront, width, height, true);
-        bitmapBack = Bitmap.createScaledBitmap(bitmapBack, width, height, true);
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 22, 4, 2555, 3691);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawText4u2(canvasTemp);
+            bitmapDB.recycle();
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
 
-        Bitmap bitmapCombine = Bitmap.createBitmap(width * 2 + 120, height, Bitmap.Config.ARGB_8888);
-        Canvas canvasCombine = new Canvas(bitmapCombine);
-        canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasCombine.drawColor(0xffffffff);
+            Matrix matrix = new Matrix();
+            matrix.postRotate(-90);
+            matrix.postTranslate(0, width);
 
-        canvasCombine.drawBitmap(bitmapFront, 0, 0, null);
-        canvasCombine.drawBitmap(bitmapBack, width + 120, 0, null);
-        bitmapFront.recycle();
-        bitmapBack.recycle();
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+            matrix.postTranslate(0, width + 60);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            bitmapTemp.recycle();
+        } else {
+            setScale(orderItems.get(currentID).sizeStr);
+
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dz_m);
+            MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 3141, 4538, true));
+            MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 3141, 4538, true));
+            Paint rectPaint = new Paint();
+            rectPaint.setColor(0xffffffff);
+            rectPaint.setStyle(Paint.Style.FILL);
+
+            Bitmap bitmapFront = Bitmap.createBitmap(3141, 4538, Bitmap.Config.ARGB_8888);
+            Canvas canvaFront = new Canvas(bitmapFront);
+            canvaFront.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvaFront.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
+            canvaFront.drawBitmap(bitmapDB,0,0,null);
+            drawText(canvaFront,"正面");
+
+            Bitmap bitmapBack = Bitmap.createBitmap(3141, 4538, Bitmap.Config.ARGB_8888);
+            Canvas canvaBack= new Canvas(bitmapBack);
+            canvaBack.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvaBack.drawBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, null);
+            canvaBack.drawBitmap(bitmapDB,0,0,null);
+            drawText(canvaBack,"后面");
+
+            bitmapDB.recycle();
+            bitmapFront = Bitmap.createScaledBitmap(bitmapFront, width, height, true);
+            bitmapBack = Bitmap.createScaledBitmap(bitmapBack, width, height, true);
+
+            bitmapCombine = Bitmap.createBitmap(width * 2 + 120, height, Bitmap.Config.ARGB_8888);
+            Canvas canvasCombine = new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasCombine.drawColor(0xffffffff);
+
+            canvasCombine.drawBitmap(bitmapFront, 0, 0, null);
+            canvasCombine.drawBitmap(bitmapBack, width + 120, 0, null);
+            bitmapFront.recycle();
+            bitmapBack.recycle();
+        }
+
+
+
 
         try {
             Matrix matrix90 = new Matrix();
@@ -188,7 +235,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 150);
+            BitmapToJpg.save(bitmapCombine, fileSave, orderItems.get(currentID).platform.equals("4u2") ? 122 : 150);
 
             //释放bitmap
             bitmapCombine.recycle();
@@ -268,6 +315,25 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         } else if(size.equals("L")){
             width = 3992;
             height = 4970;
+        }
+    }
+    void setScale4u2(String sizeStr) {
+        switch (sizeStr) {
+            case "S":
+                width = 2287;
+                height = 3151;
+                dbID = R.drawable.dz_s;
+                break;
+            case "M":
+                width = 2555;
+                height = 3691;
+                dbID = R.drawable.dz_m;
+                break;
+            case "L":
+                width = 3248;
+                height = 3997;
+                dbID = R.drawable.dz_l;
+                break;
         }
     }
 

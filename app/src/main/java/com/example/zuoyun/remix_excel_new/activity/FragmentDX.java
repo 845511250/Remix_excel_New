@@ -475,6 +475,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void setSize(String size) {
+        if (orderItems.get(currentID).imgs.size() == 1 & MainActivity.instance.bitmaps.get(0).getHeight() != 4500) {
+            showDialogImageWrong(orderItems.get(currentID).order_number);
+            sizeOK = false;
+            return;
+        }
         switch (size) {
             case "S":
                 width_part1 = 2716;
@@ -554,6 +559,33 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
                 tv_title.setText("错误！");
                 tv_content.setText("单号："+order_number+"读取尺码失败");
+                bt_yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog_finish.dismiss();
+                        getActivity().finish();
+                    }
+                });
+            }
+        });
+    }
+    public void showDialogImageWrong(final String order_number){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final AlertDialog dialog_finish;
+                AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.DialogTransBackGround);
+                dialog_finish = builder.create();
+                dialog_finish.setCancelable(false);
+                dialog_finish.show();
+                View view_dialog = LayoutInflater.from(context).inflate(R.layout.item_dialog_finish, null);
+                dialog_finish.setContentView(view_dialog);
+                TextView tv_title = (TextView) view_dialog.findViewById(R.id.tv_dialog_title);
+                TextView tv_content = (TextView) view_dialog.findViewById(R.id.tv_dialog_content);
+                Button bt_yes = (Button) view_dialog.findViewById(R.id.bt_dialog_yes);
+
+                tv_title.setText("错误！");
+                tv_content.setText("单号："+order_number+" 图片大小错误，应为4100x4500,请联系改图");
                 bt_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
