@@ -3,6 +3,7 @@ package com.example.zuoyun.remix_excel_new.activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
@@ -132,6 +133,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawRect(20, 0, 20 + 300, 17, rectPaint);
         canvasCombine.drawText("GK浴巾 " + time + "  " + orderItems.get(currentID).order_number, 20, 17 - 2, paint);
 
+        Matrix matrix = new Matrix();
+        matrix.postRotate(-90, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
+        bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
+
         try {
             File file=new File(sdCardPath+"/生产图/"+childPath+"/");
             if(!file.exists())
@@ -186,7 +191,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             int num=orderItems.get(currentID).num;
             Number number2 = new Number(2, currentID+1, num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID+1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);

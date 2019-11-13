@@ -257,7 +257,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gvw_collar_small);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_collar_big, height_collar_big, true);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_collar_small, height_collar_small, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front + margin, height_arm * 2 + height_collar_big * 2 + height_collar_small + margin * 5, null);
 
             //houpian
@@ -354,7 +354,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gvw_collar_small);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_collar_big, height_collar_big, true);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_collar_small, height_collar_small, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front + margin, height_arm * 2 + height_collar_big * 2 + margin * 4, null);
             canvasCombine.drawBitmap(bitmapTemp, width_front + margin, height_arm * 2 + height_collar_big * 2 + height_collar_small + margin * 5, null);
 
@@ -445,7 +445,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             int num=orderItems.get(currentID).num;
             Number number2 = new Number(2, currentID+1, num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID + 1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);

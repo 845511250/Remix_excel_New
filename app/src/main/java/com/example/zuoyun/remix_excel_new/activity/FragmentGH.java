@@ -204,43 +204,114 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         Matrix matrix = new Matrix();
         if (orderItems.get(currentID).imgs.size() == 1 && orderItems.get(currentID).platform.equals("4u2")) {
             //前
-            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1908, 0, 2202, 3192);
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 403, 0, 2202, 3192);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gh_front);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapDB.recycle();
             drawTextFront(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+            bitmapTemp.recycle();
 
             //后面
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1909, 0, 2202, 3186);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 404, 0, 2202, 3186);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gh_back);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapDB.recycle();
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
+            matrix = new Matrix();
             matrix.postTranslate(width_front + 70, 0);
             canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+            bitmapTemp.recycle();
 
             //领口
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2022, 124, 1972, 206);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 517, 124, 1972, 206);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gh_lingkou);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapDB.recycle();
+//        drawTextLingkou(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_lingkou, height_lingkou, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front + width_back + 140, height_xiuzi * 2 + 300, null);
+            bitmapTemp.recycle();
 
             //左袖子
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4111, 619, 1909, 1029);
+            Bitmap bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1921, 223, 1068, 1198);
+            Bitmap bitmapHalf = Bitmap.createBitmap(954, 1028, Bitmap.Config.ARGB_8888);
+            Canvas canvasHalf = new Canvas(bitmapHalf);
+            canvasHalf.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasHalf.drawColor(0xffffffff);
+
+            matrix.reset();
+            matrix.postRotate(15.9f);
+            matrix.postTranslate(197, -216);
+            canvasHalf.drawBitmap(bitmapCut, matrix, null);
+            bitmapCut.recycle();
+
+            bitmapTemp = Bitmap.createBitmap(1908, 1028, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(bitmapHalf, 0, 0, null);
+
+            bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 281, 1077, 1212);
+            bitmapHalf = Bitmap.createBitmap(954, 1028, Bitmap.Config.ARGB_8888);
+            canvasHalf = new Canvas(bitmapHalf);
+            canvasHalf.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasHalf.drawColor(0xffffffff);
+
+            matrix.reset();
+            matrix.postRotate(-17.9f);
+            matrix.postTranslate(-298, 97);
+            canvasHalf.drawBitmap(bitmapCut, matrix, null);
+            bitmapCut.recycle();
+            canvasTemp.drawBitmap(bitmapHalf, 954, 0, null);
+            bitmapHalf.recycle();
+
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gh_arm);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapDB.recycle();
             drawTextXiuziL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiuzi, height_xiuzi, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front + width_back + 140, 0, null);
+            bitmapTemp.recycle();
 
             //右袖子
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 619, 1909, 1029);
+            bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1921, 223, 1068, 1198);
+            bitmapHalf = Bitmap.createBitmap(954, 1028, Bitmap.Config.ARGB_8888);
+            canvasHalf = new Canvas(bitmapHalf);
+            canvasHalf.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasHalf.drawColor(0xffffffff);
+
+            matrix.reset();
+            matrix.postRotate(15.9f);
+            matrix.postTranslate(197, -216);
+            canvasHalf.drawBitmap(bitmapCut, matrix, null);
+            bitmapCut.recycle();
+
+            bitmapTemp = Bitmap.createBitmap(1908, 1028, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(bitmapHalf, 0, 0, null);
+
+
+            bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 281, 1077, 1212);
+            bitmapHalf = Bitmap.createBitmap(954, 1028, Bitmap.Config.ARGB_8888);
+            canvasHalf = new Canvas(bitmapHalf);
+            canvasHalf.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasHalf.drawColor(0xffffffff);
+
+            matrix.reset();
+            matrix.postRotate(-17.9f);
+            matrix.postTranslate(-298, 97);
+            canvasHalf.drawBitmap(bitmapCut, matrix, null);
+            bitmapCut.recycle();
+            canvasTemp.drawBitmap(bitmapHalf, 954, 0, null);
+            bitmapHalf.recycle();
+
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gh_arm);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             bitmapDB.recycle();
@@ -596,7 +667,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             int num=orderItems.get(currentID).num;
             Number number2 = new Number(2, currentID+1, num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID + 1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);
@@ -690,7 +761,27 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 width_lingkou = 2141;
                 height_lingkou = 207;
                 break;
+            case "2XL":
+                width_front = 2363;
+                height_front = 3354;
+                width_back = 2363;
+                height_back = 3348;
+                width_xiuzi = 2068;
+                height_xiuzi = 1109;
+                width_lingkou = 2141;
+                height_lingkou = 207;
+                break;
             case "XXXL":
+                width_front = 2442;
+                height_front = 3433;
+                width_back = 2442;
+                height_back = 3427;
+                width_xiuzi = 2147;
+                height_xiuzi = 1148;
+                width_lingkou = 2226;
+                height_lingkou = 207;
+                break;
+            case "3XL":
                 width_front = 2442;
                 height_front = 3433;
                 width_back = 2442;

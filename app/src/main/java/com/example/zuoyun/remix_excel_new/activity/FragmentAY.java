@@ -174,11 +174,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), dbID);
         MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true));
+        if (orderItems.get(currentID).imgs.size() == 2) {
+            MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), width, height, true));
+        }
 
         Matrix matrix = new Matrix();
         matrix.postTranslate(0, height);
+        canvasCombine.drawBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), matrix, null);
 
-        canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
         matrix.reset();
         matrix.postRotate(180);
         matrix.postTranslate(width, height);
@@ -235,7 +238,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             int num=orderItems.get(currentID).num;
             Number number2 = new Number(2, currentID+1, num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID + 1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);

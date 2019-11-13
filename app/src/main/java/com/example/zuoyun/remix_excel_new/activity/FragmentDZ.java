@@ -138,9 +138,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     }
 
-    void drawText(Canvas canvas, String LR) {
-        canvas.drawText("DZ  " + orderItems.get(currentID).size + " " + LR + "    " + time + "  " + orderItems.get(currentID).order_number, 50, 50, paint);
-    }
     void drawText4u2(Canvas canvas) {
         canvas.drawText(orderItems.get(currentID).sizeStr, 2300, 3300, paint);
         canvas.drawRect(1000, 3684 - 21, 1000 + 500, 3684, rectPaint);
@@ -177,47 +174,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
             bitmapTemp.recycle();
-        } else {
-            setScale(orderItems.get(currentID).sizeStr);
-
-            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dz_m);
-            MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 3141, 4538, true));
-            MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 3141, 4538, true));
-            Paint rectPaint = new Paint();
-            rectPaint.setColor(0xffffffff);
-            rectPaint.setStyle(Paint.Style.FILL);
-
-            Bitmap bitmapFront = Bitmap.createBitmap(3141, 4538, Bitmap.Config.ARGB_8888);
-            Canvas canvaFront = new Canvas(bitmapFront);
-            canvaFront.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvaFront.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-            canvaFront.drawBitmap(bitmapDB,0,0,null);
-            drawText(canvaFront,"正面");
-
-            Bitmap bitmapBack = Bitmap.createBitmap(3141, 4538, Bitmap.Config.ARGB_8888);
-            Canvas canvaBack= new Canvas(bitmapBack);
-            canvaBack.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvaBack.drawBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, null);
-            canvaBack.drawBitmap(bitmapDB,0,0,null);
-            drawText(canvaBack,"后面");
-
-            bitmapDB.recycle();
-            bitmapFront = Bitmap.createScaledBitmap(bitmapFront, width, height, true);
-            bitmapBack = Bitmap.createScaledBitmap(bitmapBack, width, height, true);
-
-            bitmapCombine = Bitmap.createBitmap(width * 2 + 120, height, Bitmap.Config.ARGB_8888);
-            Canvas canvasCombine = new Canvas(bitmapCombine);
-            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasCombine.drawColor(0xffffffff);
-
-            canvasCombine.drawBitmap(bitmapFront, 0, 0, null);
-            canvasCombine.drawBitmap(bitmapBack, width + 120, 0, null);
-            bitmapFront.recycle();
-            bitmapBack.recycle();
         }
-
-
-
 
         try {
             Matrix matrix90 = new Matrix();
@@ -235,7 +192,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, orderItems.get(currentID).platform.equals("4u2") ? 122 : 150);
+            BitmapToJpg.save(bitmapCombine, fileSave, 122);
 
             //释放bitmap
             bitmapCombine.recycle();
@@ -274,7 +231,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             int num=orderItems.get(currentID).num;
             Number number2 = new Number(2, currentID+1, num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID+1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);
@@ -305,18 +262,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
     }
 
-    void setScale(String size){
-        if(size.equals("S")){
-            width = 2812;
-            height = 3873;
-        } else if(size.equals("M")){
-            width = 3141;
-            height = 4538;
-        } else if(size.equals("L")){
-            width = 3992;
-            height = 4970;
-        }
-    }
     void setScale4u2(String sizeStr) {
         switch (sizeStr) {
             case "S":
@@ -333,6 +278,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 width = 3248;
                 height = 3997;
                 dbID = R.drawable.dz_l;
+                break;
+            case "XL":
+                width = 3604;
+                height = 4325;
+                dbID = R.drawable.dz_xl;
                 break;
         }
     }

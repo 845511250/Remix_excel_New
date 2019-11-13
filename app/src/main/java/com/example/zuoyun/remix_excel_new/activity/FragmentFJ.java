@@ -163,10 +163,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvas.drawText("袖子右", 291, 548 - 2, paint);
         canvas.restore();
 
-        canvas.drawRect(1860, 4288-28, 1904, 4288, rectPaint);
+        canvas.drawRect(1860, 4288 - 28, 1904, 4288, rectPaint);
         canvas.drawText("下摆", 1860, 4288 - 2, paint);
 
-        canvas.drawRect(200, 4288-28, 1200, 4288, rectPaint);
+        canvas.drawRect(200, 4288 - 28, 1200, 4288, rectPaint);
         canvas.drawText("FJ带帽夹克  " + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number + "   " + getColor(orderItems.get(currentID).colorStr), 200, 4288 - 2, paint);
     }
     void drawTextFrontL(Canvas canvas) {
@@ -175,6 +175,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvas.drawRect(1646, 703 - 28, 1746, 703, rectPaint);
         canvas.drawText("袖子左", 1646, 703 - 2, paint);
         canvas.restore();
+    }
+
+    void drawTextBack(Canvas canvas) {
+        canvas.drawRect(300, 4286 - 28, 300 + 1000, 4286, rectPaint);
+        canvas.drawText("FJ带帽夹克  " + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number + "   " + getColor(orderItems.get(currentID).colorStr), 300, 4286 - 2, paint);
     }
 
     void drawTextLalianR(Canvas canvas) {
@@ -271,7 +276,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         } else if (orderItems.get(currentID).sizeStr.equals("XXL")) {
             canvas.drawRect(596, 12, 696, 40, rectPaint);
             canvas.drawText("左外侧", 596, 38, paint);
+        } else if (orderItems.get(currentID).sizeStr.equals("2XL")) {
+            canvas.drawRect(596, 12, 696, 40, rectPaint);
+            canvas.drawText("左外侧", 596, 38, paint);
         } else if (orderItems.get(currentID).sizeStr.equals("XXXL")) {
+            canvas.drawRect(592, 12, 692, 40, rectPaint);
+            canvas.drawText("左外侧", 592, 38, paint);
+        } else if (orderItems.get(currentID).sizeStr.equals("3XL")) {
             canvas.drawRect(592, 12, 692, 40, rectPaint);
             canvas.drawText("左外侧", 592, 38, paint);
         }
@@ -292,7 +303,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         } else if (orderItems.get(currentID).sizeStr.equals("XXL")) {
             canvas.drawRect(596, 12, 696, 40, rectPaint);
             canvas.drawText("右内侧", 596, 38, paint);
+        } else if (orderItems.get(currentID).sizeStr.equals("2XL")) {
+            canvas.drawRect(596, 12, 696, 40, rectPaint);
+            canvas.drawText("右内侧", 596, 38, paint);
         } else if (orderItems.get(currentID).sizeStr.equals("XXXL")) {
+            canvas.drawRect(592, 12, 692, 40, rectPaint);
+            canvas.drawText("右内侧", 592, 38, paint);
+        } else if (orderItems.get(currentID).sizeStr.equals("3XL")) {
             canvas.drawRect(592, 12, 692, 40, rectPaint);
             canvas.drawText("右内侧", 592, 38, paint);
         }
@@ -314,7 +331,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         } else if (orderItems.get(currentID).sizeStr.equals("XXL")) {
             canvas.drawRect(1253, 12, 1353, 40, rectPaint);
             canvas.drawText("右外侧", 1253, 38, paint);
+        } else if (orderItems.get(currentID).sizeStr.equals("2XL")) {
+            canvas.drawRect(1253, 12, 1353, 40, rectPaint);
+            canvas.drawText("右外侧", 1253, 38, paint);
         } else if (orderItems.get(currentID).sizeStr.equals("XXXL")) {
+            canvas.drawRect(1300, 12, 1400, 40, rectPaint);
+            canvas.drawText("右外侧", 1300, 38, paint);
+        } else if (orderItems.get(currentID).sizeStr.equals("3XL")) {
             canvas.drawRect(1300, 12, 1400, 40, rectPaint);
             canvas.drawText("右外侧", 1300, 38, paint);
         }
@@ -335,7 +358,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         } else if (orderItems.get(currentID).sizeStr.equals("XXL")) {
             canvas.drawRect(1253, 12, 1353, 40, rectPaint);
             canvas.drawText("左内侧", 1253, 38, paint);
+        } else if (orderItems.get(currentID).sizeStr.equals("2XL")) {
+            canvas.drawRect(1253, 12, 1353, 40, rectPaint);
+            canvas.drawText("左内侧", 1253, 38, paint);
         } else if (orderItems.get(currentID).sizeStr.equals("XXXL")) {
+            canvas.drawRect(1300, 12, 1400, 40, rectPaint);
+            canvas.drawText("左内侧", 1300, 38, paint);
+        } else if (orderItems.get(currentID).sizeStr.equals("3XL")) {
             canvas.drawRect(1300, 12, 1400, 40, rectPaint);
             canvas.drawText("左内侧", 1300, 38, paint);
         }
@@ -410,6 +439,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_back);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBack(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front * 2 + 60, 0, null);
 
@@ -543,9 +573,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_dadai, height_dadai, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front * 2 + width_back + 90, height_xiaodai * 2 + height_dadai + 90, null);
             bitmapTemp.recycle();
-        } else if (orderItems.get(currentID).imgs.size() == 7) {
+        } else if (orderItems.get(currentID).imgs.size() == 2) {
             //右前
-            Bitmap bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(0), 0, 0, 1961, 4295);
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2864, 2317, 1961, 4295);
             Canvas canvasTemp = new Canvas(bitmapTemp);
 
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_front_r);
@@ -555,7 +585,198 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
             //左前
-            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(0), 1961, 0, 1961, 4295);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4825, 2317, 1961, 4295);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_front_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextFrontL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front + 30, 0, null);
+
+            //右帽子内
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4876 - width_maozi, 2881 - height_maozi, width_maozi, height_maozi);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), getDbMaoziId_l());
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextMaoziR_in(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_front + 30, null);
+
+            //右帽子外
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 4773, 2881 - height_maozi, width_maozi, height_maozi);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), getDbMaoziId_r());
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextMaoziR_out(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, width_maozi + 30, height_front + 30, null);
+
+            //左帽子外
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 4876 - width_maozi, 2881 - height_maozi, width_maozi, height_maozi);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), getDbMaoziId_l());
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextMaoziL_out(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, width_maozi * 2 + 60, height_front + 30, null);
+
+            //左帽子内
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4773, 2881 - height_maozi, width_maozi, height_maozi);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), getDbMaoziId_r());
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextMaoziL_in(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, width_maozi * 3 + 90, height_front + 30, null);
+
+            //后面
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 2898, 2317, 3854, 4297);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_back);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front * 2 + 60, 0, null);
+
+            //右袖子
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 3089, 2864, 3523);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiuzi);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextXiuziR(canvasTemp);
+            drawTextBack(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiuzi, height_xiuzi, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_maozi + 30, null);
+
+            //左袖子
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 6786, 3089, 2864, 3523);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiuzi);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextXiuziL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiuzi, height_xiuzi, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_xiuzi + 30, height_back + height_maozi + 30, null);
+
+            //下摆
+            bitmapTemp = Bitmap.createBitmap(6256, 792, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+
+            Bitmap bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4825, 6614, 1564, 792);
+            canvasTemp.drawBitmap(bitmapCut, 0, 0, null);
+            bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 3261, 6614, 1564 * 2, 792);
+            canvasTemp.drawBitmap(bitmapCut, 1564, 0, null);
+            bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3261, 6614, 1564, 792);
+            canvasTemp.drawBitmap(bitmapCut, 1564 * 3, 0, null);
+            bitmapCut.recycle();
+
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiabai);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextXiabai(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiabai, height_xiabai, true);
+            Matrix matrix = new Matrix();
+//        matrix.postRotate(90);
+            matrix.postTranslate(0, height_back + height_maozi + height_xiuzi + 90);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //小袋右
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3507, 4778, 1282, 1648);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiaodai_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextXiaodaiR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiaodai, height_xiaodai, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front * 2 + width_back + 90, 0, null);
+
+            //小袋左
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4863, 4778, 1282, 1648);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiaodai_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextXiaodaiL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiaodai, height_xiaodai, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front * 2 + width_back + 90, height_xiaodai + 30, null);
+
+            //拉链右
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3942, 2319, 883, 4301);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_lalian_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextLalianR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_lalian, height_lalian, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_maozi * 4 + 120, height_dadai * 4 + 120, null);
+
+            //拉链左
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4825, 2319, 883, 4301);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_lalian_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextLalianL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_lalian, height_lalian, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_maozi * 4 + width_lalian + 150, height_dadai * 4 + 120, null);
+
+            //袋眉右
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3220, 4889, 400, 1426);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_daimei_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextDaimeiR(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, width_xiuzi * 2 + 60, height_back + height_maozi + 60, null);
+
+            //袋眉左
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 6038, 4889, 400, 1426);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_daimei_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextDaimeiL(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, width_xiuzi * 2 + width_daimei + 90, height_back + height_maozi + 60, null);
+
+            //袖口右
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 726, 6612, 1412, 792);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiukou);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextXiukouR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiukou, height_xiukou, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_xiuzi * 2, height_back + height_maozi + height_daimei + 90, null);
+
+            //袖口左
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 7512, 6612, 1412, 792);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiukou);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextXiukouL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiukou, height_xiukou, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_xiuzi * 2, height_back + height_maozi + height_daimei + height_xiukou + 120, null);
+
+            //大袋右
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3389, 4778, 1400, 1648);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_dadai_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextDadaiR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_dadai, height_dadai, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front * 2 + width_back + 90, height_xiaodai * 2 + 60, null);
+
+            //大袋左
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4863, 4778, 1400, 1648);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_dadai_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapDB.recycle();
+            drawTextDadaiL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_dadai, height_dadai, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front * 2 + width_back + 90, height_xiaodai * 2 + height_dadai + 90, null);
+            bitmapTemp.recycle();
+        } else if (orderItems.get(currentID).imgs.size() == 7) {
+            //右前
+            Bitmap bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(3), 0, 0, 1961, 4295);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_front_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextFrontR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            //左前
+            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(3), 1961, 0, 1961, 4295);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_front_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -565,7 +786,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             //右帽子内
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), getDbMaoziId_l());
-            bitmapTemp = Bitmap.createBitmap(checkContains("hood") ? getBitmapWith("hood") : MainActivity.instance.bitmaps.get(6), 0, 0, 1783, 2601);
+            bitmapTemp = Bitmap.createBitmap(checkContains("hood") ? getBitmapWith("hood") : MainActivity.instance.bitmaps.get(4), 0, 0, 1783, 2601);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, bitmapDB.getWidth(), bitmapDB.getHeight(), true);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -574,7 +795,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             //右帽子外
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), getDbMaoziId_r());
-            bitmapTemp = Bitmap.createBitmap(checkContains("hood") ? getBitmapWith("hood") : MainActivity.instance.bitmaps.get(6), 1680, 0, 1783, 2601);
+            bitmapTemp = Bitmap.createBitmap(checkContains("hood") ? getBitmapWith("hood") : MainActivity.instance.bitmaps.get(4), 1680, 0, 1783, 2601);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, bitmapDB.getWidth(), bitmapDB.getHeight(), true);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -583,7 +804,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             //左帽子外
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), getDbMaoziId_l());
-            bitmapTemp = Bitmap.createBitmap(checkContains("hood") ? getBitmapWith("hood") : MainActivity.instance.bitmaps.get(6), 0, 0, 1783, 2601);
+            bitmapTemp = Bitmap.createBitmap(checkContains("hood") ? getBitmapWith("hood") : MainActivity.instance.bitmaps.get(4), 0, 0, 1783, 2601);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, bitmapDB.getWidth(), bitmapDB.getHeight(), true);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -592,7 +813,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             //左帽子内
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), getDbMaoziId_r());
-            bitmapTemp = Bitmap.createBitmap(checkContains("hood") ? getBitmapWith("hood") : MainActivity.instance.bitmaps.get(6), 1680, 0, 1783, 2601);
+            bitmapTemp = Bitmap.createBitmap(checkContains("hood") ? getBitmapWith("hood") : MainActivity.instance.bitmaps.get(4), 1680, 0, 1783, 2601);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, bitmapDB.getWidth(), bitmapDB.getHeight(), true);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -600,15 +821,16 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, width_maozi * 3 + 90, height_front + 30, null);
 
             //后面
-            bitmapTemp = (checkContains("back") ? getBitmapWith("back") : MainActivity.instance.bitmaps.get(1)).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapTemp = (checkContains("back") ? getBitmapWith("back") : MainActivity.instance.bitmaps.get(0)).copy(Bitmap.Config.ARGB_8888, true);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_back);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBack(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front * 2 + 60, 0, null);
 
             //右袖子
-            bitmapTemp = (checkContains("sleeveR") ? getBitmapWith("sleeveR") : MainActivity.instance.bitmaps.get(3)).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapTemp = (checkContains("sleeveR") ? getBitmapWith("sleeveR") : MainActivity.instance.bitmaps.get(6)).copy(Bitmap.Config.ARGB_8888, true);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiuzi);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -617,7 +839,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_maozi, null);
 
             //左袖子
-            bitmapTemp = (checkContains("sleeveL") ? getBitmapWith("sleeveL") : MainActivity.instance.bitmaps.get(2)).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapTemp = (checkContains("sleeveL") ? getBitmapWith("sleeveL") : MainActivity.instance.bitmaps.get(5)).copy(Bitmap.Config.ARGB_8888, true);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiuzi);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -631,11 +853,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawColor(0xffffffff);
 
-            Bitmap bitmapCut = Bitmap.createBitmap(checkContains("bottom") ? getBitmapWith("bottom") : MainActivity.instance.bitmaps.get(5), 1906, 0, 1906, 792);
+            Bitmap bitmapCut = Bitmap.createBitmap(checkContains("bottom") ? getBitmapWith("bottom") : MainActivity.instance.bitmaps.get(1), 1906, 0, 1906, 792);
             canvasTemp.drawBitmap(bitmapCut, 0, 0, null);
-            bitmapCut = Bitmap.createBitmap(checkContains("bottom") ? getBitmapWith("bottom") : MainActivity.instance.bitmaps.get(5), 0, 0, 1906 * 2, 792);
+            bitmapCut = Bitmap.createBitmap(checkContains("bottom") ? getBitmapWith("bottom") : MainActivity.instance.bitmaps.get(1), 0, 0, 1906 * 2, 792);
             canvasTemp.drawBitmap(bitmapCut, 1906, 0, null);
-            bitmapCut = Bitmap.createBitmap(checkContains("bottom") ? getBitmapWith("bottom") : MainActivity.instance.bitmaps.get(5), 0, 0, 1906, 792);
+            bitmapCut = Bitmap.createBitmap(checkContains("bottom") ? getBitmapWith("bottom") : MainActivity.instance.bitmaps.get(1), 0, 0, 1906, 792);
             canvasTemp.drawBitmap(bitmapCut, 1906 * 3, 0, null);
             bitmapCut.recycle();
 
@@ -653,7 +875,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
             //小袋右
-            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(0), 643, 2461, 1282, 1648);
+            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(3), 643, 2461, 1282, 1648);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiaodai_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -662,7 +884,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, width_front * 2 + width_back + 90, 0, null);
 
             //小袋左
-            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(0), 1999, 2461, 1282, 1648);
+            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(3), 1999, 2461, 1282, 1648);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiaodai_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -671,7 +893,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, width_front * 2 + width_back + 90, height_xiaodai + 30, null);
 
             //拉链右
-            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(0), 1078, 0, 883, 4301);
+            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(3), 1078, 0, 883, 4301);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_lalian_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -680,7 +902,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, width_maozi * 4 + 120, height_dadai * 4 + 120, null);
 
             //拉链左
-            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(0), 1961, 0, 883, 4301);
+            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(3), 1961, 0, 883, 4301);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_lalian_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -689,7 +911,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, width_maozi * 4 + width_lalian + 150, height_dadai * 4 + 120, null);
 
             //袋眉右
-            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(0), 356, 2572, 400, 1426);
+            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(3), 356, 2572, 400, 1426);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_daimei_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -697,7 +919,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, width_xiuzi * 2 + 60, height_back + height_maozi + 60, null);
 
             //袋眉左
-            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(0), 3174, 2590, 400, 1426);
+            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(3), 3174, 2590, 400, 1426);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_daimei_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -705,7 +927,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, width_xiuzi * 2 + width_daimei + 90, height_back + height_maozi + 60, null);
 
             //袖口右
-            bitmapTemp = (checkContains("cuff") ? getBitmapWith("cuff") : MainActivity.instance.bitmaps.get(4)).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapTemp = (checkContains("cuff") ? getBitmapWith("cuff") : MainActivity.instance.bitmaps.get(2)).copy(Bitmap.Config.ARGB_8888, true);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiukou);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -714,7 +936,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, width_xiuzi * 2, height_back + height_maozi + height_daimei + 90, null);
 
             //袖口左
-            bitmapTemp = (checkContains("cuff") ? getBitmapWith("cuff") : MainActivity.instance.bitmaps.get(4)).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapTemp = (checkContains("cuff") ? getBitmapWith("cuff") : MainActivity.instance.bitmaps.get(2)).copy(Bitmap.Config.ARGB_8888, true);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiukou);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -723,7 +945,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, width_xiuzi * 2, height_back + height_maozi + height_daimei + height_xiukou + 120, null);
 
             //大袋右
-            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(0), 525, 2461, 1400, 1648);
+            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(3), 525, 2461, 1400, 1648);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_dadai_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -732,7 +954,206 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, width_front * 2 + width_back + 90, height_xiaodai * 2 + 60, null);
 
             //大袋左
-            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(0), 1999, 2461, 1400, 1648);
+            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(3), 1999, 2461, 1400, 1648);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_dadai_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapDB.recycle();
+            drawTextDadaiL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_dadai, height_dadai, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front * 2 + width_back + 90, height_xiaodai * 2 + height_dadai + 90, null);
+            bitmapTemp.recycle();
+        } else if (orderItems.get(currentID).imgs.size() == 8) {
+            //右前
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, 1959, 4295);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_front_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextFrontR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            //左前
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 1959, 0, 1959, 4295);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_front_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextFrontL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front + 30, 0, null);
+
+            //右帽子内
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), getDbMaoziId_l());
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, 1781, 2600);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, bitmapDB.getWidth(), bitmapDB.getHeight(), true);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextMaoziR_in(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_front + 30, null);
+
+            //右帽子外
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), getDbMaoziId_r());
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(3), 1680, 0, 1781, 2600);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, bitmapDB.getWidth(), bitmapDB.getHeight(), true);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextMaoziR_out(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, width_maozi + 30, height_front + 30, null);
+
+            //左帽子外
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), getDbMaoziId_l());
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, 1781, 2600);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, bitmapDB.getWidth(), bitmapDB.getHeight(), true);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextMaoziL_out(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, width_maozi * 2 + 60, height_front + 30, null);
+
+            //左帽子内
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), getDbMaoziId_r());
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(3), 1680, 0, 1781, 2600);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, bitmapDB.getWidth(), bitmapDB.getHeight(), true);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextMaoziL_in(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, width_maozi * 3 + 90, height_front + 30, null);
+
+            //后面
+            bitmapTemp = (MainActivity.instance.bitmaps.get(0)).copy(Bitmap.Config.ARGB_8888, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_back);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBack(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front * 2 + 60, 0, null);
+
+            //右袖子
+            bitmapTemp = (MainActivity.instance.bitmaps.get(7)).copy(Bitmap.Config.ARGB_8888, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiuzi);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextXiuziR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiuzi, height_xiuzi, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_maozi, null);
+
+            //左袖子
+            bitmapTemp = (MainActivity.instance.bitmaps.get(5)).copy(Bitmap.Config.ARGB_8888, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiuzi);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextXiuziL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiuzi, height_xiuzi, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_xiuzi + 30, height_back + height_maozi + 30, null);
+
+            //下摆
+            bitmapTemp = Bitmap.createBitmap(7624, 792, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+
+            Bitmap bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 1906, 0, 1906, 792);
+            canvasTemp.drawBitmap(bitmapCut, 0, 0, null);
+            bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 1906 * 2, 792);
+            canvasTemp.drawBitmap(bitmapCut, 1906, 0, null);
+            bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 1906, 792);
+            canvasTemp.drawBitmap(bitmapCut, 1906 * 3, 0, null);
+            bitmapCut.recycle();
+
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 6256, 792, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiabai);
+            drawTextXiabai(canvasTemp);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiabai, height_xiabai, true);
+            Matrix matrix = new Matrix();
+//        matrix.postRotate(90);
+            matrix.postTranslate(0, height_back + height_maozi + height_xiuzi + 90);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //小袋右
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 643, 2461, 1282, 1648);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiaodai_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextXiaodaiR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiaodai, height_xiaodai, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front * 2 + width_back + 90, 0, null);
+
+            //小袋左
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 1999, 2461, 1282, 1648);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiaodai_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextXiaodaiL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiaodai, height_xiaodai, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front * 2 + width_back + 90, height_xiaodai + 30, null);
+
+            //拉链右
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 1078, 0, 883, 4301);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_lalian_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextLalianR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_lalian, height_lalian, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_maozi * 4 + 120, height_dadai * 4 + 120, null);
+
+            //拉链左
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 1961, 0, 883, 4301);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_lalian_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextLalianL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_lalian, height_lalian, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_maozi * 4 + width_lalian + 150, height_dadai * 4 + 120, null);
+
+            //袋眉右
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 356, 2572, 400, 1426);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_daimei_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextDaimeiR(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, width_xiuzi * 2 + 60, height_back + height_maozi + 60, null);
+
+            //袋眉左
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 3174, 2590, 400, 1426);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_daimei_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextDaimeiL(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, width_xiuzi * 2 + width_daimei + 90, height_back + height_maozi + 60, null);
+
+            //袖口右
+            bitmapTemp = (MainActivity.instance.bitmaps.get(6)).copy(Bitmap.Config.ARGB_8888, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiukou);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextXiukouR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiukou, height_xiukou, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_xiuzi * 2, height_back + height_maozi + height_daimei + 90, null);
+
+            //袖口左
+            bitmapTemp = (MainActivity.instance.bitmaps.get(4)).copy(Bitmap.Config.ARGB_8888, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_xiukou);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextXiukouL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiukou, height_xiukou, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_xiuzi * 2, height_back + height_maozi + height_daimei + height_xiukou + 120, null);
+
+            //大袋右
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 525, 2461, 1400, 1648);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_dadai_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextDadaiR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_dadai, height_dadai, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front * 2 + width_back + 90, height_xiaodai * 2 + 60, null);
+
+            //大袋左
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 1999, 2461, 1400, 1648);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.jiake_dadai_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -746,7 +1167,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         try {
             String fluo = orderItems.get(currentID).sku.equals("FJF") ? "荧光-" : "";
-            String nameCombine = fluo + "卫衣夹克" + orderItems.get(currentID).sizeStr + getColor(orderItems.get(currentID).colorStr) + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = fluo + "灯衣夹克" + orderItems.get(currentID).sizeStr + getColor(orderItems.get(currentID).colorStr) + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -793,7 +1214,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             int num=orderItems.get(currentID).num;
             Number number2 = new Number(2, currentID+1, num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID + 1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);
@@ -1049,6 +1470,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             return R.drawable.jiake_maozi_r_xl;
         } else if (orderItems.get(currentID).sizeStr.equals("XXL")) {
             return R.drawable.jiake_maozi_r_xxl;
+        } else if (orderItems.get(currentID).sizeStr.equals("2XL")) {
+            return R.drawable.jiake_maozi_r_xxl;
         } else {
             return R.drawable.jiake_maozi_r_xxxl;
         }
@@ -1063,6 +1486,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         } else if (orderItems.get(currentID).sizeStr.equals("XL")) {
             return R.drawable.jiake_maozi_l_xl;
         } else if (orderItems.get(currentID).sizeStr.equals("XXL")) {
+            return R.drawable.jiake_maozi_l_xxl;
+        } else if (orderItems.get(currentID).sizeStr.equals("2XL")) {
             return R.drawable.jiake_maozi_l_xxl;
         } else {
             return R.drawable.jiake_maozi_l_xxxl;

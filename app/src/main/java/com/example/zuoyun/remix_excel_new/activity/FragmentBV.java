@@ -49,7 +49,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     int width_front,width_back, width_xiuzi;
     int height_front,height_back, height_xiuzi;
-    int id_front,id_back,id_sleeve_l, id_sleeve_r;
+    int id_front,id_back;
 
     int num;
     String strPlus = "";
@@ -167,16 +167,16 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawTextXiuziL(Canvas canvas) {
-        canvas.drawRect(500, 1735 - 20, 500 + 500, 1735, rectPaint);
-        canvas.drawText("左袖子" + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 500, 1735 - 2, paint);
+        canvas.drawRect(500, 1712 - 20, 500 + 500, 1712, rectPaint);
+        canvas.drawText("左袖子" + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 500, 1712 - 2, paint);
     }
     void drawTextXiuziR(Canvas canvas) {
-        canvas.drawRect(500, 1735 - 20, 500 + 500, 1735, rectPaint);
-        canvas.drawText("右袖子" + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 500, 1735 - 2, paint);
+        canvas.drawRect(500, 1712 - 20, 500 + 500, 1712, rectPaint);
+        canvas.drawText("右袖子" + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 500, 1712 - 2, paint);
     }
 
     public void remixx(){
-        Bitmap bitmapCombine = Bitmap.createBitmap(width_front + width_back + width_xiuzi + 180, height_back, Bitmap.Config.ARGB_8888);
+        Bitmap bitmapCombine = Bitmap.createBitmap(width_front + width_back + width_xiuzi + 180, Math.max(height_back, height_xiuzi * 2 + 120), Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
@@ -205,22 +205,20 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, width_front + 60, 0, null);
 
             //左袖子
-            bitmapTemp = Bitmap.createBitmap(1925, 1743, Bitmap.Config.ARGB_8888);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 57, 21, 1841, 1719);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, null);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), id_sleeve_l);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.bv_sleeve_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextXiuziL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiuzi, height_xiuzi, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front + width_back + 120, 0, null);
 
             //右袖子
-            bitmapTemp = Bitmap.createBitmap(1925, 1743, Bitmap.Config.ARGB_8888);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(3), 27, 21, 1841, 1719);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, null);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), id_sleeve_r);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.bv_sleeve_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             bitmapDB.recycle();
             drawTextXiuziR(canvasTemp);
@@ -249,20 +247,20 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, width_front + 60, 0, null);
 
             //左袖子
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4631, 0, 1925, 1743);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4631 + 57, 0 + 21, 1841, 1719);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), id_sleeve_l);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.bv_sleeve_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextXiuziL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiuzi, height_xiuzi, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front + width_back + 120, 0, null);
 
             //右袖子
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 1925, 1743);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0 + 27, 0 + 21, 1841, 1719);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), id_sleeve_r);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.bv_sleeve_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             bitmapDB.recycle();
             drawTextXiuziR(canvasTemp);
@@ -287,7 +285,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 150);
+            BitmapToJpg.save(bitmapCombine, fileSave, 147);
             bitmapCombine.recycle();
 
             //写入excel
@@ -324,7 +322,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             int num=orderItems.get(currentID).num;
             Number number2 = new Number(2, currentID+1, num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID + 1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);
@@ -359,100 +357,64 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     void setScale(String size) {
         switch (size) {
             case "XS":
-                width_front = 2540;
-                height_front = 3277;
-                width_back = 3542;
-                height_back = 3713;
-                width_xiuzi = 1814;
-                height_xiuzi = 1711;
+                width_front = 2434;
+                height_front = 3292;
+                width_back = 2434;
+                height_back = 3750;
+                width_xiuzi = 1727;
+                height_xiuzi = 1622;
                 id_front = R.drawable.bv_front_s;
                 id_back = R.drawable.bv_back_s;
-                id_sleeve_l = R.drawable.bv_sleeve_l_s;
-                id_sleeve_r = R.drawable.bv_sleeve_r_s;
                 break;
             case "S":
-                width_front = 2658;
-                height_front = 3345;
-                width_back = 2660;
-                height_back = 3771;
-                width_xiuzi = 1910;
-                height_xiuzi = 1799;
+                width_front = 2557;
+                height_front = 3354;
+                width_back = 2557;
+                height_back = 3806;
+                width_xiuzi = 1827;
+                height_xiuzi = 1622;
                 id_front = R.drawable.bv_front_s;
                 id_back = R.drawable.bv_back_s;
-                id_sleeve_l = R.drawable.bv_sleeve_l_s;
-                id_sleeve_r = R.drawable.bv_sleeve_r_s;
                 break;
             case "M":
-                width_front = 2776;
-                height_front = 3414;
-                width_back = 2778;
-                height_back = 3830;
-                width_xiuzi = 2005;
-                height_xiuzi = 1888;
+                width_front = 2707;
+                height_front = 3412;
+                width_back = 2707;
+                height_back = 3870;
+                width_xiuzi = 1925;
+                height_xiuzi = 1743;
                 id_front = R.drawable.bv_front_s;
                 id_back = R.drawable.bv_back_s;
-                id_sleeve_l = R.drawable.bv_sleeve_l_s;
-                id_sleeve_r = R.drawable.bv_sleeve_r_s;
                 break;
             case "L":
-                width_front = 3012;
-                height_front = 3586;
-                width_back = 3015;
-                height_back = 4010;
-                width_xiuzi = 2194;
-                height_xiuzi = 2006;
+                width_front = 2846;
+                height_front = 3451;
+                width_back = 2845;
+                height_back = 3916;
+                width_xiuzi = 2010;
+                height_xiuzi = 1805;
                 id_front = R.drawable.bv_front_xl;
                 id_back = R.drawable.bv_back_xl;
-                id_sleeve_l = R.drawable.bv_sleeve_l_xl;
-                id_sleeve_r = R.drawable.bv_sleeve_r_xl;
                 break;
             case "XL":
-                width_front = 3249;
-                height_front = 3727;
-                width_back = 3251;
-                height_back = 4186;
-                width_xiuzi = 2384;
-                height_xiuzi = 2124;
+                width_front = 2996;
+                height_front = 3502;
+                width_back = 2996;
+                height_back = 3973;
+                width_xiuzi = 2107;
+                height_xiuzi = 1880;
                 id_front = R.drawable.bv_front_xl;
                 id_back = R.drawable.bv_back_xl;
-                id_sleeve_l = R.drawable.bv_sleeve_l_xl;
-                id_sleeve_r = R.drawable.bv_sleeve_r_xl;
                 break;
             case "2XL":
-                width_front = 3486;
-                height_front = 3865;
-                width_back = 3488;
-                height_back = 4363;
-                width_xiuzi = 2573;
-                height_xiuzi = 2242;
+                width_front = 3140;
+                height_front = 4000;
+                width_back = 3140;
+                height_back = 4030;
+                width_xiuzi = 2200;
+                height_xiuzi = 1945;
                 id_front = R.drawable.bv_front_xl;
                 id_back = R.drawable.bv_back_xl;
-                id_sleeve_l = R.drawable.bv_sleeve_l_xl;
-                id_sleeve_r = R.drawable.bv_sleeve_r_xl;
-                break;
-            case "3XL":
-                width_front = 3722;
-                height_front = 4004;
-                width_back = 3724;
-                height_back = 4542;
-                width_xiuzi = 2762;
-                height_xiuzi = 2361;
-                id_front = R.drawable.bv_front_3xl;
-                id_back = R.drawable.bv_back_3xl;
-                id_sleeve_l = R.drawable.bv_sleeve_l_3xl;
-                id_sleeve_r = R.drawable.bv_sleeve_r_3xl;
-                break;
-            case "4XL":
-                width_front = 3959;
-                height_front = 4143;
-                width_back = 3960;
-                height_back = 4719;
-                width_xiuzi = 2951;
-                height_xiuzi = 2479;
-                id_front = R.drawable.bv_front_3xl;
-                id_back = R.drawable.bv_back_3xl;
-                id_sleeve_l = R.drawable.bv_sleeve_l_3xl;
-                id_sleeve_r = R.drawable.bv_sleeve_r_3xl;
                 break;
             default:
                 showDialogSizeWrong(orderItems.get(currentID).order_number);

@@ -192,7 +192,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             drawText(canvasPrintPillow, pillowWidthPrint / 2, pillowHeightPrint);
 
             rectDraw = new Rect(0, pillowHeightPrint + 6, pillowWidthPrint, pillowHeightPrint + 6 + pillowHeightPrint);
-            canvasPrintPillow.drawBitmap(MainActivity.instance.bitmaps.get(1), null, rectDraw, null);
+            canvasPrintPillow.drawBitmap(MainActivity.instance.bitmaps.get(2), null, rectDraw, null);
             canvasPrintPillow.drawRect(rectDraw, rectBorderPaint);
             drawText(canvasPrintPillow, pillowWidthPrint / 2, pillowHeightPrint + 6 + pillowHeightPrint);
 
@@ -226,7 +226,77 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasPrintQuilt.rotate(90, drawHeight, 0);
             Rect rectCut = new Rect(quiltX, quiltY, quiltX + quiltWidth, quiltY + quiltHeight);
             rectDraw = new Rect(drawHeight, 0, drawHeight + drawWidth, drawHeight);
-            canvasPrintQuilt.drawBitmap(MainActivity.instance.bitmaps.get(2), rectCut, rectDraw, null);
+            canvasPrintQuilt.drawBitmap(MainActivity.instance.bitmaps.get(1), rectCut, rectDraw, null);
+            canvasPrintQuilt.drawRect(rectDraw, rectBorderPaint);
+
+            Bitmap bitmapTriangleBottom = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_triangle_bottom);
+            Bitmap bitmapTriangleUp = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_triangle_up);
+            Bitmap bitmapTriangleLeft = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_triangle_left);
+            Bitmap bitmapTriangleRight = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_triangle_right);
+            canvasPrintQuilt.drawBitmap(bitmapTriangleUp, drawHeight + drawWidth / 2, 0, null);
+            canvasPrintQuilt.drawBitmap(bitmapTriangleBottom, drawHeight + drawWidth / 2, drawHeight - 17, null);
+            canvasPrintQuilt.drawBitmap(bitmapTriangleLeft, drawHeight, drawHeight / 2, null);
+            canvasPrintQuilt.drawBitmap(bitmapTriangleRight, drawHeight + drawWidth-17, drawHeight / 2, null);
+            bitmapTriangleBottom.recycle();
+            bitmapTriangleUp.recycle();
+            bitmapTriangleLeft.recycle();
+            bitmapTriangleRight.recycle();
+            canvasPrintQuilt.restore();
+            drawTextRotateQuilt(canvasPrintQuilt, 90, 0, drawWidth / 2 + 100);
+
+            //saveQuilt
+            String nameCombine = "被套" + orderItems.get(currentID).sizeStr + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            File fileSave = new File(pathSave + nameCombine);
+            BitmapToJpg.save(bitmapPrintQuilt, fileSave, 110);
+            bitmapPrintQuilt.recycle();
+        } else if (orderItems.get(currentID).imgs.size() == 5) {
+            //bitmapPrintPillow
+            Bitmap bitmapPrintPillow = Bitmap.createBitmap(pillowWidthPrint + 6, pillowHeightPrint * 2 + 6, Bitmap.Config.ARGB_8888);
+            Canvas canvasPrintPillow = new Canvas(bitmapPrintPillow);
+            canvasPrintPillow.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasPrintPillow.drawColor(0xffffffff);
+
+            Rect rectDraw = new Rect(0, 0, pillowWidthPrint, pillowHeightPrint);
+            canvasPrintPillow.drawBitmap(MainActivity.instance.bitmaps.get(0), null, rectDraw, null);
+            canvasPrintPillow.drawRect(rectDraw, rectBorderPaint);
+            drawText(canvasPrintPillow, pillowWidthPrint / 2, pillowHeightPrint);
+
+            rectDraw = new Rect(0, pillowHeightPrint + 6, pillowWidthPrint, pillowHeightPrint + 6 + pillowHeightPrint);
+            canvasPrintPillow.drawBitmap(MainActivity.instance.bitmaps.get(4), null, rectDraw, null);
+            canvasPrintPillow.drawRect(rectDraw, rectBorderPaint);
+            drawText(canvasPrintPillow, pillowWidthPrint / 2, pillowHeightPrint + 6 + pillowHeightPrint);
+
+            Matrix matrix90 = new Matrix();
+            matrix90.postRotate(90);
+            matrix90.postTranslate(bitmapPrintPillow.getHeight(), 0);
+            bitmapPrintPillow = Bitmap.createBitmap(bitmapPrintPillow, 0, 0, bitmapPrintPillow.getWidth(), bitmapPrintPillow.getHeight(), matrix90, true);
+
+            //save pillow
+            String nameCombinePillow = "枕套" + orderItems.get(currentID).sizeStr + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String pathSave;
+            if(MainActivity.instance.cb_classify.isChecked()){
+                pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
+            } else
+                pathSave = sdCardPath + "/生产图/" + childPath + "/";
+            if(!new File(pathSave).exists())
+                new File(pathSave).mkdirs();
+            File fileSavePillow = new File(pathSave + nameCombinePillow);
+            BitmapToJpg.save(bitmapPrintPillow, fileSavePillow, 110);
+            bitmapPrintPillow.recycle();
+
+
+
+            //bitmapPrintQuilt
+            Bitmap bitmapPrintQuilt = Bitmap.createBitmap(drawHeight, drawWidth + 6, Bitmap.Config.ARGB_8888);
+            Canvas canvasPrintQuilt = new Canvas(bitmapPrintQuilt);
+            canvasPrintQuilt.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasPrintQuilt.drawColor(0xffffffff);
+
+            canvasPrintQuilt.save();
+            canvasPrintQuilt.rotate(90, drawHeight, 0);
+            Rect rectCut = new Rect(quiltX, quiltY, quiltX + quiltWidth, quiltY + quiltHeight);
+            rectDraw = new Rect(drawHeight, 0, drawHeight + drawWidth, drawHeight);
+            canvasPrintQuilt.drawBitmap(MainActivity.instance.bitmaps.get(3), rectCut, rectDraw, null);
             canvasPrintQuilt.drawRect(rectDraw, rectBorderPaint);
 
             Bitmap bitmapTriangleBottom = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_triangle_bottom);
@@ -361,7 +431,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             int num=orderItems.get(currentID).num;
             Number number2 = new Number(2, currentID+1, num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID + 1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);

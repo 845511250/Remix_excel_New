@@ -128,8 +128,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             height = 1774;
             dbID = R.drawable.am_xl;
         }
-        MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true));
+
         bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), dbID);
+        MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true));
+        if (orderItems.get(currentID).imgs.size() == 2) {
+            MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), width, height, true));
+        }
 
         bitmapCombine = Bitmap.createBitmap(width, height * 2 + 120, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine = new Canvas(bitmapCombine);
@@ -141,7 +145,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         matrixCombine.postRotate(180);
         matrixCombine.postTranslate(width, height);
         canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), matrixCombine, null);
-        canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, height, null);
+
+        canvasCombine.drawBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), 0, height, null);
         canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
         bitmapDB.recycle();
 
@@ -195,7 +200,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             int num=orderItems.get(currentID).num;
             Number number2 = new Number(2, currentID+1, num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID+1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);

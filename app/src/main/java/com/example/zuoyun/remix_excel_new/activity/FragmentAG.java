@@ -110,10 +110,16 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         Bitmap bitmapCombine;
         if (orderItems.get(currentID).sizeStr.equals("M")) {
             MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2878, 3129, true));
+            if (orderItems.get(currentID).imgs.size() == 2) {
+                MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 2878, 3129, true));
+            }
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ag_m);
             bitmapCombine = Bitmap.createBitmap(5756, 3129 + 180, Bitmap.Config.ARGB_8888);
         } else {
             MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2982, 3168, true));
+            if (orderItems.get(currentID).imgs.size() == 2) {
+                MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 2982, 3168, true));
+            }
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ag_l);
             bitmapCombine = Bitmap.createBitmap(5964, 3168 + 180, Bitmap.Config.ARGB_8888);
         }
@@ -124,12 +130,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         if (orderItems.get(currentID).sizeStr.equals("M")) {
             canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 2878, 0, null);
+            canvasCombine.drawBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), 2878, 0, null);
             canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
             canvasCombine.drawBitmap(bitmapDB, 2878, 0, null);
         } else {
             canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 2982, 0, null);
+            canvasCombine.drawBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), 2982, 0, null);
             canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
             canvasCombine.drawBitmap(bitmapDB, 2982, 0, null);
         }
@@ -185,7 +191,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             int num=orderItems.get(currentID).num;
             Number number2 = new Number(2, currentID+1, num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID+1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);

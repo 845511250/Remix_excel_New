@@ -31,6 +31,7 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
 import static android.graphics.Bitmap.createBitmap;
+import static android.graphics.Bitmap.createScaledBitmap;
 
 /**
  * Created by zuoyun on 2016/11/4.
@@ -379,11 +380,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             //part8
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dx_part8);
-            bitmapTemp = createBitmap(4100, 968, Bitmap.Config.ARGB_8888);
+            bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapTemp = createScaledBitmap(bitmapTemp, 4100, 968, true);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             bitmapDB.recycle();
             drawText(canvasTemp, 1537, 28);
@@ -393,8 +393,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
 
         try {
-            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku + orderItems.get(currentID).sizeStr : "";
-            String nameCombine = noNewCode + orderItems.get(currentID).newCode + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + "_" : "";
+            String nameCombine = noNewCode + orderItems.get(currentID).newCode + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -443,7 +443,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             int num=orderItems.get(currentID).num;
             Number number2 = new Number(2, currentID+1, num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID + 1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);

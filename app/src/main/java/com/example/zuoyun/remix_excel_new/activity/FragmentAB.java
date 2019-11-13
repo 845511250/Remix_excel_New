@@ -138,6 +138,25 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         Bitmap bitmapCombine = null;
         String intSize = orderItems.get(currentID).sizeStr;
+        if (intSize.equals("S")) {
+            if (orderItems.get(currentID).skuStr.substring(0, 1).equals("M")) {
+                intSize = "7";
+            } else {
+                intSize = "5";
+            }
+        } else if (intSize.equals("M")) {
+            if (orderItems.get(currentID).skuStr.substring(0, 1).equals("M")) {
+                intSize = "9";
+            } else {
+                intSize = "7";
+            }
+        } else if (intSize.equals("L")) {
+            if (orderItems.get(currentID).skuStr.substring(0, 1).equals("M")) {
+                intSize = "11";
+            } else {
+                intSize = "9";
+            }
+        }
 
         if (!orderItems.get(currentID).platform.equals("4u2")) {
             MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1241, 1603, true));
@@ -184,19 +203,39 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
             bitmapDB.recycle();
 
-            canvasCombine.drawText("女" + intSize + "黑", 563, 1599, paint);
+            String gender = orderItems.get(currentID).skuStr.substring(0, 1).equals("M") ? "男" : "女";
+
+            canvasCombine.drawText(gender + intSize + "黑", 563, 1599, paint);
             canvasCombine.save();
             canvasCombine.rotate(90, 10, 1000);
             canvasCombine.drawText(time + "  " + orderItems.get(currentID).order_number, 10, 996, paint);
             canvasCombine.drawText("流水号：" + (currentID + 1), 300, 996, paintRed);
             canvasCombine.restore();
 
-            setScale(intSize);
+            setScale(orderItems.get(currentID).skuStr.substring(0, 1) + intSize);
             bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, (int) ((1241 + 59) * scaleX), (int) ((1603 + 59) * scaleY), true);
 
-        } else {
+        } else if (orderItems.get(currentID).imgs.size() == 1) {//批量定制
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ds);
+            bitmapCombine = Bitmap.createBitmap(1241 + 59, 1603 + 59, Bitmap.Config.ARGB_8888);
+            Canvas canvasCombine = new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasCombine.drawColor(0xffffffff);
+            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
+            canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapDB.recycle();
 
+            String gender = orderItems.get(currentID).skuStr.substring(0, 1).equals("M") ? "男" : "女";
 
+            canvasCombine.drawText(gender + intSize + "黑", 563, 1599, paint);
+            canvasCombine.save();
+            canvasCombine.rotate(90, 10, 1000);
+            canvasCombine.drawText(time + "  " + orderItems.get(currentID).order_number, 10, 996, paint);
+            canvasCombine.drawText("流水号：" + (currentID + 1), 300, 996, paintRed);
+            canvasCombine.restore();
+
+            setScale(orderItems.get(currentID).skuStr.substring(0, 1) + intSize);
+            bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, (int) ((1241 + 59) * scaleX), (int) ((1603 + 59) * scaleY), true);
         }
 
 
@@ -205,9 +244,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             String printColor = "B";
             String nameCombine;
             if (orderItems.get(currentID).platform.equals("4u2")) {
-                nameCombine = orderItems.get(currentID).sku + "W" + intSize + printColor + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+                String gender = orderItems.get(currentID).skuStr.substring(0, 1).equals("M") ? "男" : "女";
+                nameCombine = orderItems.get(currentID).sku + gender + intSize + printColor + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
             } else {
-                nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).skuStr.substring(2, 3) + intSize + printColor + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+                String gender = orderItems.get(currentID).skuStr.substring(2, 3).equals("M") ? "男" : "女";
+                nameCombine = orderItems.get(currentID).sku + gender + intSize + printColor + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
             }
 
             String pathSave;
@@ -257,7 +298,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             int num=orderItems.get(currentID).num;
             Number number2 = new Number(2, currentID+1, num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID+1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);
@@ -343,12 +384,24 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 scaleY = 0.938f;
                 break;
             case "7":
-                scaleX = 1.049f;
-                scaleY = 0.998f;
+                scaleX = 1.0541f;
+                scaleY = 1.03f;
+                break;
+            case "8":
+                scaleX = 1.0f;
+                scaleY = 1.0f;
                 break;
             case "9":
-                scaleX = 1.098f;
-                scaleY = 1.065f;
+                scaleX = 1.088f;
+                scaleY = 1.074f;
+                break;
+            case "10":
+                scaleX = 1.088f;
+                scaleY = 1.074f;
+                break;
+            case "11":
+                scaleX = 1.161f;
+                scaleY = 1.147f;
                 break;
             default:
                 showDialogSizeWrong(orderItems.get(currentID).order_number);

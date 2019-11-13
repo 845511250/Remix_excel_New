@@ -14,4 +14,5 @@ public class OrderItem {
     public String sizeStr, skuStr;
     public String newCode;
     public String platform;
+    public String customer;
 }

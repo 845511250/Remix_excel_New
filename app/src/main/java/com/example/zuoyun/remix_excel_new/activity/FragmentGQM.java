@@ -319,7 +319,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_arm * 2 + margin * 4, null);
 
             //maozi_out_l
-            bitmapTemp = Bitmap.createBitmap(checkContains("hat") ? getBitmapWith("hat") : MainActivity.instance.bitmaps.get(7), 0, 0, 1928, 2368);
+            bitmapTemp = Bitmap.createBitmap(checkContains("hat") ? getBitmapWith("hat") : MainActivity.instance.bitmaps.get(7), 0, 0, 1924, 2368);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_maozi_out_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -562,7 +562,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             int num=orderItems.get(currentID).num;
             Number number2 = new Number(2, currentID+1, num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID + 1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);

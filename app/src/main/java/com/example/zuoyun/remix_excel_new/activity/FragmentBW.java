@@ -83,7 +83,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(25);
+        paint.setTextSize(22);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setAntiAlias(true);
 
@@ -159,14 +159,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawTextFront(Canvas canvas) {
-        String color = orderItems.get(currentID).skuStr.equals("GCF") ? "荧光" : "";
-        canvas.drawRect(1000, 4370-25, 1000+500, 4370, rectPaint);
-        canvas.drawText("GC男背心 " + color + " " + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 1000, 4370 - 2, paint);
+        canvas.drawRect(1108, 3685 - 22, 1108 + 600, 3685, rectPaint);
+        canvas.drawText("BW女背心-" + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 1108, 3685 - 2, paint);
     }
     void drawTextBack(Canvas canvas) {
-        String color = orderItems.get(currentID).skuStr.equals("GCF") ? "荧光" : "";
-        canvas.drawRect(1000, 4164-25, 1000+500, 4164, rectPaint);
-        canvas.drawText("GC男背心 " + color + " " + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 1000, 4164 - 2, paint);
+        canvas.drawRect(1011, 3799 - 25, 1011 + 600, 3799, rectPaint);
+        canvas.drawText("BW女背心-" + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 1011, 3799 - 2, paint);
     }
 
     public void remixx(){
@@ -175,36 +173,51 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        Bitmap bitmapF = MainActivity.instance.bitmaps.get(0);
-        Bitmap bitmapB = orderItems.get(currentID).imgs.size() == 1 ? bitmapF : MainActivity.instance.bitmaps.get(1);
+        if (orderItems.get(currentID).imgs.size() == 2) {
+            //前
+            Bitmap bitmapTemp = MainActivity.instance.bitmaps.get(1).copy(Bitmap.Config.ARGB_8888, true);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.bw_front);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextFront(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
-        //前
-        Bitmap bitmapTemp = Bitmap.createBitmap(3304, 4375, Bitmap.Config.ARGB_8888);
-        Canvas canvasTemp = new Canvas(bitmapTemp);
-        canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasTemp.drawColor(0xffffffff);
-        canvasTemp.drawBitmap(bitmapF, 0, 0, null);
-        Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gc_front);
-        canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-        bitmapDB.recycle();
-        drawTextFront(canvasTemp);
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
-        canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
-        bitmapTemp.recycle();
+            //后
+            bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.bw_back);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapDB.recycle();
+            drawTextBack(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front + 120, 0, null);
+            bitmapTemp.recycle();
+        } else if (orderItems.get(currentID).imgs.size() == 1) {
+            //前
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 111, 2775, 3698);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.bw_front);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextFront(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
-        //后面
-        bitmapTemp = Bitmap.createBitmap(3334, 4169, Bitmap.Config.ARGB_8888);
-        canvasTemp = new Canvas(bitmapTemp);
-        canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasTemp.drawColor(0xffffffff);
-        canvasTemp.drawBitmap(bitmapB, 0, 0, null);
-        bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gc_back);
-        canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-        bitmapDB.recycle();
-        drawTextBack(canvasTemp);
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
-        canvasCombine.drawBitmap(bitmapTemp, width_front + 120, 0, null);
-        bitmapTemp.recycle();
+            //后
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 82, 0, 2610, 3809);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.bw_back);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapDB.recycle();
+            drawTextBack(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front + 120, 0, null);
+            bitmapTemp.recycle();
+        }
 
 
         try {
@@ -212,8 +225,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 //            matrix.postRotate(90, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
 //            bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
 
-            String fluo = orderItems.get(currentID).sku.equals("GCF") ? "荧光-" : "";
-            String nameCombine = fluo + "男背心_" + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = "BW_" + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -224,7 +236,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             Log.e("aaa", pathSave + nameCombine);
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 150);
+            BitmapToJpg.save(bitmapCombine, fileSave, 148);
             bitmapCombine.recycle();
 
             //写入excel
@@ -261,7 +273,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             int num=orderItems.get(currentID).num;
             Number number2 = new Number(2, currentID+1, num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID + 1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);
@@ -295,53 +307,41 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     void setScale(String size) {
         switch (size) {
+            case "XS":
+                width_front = 2583;
+                height_front = 3635;
+                width_back = 2353;
+                height_back = 3685;
+                break;
             case "S":
-                width_front = 3068;
-                height_front = 4426;
-                width_back = 3098;
-                height_back = 4438;
+                width_front = 2634;
+                height_front = 3636;
+                width_back = 2468;
+                height_back = 3750;
                 break;
             case "M":
-                width_front = 3186;
-                height_front = 4546;
-                width_back = 3216;
-                height_back = 4561;
+                width_front = 2776;
+                height_front = 3698;
+                width_back = 2610;
+                height_back = 3810;
                 break;
             case "L":
-                width_front = 3304;
-                height_front = 4666;
-                width_back = 3334;
-                height_back = 4683;
+                width_front = 2917;
+                height_front = 3764;
+                width_back = 2752;
+                height_back = 3872;
                 break;
             case "XL":
-                width_front = 3422;
-                height_front = 4786;
-                width_back = 3452;
-                height_back = 4806;
-                break;
-            case "XXL":
-                width_front = 3540;
-                height_front = 4906;
-                width_back = 3570;
-                height_back = 4928;
+                width_front = 3069;
+                height_front = 3840;
+                width_back = 2901;
+                height_back = 3942;
                 break;
             case "2XL":
-                width_front = 3540;
-                height_front = 4906;
-                width_back = 3570;
-                height_back = 4928;
-                break;
-            case "XXXL":
-                width_front = 3659;
-                height_front = 5026;
-                width_back = 3689;
-                height_back = 5050;
-                break;
-            case "3XL":
-                width_front = 3659;
-                height_front = 5026;
-                width_back = 3689;
-                height_back = 5050;
+                width_front = 3215;
+                height_front = 3897;
+                width_back = 3082;
+                height_back = 4013;
                 break;
             default:
                 showDialogSizeWrong(orderItems.get(currentID).order_number);

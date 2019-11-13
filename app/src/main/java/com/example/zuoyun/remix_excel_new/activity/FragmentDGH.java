@@ -146,14 +146,19 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 canvasremix.drawRect(850, 2274, 1270, 2300, rectPaint);
                 canvasremix.drawText(time+"    "+orderItems.get(currentID).order_number+"    抱枕套", 852, 2297, paint);
             } else {
-                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2000, 2000, true));
+                if (MainActivity.instance.bitmaps.get(0).getWidth() != 2000) {
+                    MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2000, 2000, true));
+                }
+                if (orderItems.get(currentID).imgs.size() == 2 && MainActivity.instance.bitmaps.get(1).getWidth() != 2000) {
+                    MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 2000, 2000, true));
+                }
                 bitmapremix = Bitmap.createBitmap(2000 + 2100, 2000 + 220, Bitmap.Config.ARGB_8888);//88.2*43cm
                 canvasremix = new Canvas(bitmapremix);
                 canvasremix.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
                 canvasremix.drawColor(0xffffffff);
                 canvasremix.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
                 canvasremix.drawBitmap(bitmapBorderDH, 0, 0, null);
-                canvasremix.drawBitmap(MainActivity.instance.bitmaps.get(0), 2100, 0, null);
+                canvasremix.drawBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), 2100, 0, null);
                 canvasremix.drawBitmap(bitmapBorderDH, 2100, 0, null);
                 bitmapBorderDH.recycle();
 
@@ -216,7 +221,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             int num = orderItems.get(currentID).num;
             Number number2 = new Number(2, currentID+1, num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID+1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);

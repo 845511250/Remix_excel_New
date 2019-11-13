@@ -180,79 +180,220 @@ public class FragmentFE extends BaseFragment {
         Bitmap bitmapDB_l = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lightlow_l);
         Bitmap bitmapDB_r = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lightlow_r);
 
-        //left mian
-        Bitmap bitmapTemp = Bitmap.createBitmap(1014, 1460, Bitmap.Config.ARGB_8888);
-        Canvas canvasLeft_main = new Canvas(bitmapTemp);
-        canvasLeft_main.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasLeft_main.drawBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, null);
-        canvasLeft_main.drawBitmap(bitmapDB_main, 0, 0, null);
-        drawTextMain(canvasLeft_main, "左");
+        if (orderItems.get(currentID).imgs.size() == 6 && orderItems.get(currentID).platform.equals("4u2")) {
+            //left mian
+            Bitmap bitmapTemp = Bitmap.createBitmap(1014, 1460, Bitmap.Config.ARGB_8888);
+            Canvas canvasLeft_main = new Canvas(bitmapTemp);
+            canvasLeft_main.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasLeft_main.drawBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, null);
+            canvasLeft_main.drawBitmap(bitmapDB_main, 0, 0, null);
+            drawTextMain(canvasLeft_main, "左");
 
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mianWidth, mainHeight, true);
-        canvasCombine.drawBitmap(bitmapTemp, x_l_main, y_l_main, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mianWidth, mainHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_l_main, y_l_main, null);
 
-        //lr
-        bitmapTemp = Bitmap.createBitmap(1488, 648, Bitmap.Config.ARGB_8888);
-        Canvas canvasLR = new Canvas(bitmapTemp);
-        canvasLR.drawColor(0xffffffff);
-        canvasLR.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasLR.drawBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, null);
-        canvasLR.drawBitmap(bitmapDB_r, 0, 0, null);
-        drawTextR(canvasLR, "左");
+            //lr
+            bitmapTemp = Bitmap.createBitmap(1488, 648, Bitmap.Config.ARGB_8888);
+            Canvas canvasLR = new Canvas(bitmapTemp);
+            canvasLR.drawColor(0xffffffff);
+            canvasLR.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasLR.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
+            canvasLR.drawBitmap(bitmapDB_r, 0, 0, null);
+            drawTextR(canvasLR, "左");
 
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
-        canvasCombine.drawBitmap(bitmapTemp, x_lr, y_lr, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_lr, y_lr, null);
 
-        //ll
-        bitmapTemp = Bitmap.createBitmap(1488, 648, Bitmap.Config.ARGB_8888);
-        Canvas canvasLL = new Canvas(bitmapTemp);
-        canvasLL.drawColor(0xffffffff);
-        canvasLL.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasLL.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-        canvasLL.drawBitmap(bitmapDB_l, 0, 0, null);
-        drawTextL(canvasLL, "左");
+            //ll
+            bitmapTemp = Bitmap.createBitmap(1488, 648, Bitmap.Config.ARGB_8888);
+            Canvas canvasLL = new Canvas(bitmapTemp);
+            canvasLL.drawColor(0xffffffff);
+            canvasLL.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasLL.drawBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, null);
+            canvasLL.drawBitmap(bitmapDB_l, 0, 0, null);
+            drawTextL(canvasLL, "左");
 
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
-        canvasCombine.drawBitmap(bitmapTemp, x_ll, y_ll, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_ll, y_ll, null);
 
-        //right main
-        bitmapTemp = Bitmap.createBitmap(1014, 1460, Bitmap.Config.ARGB_8888);
-        Canvas canvasRight_main = new Canvas(bitmapTemp);
-        canvasRight_main.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasRight_main.drawBitmap(MainActivity.instance.bitmaps.get(5), 0, 0, null);
-        canvasRight_main.drawBitmap(bitmapDB_main, 0, 0, null);
-        drawTextMain(canvasRight_main, "右");
+            //right main
+            bitmapTemp = Bitmap.createBitmap(1014, 1460, Bitmap.Config.ARGB_8888);
+            Canvas canvasRight_main = new Canvas(bitmapTemp);
+            canvasRight_main.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasRight_main.drawBitmap(MainActivity.instance.bitmaps.get(5), 0, 0, null);
+            canvasRight_main.drawBitmap(bitmapDB_main, 0, 0, null);
+            drawTextMain(canvasRight_main, "右");
 
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mianWidth, mainHeight, true);
-        canvasCombine.drawBitmap(bitmapTemp, x_r_main, y_r_main, null);
-        bitmapDB_main.recycle();
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mianWidth, mainHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_r_main, y_r_main, null);
+            bitmapDB_main.recycle();
 
-        //rr
-        bitmapTemp = Bitmap.createBitmap(1488, 648, Bitmap.Config.ARGB_8888);
-        Canvas canvasRR = new Canvas(bitmapTemp);
-        canvasRR.drawColor(0xffffffff);
-        canvasRR.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasRR.drawBitmap(MainActivity.instance.bitmaps.get(4), 0, 0, null);
-        canvasRR.drawBitmap(bitmapDB_r, 0, 0, null);
-        drawTextR(canvasRR, "右");
+            //rr
+            bitmapTemp = Bitmap.createBitmap(1488, 648, Bitmap.Config.ARGB_8888);
+            Canvas canvasRR = new Canvas(bitmapTemp);
+            canvasRR.drawColor(0xffffffff);
+            canvasRR.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasRR.drawBitmap(MainActivity.instance.bitmaps.get(4), 0, 0, null);
+            canvasRR.drawBitmap(bitmapDB_r, 0, 0, null);
+            drawTextR(canvasRR, "右");
 
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
-        canvasCombine.drawBitmap(bitmapTemp, x_rr, y_rr, null);
-        bitmapDB_r.recycle();
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_rr, y_rr, null);
+            bitmapDB_r.recycle();
 
-        //rl
-        bitmapTemp = Bitmap.createBitmap(1488, 648, Bitmap.Config.ARGB_8888);
-        Canvas canvasRL = new Canvas(bitmapTemp);
-        canvasRL.drawColor(0xffffffff);
-        canvasRL.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasRL.drawBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, null);
-        canvasRL.drawBitmap(bitmapDB_l, 0, 0, null);
-        drawTextL(canvasRL, "右");
+            //rl
+            bitmapTemp = Bitmap.createBitmap(1488, 648, Bitmap.Config.ARGB_8888);
+            Canvas canvasRL = new Canvas(bitmapTemp);
+            canvasRL.drawColor(0xffffffff);
+            canvasRL.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasRL.drawBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, null);
+            canvasRL.drawBitmap(bitmapDB_l, 0, 0, null);
+            drawTextL(canvasRL, "右");
 
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
-        canvasCombine.drawBitmap(bitmapTemp, x_rl, y_rl, null);
-        bitmapTemp.recycle();
-        bitmapDB_l.recycle();
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_rl, y_rl, null);
+            bitmapTemp.recycle();
+            bitmapDB_l.recycle();
+        } else if (orderItems.get(currentID).imgs.size() == 1 && orderItems.get(currentID).platform.equals("4u2")) {
+            //left mian
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1488, 0, 1014, 1460);
+            Canvas canvasLeft_main = new Canvas(bitmapTemp);
+            canvasLeft_main.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasLeft_main.drawBitmap(bitmapDB_main, 0, 0, null);
+            drawTextMain(canvasLeft_main, "左");
+
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mianWidth, mainHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_l_main, y_l_main, null);
+
+            //lr
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 648, 1488, 648);
+            Canvas canvasLR = new Canvas(bitmapTemp);
+            canvasLR.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasLR.drawBitmap(bitmapDB_r, 0, 0, null);
+            drawTextR(canvasLR, "左");
+
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_lr, y_lr, null);
+
+            //ll
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 1488, 648);
+            Canvas canvasLL = new Canvas(bitmapTemp);
+            canvasLL.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasLL.drawBitmap(bitmapDB_l, 0, 0, null);
+            drawTextL(canvasLL, "左");
+
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_ll, y_ll, null);
+
+            //right main
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1488, 0, 1014, 1460);
+            Canvas canvasRight_main = new Canvas(bitmapTemp);
+            canvasRight_main.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasRight_main.drawBitmap(bitmapDB_main, 0, 0, null);
+            drawTextMain(canvasRight_main, "右");
+
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mianWidth, mainHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_r_main, y_r_main, null);
+            bitmapDB_main.recycle();
+
+            //rr
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2502, 0, 1488, 648);
+            Canvas canvasRR = new Canvas(bitmapTemp);
+            canvasRR.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasRR.drawBitmap(bitmapDB_r, 0, 0, null);
+            drawTextR(canvasRR, "右");
+
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_rr, y_rr, null);
+            bitmapDB_r.recycle();
+
+            //rl
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2502, 648, 1488, 648);
+            Canvas canvasRL = new Canvas(bitmapTemp);
+            canvasRL.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasRL.drawBitmap(bitmapDB_l, 0, 0, null);
+            drawTextL(canvasRL, "右");
+
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_rl, y_rl, null);
+            bitmapTemp.recycle();
+            bitmapDB_l.recycle();
+        } else {
+            //left mian
+            Bitmap bitmapTemp = Bitmap.createBitmap(1014, 1460, Bitmap.Config.ARGB_8888);
+            Canvas canvasLeft_main = new Canvas(bitmapTemp);
+            canvasLeft_main.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasLeft_main.drawBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, null);
+            canvasLeft_main.drawBitmap(bitmapDB_main, 0, 0, null);
+            drawTextMain(canvasLeft_main, "左");
+
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mianWidth, mainHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_l_main, y_l_main, null);
+
+            //lr
+            bitmapTemp = Bitmap.createBitmap(1488, 648, Bitmap.Config.ARGB_8888);
+            Canvas canvasLR = new Canvas(bitmapTemp);
+            canvasLR.drawColor(0xffffffff);
+            canvasLR.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasLR.drawBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, null);
+            canvasLR.drawBitmap(bitmapDB_r, 0, 0, null);
+            drawTextR(canvasLR, "左");
+
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_lr, y_lr, null);
+
+            //ll
+            bitmapTemp = Bitmap.createBitmap(1488, 648, Bitmap.Config.ARGB_8888);
+            Canvas canvasLL = new Canvas(bitmapTemp);
+            canvasLL.drawColor(0xffffffff);
+            canvasLL.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasLL.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
+            canvasLL.drawBitmap(bitmapDB_l, 0, 0, null);
+            drawTextL(canvasLL, "左");
+
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_ll, y_ll, null);
+
+            //right main
+            bitmapTemp = Bitmap.createBitmap(1014, 1460, Bitmap.Config.ARGB_8888);
+            Canvas canvasRight_main = new Canvas(bitmapTemp);
+            canvasRight_main.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasRight_main.drawBitmap(MainActivity.instance.bitmaps.get(5), 0, 0, null);
+            canvasRight_main.drawBitmap(bitmapDB_main, 0, 0, null);
+            drawTextMain(canvasRight_main, "右");
+
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mianWidth, mainHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_r_main, y_r_main, null);
+            bitmapDB_main.recycle();
+
+            //rr
+            bitmapTemp = Bitmap.createBitmap(1488, 648, Bitmap.Config.ARGB_8888);
+            Canvas canvasRR = new Canvas(bitmapTemp);
+            canvasRR.drawColor(0xffffffff);
+            canvasRR.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasRR.drawBitmap(MainActivity.instance.bitmaps.get(4), 0, 0, null);
+            canvasRR.drawBitmap(bitmapDB_r, 0, 0, null);
+            drawTextR(canvasRR, "右");
+
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_rr, y_rr, null);
+            bitmapDB_r.recycle();
+
+            //rl
+            bitmapTemp = Bitmap.createBitmap(1488, 648, Bitmap.Config.ARGB_8888);
+            Canvas canvasRL = new Canvas(bitmapTemp);
+            canvasRL.drawColor(0xffffffff);
+            canvasRL.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasRL.drawBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, null);
+            canvasRL.drawBitmap(bitmapDB_l, 0, 0, null);
+            drawTextL(canvasRL, "右");
+
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_rl, y_rl, null);
+            bitmapTemp.recycle();
+            bitmapDB_l.recycle();
+        }
+
 
         try {
             String printColor = orderItems.get(currentID).color.equals("黑") ? "B" : "W";
@@ -305,7 +446,7 @@ public class FragmentFE extends BaseFragment {
             sheet.addCell(label1);
             Number number2 = new Number(2, currentID+1, orderItems.get(currentID).num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID + 1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);

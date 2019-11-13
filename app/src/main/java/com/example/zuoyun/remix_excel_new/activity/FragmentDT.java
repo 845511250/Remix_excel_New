@@ -162,7 +162,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasLeftMain.rotate(-111.5f, 373, 862);
         canvasLeftMain.drawRect(373, 800, 873, 850, rectPaint);
         //canvasLeftMain.drawBitmap(bitmapBarCode, 373, 800, null);
-        canvasLeftMain.drawText(orderItems.get(currentID).newCode, 373, 846, paintRed);
+        canvasLeftMain.drawText(orderItems.get(currentID).newCode, 373, 845, paintRed);
         canvasLeftMain.restore();
     }
     void drawTextRightSide(Canvas canvasRightSide){
@@ -183,7 +183,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasRightMain.rotate(-68.5f, 1296, 882);
         canvasRightMain.drawRect(1298, 832, 1800, 882, rectPaint);
         //canvasRightMain.drawBitmap(bitmapBarCode, 1298, 832, null);
-        canvasRightMain.drawText(orderItems.get(currentID).newCode, 1298, 878, paintRed);
+        canvasRightMain.drawText(orderItems.get(currentID).newCode, 1298, 876, paintRed);
         canvasRightMain.restore();
     }
 
@@ -200,13 +200,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         if (orderItems.get(currentID).imgs.size() == 1 || orderItems.get(currentID).imgs.size() == 2) {
             Matrix matrixCombine = new Matrix();
 
-            Bitmap bitmapF = MainActivity.instance.bitmaps.get(0);
-            Bitmap bitmapB = MainActivity.instance.bitmaps.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1);
-            if (bitmapF.getWidth() != 1613) {
-                bitmapF = Bitmap.createScaledBitmap(bitmapF, 1613, 1942, true);
+            Bitmap bitmapLeft = MainActivity.instance.bitmaps.get(0);
+            Bitmap bitmapRight = MainActivity.instance.bitmaps.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1);
+            if (bitmapLeft.getWidth() != 1613) {
+                bitmapLeft = Bitmap.createScaledBitmap(bitmapLeft, 1613, 1942, true);
             }
-            if (bitmapB.getWidth() != 1613) {
-                bitmapB = Bitmap.createScaledBitmap(bitmapB, 1613, 1942, true);
+            if (bitmapRight.getWidth() != 1613) {
+                bitmapRight = Bitmap.createScaledBitmap(bitmapRight, 1613, 1942, true);
             }
 
             //main:1612*1262
@@ -215,7 +215,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             Bitmap bitmapDB_side = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.df41_side);
 
             //left_main
-            Bitmap bitmapLeftMain = Bitmap.createBitmap(bitmapF, 0, 680, 1612, 1262);
+            Bitmap bitmapLeftMain = Bitmap.createBitmap(bitmapLeft, 0, 680, 1612, 1262);
             Canvas canvasLeftMain = new Canvas(bitmapLeftMain);
             canvasLeftMain.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasLeftMain.drawBitmap(bitmapDB_main, 0, 0, null);
@@ -229,8 +229,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapLeftMain.recycle();
 
             //left_side
-            Bitmap bitmapLeftSide1 = Bitmap.createBitmap(bitmapF, 0, 0, 578, 1086);
-            Bitmap bitmapLeftSide2 = Bitmap.createBitmap(bitmapF, 1034, 0, 578, 1086);
+            Bitmap bitmapLeftSide1 = Bitmap.createBitmap(bitmapLeft, 0, 0, 578, 1086);
+            Bitmap bitmapLeftSide2 = Bitmap.createBitmap(bitmapLeft, 1034, 0, 578, 1086);
             Bitmap bitmapLeftSide = Bitmap.createBitmap(2172, 578, Bitmap.Config.ARGB_8888);
             Canvas canvasLeftSide = new Canvas(bitmapLeftSide);
             canvasLeftSide.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
@@ -252,7 +252,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapLeftSide.recycle();
 
             //right_main
-            Bitmap bitmapRightMain = Bitmap.createBitmap(bitmapB, 0, 680, 1612, 1262);
+            Bitmap bitmapRightMain = Bitmap.createBitmap(bitmapRight, 0, 680, 1612, 1262);
             Canvas canvasRightMain = new Canvas(bitmapRightMain);
             canvasRightMain.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasRightMain.drawBitmap(bitmapDB_main, 0, 0, null);
@@ -267,8 +267,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapDB_main.recycle();
 
             //right_side
-            Bitmap bitmapRightSide1 = Bitmap.createBitmap(bitmapB, 0, 0, 578, 1086);
-            Bitmap bitmapRightSide2 = Bitmap.createBitmap(bitmapB, 1034, 0, 578, 1086);
+            Bitmap bitmapRightSide1 = Bitmap.createBitmap(bitmapRight, 0, 0, 578, 1086);
+            Bitmap bitmapRightSide2 = Bitmap.createBitmap(bitmapRight, 1034, 0, 578, 1086);
             Bitmap bitmapRightSide = Bitmap.createBitmap(2172, 578, Bitmap.Config.ARGB_8888);
             Canvas canvasRightSide = new Canvas(bitmapRightSide);
             canvasRightSide.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
@@ -414,7 +414,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             sheet.addCell(label1);
             Number number2 = new Number(2, currentID+1, orderItems.get(currentID).num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID+1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);
@@ -529,6 +529,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 height_sideNew = 679;
                 break;
             case 46:
+                width_main = 1740;
+                height_main = 1410;
+                width_side = 2400;
+                height_side = 627;
+                width_sideNew = 2400;
+                height_sideNew = 691;
+                break;
+            case 47:
                 width_main = 1740;
                 height_main = 1410;
                 width_side = 2400;

@@ -153,7 +153,7 @@ public class FragmentDQ extends BaseFragment {
         canvas.save();
         canvas.rotate(-78f, 765, 593);
         canvas.drawRect(765, 593 - 25, 765 + 500, 593, rectPaint);
-        canvas.drawText(orderItems.get(currentID).size + "码" + orderItems.get(currentID).color + LR + "   " + orderItems.get(currentID).order_number, 765, 593 - 2, paint);
+        canvas.drawText(orderItems.get(currentID).sku + orderItems.get(currentID).size + "码" + orderItems.get(currentID).color + LR + "   " + orderItems.get(currentID).order_number, 765, 593 - 2, paint);
         canvas.restore();
     }
 
@@ -187,6 +187,11 @@ public class FragmentDQ extends BaseFragment {
 
                 MainActivity.instance.bitmaps.add(Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, MainActivity.instance.bitmaps.get(0).getWidth(), MainActivity.instance.bitmaps.get(0).getHeight(), matrix, true));
             }
+            if (MainActivity.instance.bitmaps.get(0).getWidth() == 950) {
+                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 885, 1099, true));
+                MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 885, 1099, true));
+            }
+
             //leftMain
             Bitmap bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
             Canvas canvasTemp = new Canvas(bitmapTemp);
@@ -287,7 +292,7 @@ public class FragmentDQ extends BaseFragment {
 
             String printColor = orderItems.get(currentID).color.equals("黑") ? "B" : "W";
             String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku + orderItems.get(currentID).size : "";
-            String nameCombine = noNewCode + orderItems.get(currentID).newCode + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = noNewCode + orderItems.get(currentID).newCode + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -328,12 +333,18 @@ public class FragmentDQ extends BaseFragment {
             WritableWorkbook workbook = Workbook.createWorkbook(fileWrite,book);
             WritableSheet sheet = workbook.getSheet(0);
             Label label0 = new Label(0, currentID + 1, orderItems.get(currentID).order_number + orderItems.get(currentID).sku + orderItems.get(currentID).size + printColor);
+            if (orderItems.get(currentID).sku.equals("AS")) {
+                label0 = new Label(0, currentID + 1, orderItems.get(currentID).order_number + orderItems.get(currentID).sku + orderItems.get(currentID).size);
+            }
             sheet.addCell(label0);
             Label label1 = new Label(1, currentID + 1, orderItems.get(currentID).sku + orderItems.get(currentID).size + printColor);
+            if (orderItems.get(currentID).sku.equals("AS")) {
+                label1 = new Label(1, currentID + 1, orderItems.get(currentID).sku + orderItems.get(currentID).size);
+            }
             sheet.addCell(label1);
             Number number2 = new Number(2, currentID+1, orderItems.get(currentID).num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID+1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);

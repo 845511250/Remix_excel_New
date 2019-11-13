@@ -278,7 +278,7 @@ public class FragmentGRM extends BaseFragment {
 
         if (orderItems.get(currentID).imgs.size() == 8) {
             //front
-            Bitmap bitmapTemp = Bitmap.createBitmap((checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(0)), 30, 0, 2072, 4193);
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 30, 0, 2072, 4193);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gr_front_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -286,7 +286,7 @@ public class FragmentGRM extends BaseFragment {
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
-            bitmapTemp = Bitmap.createBitmap((checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(0)), 2072 - 30, 0, 2072, 4193);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 2072 - 30, 0, 2072, 4193);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gr_front_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -295,7 +295,7 @@ public class FragmentGRM extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, width_front + margin, 0, null);
 
             //back
-            bitmapTemp =  (checkContains("back") ? getBitmapWith("back") : MainActivity.instance.bitmaps.get(1)).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapTemp =  MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_back);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -304,7 +304,7 @@ public class FragmentGRM extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, 0, height_front + margin, null);
 
             //arm_l
-            bitmapTemp = (checkContains("left_sleeve") ? getBitmapWith("left_sleeve") : MainActivity.instance.bitmaps.get(2)).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapTemp = MainActivity.instance.bitmaps.get(5).copy(Bitmap.Config.ARGB_8888, true);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_arm_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -312,9 +312,8 @@ public class FragmentGRM extends BaseFragment {
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_arm, height_arm, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + margin * 2, null);
 
-
             //arm_r
-            bitmapTemp = (checkContains("right_sleeve") ? getBitmapWith("right_sleeve") : MainActivity.instance.bitmaps.get(3)).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapTemp = MainActivity.instance.bitmaps.get(7).copy(Bitmap.Config.ARGB_8888, true);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_arm_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -323,7 +322,7 @@ public class FragmentGRM extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_arm + margin * 3, null);
 
             //pocket
-            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(0), 673 + 30, 0, 2794 / 2, 1576);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 673 + 30, 2616, 2794 / 2, 1576);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gr_pocket_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -331,7 +330,7 @@ public class FragmentGRM extends BaseFragment {
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket, height_pocket, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_arm * 2 + margin * 4, null);
 
-            bitmapTemp = Bitmap.createBitmap(checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(0), 2072 - 30, 0, 2794 / 2, 1576);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 2072 - 30, 2616, 2794 / 2, 1576);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gr_pocket_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -340,7 +339,7 @@ public class FragmentGRM extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, width_pocket + margin, height_back + height_front + height_arm * 2 + margin * 4, null);
 
             //maozi_out_l
-            bitmapTemp = Bitmap.createBitmap(checkContains("hat") ? getBitmapWith("hat") : MainActivity.instance.bitmaps.get(7), 0, 0, 1928, 2368);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, 1924, 2366);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gr_maozi_out_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -349,7 +348,7 @@ public class FragmentGRM extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, width_arm + margin, height_front + height_back + margin * 2, null);
 
             //maozi_out_r
-            bitmapTemp = Bitmap.createBitmap(checkContains("hat") ? getBitmapWith("hat") : MainActivity.instance.bitmaps.get(7), 1928, 0, 1928, 2368);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(3), 1922, 0, 1924, 2366);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gr_maozi_out_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -358,7 +357,7 @@ public class FragmentGRM extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, width_arm + margin, height_front + height_back + height_maozi + margin * 3, null);
 
             //maozi_in_r
-            bitmapTemp = Bitmap.createBitmap(checkContains("hat") ? getBitmapWith("hat") : MainActivity.instance.bitmaps.get(7), 0, 0, 1928, 2368);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, 1924, 2366);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gr_maozi_in_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -367,7 +366,7 @@ public class FragmentGRM extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, width_arm + margin, height_front + height_back + height_maozi * 2 + margin * 3, null);
 
             //maozi_in_l
-            bitmapTemp = Bitmap.createBitmap(checkContains("hat") ? getBitmapWith("hat") : MainActivity.instance.bitmaps.get(7), 1928, 0, 1928, 2368);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(3), 1922, 0, 1924, 2366);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gr_maozi_in_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -376,7 +375,7 @@ public class FragmentGRM extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, width_arm + margin, height_front + height_back + height_maozi * 3 + margin * 3, null);
 
             //xiabai
-            bitmapTemp = (checkContains("bottom") ? getBitmapWith("bottom") : MainActivity.instance.bitmaps.get(6)).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapTemp = MainActivity.instance.bitmaps.get(1).copy(Bitmap.Config.ARGB_8888, true);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_xiabai);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -384,11 +383,11 @@ public class FragmentGRM extends BaseFragment {
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiabai, height_xiabai, true);
             matrix.reset();
             matrix.postRotate(-90);
-            matrix.postTranslate(width_front + margin, width_xiabai);
+            matrix.postTranslate(width_front * 2 + margin * 2, width_xiabai);
             canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
             //xiukou_l
-            bitmapTemp = (checkContains("left_cuff") ? getBitmapWith("left_cuff") : MainActivity.instance.bitmaps.get(4)).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapTemp = MainActivity.instance.bitmaps.get(4).copy(Bitmap.Config.ARGB_8888, true);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_xiukou);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -397,7 +396,7 @@ public class FragmentGRM extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_arm * 2 + height_pocket + margin * 5, null);
 
             //xiukou_r
-            bitmapTemp = (checkContains("right_cuff") ? getBitmapWith("right_cuff") : MainActivity.instance.bitmaps.get(5)).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapTemp = MainActivity.instance.bitmaps.get(6).copy(Bitmap.Config.ARGB_8888, true);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_xiukou);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -605,7 +604,7 @@ public class FragmentGRM extends BaseFragment {
             int num=orderItems.get(currentID).num;
             Number number2 = new Number(2, currentID+1, num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID + 1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);

@@ -65,8 +65,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
                 } else if (message == MainActivity.LOADED_IMGS) {
-                    if(!MainActivity.instance.cb_fastmode.isChecked())
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     checkremix();
                 } else if (message == 3) {
                     bt_remix.setClickable(false);
@@ -111,33 +109,32 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         Paint paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(26);
+        paint.setTextSize(18);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setAntiAlias(true);
 
-        Paint paintRed = new Paint();
-        paintRed.setColor(0xffff0000);
-        paintRed.setTextSize(26);
-        paintRed.setTypeface(Typeface.DEFAULT_BOLD);
-        paintRed.setAntiAlias(true);
-
         Paint rectBorderPaint = new Paint();
-        rectBorderPaint = new Paint();
         rectBorderPaint.setColor(0xff000000);
         rectBorderPaint.setStyle(Paint.Style.STROKE);
         rectBorderPaint.setStrokeWidth(2);
 
         String time = MainActivity.instance.orderDate_Print;
 
-        Bitmap bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
-        Canvas canvasTemp = new Canvas(bitmapTemp);
-        canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+        Bitmap bitmapCombine = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+        Canvas canvasCombine= new Canvas(bitmapCombine);
+        canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
 
-        canvasTemp.drawRect(1500, 4, 1500 + 400, 4 + 26, rectPaint);
-        canvasTemp.drawText("U-地垫 " + time + " " + orderItems.get(currentID).order_number, 1500, 4 + 24, paint);
-        canvasTemp.drawRect(0, 0, bitmapTemp.getWidth(), bitmapTemp.getHeight(), rectBorderPaint);
+        canvasCombine.drawRect(0, 0, bitmapCombine.getWidth() - 1, bitmapCombine.getHeight() - 1, rectBorderPaint);
+        canvasCombine.drawRect(1, 1, bitmapCombine.getWidth() - 1, bitmapCombine.getHeight() - 1, rectBorderPaint);
+
+        canvasCombine.drawRect(20, 2, 20 + 300, 2 + 17, rectPaint);
+//        canvasCombine.drawText("U地垫 " + time + "  " + orderItems.get(currentID).order_number, 20, 2 + 15, paint);
 
         try {
+            File file=new File(sdCardPath+"/生产图/"+childPath+"/");
+            if(!file.exists())
+                file.mkdirs();
+
             String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
@@ -148,8 +145,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapTemp, fileSave, 150);
-            bitmapTemp.recycle();
+            BitmapToJpg.save(bitmapCombine, fileSave, 149);
+
+            //释放bitmap
+            bitmapCombine.recycle();
 
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";
@@ -185,7 +184,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             int num=orderItems.get(currentID).num;
             Number number2 = new Number(2, currentID+1, num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID+1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);
@@ -199,7 +198,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
         if (num == 1) {
             MainActivity.recycleExcelImages();
-
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

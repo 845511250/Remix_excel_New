@@ -47,6 +47,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     String strPlus = "";
     int intPlus = 1;
 
+    Paint rectPaint,paint, paintRed;
+    String time = MainActivity.instance.orderDate_Print;
+
     @Override
     public int getLayout() {
         return R.layout.fragmentdg;
@@ -59,6 +62,22 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         orderItems=MainActivity.instance.orderItems;
         currentID = MainActivity.instance.currentID;
         childPath = MainActivity.instance.childPath;
+
+        rectPaint = new Paint();
+        rectPaint.setColor(0xffffffff);
+        rectPaint.setStyle(Paint.Style.FILL);
+
+        paint = new Paint();
+        paint.setColor(0xff000000);
+        paint.setTextSize(38);
+        paint.setTypeface(Typeface.DEFAULT_BOLD);
+        paint.setAntiAlias(true);
+
+        paintRed = new Paint();
+        paintRed.setColor(0xffff0000);
+        paintRed.setTextSize(38);
+        paintRed.setTypeface(Typeface.DEFAULT_BOLD);
+        paintRed.setAntiAlias(true);
 
         MainActivity.instance.setMessageListener(new MainActivity.MessageListener() {
             @Override
@@ -106,35 +125,28 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 4315, 4729, true));
-        Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.r);
-        Paint rectPaint = new Paint();
-        rectPaint.setColor(0xffffffff);
-        rectPaint.setStyle(Paint.Style.FILL);
+        Bitmap bitmapTemp = null;
+        if (orderItems.get(currentID).sizeStr.equals("L")) {
+            bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 4315, 5201, true);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
 
-        Paint paint = new Paint();
-        paint.setColor(0xff000000);
-        paint.setTextSize(38);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
-        paint.setAntiAlias(true);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.r_plus);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapDB.recycle();
+            canvasTemp.drawText(time + " " + orderItems.get(currentID).order_number, 3200, 200, paint);
+        } else {
+            bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 4315, 4730, true);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
 
-        Paint paintRed = new Paint();
-        paintRed.setColor(0xffff0000);
-        paintRed.setTextSize(38);
-        paintRed.setTypeface(Typeface.DEFAULT_BOLD);
-        paintRed.setAntiAlias(true);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapDB.recycle();
+            canvasTemp.drawText(time + " " + orderItems.get(currentID).order_number, 3200, 200, paint);
 
-        String time = MainActivity.instance.orderDate_Print;
+        }
 
-        Bitmap bitmapremix = Bitmap.createBitmap(4315, 4729, Bitmap.Config.ARGB_8888);
-        Canvas canvasremix = new Canvas(bitmapremix);
-        canvasremix.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasremix.drawColor(0xffffffff);
-        canvasremix.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-        canvasremix.drawBitmap(bitmapDB, 0, 0, null);
-        bitmapDB.recycle();
-
-        canvasremix.drawText(time + " " + orderItems.get(currentID).order_number, 3200, 200, paint);
 
         try {
             String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).order_number + strPlus + ".jpg";
@@ -147,8 +159,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapremix, fileSave, 150);
-            bitmapremix.recycle();
+            BitmapToJpg.save(bitmapTemp, fileSave, 150);
+            bitmapTemp.recycle();
 
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";
@@ -184,7 +196,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             int num=orderItems.get(currentID).num;
             Number number2 = new Number(2, currentID+1, num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, "小左");
+            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID+1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);
