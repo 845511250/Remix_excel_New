@@ -150,45 +150,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }.start();
     }
 
-    void drawTextFrontL(Canvas canvas) {
-        canvas.drawRect(100, 4445 - 25, 100 + 500, 4445, rectPaint);
-        canvas.drawText(time + "  GA女浴袍_" + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode, 100, 4445 - 2, paint);
-    }
-    void drawTextFrontR(Canvas canvas) {
-        canvas.drawRect(1300, 4445 - 25, 1300 + 500, 4445, rectPaint);
-        canvas.drawText(time + "  GA女浴袍_" + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode, 1300, 4445 - 2, paint);
-    }
-    void drawTextBack(Canvas canvas) {
-        canvas.drawRect(1300, 4394 - 25, 1300 + 500, 4394, rectPaint);
-        canvas.drawText(time + "  GA女浴袍_" + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode, 1300, 4394 - 2, paint);
-    }
-    void drawTextArmL(Canvas canvas) {
-        canvas.drawRect(1122, 12, 1122 + 40, 12 + 25, rectPaint);
-        canvas.drawText(" 左", 1122, 12 + 23, paint);
-
-        canvas.drawRect(1000, 2472 - 25, 1000 + 500, 2472, rectPaint);
-        canvas.drawText("左" + "  GA女浴袍_  " + time + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode, 1000, 2472 - 2, paint);
-    }
-    void drawTextArmR(Canvas canvas) {
-        canvas.drawRect(1122, 12, 1122 + 40, 12 + 25, rectPaint);
-        canvas.drawText(" 右", 1122, 12 + 23, paint);
-
-        canvas.drawRect(1000, 2472 - 25, 1000 + 500, 2472, rectPaint);
-        canvas.drawText("右" + "  GA女浴袍_  " + time + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode, 1000, 2472 - 2, paint);
-    }
-    void drawTextCollarBack(Canvas canvas) {
-        canvas.drawRect(1400, 9, 1400 + 100, 9 + 25, rectPaint);
-        canvas.drawText(" 后领", 1400, 9 + 23, paint);
-    }
-    void drawTextPocketL(Canvas canvas) {
-        canvas.drawRect(360, 9, 360 + 300, 9 + 25, rectPaint);
-        canvas.drawText(" 左 " + orderItems.get(currentID).order_number, 360, 9 + 23, paint);
-    }
-    void drawTextPocketR(Canvas canvas) {
-        canvas.drawRect(360, 9, 360 + 300, 9 + 25, rectPaint);
-        canvas.drawText(" 右 " + orderItems.get(currentID).order_number, 360, 9 + 23, paint);
-    }
-
     public void remixx100(){
         Bitmap bitmapCombine = Bitmap.createBitmap(5781, 8607, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);

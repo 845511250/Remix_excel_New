@@ -466,6 +466,10 @@ public class FragmentBZ extends BaseFragment {
                 height_tongue = 1413;
                 break;
         }
+        width_tongue += 180;
+        height_tongue -= 10;
+        width_main += 30;
+        height_main += 30;
     }
 
     boolean checkContains(String nameContains){

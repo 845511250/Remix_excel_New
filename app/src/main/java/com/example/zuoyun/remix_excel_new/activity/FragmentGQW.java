@@ -388,7 +388,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             
         } else if (orderItems.get(currentID).imgs.size() == 1) {
             //front
-            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2903, 2134, 4414, 4193);
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2903, 2134, 4144, 4193);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_front);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);

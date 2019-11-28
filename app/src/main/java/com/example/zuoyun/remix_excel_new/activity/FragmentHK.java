@@ -74,17 +74,17 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(23);
+        paint.setTextSize(30);
         paint.setAntiAlias(true);
 
         paintRed = new Paint();
         paintRed.setColor(0xffff0000);
-        paintRed.setTextSize(23);
+        paintRed.setTextSize(30);
         paintRed.setAntiAlias(true);
 
         paintSmall = new Paint();
         paintSmall.setColor(0xff000000);
-        paintSmall.setTextSize(20);
+        paintSmall.setTextSize(30);
         paintSmall.setAntiAlias(true);
 
         time = MainActivity.instance.orderDate_Print;
@@ -135,13 +135,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawTextMain(Canvas canvas, String LR) {
-        canvas.drawRect(562, 1338, 562 + 120, 1338 + 23, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "-" + orderItems.get(currentID).size + "码" + orderItems.get(currentID).color + LR, 562, 1338 + 21, paint);
+        canvas.drawRect(543, 1371 - 30, 543 + 130, 1371, rectPaint);
+        canvas.drawText(orderItems.get(currentID).size + "码" + orderItems.get(currentID).color + LR, 543, 1371 - 4, paint);
 
         canvas.save();
         canvas.rotate(-74.9f, 1038, 772);
-        canvas.drawRect(1038, 772 - 23, 1038 + 465, 772, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "  " + time + " " + orderItems.get(currentID).order_number + orderItems.get(currentID).newCode, 1038, 772 - 2, paint);
+        canvas.drawRect(1038, 772 - 30, 1038 + 465, 772, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + "  " + time + " " + orderItems.get(currentID).order_number + orderItems.get(currentID).newCode, 1038, 772 - 3, paint);
+
         canvas.restore();
     }
 

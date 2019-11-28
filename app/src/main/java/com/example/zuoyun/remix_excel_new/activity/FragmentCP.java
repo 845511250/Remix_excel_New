@@ -140,7 +140,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        Bitmap bitmapCombine = Bitmap.createBitmap(5034, 4270, Bitmap.Config.ARGB_8888);
+        Bitmap bitmapCombine = Bitmap.createBitmap(5004, 4270, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine = new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
@@ -152,7 +152,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.cp1);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
 //            drawText(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 2256, null);
 
             bitmapTemp = MainActivity.instance.bitmaps.get(1).copy(Bitmap.Config.ARGB_8888, true);
             canvasTemp = new Canvas(bitmapTemp);
@@ -160,7 +160,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.cp2);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
 //            drawText(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 346, 2014, null);
+            canvasCombine.drawBitmap(bitmapTemp, 346, 0, null);
 
             bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
             canvasTemp = new Canvas(bitmapTemp);
@@ -168,7 +168,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.cp3);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
 //            drawText(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 2632, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2602, 0, null);
 
             bitmapTemp.recycle();
             bitmapDB.recycle();

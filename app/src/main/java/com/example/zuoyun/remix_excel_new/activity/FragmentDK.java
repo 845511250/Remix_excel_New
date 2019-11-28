@@ -142,6 +142,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         } else if (orderItems.get(currentID).imgs.size() == 2) {//4u2订单左右脚一样，前后不一样
             bitmapRFront = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 609, 2220);
             bitmapLFront = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 609, 2220);
+        } else if (orderItems.get(currentID).imgs.size() == 4) {//4u2订单左前 左后 右前 右后
+            bitmapLBack = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 21, 0, 609, 2220);
+            bitmapRFront = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, 609, 2220);
+            bitmapRBack = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(3), 21, 0, 609, 2220);
         }
 
 
