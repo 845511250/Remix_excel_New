@@ -159,17 +159,17 @@ public class FragmentGRM extends BaseFragment {
     }
 
     void drawTextFrontR(Canvas canvas) {
-        canvas.drawRect(1000, 4159, 1000 + 500, 4159 + 25, rectPaint);
+        canvas.drawRect(1000, 4159, 1000 + 700, 4159 + 25, rectPaint);
         canvas.drawText("正面右 " + time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).newCode, 1000, 4159 + 23, paint);
         canvas.drawText(currentID + "", 1440, 4159 + 23, paintRed);
     }
     void drawTextFrontL(Canvas canvas) {
-        canvas.drawRect(1000, 4159, 1000 + 500, 4159 + 25, rectPaint);
+        canvas.drawRect(1000, 4159, 1000 + 700, 4159 + 25, rectPaint);
         canvas.drawText("正面左 " + time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).newCode, 1000, 4159 + 23, paint);
         canvas.drawText(currentID + "", 1440, 4159 + 23, paintRed);
     }
     void drawTextBack(Canvas canvas) {
-        canvas.drawRect(1000, 4222, 1000 + 500, 4222 + 25, rectPaint);
+        canvas.drawRect(1000, 4222, 1000 + 700, 4222 + 25, rectPaint);
         canvas.drawText("背面 " + time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).newCode, 1000, 4222 + 23, paint);
         canvas.drawText(currentID + "", 1440, 4222 + 23, paintRed);
     }
@@ -463,7 +463,7 @@ public class FragmentGRM extends BaseFragment {
 
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4975 - 30, 4751, 2794/2, 1576);
             canvasTemp = new Canvas(bitmapTemp);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gr_pocket_r);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gr_pocket_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextPocket(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket, height_pocket, true);

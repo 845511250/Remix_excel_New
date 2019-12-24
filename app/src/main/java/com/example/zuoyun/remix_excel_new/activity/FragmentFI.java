@@ -158,15 +158,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     void drawTextFront(Canvas canvas) {
         canvas.drawRect(200, 3862-25, 800, 3862, rectPaint);
-        canvas.drawText("FI套头卫衣  " + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 200, 3862 - 2, paint);
+        canvas.drawText(orderItems.get(currentID).sku + " " + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 200, 3862 - 2, paint);
     }
     void drawTextXiukouR(Canvas canvas) {
         canvas.drawRect(500, 6, 500 + 500, 6 + 25, rectPaint);
-        canvas.drawText("袖口右 " + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number, 500, 6 + 23, paint);
+        canvas.drawText(orderItems.get(currentID).sku + "袖口右 " + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number, 500, 6 + 22, paint);
     }
     void drawTextXiukouL(Canvas canvas) {
         canvas.drawRect(500, 6, 500 + 500, 6 + 25, rectPaint);
-        canvas.drawText("袖口左 " + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number, 500, 6 + 23, paint);
+        canvas.drawText(orderItems.get(currentID).sku + "袖口左 " + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number, 500, 6 + 22, paint);
     }
     void drawTextLingkou(Canvas canvas) {
         canvas.drawRect(1390, 10, 1390 + 200, 10 + 25, rectPaint);
@@ -174,15 +174,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
     void drawTextXiabai(Canvas canvas) {
         canvas.drawRect(3300, 10, 3300 + 500, 10 + 25, rectPaint);
-        canvas.drawText("下摆 " + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number, 3300, 10 + 23, paint);
+        canvas.drawText(orderItems.get(currentID).sku + "下摆 " + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number, 3300, 10 + 23, paint);
     }
     void drawTextXiuziR(Canvas canvas) {
         canvas.drawRect(1300, 3570 - 25, 1300 + 500, 3570, rectPaint);
-        canvas.drawText("袖子右 " + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number, 1300, 3570 - 2, paint);
+        canvas.drawText(orderItems.get(currentID).sku + "袖子右 " + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number, 1300, 3570 - 2, paint);
     }
     void drawTextXiuziL(Canvas canvas) {
         canvas.drawRect(1300, 3570 - 25, 1300 + 500, 3570, rectPaint);
-        canvas.drawText("袖子左 " + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number, 1300, 3570 - 2, paint);
+        canvas.drawText(orderItems.get(currentID).sku + "袖子左 " + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number, 1300, 3570 - 2, paint);
     }
 
     public void remixx(){
@@ -505,7 +505,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 //            matrix.postRotate(-90, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
 //            bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
 
-            String nameCombine = "圆领卫衣FI-" + orderItems.get(currentID).sizeStr + "-" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + "-" + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

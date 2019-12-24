@@ -3,6 +3,7 @@ package com.example.zuoyun.remix_excel_new.activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
@@ -127,15 +128,19 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawRect(0, 0, bitmapCombine.getWidth() - 1, bitmapCombine.getHeight() - 1, rectBorderPaint);
         canvasCombine.drawRect(1, 1, bitmapCombine.getWidth() - 1, bitmapCombine.getHeight() - 1, rectBorderPaint);
 
-        canvasCombine.drawRect(20, 2, 20 + 300, 2 + 17, rectPaint);
+//        canvasCombine.drawRect(20, 2, 20 + 300, 2 + 17, rectPaint);
 //        canvasCombine.drawText("U地垫 " + time + "  " + orderItems.get(currentID).order_number, 20, 2 + 15, paint);
+
+        Matrix matrix2 = new Matrix();
+        matrix2.postRotate(90, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
+        bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix2, true);
 
         try {
             File file=new File(sdCardPath+"/生产图/"+childPath+"/");
             if(!file.exists())
                 file.mkdirs();
 
-            String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

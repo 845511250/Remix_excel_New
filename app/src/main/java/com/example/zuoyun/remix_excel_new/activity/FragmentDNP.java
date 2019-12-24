@@ -137,8 +137,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     bitmapFront = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2953 + 59, 1683, true);
                     bitmapBack = bitmapFront;
                 } else {
-                    bitmapFront = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2953 + 59, 1683, true);
-                    bitmapBack = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 2953 + 59, 1683, true);
+                    bitmapFront = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 2953 + 59, 1683, true);
+                    bitmapBack = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2953 + 59, 1683, true);
                 }
 
                 bitmapremix = Bitmap.createBitmap(1683 + 1683, 2953+59, Bitmap.Config.ARGB_8888);//57*50+1
@@ -177,8 +177,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     bitmapFront = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2598, 1594, true);
                     bitmapBack = bitmapFront;
                 } else {
-                    bitmapFront = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2598, 1594, true);
-                    bitmapBack = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 2598, 1594, true);
+                    bitmapFront = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 2598, 1594, true);
+                    bitmapBack = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2598, 1594, true);
                 }
 
                 bitmapremix = Bitmap.createBitmap(2598, 1594+1594, Bitmap.Config.ARGB_8888);//44*54

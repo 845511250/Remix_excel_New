@@ -270,6 +270,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("包臀裙 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentAG());
                 break;
+            case "AH":
+                tv_title.setText("AH " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentAH());
+                break;
             case "AK":
                 tv_title.setText("AK " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentAK());
@@ -361,6 +365,18 @@ public class MainActivity extends FragmentActivity {
             case "CA":
                 tv_title.setText("CA " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentCA());
+                break;
+            case "CD":
+                tv_title.setText("CD " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentCD());
+                break;
+            case "CE":
+                tv_title.setText("CE " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentCE());
+                break;
+            case "CF":
+                tv_title.setText("CF " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentCF());
                 break;
             case "CN":
                 tv_title.setText("CN毛绒地垫 " + orderItems.get(currentID).order_number);
@@ -694,6 +710,18 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("女沙滩裤 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentHGW());
                 break;
+            case "HJM":
+                tv_title.setText("方毛毯 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentHJ());
+                break;
+            case "HJS":
+                tv_title.setText("方毛毯 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentHJ());
+                break;
+            case "HJY":
+                tv_title.setText("方毛毯 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentHJ());
+                break;
             case "HK":
                 tv_title.setText("HK飞织鞋 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentHK());
@@ -857,6 +885,14 @@ public class MainActivity extends FragmentActivity {
             case "Z61":
                 tv_title.setText("HK飞织鞋 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentHK());
+                break;
+            case "Z72":
+                tv_title.setText("新材料GQM " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentGQM());
+                break;
+            case "Z73":
+                tv_title.setText("新材料FIM " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFI());
                 break;
             default:
                 firstOK = false;

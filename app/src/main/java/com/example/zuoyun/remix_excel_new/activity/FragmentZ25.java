@@ -135,11 +135,19 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-        Matrix matrix = new Matrix();
-        matrix.postRotate(180);
-        matrix.postTranslate(2988, 1949 * 2);
-        canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
+        if (orderItems.get(currentID).imgs.size() == 1) {
+            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
+            Matrix matrix = new Matrix();
+            matrix.postRotate(180);
+            matrix.postTranslate(2988, 1949 * 2);
+            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
+        }else if (orderItems.get(currentID).imgs.size() == 1) {
+            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
+            Matrix matrix = new Matrix();
+            matrix.postRotate(180);
+            matrix.postTranslate(2988, 1949 * 2);
+            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(1), matrix, null);
+        }
 
         Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z25);
         canvasCombine.drawBitmap(bitmapDB, 0, 0, null);

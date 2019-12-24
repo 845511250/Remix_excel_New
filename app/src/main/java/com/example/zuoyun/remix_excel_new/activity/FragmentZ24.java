@@ -135,7 +135,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z24);
         canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
-        drawText(canvasCombine);
+//        drawText(canvasCombine);
+        bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, 419, 721, true);
         bitmapDB.recycle();
 
         try {

@@ -3,6 +3,7 @@ package com.example.zuoyun.remix_excel_new.activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
@@ -134,13 +135,17 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        Bitmap bitmapCombine = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 3620, 2493, true);
+        Bitmap bitmapCombine = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 3720, 2539, true);
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
 
         drawText(canvasCombine);
         canvasCombine.drawRect(0, 0, bitmapCombine.getWidth() - 2, bitmapCombine.getHeight() - 2, rectBorderPaint);
         canvasCombine.drawRect(2, 2, bitmapCombine.getWidth() - 2, bitmapCombine.getHeight() - 2, rectBorderPaint);
+
+        Matrix matrix = new Matrix();
+        matrix.postRotate(90, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
+        bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
 
         try {
             File file=new File(sdCardPath+"/生产图/"+childPath+"/");
@@ -157,7 +162,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 90);
+            BitmapToJpg.save(bitmapCombine, fileSave, 150);
 
             //释放bitmap
             bitmapCombine.recycle();

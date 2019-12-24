@@ -211,8 +211,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             //left_side
             matrixCombine.reset();
             matrixCombine.postRotate(180);
-            matrixCombine.postTranslate(1688, 470);
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, 1688, 470, matrixCombine, true);
+            matrixCombine.postTranslate(1688, 469);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 1688, 469, matrixCombine, true);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(bitmapDB_side, 0, 0, null);
@@ -222,7 +222,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
             //right_main
-            bitmapTemp = MainActivity.instance.bitmaps.get(1).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapTemp = MainActivity.instance.bitmaps.get(2).copy(Bitmap.Config.ARGB_8888, true);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(bitmapDB_main, 0, 0, null);
@@ -236,8 +236,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             //right_side
             matrixCombine.reset();
             matrixCombine.postRotate(180);
-            matrixCombine.postTranslate(1688, 470);
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, 1688, 470, matrixCombine, true);
+            matrixCombine.postTranslate(1688, 469);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, 1688, 469, matrixCombine, true);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(bitmapDB_side, 0, 0, null);
