@@ -57,6 +57,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     Paint rectPaint, paint, paintRed, paintBlue, rectBorderPaint, paintSmall;
     String time;
+    String isWomen = "";
 
     @Override
     public int getLayout() {
@@ -70,6 +71,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         orderItems=MainActivity.instance.orderItems;
         currentID = MainActivity.instance.currentID;
         childPath = MainActivity.instance.childPath;
+        isWomen = orderItems.get(currentID).sku.equals("FIW") || orderItems.get(currentID).sku.equals("Z73W") ? "-女款(小一码)-" : "";
 
         //paint
         rectPaint = new Paint();
@@ -138,9 +140,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             @Override
             public void run() {
                 super.run();
-                setScale(orderItems.get(currentID).sizeStr);
+                setSize(orderItems.get(currentID).sizeStr);
                 if (sizeOK) {
                     for(num=orderItems.get(currentID).num;num>=1;num--) {
+                    intPlus = orderItems.get(currentID).num - num + 1;
                         for(int i=0;i<currentID;i++) {
                             if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
                                 intPlus += 1;
@@ -148,7 +151,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                         }
                         strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                         remixx();
-                        intPlus += 1;
                     }
                 }
             }
@@ -158,7 +160,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     void drawTextFront(Canvas canvas) {
         canvas.drawRect(200, 3862-25, 800, 3862, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + " " + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 200, 3862 - 2, paint);
+        canvas.drawText(orderItems.get(currentID).sku + " " + orderItems.get(currentID).sizeStr + isWomen + "   " + time + "  " + orderItems.get(currentID).order_number, 200, 3862 - 2, paint);
     }
     void drawTextXiukouR(Canvas canvas) {
         canvas.drawRect(500, 6, 500 + 500, 6 + 25, rectPaint);
@@ -174,15 +176,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
     void drawTextXiabai(Canvas canvas) {
         canvas.drawRect(3300, 10, 3300 + 500, 10 + 25, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "下摆 " + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number, 3300, 10 + 23, paint);
+        canvas.drawText(orderItems.get(currentID).sku + "下摆 " + orderItems.get(currentID).sizeStr + isWomen + "  " + time + "  " + orderItems.get(currentID).order_number, 3300, 10 + 23, paint);
     }
     void drawTextXiuziR(Canvas canvas) {
         canvas.drawRect(1300, 3570 - 25, 1300 + 500, 3570, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "袖子右 " + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number, 1300, 3570 - 2, paint);
+        canvas.drawText(orderItems.get(currentID).sku + "袖子右 " + orderItems.get(currentID).sizeStr+isWomen + "  " + time + "  " + orderItems.get(currentID).order_number, 1300, 3570 - 2, paint);
     }
     void drawTextXiuziL(Canvas canvas) {
         canvas.drawRect(1300, 3570 - 25, 1300 + 500, 3570, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "袖子左 " + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number, 1300, 3570 - 2, paint);
+        canvas.drawText(orderItems.get(currentID).sku + "袖子左 " + orderItems.get(currentID).sizeStr + isWomen + "  " + time + "  " + orderItems.get(currentID).order_number, 1300, 3570 - 2, paint);
     }
 
     public void remixx(){
@@ -584,195 +586,273 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
     }
 
-    void setScale(String size) {
-        switch (size) {
-            case "2XS":
-                width_front = 3169;
-                height_front = 3782;
-                width_back = 3169;
-                height_back = 3782;
-                width_xiuzi = 2409;
-                height_xiuzi = 3431;
-                width_xiukou = 1205;
-                height_xiukou = 892;
-                width_xiabai = 5031;
-                height_xiabai = 892;
-                width_lingkou = 2861;
-                height_lingkou = 348;
-                break;
-            case "XXS":
-                width_front = 3169;
-                height_front = 3782;
-                width_back = 3169;
-                height_back = 3782;
-                width_xiuzi = 2409;
-                height_xiuzi = 3431;
-                width_xiukou = 1205;
-                height_xiukou = 892;
-                width_xiabai = 5031;
-                height_xiabai = 892;
-                width_lingkou = 2861;
-                height_lingkou = 348;
-                break;
-            case "XS":
-                width_front = 3316;
-                height_front = 3898;
-                width_back = 3316;
-                height_back = 3898;
-                width_xiuzi = 2541;
-                height_xiuzi = 3520;
-                width_xiukou = 1264;
-                height_xiukou = 892;
-                width_xiabai = 5327;
-                height_xiabai = 892;
-                width_lingkou = 2914;
-                height_lingkou = 348;
-                break;
-            case "S":
-                width_front = 3463;
-                height_front = 4015;
-                width_back = 3463;
-                height_back = 4015;
-                width_xiuzi = 2672;
-                height_xiuzi = 3609;
-                width_xiukou = 1323;
-                height_xiukou = 892;
-                width_xiabai = 5622;
-                height_xiabai = 892;
-                width_lingkou = 3008;
-                height_lingkou = 348;
-                break;
-            case "M":
-                width_front = 3611;
-                height_front = 4132;
-                width_back = 3611;
-                height_back = 4132;
-                width_xiuzi = 2803;
-                height_xiuzi = 3397;
-                width_xiukou = 1382;
-                height_xiukou = 892;
-                width_xiabai = 5917;
-                height_xiabai = 892;
-                width_lingkou = 3061;
-                height_lingkou = 348;
-                break;
-            case "L":
-                width_front = 3758;
-                height_front = 4249;
-                width_back = 3758;
-                height_back = 4249;
-                width_xiuzi = 2933;
-                height_xiuzi = 3786;
-                width_xiukou = 1441;
-                height_xiukou = 892;
-                width_xiabai = 6212;
-                height_xiabai = 892;
-                width_lingkou = 3156;
-                height_lingkou = 348;
-                break;
-            case "XL":
-                width_front = 3905;
-                height_front = 4366;
-                width_back = 3905;
-                height_back = 4366;
-                width_xiuzi = 3065;
-                height_xiuzi = 3875;
-                width_xiukou = 1500;
-                height_xiukou = 892;
-                width_xiabai = 6508;
-                height_xiabai = 892;
-                width_lingkou = 3250;
-                height_lingkou = 348;
-                break;
-            case "2XL":
-                width_front = 4053;
-                height_front = 4483;
-                width_back = 4053;
-                height_back = 4483;
-                width_xiuzi = 3195;
-                height_xiuzi = 3963;
-                width_xiukou = 1559;
-                height_xiukou = 892;
-                width_xiabai = 6803;
-                height_xiabai = 892;
-                width_lingkou = 3303;
-                height_lingkou = 348;
-                break;
-            case "XXL":
-                width_front = 4053;
-                height_front = 4483;
-                width_back = 4053;
-                height_back = 4483;
-                width_xiuzi = 3195;
-                height_xiuzi = 3963;
-                width_xiukou = 1559;
-                height_xiukou = 892;
-                width_xiabai = 6803;
-                height_xiabai = 892;
-                width_lingkou = 3303;
-                height_lingkou = 348;
-                break;
-            case "3XL":
-                width_front = 4200;
-                height_front = 4601;
-                width_back = 4200;
-                height_back = 4601;
-                width_xiuzi = 3326;
-                height_xiuzi = 4052;
-                width_xiukou = 1618;
-                height_xiukou = 892;
-                width_xiabai = 7098;
-                height_xiabai = 892;
-                width_lingkou = 3398;
-                height_lingkou = 348;
-                break;
-            case "XXXL":
-                width_front = 4200;
-                height_front = 4601;
-                width_back = 4200;
-                height_back = 4601;
-                width_xiuzi = 3326;
-                height_xiuzi = 4052;
-                width_xiukou = 1618;
-                height_xiukou = 892;
-                width_xiabai = 7098;
-                height_xiabai = 892;
-                width_lingkou = 3398;
-                height_lingkou = 348;
-                break;
-            case "4XL":
-                width_front = 4348;
-                height_front = 4718;
-                width_back = 4348;
-                height_back = 4718;
-                width_xiuzi = 3457;
-                height_xiuzi = 4141;
-                width_xiukou = 1677;
-                height_xiukou = 892;
-                width_xiabai = 7394;
-                height_xiabai = 892;
-                width_lingkou = 3492;
-                height_lingkou = 348;
-                break;
-            case "XXXXL":
-                width_front = 4348;
-                height_front = 4718;
-                width_back = 4348;
-                height_back = 4718;
-                width_xiuzi = 3457;
-                height_xiuzi = 4141;
-                width_xiukou = 1677;
-                height_xiukou = 892;
-                width_xiabai = 7394;
-                height_xiabai = 892;
-                width_lingkou = 3492;
-                height_lingkou = 348;
-                break;
-
-            default:
-                showDialogSizeWrong(orderItems.get(currentID).order_number);
-                sizeOK = false;
-                break;
+    void setSize(String size) {
+        if (orderItems.get(currentID).sku.equals("Z73W")||orderItems.get(currentID).sku.equals("FIW")) {
+            switch (size) {
+                case "XS":
+                    width_front = 3169;
+                    height_front = 3782;
+                    width_back = 3169;
+                    height_back = 3782;
+                    width_xiuzi = 2409;
+                    height_xiuzi = 3431;
+                    width_xiukou = 1205;
+                    height_xiukou = 892;
+                    width_xiabai = 5031;
+                    height_xiabai = 892;
+                    width_lingkou = 2861;
+                    height_lingkou = 348;
+                    break;
+                case "S":
+                    width_front = 3316;
+                    height_front = 3898;
+                    width_back = 3316;
+                    height_back = 3898;
+                    width_xiuzi = 2541;
+                    height_xiuzi = 3520;
+                    width_xiukou = 1264;
+                    height_xiukou = 892;
+                    width_xiabai = 5327;
+                    height_xiabai = 892;
+                    width_lingkou = 2914;
+                    height_lingkou = 348;
+                    break;
+                case "M":
+                    width_front = 3463;
+                    height_front = 4015;
+                    width_back = 3463;
+                    height_back = 4015;
+                    width_xiuzi = 2672;
+                    height_xiuzi = 3609;
+                    width_xiukou = 1323;
+                    height_xiukou = 892;
+                    width_xiabai = 5622;
+                    height_xiabai = 892;
+                    width_lingkou = 3008;
+                    height_lingkou = 348;
+                    break;
+                case "L":
+                    width_front = 3611;
+                    height_front = 4132;
+                    width_back = 3611;
+                    height_back = 4132;
+                    width_xiuzi = 2803;
+                    height_xiuzi = 3397;
+                    width_xiukou = 1382;
+                    height_xiukou = 892;
+                    width_xiabai = 5917;
+                    height_xiabai = 892;
+                    width_lingkou = 3061;
+                    height_lingkou = 348;
+                    break;
+                case "XL":
+                    width_front = 3758;
+                    height_front = 4249;
+                    width_back = 3758;
+                    height_back = 4249;
+                    width_xiuzi = 2933;
+                    height_xiuzi = 3786;
+                    width_xiukou = 1441;
+                    height_xiukou = 892;
+                    width_xiabai = 6212;
+                    height_xiabai = 892;
+                    width_lingkou = 3156;
+                    height_lingkou = 348;
+                    break;
+                case "2XL":
+                    width_front = 3905;
+                    height_front = 4366;
+                    width_back = 3905;
+                    height_back = 4366;
+                    width_xiuzi = 3065;
+                    height_xiuzi = 3875;
+                    width_xiukou = 1500;
+                    height_xiukou = 892;
+                    width_xiabai = 6508;
+                    height_xiabai = 892;
+                    width_lingkou = 3250;
+                    height_lingkou = 348;
+                    break;
+                case "3XL":
+                    width_front = 4053;
+                    height_front = 4483;
+                    width_back = 4053;
+                    height_back = 4483;
+                    width_xiuzi = 3195;
+                    height_xiuzi = 3963;
+                    width_xiukou = 1559;
+                    height_xiukou = 892;
+                    width_xiabai = 6803;
+                    height_xiabai = 892;
+                    width_lingkou = 3303;
+                    height_lingkou = 348;
+                    break;
+                case "4XL":
+                    width_front = 4200;
+                    height_front = 4601;
+                    width_back = 4200;
+                    height_back = 4601;
+                    width_xiuzi = 3326;
+                    height_xiuzi = 4052;
+                    width_xiukou = 1618;
+                    height_xiukou = 892;
+                    width_xiabai = 7098;
+                    height_xiabai = 892;
+                    width_lingkou = 3398;
+                    height_lingkou = 348;
+                    break;
+                case "5XL":
+                    width_front = 4348;
+                    height_front = 4718;
+                    width_back = 4348;
+                    height_back = 4718;
+                    width_xiuzi = 3457;
+                    height_xiuzi = 4141;
+                    width_xiukou = 1677;
+                    height_xiukou = 892;
+                    width_xiabai = 7394;
+                    height_xiabai = 892;
+                    width_lingkou = 3492;
+                    height_lingkou = 348;
+                    break;
+                default:
+                    showDialogSizeWrong(orderItems.get(currentID).order_number);
+                    sizeOK = false;
+                    break;
+            }
+        } else {
+            switch (size) {
+                case "2XS":
+                    width_front = 3169;
+                    height_front = 3782;
+                    width_back = 3169;
+                    height_back = 3782;
+                    width_xiuzi = 2409;
+                    height_xiuzi = 3431;
+                    width_xiukou = 1205;
+                    height_xiukou = 892;
+                    width_xiabai = 5031;
+                    height_xiabai = 892;
+                    width_lingkou = 2861;
+                    height_lingkou = 348;
+                    break;
+                case "XS":
+                    width_front = 3316;
+                    height_front = 3898;
+                    width_back = 3316;
+                    height_back = 3898;
+                    width_xiuzi = 2541;
+                    height_xiuzi = 3520;
+                    width_xiukou = 1264;
+                    height_xiukou = 892;
+                    width_xiabai = 5327;
+                    height_xiabai = 892;
+                    width_lingkou = 2914;
+                    height_lingkou = 348;
+                    break;
+                case "S":
+                    width_front = 3463;
+                    height_front = 4015;
+                    width_back = 3463;
+                    height_back = 4015;
+                    width_xiuzi = 2672;
+                    height_xiuzi = 3609;
+                    width_xiukou = 1323;
+                    height_xiukou = 892;
+                    width_xiabai = 5622;
+                    height_xiabai = 892;
+                    width_lingkou = 3008;
+                    height_lingkou = 348;
+                    break;
+                case "M":
+                    width_front = 3611;
+                    height_front = 4132;
+                    width_back = 3611;
+                    height_back = 4132;
+                    width_xiuzi = 2803;
+                    height_xiuzi = 3397;
+                    width_xiukou = 1382;
+                    height_xiukou = 892;
+                    width_xiabai = 5917;
+                    height_xiabai = 892;
+                    width_lingkou = 3061;
+                    height_lingkou = 348;
+                    break;
+                case "L":
+                    width_front = 3758;
+                    height_front = 4249;
+                    width_back = 3758;
+                    height_back = 4249;
+                    width_xiuzi = 2933;
+                    height_xiuzi = 3786;
+                    width_xiukou = 1441;
+                    height_xiukou = 892;
+                    width_xiabai = 6212;
+                    height_xiabai = 892;
+                    width_lingkou = 3156;
+                    height_lingkou = 348;
+                    break;
+                case "XL":
+                    width_front = 3905;
+                    height_front = 4366;
+                    width_back = 3905;
+                    height_back = 4366;
+                    width_xiuzi = 3065;
+                    height_xiuzi = 3875;
+                    width_xiukou = 1500;
+                    height_xiukou = 892;
+                    width_xiabai = 6508;
+                    height_xiabai = 892;
+                    width_lingkou = 3250;
+                    height_lingkou = 348;
+                    break;
+                case "2XL":
+                    width_front = 4053;
+                    height_front = 4483;
+                    width_back = 4053;
+                    height_back = 4483;
+                    width_xiuzi = 3195;
+                    height_xiuzi = 3963;
+                    width_xiukou = 1559;
+                    height_xiukou = 892;
+                    width_xiabai = 6803;
+                    height_xiabai = 892;
+                    width_lingkou = 3303;
+                    height_lingkou = 348;
+                    break;
+                case "3XL":
+                    width_front = 4200;
+                    height_front = 4601;
+                    width_back = 4200;
+                    height_back = 4601;
+                    width_xiuzi = 3326;
+                    height_xiuzi = 4052;
+                    width_xiukou = 1618;
+                    height_xiukou = 892;
+                    width_xiabai = 7098;
+                    height_xiabai = 892;
+                    width_lingkou = 3398;
+                    height_lingkou = 348;
+                    break;
+                case "4XL":
+                    width_front = 4348;
+                    height_front = 4718;
+                    width_back = 4348;
+                    height_back = 4718;
+                    width_xiuzi = 3457;
+                    height_xiuzi = 4141;
+                    width_xiukou = 1677;
+                    height_xiukou = 892;
+                    width_xiabai = 7394;
+                    height_xiabai = 892;
+                    width_lingkou = 3492;
+                    height_lingkou = 348;
+                    break;
+                default:
+                    showDialogSizeWrong(orderItems.get(currentID).order_number);
+                    sizeOK = false;
+                    break;
+            }
         }
     }
 
@@ -792,7 +872,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 Button bt_yes = (Button) view_dialog.findViewById(R.id.bt_dialog_yes);
 
                 tv_title.setText("错误！");
-                tv_content.setText("单号："+order_number+"读取尺码失败");
+                tv_content.setText("单号："+order_number+"没有这个尺码");
                 bt_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

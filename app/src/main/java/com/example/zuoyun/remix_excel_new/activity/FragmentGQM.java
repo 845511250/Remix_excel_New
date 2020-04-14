@@ -142,6 +142,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
                 if (sizeOK) {
                     for(num=orderItems.get(currentID).num;num>=1;num--) {
+                    intPlus = orderItems.get(currentID).num - num + 1;
                         for(int i=0;i<currentID;i++) {
                             if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
                                 intPlus += 1;
@@ -149,7 +150,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                         }
                         strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                         remixx();
-                        intPlus += 1;
                     }
                 }
 
@@ -321,7 +321,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             //maozi_out_l
             bitmapTemp = Bitmap.createBitmap(checkContains("hat") ? getBitmapWith("hat") : MainActivity.instance.bitmaps.get(7), 0, 0, 1924, 2368);
             canvasTemp = new Canvas(bitmapTemp);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_maozi_out_l);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), orderItems.get(currentID).sku.contains("Z72") ? R.drawable.gq_maozi_out_l_z72 : R.drawable.gq_maozi_out_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextMaoziOutL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_maozi, height_maozi, true);
@@ -330,29 +330,31 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             //maozi_out_r
             bitmapTemp = Bitmap.createBitmap(checkContains("hat") ? getBitmapWith("hat") : MainActivity.instance.bitmaps.get(7), 1928, 0, 1928, 2368);
             canvasTemp = new Canvas(bitmapTemp);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_maozi_out_r);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), orderItems.get(currentID).sku.contains("Z72") ? R.drawable.gq_maozi_out_r_z72 : R.drawable.gq_maozi_out_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextMaoziOutR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_maozi, height_maozi, true);
             canvasCombine.drawBitmap(bitmapTemp, width_arm + margin, height_front + height_back + height_maozi + margin * 3, null);
 
-            //maozi_in_r
-            bitmapTemp = Bitmap.createBitmap(checkContains("hat") ? getBitmapWith("hat") : MainActivity.instance.bitmaps.get(7), 0, 0, 1928, 2368);
-            canvasTemp = new Canvas(bitmapTemp);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_maozi_in_r);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextMaoziInR(canvasTemp);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_maozi, height_maozi, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_arm + margin, height_front + height_back + height_maozi * 2 + margin * 3, null);
+            if(!orderItems.get(currentID).sku.contains("Z72")){
+                //maozi_in_r
+                bitmapTemp = Bitmap.createBitmap(checkContains("hat") ? getBitmapWith("hat") : MainActivity.instance.bitmaps.get(7), 0, 0, 1928, 2368);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_maozi_in_r);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                drawTextMaoziInR(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_maozi, height_maozi, true);
+                canvasCombine.drawBitmap(bitmapTemp, width_arm + margin, height_front + height_back + height_maozi * 2 + margin * 3, null);
 
-            //maozi_in_l
-            bitmapTemp = Bitmap.createBitmap(checkContains("hat") ? getBitmapWith("hat") : MainActivity.instance.bitmaps.get(7), 1928, 0, 1928, 2368);
-            canvasTemp = new Canvas(bitmapTemp);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_maozi_in_l);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextMaoziInL(canvasTemp);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_maozi, height_maozi, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_arm + margin, height_front + height_back + height_maozi * 3 + margin * 3, null);
+                //maozi_in_l
+                bitmapTemp = Bitmap.createBitmap(checkContains("hat") ? getBitmapWith("hat") : MainActivity.instance.bitmaps.get(7), 1928, 0, 1928, 2368);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_maozi_in_l);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                drawTextMaoziInL(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_maozi, height_maozi, true);
+                canvasCombine.drawBitmap(bitmapTemp, width_arm + margin, height_front + height_back + height_maozi * 3 + margin * 3, null);
+            }
 
             //xiabai
             bitmapTemp = (checkContains("bottom") ? getBitmapWith("bottom") : MainActivity.instance.bitmaps.get(6)).copy(Bitmap.Config.ARGB_8888, true);
@@ -436,7 +438,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             //maozi_out_l
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3047, 0, 1928, 2368);
             canvasTemp = new Canvas(bitmapTemp);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_maozi_out_l);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), orderItems.get(currentID).sku.contains("Z72") ? R.drawable.gq_maozi_out_l_z72 : R.drawable.gq_maozi_out_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextMaoziOutL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_maozi, height_maozi, true);
@@ -445,29 +447,31 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             //maozi_out_r
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4982, 0, 1928, 2368);
             canvasTemp = new Canvas(bitmapTemp);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_maozi_out_r);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), orderItems.get(currentID).sku.contains("Z72") ? R.drawable.gq_maozi_out_r_z72 : R.drawable.gq_maozi_out_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextMaoziOutR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_maozi, height_maozi, true);
             canvasCombine.drawBitmap(bitmapTemp, width_arm + margin, height_front + height_back + height_maozi + margin * 3, null);
 
-            //maozi_in_r
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3047, 0, 1928, 2368);
-            canvasTemp = new Canvas(bitmapTemp);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_maozi_in_r);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextMaoziInR(canvasTemp);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_maozi, height_maozi, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_arm + margin, height_front + height_back + height_maozi * 2 + margin * 3, null);
+            if(!orderItems.get(currentID).sku.contains("Z72")){
+                //maozi_in_r
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3047, 0, 1928, 2368);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_maozi_in_r);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                drawTextMaoziInR(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_maozi, height_maozi, true);
+                canvasCombine.drawBitmap(bitmapTemp, width_arm + margin, height_front + height_back + height_maozi * 2 + margin * 3, null);
 
-            //maozi_in_l
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4982, 0, 1928, 2368);
-            canvasTemp = new Canvas(bitmapTemp);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_maozi_in_l);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextMaoziInL(canvasTemp);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_maozi, height_maozi, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_arm + margin, height_front + height_back + height_maozi * 3 + margin * 3, null);
+                //maozi_in_l
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4982, 0, 1928, 2368);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_maozi_in_l);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                drawTextMaoziInL(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_maozi, height_maozi, true);
+                canvasCombine.drawBitmap(bitmapTemp, width_arm + margin, height_front + height_back + height_maozi * 3 + margin * 3, null);
+            }
 
             //xiabai
             bitmapTemp = Bitmap.createBitmap(3863 * 2, 675, Bitmap.Config.ARGB_8888);
@@ -763,7 +767,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 Button bt_yes = (Button) view_dialog.findViewById(R.id.bt_dialog_yes);
 
                 tv_title.setText("错误！");
-                tv_content.setText("单号："+order_number+"读取尺码失败");
+                tv_content.setText("单号："+order_number+"没有这个尺码");
                 bt_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

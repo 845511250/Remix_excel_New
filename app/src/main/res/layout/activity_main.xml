@@ -7,8 +7,12 @@
         android:id="@+id/frame_program"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#9bd6ca"
+        android:background="#eeeeee"
         android:visibility="gone">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/green"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

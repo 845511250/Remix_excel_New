@@ -69,13 +69,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(38);
+        paint.setTextSize(30);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setAntiAlias(true);
 
         paintRed = new Paint();
         paintRed.setColor(0xffff0000);
-        paintRed.setTextSize(38);
+        paintRed.setTextSize(30);
         paintRed.setTypeface(Typeface.DEFAULT_BOLD);
         paintRed.setAntiAlias(true);
 
@@ -110,6 +110,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             public void run() {
                 super.run();
                 for(num=orderItems.get(currentID).num;num>=1;num--) {
+                    intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
                             intPlus += 1;
@@ -117,11 +118,19 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                     remixx();
-                    intPlus += 1;
                 }
             }
         }.start();
 
+    }
+
+    void drawText(Canvas canvas) {
+        canvas.drawRect(1500, 4715-30, 1500 + 400, 4715, rectPaint);
+        canvas.drawText(time + " " + orderItems.get(currentID).order_number + strPlus, 1500, 4715 - 3, paint);
+    }
+    void drawTextL(Canvas canvas) {
+        canvas.drawRect(1500, 5185-30, 1500 + 400, 5185, rectPaint);
+        canvas.drawText(time + " " + orderItems.get(currentID).order_number + strPlus, 1500, 5185 - 3, paint);
     }
 
     public void remixx(){
@@ -134,22 +143,23 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.r_plus);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             bitmapDB.recycle();
-            canvasTemp.drawText(time + " " + orderItems.get(currentID).order_number, 3200, 200, paint);
+            drawTextL(canvasTemp);
         } else {
-            bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 4315, 4730, true);
+            bitmapTemp = Bitmap.createBitmap(4315, 4729, Bitmap.Config.ARGB_8888);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
 
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             bitmapDB.recycle();
-            canvasTemp.drawText(time + " " + orderItems.get(currentID).order_number, 3200, 200, paint);
-
+            drawText(canvasTemp);
         }
 
 
         try {
-            String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

@@ -93,6 +93,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             public void run() {
                 super.run();
                 for(num=orderItems.get(currentID).num;num>=1;num--) {
+                    intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
                             intPlus += 1;
@@ -100,7 +101,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                     remixx();
-                    intPlus += 1;
                 }
             }
         }.start();
@@ -108,20 +108,32 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        Bitmap bitmapFront,bitmapBack;
+        Bitmap bitmapFront = null;
+        Bitmap bitmapBack = null;
         Bitmap bitmapDB_front = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.bt_front);
         Bitmap bitmapDB_back = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.bt_back);
+
         if (orderItems.get(currentID).imgs.size() == 1) {
-            bitmapFront = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2175, 1388, true);
+            if (MainActivity.instance.bitmaps.get(0).getWidth() != 2175 || MainActivity.instance.bitmaps.get(0).getHeight() != 1388) {
+                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2175, 1388, true));
+            }
+
+            bitmapFront = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
 
             Matrix matrix90 = new Matrix();
             matrix90.postRotate(180);
             matrix90.postTranslate(bitmapFront.getWidth(), bitmapFront.getHeight());
             bitmapBack = Bitmap.createBitmap(bitmapFront, 0, 0, bitmapFront.getWidth(), bitmapFront.getHeight(), matrix90, true);
         } else {
-            bitmapFront = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2175, 1388, true);
+            if (MainActivity.instance.bitmaps.get(0).getWidth() != 2175 || MainActivity.instance.bitmaps.get(0).getHeight() != 1388) {
+                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2175, 1388, true));
+            }
+            if (MainActivity.instance.bitmaps.get(1).getWidth() != 2175 || MainActivity.instance.bitmaps.get(1).getHeight() != 1388) {
+                MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 2175, 1388, true));
+            }
 
-            bitmapBack = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 2175, 1388, true);
+            bitmapFront = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapBack = MainActivity.instance.bitmaps.get(1).copy(Bitmap.Config.ARGB_8888, true);
             Matrix matrix90 = new Matrix();
             matrix90.postRotate(180);
             matrix90.postTranslate(bitmapBack.getWidth(), bitmapBack.getHeight());

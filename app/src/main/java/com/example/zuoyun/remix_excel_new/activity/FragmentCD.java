@@ -115,6 +115,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             public void run() {
                 super.run();
                 for(num=orderItems.get(currentID).num;num>=1;num--) {
+                    intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
                             intPlus += 1;
@@ -122,7 +123,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                     remixx();
-                    intPlus += 1;
                 }
             }
         }.start();
@@ -290,7 +290,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 150);
+            BitmapToJpg.save(bitmapCombine, fileSave, 148);
 
             //释放bitmap
             bitmapCombine.recycle();

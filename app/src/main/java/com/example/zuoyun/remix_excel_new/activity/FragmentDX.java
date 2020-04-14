@@ -132,6 +132,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 setSize(orderItems.get(currentID).sizeStr);
                 if (sizeOK) {
                     for(num=orderItems.get(currentID).num;num>=1;num--) {
+                    intPlus = orderItems.get(currentID).num - num + 1;
                         for(int i=0;i<currentID;i++) {
                             if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
                                 intPlus += 1;
@@ -139,7 +140,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                         }
                         strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                         remixx();
-                        intPlus += 1;
                     }
                 }
             }
@@ -558,7 +558,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 Button bt_yes = (Button) view_dialog.findViewById(R.id.bt_dialog_yes);
 
                 tv_title.setText("错误！");
-                tv_content.setText("单号："+order_number+"读取尺码失败");
+                tv_content.setText("单号："+order_number+"没有这个尺码");
                 bt_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

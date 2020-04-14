@@ -86,7 +86,7 @@ public class FragmentAK extends BaseFragment {
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(20);
+        paint.setTextSize(32);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setAntiAlias(true);
 
@@ -146,6 +146,7 @@ public class FragmentAK extends BaseFragment {
             public void run() {
                 super.run();
                 for(num=orderItems.get(currentID).num;num>=1;num--) {
+                    intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
                             intPlus += 1;
@@ -153,7 +154,6 @@ public class FragmentAK extends BaseFragment {
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                     remixx();
-                    intPlus += 1;
                 }
             }
         }.start();
@@ -161,20 +161,20 @@ public class FragmentAK extends BaseFragment {
     }
 
     void drawTextLL(Canvas canvas) {
-        canvas.drawRect(500, 739 - 20, 500 + 600, 739, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + orderItems.get(currentID).size + orderItems.get(currentID).color + "  左外" + "  " + time + " " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode, 500, 739 - 2, paint);
+        canvas.drawRect(500, 739 - 31, 500 + 700, 739, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + orderItems.get(currentID).size + orderItems.get(currentID).color + "  左外" + "  " + time + " " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode, 500, 739 - 3, paint);
     }
     void drawTextRL(Canvas canvas) {
-        canvas.drawRect(500, 739 - 20, 500 + 600, 739, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + orderItems.get(currentID).size + orderItems.get(currentID).color + "  右内"  + "  " + time + " " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode, 500, 739 - 2, paint);
+        canvas.drawRect(500, 739 - 31, 500 + 700, 739, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + orderItems.get(currentID).size + orderItems.get(currentID).color + "  右内"  + "  " + time + " " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode, 500, 739 - 3, paint);
     }
     void drawTextLR(Canvas canvas) {
-        canvas.drawRect(200, 739 - 20, 200 + 600, 739, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + orderItems.get(currentID).size + orderItems.get(currentID).color + "  左内" + "  " + time + " " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode, 200, 739 - 2, paint);
+        canvas.drawRect(200, 739 - 31, 200 + 700, 739, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + orderItems.get(currentID).size + orderItems.get(currentID).color + "  左内" + "  " + time + " " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode, 200, 739 - 3, paint);
     }
     void drawTextRR(Canvas canvas) {
-        canvas.drawRect(200, 739 - 20, 200 + 600, 739, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + orderItems.get(currentID).size + orderItems.get(currentID).color + "  右外" + "  " + time + " " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode, 200, 739 - 2, paint);
+        canvas.drawRect(200, 739 - 31, 200 + 700, 739, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + orderItems.get(currentID).size + orderItems.get(currentID).color + "  右外" + "  " + time + " " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode, 200, 739 - 3, paint);
     }
     void drawTextTongue(Canvas canvas,String LR) {
         canvas.save();

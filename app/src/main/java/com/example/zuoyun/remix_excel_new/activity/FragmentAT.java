@@ -146,6 +146,7 @@ public class FragmentAT extends BaseFragment {
             public void run() {
                 super.run();
                 for(num=orderItems.get(currentID).num;num>=1;num--) {
+                    intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
                             intPlus += 1;
@@ -153,7 +154,6 @@ public class FragmentAT extends BaseFragment {
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                     remixx();
-                    intPlus += 1;
                 }
             }
         }.start();
@@ -423,6 +423,12 @@ public class FragmentAT extends BaseFragment {
 
     void setScale(int size){
         switch (size) {
+            case 28:
+                width_main = 1185;
+                height_main = 707;
+                width_tongue = 775;
+                height_tongue = 1123;
+                break;
             case 29:
                 width_main = 1223;
                 height_main = 722;

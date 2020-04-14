@@ -110,6 +110,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             public void run() {
                 super.run();
                 for(num=orderItems.get(currentID).num;num>=1;num--) {
+                    intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
                             intPlus += 1;
@@ -117,7 +118,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                     remixx();
-                    intPlus += 1;
                 }
             }
         }.start();
@@ -125,8 +125,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawText(Canvas canvas) {
-        canvas.drawRect(20, 4, 20 + 400, 4 + 20, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "   " + time + "  " + orderItems.get(currentID).order_number, 20, 4 + 18, paint);
+        canvas.drawRect(2626, 1629, 2626 + 300, 1629 + 20, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + "  " + orderItems.get(currentID).order_number + "  " + time, 2626, 1629 + 18, paint);
     }
 
     public void remixx(){
@@ -141,7 +141,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             matrix.postRotate(180);
             matrix.postTranslate(2988, 1949 * 2);
             canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
-        }else if (orderItems.get(currentID).imgs.size() == 1) {
+        }else if (orderItems.get(currentID).imgs.size() == 2) {
             canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
             Matrix matrix = new Matrix();
             matrix.postRotate(180);
@@ -153,6 +153,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
         drawText(canvasCombine);
         bitmapDB.recycle();
+
+        bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, 2988, 1949 * 2 + 30, true);
 
         try {
             File file=new File(sdCardPath+"/生产图/"+childPath+"/");

@@ -93,6 +93,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             public void run() {
                 super.run();
                 for(num=orderItems.get(currentID).num;num>=1;num--) {
+                    intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
                             intPlus += 1;
@@ -100,7 +101,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                     remixx();
-                    intPlus += 1;
                 }
             }
         }.start();
@@ -157,17 +157,17 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
                 canvasremix.drawRect(1623, 2929+59, 1683, 2953+59, rectPaint);
                 canvasremix.drawText("DN", 1624, 2949+59, paint);
-                canvasremix.drawRect(0, 2929+59, 400, 2953+59, rectPaint);
-                canvasremix.drawText(time, 2, 2949+59, paint);
-                canvasremix.drawText(orderItems.get(currentID).order_number,200,2949+59,paint);
+                canvasremix.drawRect(0, 2929+59, 500, 2953+59, rectPaint);
+                canvasremix.drawText(" 正面 " + time, 2, 2949 + 59, paint);
+                canvasremix.drawText(orderItems.get(currentID).order_number,250,2949+59,paint);
                 canvasremix.drawRect(800, 2929+59, 1050, 2953+59, rectPaint);
                 canvasremix.drawText(orderItems.get(currentID).newCode, 801, 2949 + 59, paintRed);
 
                 canvasremix.drawRect(1623 + 1683, 2929+59, 1683 + 1683, 2953+59, rectPaint);
                 canvasremix.drawText("DN", 1624 + 1683, 2949+59, paint);
-                canvasremix.drawRect(0 + 1683, 2929+59, 400 + 1683, 2953+59, rectPaint);
-                canvasremix.drawText(time, 2 + 1683, 2949+59, paint);
-                canvasremix.drawText(orderItems.get(currentID).order_number, 200 + 1683, 2949+59, paint);
+                canvasremix.drawRect(0 + 1683, 2929+59, 500 + 1683, 2953+59, rectPaint);
+                canvasremix.drawText(" 背面 " + time, 2 + 1683, 2949 + 59, paint);
+                canvasremix.drawText(orderItems.get(currentID).order_number, 250 + 1683, 2949+59, paint);
                 canvasremix.drawRect(800 + 1683, 2929+59, 1050 + 1683, 2953+59, rectPaint);
                 canvasremix.drawText(orderItems.get(currentID).newCode, 801 + 1683, 2949 + 59, paintRed);
 
@@ -193,17 +193,17 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
                 canvasremix.drawRect(2538, 1570, 2598, 1594, rectPaint);
                 canvasremix.drawText("DP", 2539, 1590, paint);
-                canvasremix.drawRect(0, 1570, 400, 1594, rectPaint);
-                canvasremix.drawText(time, 2, 1590, paint);
-                canvasremix.drawText(orderItems.get(currentID).order_number,200,1590,paint);
+                canvasremix.drawRect(0, 1570, 500, 1594, rectPaint);
+                canvasremix.drawText(" 正面 " + time, 2, 1590, paint);
+                canvasremix.drawText(orderItems.get(currentID).order_number,250,1590,paint);
                 canvasremix.drawRect(800, 1570, 1050, 1594, rectPaint);
                 canvasremix.drawText(orderItems.get(currentID).newCode, 801, 1590, paintRed);
 
                 canvasremix.drawRect(2538, 1570+1594, 2598, 1594+1594, rectPaint);
                 canvasremix.drawText("DP", 2539, 1590+1594, paint);
-                canvasremix.drawRect(0, 1570+1594, 400, 1594+1594, rectPaint);
-                canvasremix.drawText(time, 2, 1590+1594, paint);
-                canvasremix.drawText(orderItems.get(currentID).order_number,200,1590+1594,paint);
+                canvasremix.drawRect(0, 1570+1594, 500, 1594+1594, rectPaint);
+                canvasremix.drawText(" 背面 " + time, 2, 1590+1594, paint);
+                canvasremix.drawText(orderItems.get(currentID).order_number,250,1590+1594,paint);
                 canvasremix.drawRect(800, 1570+1594, 1050, 1594+1594, rectPaint);
                 canvasremix.drawText(orderItems.get(currentID).newCode, 801, 1590 + 1594, paintRed);
             }

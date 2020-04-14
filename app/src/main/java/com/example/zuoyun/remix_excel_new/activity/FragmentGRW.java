@@ -142,6 +142,7 @@ public class FragmentGRW extends BaseFragment {
 
                 if (sizeOK) {
                     for(num=orderItems.get(currentID).num;num>=1;num--) {
+                    intPlus = orderItems.get(currentID).num - num + 1;
                         for(int i=0;i<currentID;i++) {
                             if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
                                 intPlus += 1;
@@ -149,7 +150,6 @@ public class FragmentGRW extends BaseFragment {
                         }
                         strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                         remixx();
-                        intPlus += 1;
                     }
                 }
 
@@ -514,16 +514,28 @@ public class FragmentGRW extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, width_arm + margin, height_front + height_back + height_maozi * 3 + margin * 3, null);
 
             //xiabai
-            bitmapTemp = (checkContains("bottom") ? getBitmapWith("bottom") : MainActivity.instance.bitmaps.get(6)).copy(Bitmap.Config.ARGB_8888, true);
-            canvasTemp = new Canvas(bitmapTemp);
+            Bitmap bitmapArm = Bitmap.createBitmap(7897, 860, Bitmap.Config.ARGB_8888);
+            Canvas canvasArm= new Canvas(bitmapArm);
+            canvasArm.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasArm.drawColor(0xffffffff);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 5950, 0, 1947, 860);
+            canvasArm.drawBitmap(bitmapTemp, 0, 0, null);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 10, 0, 3954, 860);
+            canvasArm.drawBitmap(bitmapTemp, 1947, 0, null);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 3954, 0, 1998, 860);
+            canvasArm.drawBitmap(bitmapTemp, 1947 + 3954, 0, null);
+            bitmapTemp.recycle();
+
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_xiabai);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextXiabai(canvasTemp);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiabai, height_xiabai, true);
+            canvasArm.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextXiabai(canvasArm);
+            bitmapArm = Bitmap.createScaledBitmap(bitmapArm, width_xiabai, height_xiabai, true);
             matrix.reset();
             matrix.postRotate(-90);
-            matrix.postTranslate(width_front + margin, width_xiabai);
-            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+            matrix.postTranslate(width_front * 2 + margin * 2, width_xiabai);
+            canvasCombine.drawBitmap(bitmapArm, matrix, null);
+            bitmapArm.recycle();
 
             //xiukou_l
             bitmapTemp = (checkContains("left_cuff") ? getBitmapWith("left_cuff") : MainActivity.instance.bitmaps.get(4)).copy(Bitmap.Config.ARGB_8888, true);
@@ -943,7 +955,7 @@ public class FragmentGRW extends BaseFragment {
                 Button bt_yes = (Button) view_dialog.findViewById(R.id.bt_dialog_yes);
 
                 tv_title.setText("错误！");
-                tv_content.setText("单号："+order_number+"读取尺码失败");
+                tv_content.setText("单号："+order_number+"没有这个尺码");
                 bt_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

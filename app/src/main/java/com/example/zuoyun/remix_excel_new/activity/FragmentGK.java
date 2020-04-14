@@ -91,6 +91,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             public void run() {
                 super.run();
                 for(num=orderItems.get(currentID).num;num>=1;num--) {
+                    intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
                             intPlus += 1;
@@ -98,7 +99,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                     remixx();
-                    intPlus += 1;
                 }
             }
         }.start();
@@ -124,12 +124,19 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         String time = MainActivity.instance.orderDate_Print;
 
-        Bitmap bitmapCombine = Bitmap.createBitmap(7252, 3543, Bitmap.Config.ARGB_8888);
+//        Bitmap bitmapCombine = Bitmap.createBitmap(7252, 3543, Bitmap.Config.ARGB_8888);
+//        Canvas canvasCombine= new Canvas(bitmapCombine);
+//        canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+//        canvasCombine.drawColor(0xffffffff);
+//
+//        canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
+//        canvasCombine.drawRect(20, 0, 20 + 300, 17, rectPaint);
+//        canvasCombine.drawText("GK浴巾 " + time + "  " + orderItems.get(currentID).order_number, 20, 17 - 2, paint);
+
+        Bitmap bitmapCombine = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 7252, 3732, true);//高度加4cm
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasCombine.drawColor(0xffffffff);
 
-        canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
         canvasCombine.drawRect(20, 0, 20 + 300, 17, rectPaint);
         canvasCombine.drawText("GK浴巾 " + time + "  " + orderItems.get(currentID).order_number, 20, 17 - 2, paint);
 

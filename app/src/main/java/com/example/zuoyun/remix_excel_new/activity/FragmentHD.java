@@ -141,10 +141,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             @Override
             public void run() {
                 super.run();
+                converseSize();
                 setScale(orderItems.get(currentID).sizeStr);
 
                 if (sizeOK) {
                     for(num=orderItems.get(currentID).num;num>=1;num--) {
+                    intPlus = orderItems.get(currentID).num - num + 1;
                         for(int i=0;i<currentID;i++) {
                             if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
                                 intPlus += 1;
@@ -152,7 +154,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                         }
                         strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                         remixx();
-                        intPlus += 1;
                     }
                 }
 
@@ -164,14 +165,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     void drawText1L(Canvas canvas) {
         canvas.save();
         canvas.rotate(-72.9f, 1176, 692);
-        canvas.drawRect(1176, 692 - 26, 1176 + 530, 692, rectPaint);
+        canvas.drawRect(1176, 692 - 26, 1176 + 610, 692, rectPaint);
         canvas.drawText(time + "  " + orderItems.get(currentID).sizeStr + "左 " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).newCode, 1176, 692 - 3, paint);
         canvas.restore();
     }
     void drawText1R(Canvas canvas) {
         canvas.save();
         canvas.rotate(-72.9f, 1176, 692);
-        canvas.drawRect(1176, 692 - 26, 1176 + 530, 692, rectPaint);
+        canvas.drawRect(1176, 692 - 26, 1176 + 610, 692, rectPaint);
         canvas.drawText(time + "  " + orderItems.get(currentID).sizeStr + "右 " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).newCode, 1176, 692 - 3, paint);
         canvas.restore();
     }
@@ -545,94 +546,50 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
     }
 
-//    void setSize(String size) {
-//        switch (size) {
-//            case "29.5":
-//                width_1 = 1034;
-//                height_1 = 792;
-//                width_2 = 588;
-//                height_2 = 1242;
-//                width_side = 230;
-//                height_side = 2889;
-//                break;
-//            case "31.5":
-//                width_1 = 1086;
-//                height_1 = 846;
-//                width_2 = 606;
-//                height_2 = 1322;
-//                width_side = 230;
-//                height_side = 3059;
-//                break;
-//            case "34.5":
-//                width_1 = 1163;
-//                height_1 = 926;
-//                width_2 = 625;
-//                height_2 = 1445;
-//                width_side = 230;
-//                height_side = 3315;
-//                break;
-//            case "36.5":
-//                width_1 = 1150;
-//                height_1 = 980;
-//                width_2 = 659;
-//                height_2 = 1533;
-//                width_side = 230;
-//                height_side = 3416;
-//                break;
-//            case "38.5":
-//                width_1 = 1266;
-//                height_1 = 1035;
-//                width_2 = 676;
-//                height_2 = 1609;
-//                width_side = 230;
-//                height_side = 3657;
-//                break;
-//            case "40.5":
-//                width_1 = 1318;
-//                height_1 = 1089;
-//                width_2 = 694;
-//                height_2 = 1689;
-//                width_side = 230;
-//                height_side = 3828;
-//                break;
-//            case "41.5":
-//                width_1 = 1344;
-//                height_1 = 1116;
-//                width_2 = 703;
-//                height_2 = 1728;
-//                width_side = 230;
-//                height_side = 3913;
-//                break;
-//            case "43.5":
-//                width_1 = 1395;
-//                height_1 = 1170;
-//                width_2 = 721;
-//                height_2 = 1808;
-//                width_side = 230;
-//                height_side = 4084;
-//                break;
-//            case "46.5":
-//                width_1 = 1408;
-//                height_1 = 1249;
-//                width_2 = 748;
-//                height_2 = 1927;
-//                width_side = 230;
-//                height_side = 4340;
-//                break;
-//            case "48.5":
-//                width_1 = 1460;
-//                height_1 = 1303;
-//                width_2 = 766;
-//                height_2 = 2006;
-//                width_side = 230;
-//                height_side = 4525;
-//                break;
-//            default:
-//                showDialogSizeWrong(orderItems.get(currentID).order_number);
-//                sizeOK = false;
-//                break;
-//        }
-//    }
+    void converseSize(){
+        if (orderItems.get(currentID).sizeStr.equals("S") || orderItems.get(currentID).sizeStr.equals("M") || orderItems.get(currentID).sizeStr.equals("L") || orderItems.get(currentID).sizeStr.equals("XL")) {
+            if (orderItems.get(currentID).newCode.contains("男")) {
+                switch (orderItems.get(currentID).sizeStr) {
+                    case "S":
+                        orderItems.get(currentID).sizeStr = "41.5";
+                        break;
+                    case "M":
+                        orderItems.get(currentID).sizeStr = "43.5";
+                        break;
+                    case "L":
+                        orderItems.get(currentID).sizeStr = "46.5";
+                        break;
+                    case "XL":
+                        orderItems.get(currentID).sizeStr = "48.5";
+                        break;
+                }
+            } else if (orderItems.get(currentID).newCode.contains("女")) {
+                switch (orderItems.get(currentID).sizeStr) {
+                    case "S":
+                        orderItems.get(currentID).sizeStr = "36.5";
+                        break;
+                    case "M":
+                        orderItems.get(currentID).sizeStr = "38.5";
+                        break;
+                    case "L":
+                        orderItems.get(currentID).sizeStr = "40.5";
+                        break;
+                }
+            } else {
+                switch (orderItems.get(currentID).sizeStr) {
+                    case "S":
+                        orderItems.get(currentID).sizeStr = "29.5";
+                        break;
+                    case "M":
+                        orderItems.get(currentID).sizeStr = "31.5";
+                        break;
+                    case "L":
+                        orderItems.get(currentID).sizeStr = "34.5";
+                        break;
+                }
+            }
+        }
+    }
 
     public void showDialogSizeWrong(final String order_number){
         getActivity().runOnUiThread(new Runnable() {
@@ -650,7 +607,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 Button bt_yes = (Button) view_dialog.findViewById(R.id.bt_dialog_yes);
 
                 tv_title.setText("错误！");
-                tv_content.setText("单号："+order_number+"读取尺码失败");
+                tv_content.setText("单号："+order_number+"没有这个尺码");
                 bt_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -662,17 +619,4 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         });
     }
 
-    String getColor(String color){
-        if (color.equals("White")) {
-            return "白灯";
-        } else if (color.equals("Green")) {
-            return "绿灯";
-        } else if (color.equals("Blue")) {
-            return "蓝灯";
-        } else if (color.equals("Red")) {
-            return "红灯";
-        } else {
-            return "无灯";
-        }
-    }
 }

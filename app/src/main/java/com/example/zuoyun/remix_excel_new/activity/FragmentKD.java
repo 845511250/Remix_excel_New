@@ -143,6 +143,7 @@ public class FragmentKD extends BaseFragment {
             public void run() {
                 super.run();
                 for(num=orderItems.get(currentID).num;num>=1;num--) {
+                    intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
                             intPlus += 1;
@@ -150,7 +151,6 @@ public class FragmentKD extends BaseFragment {
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                     remixx();
-                    intPlus += 1;
                 }
             }
         }.start();
@@ -226,7 +226,7 @@ public class FragmentKD extends BaseFragment {
 
         } else if (orderItems.get(currentID).imgs.size() == 1) {
             //LL
-            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1577, 0, 1577, 843);
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1613, 3, 1577, 843);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kd_l);
@@ -236,7 +236,7 @@ public class FragmentKD extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
             //RL
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 843, 1577, 843);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 12, 850, 1577, 843);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(bitmapDB,0,0,null);
@@ -245,7 +245,7 @@ public class FragmentKD extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, 0, height + margin, null);
 
             //LR
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1577, 843, 1577, 843);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1613, 850, 1577, 843);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kd_r);
@@ -255,7 +255,7 @@ public class FragmentKD extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, 0, height * 2 + margin * 3, null);
 
             //RR
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 1577, 843);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 12, 3, 1577, 843);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);

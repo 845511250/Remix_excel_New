@@ -145,6 +145,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
                 if (sizeOK) {
                     for(num=orderItems.get(currentID).num;num>=1;num--) {
+                    intPlus = orderItems.get(currentID).num - num + 1;
                         for(int i=0;i<currentID;i++) {
                             if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
                                 intPlus += 1;
@@ -152,7 +153,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                         }
                         strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                         remixx();
-                        intPlus += 1;
                     }
                 }
             }
@@ -173,6 +173,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawColor(0xffffffff);
 
         Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), dbID);
+        bitmapDB = Bitmap.createScaledBitmap(bitmapDB, width, height * 2, true);
         MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true));
         if (orderItems.get(currentID).imgs.size() == 2) {
             MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), width, height, true));
@@ -201,7 +202,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 146);
+            BitmapToJpg.save(bitmapCombine, fileSave, 147);
             bitmapCombine.recycle();
 
             //写入excel
@@ -292,7 +293,18 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 height = 1352;
                 dbID = R.drawable.ay_xl;
                 break;
+            case "2XL":
+                width = 2311;
+                height = 1461;
+                dbID = R.drawable.ay_2xl;
+                break;
+            case "3XL":
+                width = 2545;
+                height = 1590;
+                dbID = R.drawable.ay_3xl;
+                break;
         }
+        height += 40;
     }
 
     public void showDialogSizeWrong(final String order_number){
@@ -311,7 +323,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 Button bt_yes = (Button) view_dialog.findViewById(R.id.bt_dialog_yes);
 
                 tv_title.setText("错误！");
-                tv_content.setText("单号："+order_number+"读取尺码失败");
+                tv_content.setText("单号："+order_number+"没有这个尺码");
                 bt_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

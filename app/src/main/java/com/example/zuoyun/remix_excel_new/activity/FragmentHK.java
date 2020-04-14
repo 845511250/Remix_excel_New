@@ -85,7 +85,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paintSmall = new Paint();
         paintSmall.setColor(0xff000000);
-        paintSmall.setTextSize(24);
+        paintSmall.setTextSize(21);
         paintSmall.setAntiAlias(true);
 
         time = MainActivity.instance.orderDate_Print;
@@ -121,6 +121,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             public void run() {
                 super.run();
                 for(num=orderItems.get(currentID).num;num>=1;num--) {
+                    intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
                             intPlus += 1;
@@ -128,7 +129,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                     remixx();
-                    intPlus += 1;
                 }
             }
         }.start();
@@ -144,19 +144,25 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawTextTongue(Canvas canvas, String LR) {
-        canvas.drawRect(210, 570 - 24, 210 + 100, 570, rectPaint);
+        canvas.drawRect(210, 570 - 20, 210 + 100, 570, rectPaint);
         canvas.drawText(orderItems.get(currentID).size + "码" + LR + orderItems.get(currentID).color, 210, 570 - 2, paintSmall);
 
-        canvas.save();
-        canvas.rotate(-5f, 265, 20);
-        canvas.drawRect(265, 20, 265 + 150, 20 + 23, rectPaint);
-        canvas.drawText(orderItems.get(currentID).order_number, 265, 20 + 21, paint);
-        canvas.restore();
+//        canvas.save();
+//        canvas.rotate(-5f, 265, 18);
+//        canvas.drawRect(265, 18, 265 + 150, 18 + 20, rectPaint);
+//        canvas.drawText(orderItems.get(currentID).order_number, 265, 18 + 18, paintSmall);
+//        canvas.restore();
+//
+//        canvas.save();
+//        canvas.rotate(5.5f, 120, 5);
+//        canvas.drawRect(120, 5, 120 + 100, 7 + 20, rectPaint);
+//        canvas.drawText(time, 120, 5 + 18, paintSmall);
+//        canvas.restore();
 
         canvas.save();
-        canvas.rotate(5.5f, 120, 7);
-        canvas.drawRect(120, 7, 120 + 130, 7 + 23, rectPaint);
-        canvas.drawText(time, 120, 7 + 21, paint);
+        canvas.rotate(78.1f, 82, 348);
+        canvas.drawRect(82, 348 - 18, 82 + 150, 348, rectPaint);
+        canvas.drawText(orderItems.get(currentID).order_number, 82, 348 - 2, paintSmall);
         canvas.restore();
     }
 
@@ -430,6 +436,18 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 mainHeight = 2051;
                 tongueWidth = 566;
                 tongueHeight = 647;
+                break;
+            case 47:
+                mainWidth = 1760 + 30;
+                mainHeight = 2051 + 45;
+                tongueWidth = 566 + 9;
+                tongueHeight = 647 + 13;
+                break;
+            case 48:
+                mainWidth = 1760 + 30 * 2;
+                mainHeight = 2051 + 45 * 2;
+                tongueWidth = 566 + 9 * 2;
+                tongueHeight = 647 + 13 * 2;
                 break;
 
         }

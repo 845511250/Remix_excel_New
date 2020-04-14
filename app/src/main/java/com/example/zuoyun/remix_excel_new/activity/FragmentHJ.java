@@ -71,7 +71,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(18);
+        paint.setTextSize(24);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setAntiAlias(true);
 
@@ -109,6 +109,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             public void run() {
                 super.run();
                 for(num=orderItems.get(currentID).num;num>=1;num--) {
+                    intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
                             intPlus += 1;
@@ -116,7 +117,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                     remixx();
-                    intPlus += 1;
                 }
             }
         }.start();
@@ -129,6 +129,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
+        if (orderItems.get(currentID).sku.equals("HJ")) {
+            if (orderItems.get(currentID).sizeStr.equals("Y")) {
+                orderItems.get(currentID).sku = "HJY";
+            } else if (orderItems.get(currentID).sizeStr.equals("S")) {
+                orderItems.get(currentID).sku = "HJS";
+            } else if (orderItems.get(currentID).sizeStr.equals("M")) {
+                orderItems.get(currentID).sku = "HJM";
+            }
+        }
         setSize();
 
         Bitmap bitmapTemp = Bitmap.createBitmap(6200, 8200, Bitmap.Config.ARGB_8888);
