@@ -34,7 +34,7 @@ import jxl.write.WritableWorkbook;
  * Created by zuoyun on 2016/11/4.
  */
 
-public class FragmentGN extends BaseFragment {
+public class FragmentKX extends BaseFragment {
     Context context;
 //    String sdCardPath = "/mnt/asec/share";
 String sdCardPath = "/storage/emulated/0/Pictures";
@@ -143,284 +143,201 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
-                    remixx100();
+                    remixx();
                 }
 
             }
         }.start();
     }
 
-    public void remixx100(){
-        Bitmap bitmapCombine = Bitmap.createBitmap(5781, 8607, Bitmap.Config.ARGB_8888);
+    public void remixx(){
+        Bitmap bitmapCombine = Bitmap.createBitmap(5570, 4218, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
         Matrix matrix = new Matrix();
         if (orderItems.get(currentID).imgs.size() == 1) {
-            //前口袋
-            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 573, 2634, 2156, 1034);
+            //front
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 991, 955, 1919, 2777);
             Canvas canvasTemp = new Canvas(bitmapTemp);
-            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gn_qiankoudai);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kx_front);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
 //            drawTextBack(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
-            //上口袋
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 630, 241, 2026, 1706);
+            //back_left
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1216, 1016, 711, 2716);
             canvasTemp = new Canvas(bitmapTemp);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gn_shangkoudai);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kx_back_left);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
 //            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 0, 1100, null);
+            canvasCombine.drawBitmap(bitmapTemp, 4847, 1007, null);
+
+            //back_right
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1975, 1015, 711, 2716);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kx_back_right);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+//            drawTextBack(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 4116, 0, null);
+
+            //side_left1
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 46, 944, 827, 1565);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kx_side1);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+//            drawTextBack(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 2032, 2641, null);
+
+            //side_right1
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3028, 986, 827, 1565);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+//            drawTextBack(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 3118, 2641, null);
+
+            //side_left2
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 46, 2509, 945, 1211);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kx_side2);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+//            drawTextBack(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 1973, 0, null);
+
+            //side_right2
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2910, 2551, 945, 1211);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+//            drawTextBack(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 3058, 0, null);
 
             //bottom
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 305, 2321, 2663, 1430);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1026, 3744, 1848, 945);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 0, 2910, null);
-
-            //前面布
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 316, 420, 2660, 3603);
-            canvasTemp = new Canvas(bitmapTemp);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gn_front);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kx_bottom);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
 //            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 0, 4873, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2015, 1387, null);
 
-            //side
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 788, 1947, 1725, 1804);
+            //top1
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1331, 11, 1240, 650);
             canvasTemp = new Canvas(bitmapTemp);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gn_side);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kx_top1);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
 //            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 475, 4436, null);
-            canvasCombine.drawBitmap(bitmapTemp, 2850, 6550, null);
+            canvasCombine.drawBitmap(bitmapTemp, 219, 2919, null);
 
-            //前袋上接布
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 558, 2327, 2168, 307);
+            //top2
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1508, 188, 887, 558);
             canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kx_top2);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
 //            drawTextBack(canvasTemp);
-            matrix.reset();
-            matrix.postRotate(90);
-            matrix.postTranslate(307 + 2350, 0);
-            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+            canvasCombine.drawBitmap(bitmapTemp, 392, 3648, null);
 
-            //侧链布1
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 222, 2660);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 239, 2723, true);
+            //top3
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1331, 646, 1240, 295);
             canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kx_top3);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
 //            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 2820, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, 4185, 3910, null);
 
-            //侧链布2
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 194, 0, 222, 2660);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 239, 2723, true);
-            canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 3190, 0, null);
 
-            //侧链布3
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2870, 0, 222, 2660);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 239, 2723, true);
-            canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 3560, 0, null);
-
-            //侧链布4
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3063, 0, 222, 2660);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 239, 2723, true);
-            canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 3906, 0, null);
-
-            //侧袋围1
-            bitmapTemp = Bitmap.createBitmap(420, 3930, Bitmap.Config.ARGB_8888);
-            canvasTemp = new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            Bitmap bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 2556, 420, 1465);
-            canvasTemp.drawBitmap(bitmapCut, 0, 1250, null);
-            canvasTemp.drawBitmap(bitmapCut, 0, 0, null);
-            matrix.reset();
-            matrix.postRotate(180);
-            matrix.postTranslate(420, 3930);
-            canvasTemp.drawBitmap(bitmapCut, matrix, null);
-            bitmapCut.recycle();
-//            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 4347, 0, null);
-
-            //侧袋围2
-            bitmapTemp = Bitmap.createBitmap(420, 3930, Bitmap.Config.ARGB_8888);
-            canvasTemp = new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2865, 2556, 420, 1465);
-            canvasTemp.drawBitmap(bitmapCut, 0, 1250, null);
-            canvasTemp.drawBitmap(bitmapCut, 0, 0, null);
-            matrix.reset();
-            matrix.postRotate(180);
-            matrix.postTranslate(420, 3930);
-            canvasTemp.drawBitmap(bitmapCut, matrix, null);
-            bitmapCut.recycle();
-//            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 4955, 0, null);
-
-            //前袋围
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 3381, 3285, 268);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 4442, 268, true);
-            canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
-            matrix.reset();
-            matrix.postRotate(90);
-            matrix.postTranslate(268 + 5500, 0);
-            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
-
-            //手提布
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1070, 778, 1161, 660);
-            canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 2980, 3180, null);
-
-            //后片
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 316, 2003, 2670, 1748);
-            canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 2850, 4678, null);
-
+            bitmapDB.recycle();
             bitmapTemp.recycle();
 
 
         } else if (orderItems.get(currentID).imgs.size() == 6) {
-            //前口袋
-            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 573, 2634, 2156, 1034);
+            //front
+            Bitmap bitmapTemp = MainActivity.instance.bitmaps.get(2).copy(Bitmap.Config.ARGB_8888, true);
             Canvas canvasTemp = new Canvas(bitmapTemp);
-            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gn_qiankoudai);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kx_front);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
 //            drawTextBack(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
-            //上口袋
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(5), 0, 0, 2025, 1704);
+            //back_left
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 711, 2716);
             canvasTemp = new Canvas(bitmapTemp);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gn_shangkoudai);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kx_back_left);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
 //            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 0, 1100, null);
+            canvasCombine.drawBitmap(bitmapTemp, 4847, 1007, null);
+
+            //back_right
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 758, 0, 711, 2716);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kx_back_right);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+//            drawTextBack(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 4116, 0, null);
+
+            //side_left1
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, 827, 1565);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kx_side1);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+//            drawTextBack(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 2032, 2641, null);
+
+            //side_right1
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(4), 116, 0, 827, 1565);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+//            drawTextBack(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 3118, 2641, null);
+
+            //side_left2
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(3), 0, 1565, 943, 1211);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kx_side2);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+//            drawTextBack(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 1973, 0, null);
+
+            //side_right2
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(4), 0, 1565, 943, 1211);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+//            drawTextBack(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 3058, 0, null);
 
             //bottom
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 2662, 1430);
+            bitmapTemp = MainActivity.instance.bitmaps.get(1).copy(Bitmap.Config.ARGB_8888, true);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 0, 2910, null);
-
-            //前面布
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 316, 420, 2660, 3603);
-            canvasTemp = new Canvas(bitmapTemp);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gn_front);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kx_bottom);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
 //            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 0, 4873, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2015, 1387, null);
 
-            //side
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, 1725, 1804);
+            //top1
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(5), 0, 0, 1240, 650);
             canvasTemp = new Canvas(bitmapTemp);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gn_side);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kx_top1);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            canvasCombine.drawBitmap(bitmapTemp, 475, 4436, null);
+//            drawTextBack(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 219, 2919, null);
 
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(4), 0, 0, 1725, 1804);
+            //top2
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(5), 176, 177, 887, 558);
             canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kx_top2);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            canvasCombine.drawBitmap(bitmapTemp, 2850, 6550, null);
-
-            //前袋上接布
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 558, 2327, 2168, 307);
-            canvasTemp = new Canvas(bitmapTemp);
 //            drawTextBack(canvasTemp);
-            matrix.reset();
-            matrix.postRotate(90);
-            matrix.postTranslate(307 + 2350, 0);
-            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+            canvasCombine.drawBitmap(bitmapTemp, 392, 3648, null);
 
-            //侧链布1
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, 222, 2660);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 239, 2723, true);
+            //top3
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(5), 0, 635, 1240, 295);
             canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kx_top3);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
 //            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 2820, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, 4185, 3910, null);
 
-            //侧链布2
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 194, 0, 222, 2660);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 239, 2723, true);
-            canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 3190, 0, null);
 
-            //侧链布3
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 2870, 0, 222, 2660);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 239, 2723, true);
-            canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 3560, 0, null);
-
-            //侧链布4
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 3062, 0, 222, 2660);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 239, 2723, true);
-            canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 3906, 0, null);
-
-            //侧袋围1
-            bitmapTemp = Bitmap.createBitmap(420, 3930, Bitmap.Config.ARGB_8888);
-            canvasTemp = new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            Bitmap bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 0, 2556, 420, 1465);
-            canvasTemp.drawBitmap(bitmapCut, 0, 1250, null);
-            canvasTemp.drawBitmap(bitmapCut, 0, 0, null);
-            matrix.reset();
-            matrix.postRotate(180);
-            matrix.postTranslate(420, 3930);
-            canvasTemp.drawBitmap(bitmapCut, matrix, null);
-            bitmapCut.recycle();
-//            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 4347, 0, null);
-
-            //侧袋围2
-            bitmapTemp = Bitmap.createBitmap(420, 3930, Bitmap.Config.ARGB_8888);
-            canvasTemp = new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 2863, 2556, 420, 1465);
-            canvasTemp.drawBitmap(bitmapCut, 0, 1250, null);
-            canvasTemp.drawBitmap(bitmapCut, 0, 0, null);
-            matrix.reset();
-            matrix.postRotate(180);
-            matrix.postTranslate(420, 3930);
-            canvasTemp.drawBitmap(bitmapCut, matrix, null);
-            bitmapCut.recycle();
-//            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 4955, 0, null);
-
-            //前袋围
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 0, 3381, 3284, 268);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 4442, 268, true);
-            canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
-            matrix.reset();
-            matrix.postRotate(90);
-            matrix.postTranslate(268 + 5500, 0);
-            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
-
-            //手提布
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(5), 440, 537, 1161, 660);
-            canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 2980, 3180, null);
-
-            //后片
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 2670, 1748);
-            canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 2850, 4678, null);
-
+            bitmapDB.recycle();
             bitmapTemp.recycle();
 
 

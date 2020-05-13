@@ -136,7 +136,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawColor(0xffffffff);
 
         //front
-        Bitmap bitmapTemp = orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1).copy(Bitmap.Config.ARGB_8888, true);
+        Bitmap bitmapTemp = (orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1)).copy(Bitmap.Config.ARGB_8888, true);
         Canvas canvasTemp = new Canvas(bitmapTemp);
         Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z20_main);
         canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -144,7 +144,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
         //back
-        bitmapTemp = orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1).copy(Bitmap.Config.ARGB_8888, true);
+        bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
         canvasTemp = new Canvas(bitmapTemp);
         canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
         bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1873, 1841, true);

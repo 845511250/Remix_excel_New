@@ -182,9 +182,21 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvas.restore();
 
         if (orderItems.get(currentID).platform.equals("zy")) {
-            paintRed.setTextSize(40);
+            paintRed.setTextSize(32);
             canvas.drawText(time + " " + orderItems.get(currentID).color, 1100, 838, paintRed);
-            canvas.drawText(orderItems.get(currentID).order_number + " 共" + orderItems.get(currentID).newCode + "个", 970, 885, paintRed);
+            canvas.drawText(orderItems.get(currentID).order_number + " 共" + orderItems.get(currentID).newCode + "个", 950, 885, paintRed);
+        }
+    }
+    void drawBigTextKYL(Canvas canvas) {
+        canvas.save();
+        canvas.rotate(50.2f, 721, 872);
+        canvas.drawRect(721, 872 - 15, 721 + 210, 872, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + orderItems.get(currentID).color + orderItems.get(currentID).order_number + "共" + orderItems.get(currentID).newCode + "个" + strPlus + " " + time, 721, 872 - 2, paint);
+        canvas.restore();
+
+        if (orderItems.get(currentID).platform.equals("zy")) {
+            paintRed.setTextSize(32);
+            canvas.drawText(orderItems.get(currentID).order_number + " 共" + orderItems.get(currentID).newCode + "个", 1050, 70, paintRed);
         }
     }
 
@@ -192,6 +204,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         Bitmap bitmapCombine = null;
         Bitmap bitmapTemp = null;
         Bitmap bitmapDB = null;
+        boolean blackBorder = true;
 
         if (orderItems.get(currentID).sku.equals("KY") || orderItems.get(currentID).sku.equals("KYL")) {
             orderItems.get(currentID).sku = "KYL";
@@ -204,21 +217,32 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1410, 1050, true);
             } else if (MainActivity.instance.bitmaps.get(0).getWidth() == 1410) {
                 bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+            } else if (MainActivity.instance.bitmaps.get(0).getWidth() == 1500) {
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 45, 25, 1410, 1050);
             }
 
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
             bitmapTemp.recycle();
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kyl);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), blackBorder ? R.drawable.kyl_black_border : R.drawable.kyl);
             canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextKYL(canvasCombine);
+            if (orderItems.get(currentID).platform.equals("zy")) {
+                drawBigTextKYL(canvasCombine);
+            } else {
+                drawTextKYL(canvasCombine);
+            }
         } else if (orderItems.get(currentID).sku.equals("KYS")) {
             bitmapCombine = Bitmap.createBitmap(1300, 890, Bitmap.Config.ARGB_8888);
             Canvas canvasCombine = new Canvas(bitmapCombine);
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasCombine.drawColor(0xffffffff);
-
-            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kys);
+            if (MainActivity.instance.bitmaps.get(0).getWidth() == 1500) {
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 49, 78, 1406, 963);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1300, 890, true);
+            } else {
+                bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+            }
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), blackBorder ? R.drawable.kys_black_border : R.drawable.kys);
             canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
             if (orderItems.get(currentID).platform.equals("zy")) {
                 drawBigTextKYS(canvasCombine);
@@ -234,7 +258,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 20, 12, 1760, 1076);
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
             bitmapTemp.recycle();
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kv);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), blackBorder ? R.drawable.kv_black_border : R.drawable.kv);
             canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
             if (orderItems.get(currentID).platform.equals("zy")) {
                 drawBigTextKV(canvasCombine);
@@ -255,7 +279,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             drawTextKV(canvasCombine);
         }
 
-        bitmapDB.recycle();
+        if(blackBorder)
+            bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, bitmapCombine.getWidth() + 23, bitmapCombine.getHeight() + 23, true);
+        else
+            bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, bitmapCombine.getWidth() + 12, bitmapCombine.getHeight() + 12, true);
+
 
         try {
             File file=new File(sdCardPath+"/生产图/"+childPath+"/");
@@ -263,8 +291,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 file.mkdirs();
 
             String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).color + "耳挂_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            if (!orderItems.get(currentID).newCode.isEmpty()) {
+                nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode + "订单号" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            }
             if (orderItems.get(currentID).platform.equals("zy")) {
-                nameCombine = orderItems.get(currentID).order_number + "_" + orderItems.get(currentID).sku + "_" + orderItems.get(currentID).color + "耳挂_共" + orderItems.get(currentID).newCode + "个" + strPlus + ".jpg";
+                nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).order_number + strPlus + "_" + orderItems.get(currentID).color + "耳挂_共" + orderItems.get(currentID).newCode + "个" + ".jpg";
             }
 
             String pathSave;
@@ -275,9 +306,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 149);
+            BitmapToJpg.save(bitmapCombine, fileSave, 150);
 
             //释放bitmap
+            bitmapDB.recycle();
             bitmapCombine.recycle();
 
             //写入excel

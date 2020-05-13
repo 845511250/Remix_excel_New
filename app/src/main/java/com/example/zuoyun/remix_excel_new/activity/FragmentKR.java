@@ -162,7 +162,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         if (orderItems.get(currentID).imgs.size() == 5) {
             //front
-            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 2718, 444);
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 2718, 429);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 2718, 444, true);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kr_top);
@@ -170,14 +171,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             drawText(canvasTemp, "前");
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 119, 233, 2481, 798);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 118, 183, 2481, 798);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kr_front_up);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             canvasCombine.drawBitmap(bitmapTemp, 119, 472, null);
 
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 119, 656, 2481, 1418);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 118, 673, 2481, 1401);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 2481, 1418, true);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kr_front_below);
@@ -260,7 +262,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         } else if (orderItems.get(currentID).imgs.size() == 1) {
             //front
-            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0 + 854, 121, 2718, 444);
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 856, 143, 2718, 444);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kr_top);
@@ -268,14 +270,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             drawText(canvasTemp, "前");
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 119 + 854, 233, 2481, 798);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 973, 354, 2481, 798);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kr_front_up);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             canvasCombine.drawBitmap(bitmapTemp, 119, 472, null);
 
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 119 + 854, 656, 2481, 1418);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 973, 844, 2481, 1418);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kr_front_below);
@@ -283,7 +285,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, 119, 1390, null);
 
             //back
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0 + 854, 0, 2718, 444);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 856, 143, 2718, 444);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.kr_top);

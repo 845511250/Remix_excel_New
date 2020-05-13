@@ -15,4 +15,5 @@ public class OrderItem {
     public String newCode;
     public String platform;
     public String customer;
+    public String order_id;
 }

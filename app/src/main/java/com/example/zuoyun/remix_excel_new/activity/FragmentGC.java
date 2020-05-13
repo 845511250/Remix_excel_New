@@ -176,7 +176,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         Bitmap bitmapF = checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(0);
         Bitmap bitmapB;
         if (orderItems.get(currentID).imgs.size() == 1) {
-            bitmapB = MainActivity.instance.bitmaps.get(0);
+            bitmapB = bitmapF.copy(Bitmap.Config.ARGB_8888, true);
         } else {
             bitmapB = checkContains("back") ? getBitmapWith("back") : MainActivity.instance.bitmaps.get(1);
         }
@@ -189,7 +189,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gc_front);
         canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-        bitmapDB.recycle();
         drawTextFront(canvasTemp);
         bitmapF = Bitmap.createScaledBitmap(bitmapF, width_front, height_front, true);
         canvasCombine.drawBitmap(bitmapF, 0, 0, null);

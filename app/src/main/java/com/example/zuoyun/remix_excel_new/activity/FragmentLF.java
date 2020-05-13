@@ -2,8 +2,8 @@ package com.example.zuoyun.remix_excel_new.activity;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
@@ -30,7 +30,7 @@ import jxl.write.WritableWorkbook;
  * Created by zuoyun on 2016/11/4.
  */
 
-public class FragmentHJ extends BaseFragment {
+public class FragmentLF extends BaseFragment {
     Context context;
 //    String sdCardPath = "/mnt/asec/share";
 String sdCardPath = "/storage/emulated/0/Pictures";
@@ -50,7 +50,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     String time = MainActivity.instance.orderDate_Print;
     Paint rectPaint,paint, rectBorderPaint;
 
-    int width,height, dpi;
 
     @Override
     public int getLayout() {
@@ -71,14 +70,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(24);
+        paint.setTextSize(19);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setAntiAlias(true);
 
         rectBorderPaint = new Paint();
         rectBorderPaint.setColor(0xff000000);
         rectBorderPaint.setStyle(Paint.Style.STROKE);
-        rectBorderPaint.setStrokeWidth(10);
+        rectBorderPaint.setStrokeWidth(4);
 
         MainActivity.instance.setMessageListener(new MainActivity.MessageListener() {
             @Override
@@ -124,55 +123,40 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawText(Canvas canvas) {
-        canvas.drawRect(3000, 8190 - 24, 3000 + 800, 8190, rectPaint);
-        canvas.drawText("毛毯 尺码" + orderItems.get(currentID).sku.substring(2) + "  " + time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).newCode, 3000, 8190 - 2, paint);
+        canvas.drawRect(100, 4, 100 + 350, 4 + 18, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + "  " + time + "  " + orderItems.get(currentID).order_number, 100, 4 + 16, paint);
     }
 
     public void remixx(){
-        if (orderItems.get(currentID).sku.equals("HJ")) {
-            if (orderItems.get(currentID).sizeStr.equals("XS")) {
-                orderItems.get(currentID).sku = "HJY";
-            } else if (orderItems.get(currentID).sizeStr.equals("S")) {
-                orderItems.get(currentID).sku = "HJS";
-            } else if (orderItems.get(currentID).sizeStr.equals("M")) {
-                orderItems.get(currentID).sku = "HJM";
-            }
-        }
-        setSize();
+        Bitmap bitmapCombine = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+        Canvas canvasCombine= new Canvas(bitmapCombine);
+        canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
 
-        Bitmap bitmapTemp = Bitmap.createBitmap(6200, 8200, Bitmap.Config.ARGB_8888);
-        Canvas canvasTemp= new Canvas(bitmapTemp);
-        canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-
-        canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-        canvasTemp.drawRect(0, 0, 6200, 8200, rectBorderPaint);
-        canvasTemp.drawRect(5, 5, 6200, 8200, rectBorderPaint);
-        drawText(canvasTemp);
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
-
-
-        Matrix matrix = new Matrix();
-        switch (orderItems.get(currentID).sku) {
-            case "HJY":
-                matrix.postRotate(90, bitmapTemp.getWidth() / 2, bitmapTemp.getHeight() / 2);
-                bitmapTemp = Bitmap.createBitmap(bitmapTemp, 0, 0, bitmapTemp.getWidth(), bitmapTemp.getHeight(), matrix, true);
-                break;
-        }
-
-        String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
-        String pathSave;
-        if(MainActivity.instance.cb_classify.isChecked()){
-            pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
-        } else
-            pathSave = sdCardPath + "/生产图/" + childPath + "/";
-        if(!new File(pathSave).exists())
-            new File(pathSave).mkdirs();
-        File fileSave = new File(pathSave + nameCombine);
-        BitmapToJpg.save(bitmapTemp, fileSave, dpi);
-        bitmapTemp.recycle();
-
+        Bitmap bitmapDB = BitmapFactory.decodeResource(getResources(), R.drawable.lf);
+        canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
+        drawText(canvasCombine);
+        bitmapDB.recycle();
 
         try {
+            File file=new File(sdCardPath+"/生产图/"+childPath+"/");
+            if(!file.exists())
+                file.mkdirs();
+
+            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+
+            String pathSave;
+            if(MainActivity.instance.cb_classify.isChecked()){
+                pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
+            } else
+                pathSave = sdCardPath + "/生产图/" + childPath + "/";
+            if(!new File(pathSave).exists())
+                new File(pathSave).mkdirs();
+            File fileSave = new File(pathSave + nameCombine);
+            BitmapToJpg.save(bitmapCombine, fileSave, 150);
+
+            //释放bitmap
+            bitmapCombine.recycle();
+
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";
             File fileWrite = new File(writePath);
@@ -235,26 +219,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     public void checkremix(){
         if (MainActivity.instance.tb_auto.isChecked()){
             remix();
-        }
-    }
-
-    void setSize() {
-        switch (orderItems.get(currentID).sku) {
-            case "HJY":
-                width = 6174;
-                height = 7888;
-                dpi = 136;
-                break;
-            case "HJS":
-                width = 6160;
-                height = 7920;
-                dpi = 110;
-                break;
-            case "HJM":
-                width = 6200;
-                height = 8200;
-                dpi = 100;
-                break;
         }
     }
 

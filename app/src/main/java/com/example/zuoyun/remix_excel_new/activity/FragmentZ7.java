@@ -70,13 +70,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(26);
+        paint.setTextSize(20);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setAntiAlias(true);
 
         paintRed = new Paint();
         paintRed.setColor(0xffff0000);
-        paintRed.setTextSize(26);
+        paintRed.setTextSize(20);
         paintRed.setTypeface(Typeface.DEFAULT_BOLD);
         paintRed.setAntiAlias(true);
 
@@ -124,12 +124,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawText(Canvas canvas) {
-        canvas.drawRect(300, 2090 - 26, 300 + 400, 2090, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "   " + time + "  " + orderItems.get(currentID).order_number, 300, 2090 - 3, paint);
+        canvas.drawRect(300, 2093 - 20, 300 + 400, 2093, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + "   " + time + "  " + orderItems.get(currentID).order_number, 300, 2093 - 2, paint);
     }
 
     public void remixx(){
-        Bitmap bitmapCombine = Bitmap.createBitmap(4000, 2200, Bitmap.Config.ARGB_8888);
+        Bitmap bitmapCombine = Bitmap.createBitmap(4002, 2164, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
@@ -140,14 +140,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z7);
         canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
         drawText(canvasTemp);
-        canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+        canvasCombine.drawBitmap(bitmapTemp, 32, 32, null);
 
         bitmapTemp = (orderItems.get(currentID).imgs.size() == 2 ? MainActivity.instance.bitmaps.get(1) : MainActivity.instance.bitmaps.get(0)).copy(Bitmap.Config.ARGB_8888, true);
         canvasTemp = new Canvas(bitmapTemp);
         canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
         drawText(canvasTemp);
-        canvasCombine.drawBitmap(bitmapTemp, 4000 - 1949, 0, null);
+        canvasCombine.drawBitmap(bitmapTemp, 2017, 32, null);
 
         bitmapDB.recycle();
 

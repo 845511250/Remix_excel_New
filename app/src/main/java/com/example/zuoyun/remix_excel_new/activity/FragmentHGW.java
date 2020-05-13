@@ -366,7 +366,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp.recycle();
         } else if (orderItems.get(currentID).imgs.size() == 2) {
             //front
-            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 440, 747, 1898, 1923);
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 440, 747, 1898, 1923);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), id_frontR);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -392,7 +392,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             matrix.postTranslate(-31, -481);
             matrix.postRotate(-8.3f);
             matrix.postTranslate(-232, 282);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(1), matrix, null);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), id_backL);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextBackL(canvasTemp);
@@ -407,7 +407,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             matrix.postTranslate(-1429, -481);
             matrix.postRotate(8.3f);
             matrix.postTranslate(252, -71);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(1), matrix, null);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
 
             matrix.reset();
             matrix.postScale(-1, 1);
@@ -418,7 +418,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, width_front + margin, height_front + margin, null);
 
             //pocketR
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 444, 685, 1079, 1298);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 444, 685, 1079, 1298);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hgw_pocket_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -427,7 +427,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, 0, height_front + margin, null);
 
             //pocketL
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2380, 685, 1079, 1298);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 2380, 685, 1079, 1298);
             canvasTemp = new Canvas(bitmapTemp);
             matrix.reset();
             matrix.postScale(-1, 1);
@@ -438,7 +438,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, width_pocket + margin, height_front + margin, null);
 
             //borderPocketR
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 440, 746, 936, 736);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 440, 746, 936, 736);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hgw_border_pocket_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -450,7 +450,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, width_front + width_back + margin - width_borderPocket, width_borderTop - height_borderPocket, null);
 
             //borderPocketL
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2522, 746, 937, 736);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 2522, 746, 937, 736);
             canvasTemp = new Canvas(bitmapTemp);
             matrix.reset();
             matrix.postScale(-1, 1);
@@ -469,7 +469,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
 
-            Bitmap bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 1891, 32, 1615, 562);
+            Bitmap bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1891, 32, 1615, 562);
             canvasTemp.drawBitmap(bitmapCut, 0, 0, null);
 
             bitmapCut = Bitmap.createBitmap(1368, 562, Bitmap.Config.ARGB_8888);
@@ -477,7 +477,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             matrix.reset();
             matrix.postRotate(-4f);
             matrix.postTranslate(-40, 0);
-            canvasCut.drawBitmap(Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 562, 230, 1405, 662), matrix, null);
+            canvasCut.drawBitmap(Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 562, 230, 1405, 662), matrix, null);
             canvasTemp.drawBitmap(bitmapCut, 1615, 0, null);
 
             bitmapCut = Bitmap.createBitmap(1368, 562, Bitmap.Config.ARGB_8888);
@@ -485,10 +485,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             matrix.reset();
             matrix.postRotate(4f);
             matrix.postTranslate(6, -100);
-            canvasCut.drawBitmap(Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1934, 230, 1405, 662), matrix, null);
+            canvasCut.drawBitmap(Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 1934, 230, 1405, 662), matrix, null);
             canvasTemp.drawBitmap(bitmapCut, 1615 + 1368, 0, null);
 
-            bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 396, 32, 1615, 562);
+            bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 396, 32, 1615, 562);
             canvasTemp.drawBitmap(bitmapCut, 1615 + 1368 * 2, 0, null);
             bitmapCut.recycle();
             canvasTemp.drawRect(0, 0, 1615 * 2 + 1368 * 2, 562, rectBorderPaint);

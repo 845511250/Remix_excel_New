@@ -129,12 +129,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        Bitmap bitmapCombine = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+        Bitmap bitmapCombine = Bitmap.createBitmap(1240, 1447, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+        canvasCombine.drawColor(0xffffffff);
 
+        canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 10, 0, null);
         Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z4);
-        canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
+        canvasCombine.drawBitmap(bitmapDB, 10, 0, null);
+
         drawText(canvasCombine);
         bitmapDB.recycle();
 

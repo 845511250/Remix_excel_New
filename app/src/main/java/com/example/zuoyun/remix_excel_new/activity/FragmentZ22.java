@@ -3,7 +3,6 @@ package com.example.zuoyun.remix_excel_new.activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
@@ -30,7 +29,7 @@ import jxl.write.WritableWorkbook;
  * Created by zuoyun on 2016/11/4.
  */
 
-public class FragmentHJ extends BaseFragment {
+public class FragmentZ22 extends BaseFragment {
     Context context;
 //    String sdCardPath = "/mnt/asec/share";
 String sdCardPath = "/storage/emulated/0/Pictures";
@@ -48,9 +47,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     int intPlus = 1;
 
     String time = MainActivity.instance.orderDate_Print;
-    Paint rectPaint,paint, rectBorderPaint;
+    Paint rectPaint,paint, paintRed, rectBorderPaint;
 
-    int width,height, dpi;
 
     @Override
     public int getLayout() {
@@ -71,14 +69,21 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(24);
+        paint.setTextSize(19);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setAntiAlias(true);
+
+        paintRed = new Paint();
+        paintRed.setColor(0xffff0000);
+        paintRed.setTextSize(18);
+        paintRed.setTypeface(Typeface.DEFAULT_BOLD);
+        paintRed.setAntiAlias(true);
 
         rectBorderPaint = new Paint();
         rectBorderPaint.setColor(0xff000000);
         rectBorderPaint.setStyle(Paint.Style.STROKE);
-        rectBorderPaint.setStrokeWidth(10);
+        rectBorderPaint.setStrokeWidth(4);
+
 
         MainActivity.instance.setMessageListener(new MainActivity.MessageListener() {
             @Override
@@ -124,55 +129,53 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawText(Canvas canvas) {
-        canvas.drawRect(3000, 8190 - 24, 3000 + 800, 8190, rectPaint);
-        canvas.drawText("毛毯 尺码" + orderItems.get(currentID).sku.substring(2) + "  " + time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).newCode, 3000, 8190 - 2, paint);
+        canvas.drawRect(20, 6, 20 + 300, 6 + 18, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + "   " + time + "  " + orderItems.get(currentID).order_number, 20, 6 + 16, paint);
     }
 
     public void remixx(){
-        if (orderItems.get(currentID).sku.equals("HJ")) {
-            if (orderItems.get(currentID).sizeStr.equals("XS")) {
-                orderItems.get(currentID).sku = "HJY";
-            } else if (orderItems.get(currentID).sizeStr.equals("S")) {
-                orderItems.get(currentID).sku = "HJS";
-            } else if (orderItems.get(currentID).sizeStr.equals("M")) {
-                orderItems.get(currentID).sku = "HJM";
-            }
-        }
-        setSize();
+        int margin = 100;
+        Bitmap bitmapCombine = Bitmap.createBitmap(2167 * 2 + margin, 2776, Bitmap.Config.ARGB_8888);
+        Canvas canvasCombine= new Canvas(bitmapCombine);
+        canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+        canvasCombine.drawColor(0xffffffff);
 
-        Bitmap bitmapTemp = Bitmap.createBitmap(6200, 8200, Bitmap.Config.ARGB_8888);
-        Canvas canvasTemp= new Canvas(bitmapTemp);
-        canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+        //front
+        Bitmap bitmapTemp = (orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1)).copy(Bitmap.Config.ARGB_8888, true);
+        canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+        canvasCombine.drawRect(0, 0, 2167, 2776, rectBorderPaint);
+        canvasCombine.drawRect(2, 2, 2167 - 2, 2776 - 2, rectBorderPaint);
 
-        canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-        canvasTemp.drawRect(0, 0, 6200, 8200, rectBorderPaint);
-        canvasTemp.drawRect(5, 5, 6200, 8200, rectBorderPaint);
-        drawText(canvasTemp);
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
-
-
-        Matrix matrix = new Matrix();
-        switch (orderItems.get(currentID).sku) {
-            case "HJY":
-                matrix.postRotate(90, bitmapTemp.getWidth() / 2, bitmapTemp.getHeight() / 2);
-                bitmapTemp = Bitmap.createBitmap(bitmapTemp, 0, 0, bitmapTemp.getWidth(), bitmapTemp.getHeight(), matrix, true);
-                break;
-        }
-
-        String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
-        String pathSave;
-        if(MainActivity.instance.cb_classify.isChecked()){
-            pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
-        } else
-            pathSave = sdCardPath + "/生产图/" + childPath + "/";
-        if(!new File(pathSave).exists())
-            new File(pathSave).mkdirs();
-        File fileSave = new File(pathSave + nameCombine);
-        BitmapToJpg.save(bitmapTemp, fileSave, dpi);
+        //back
+        bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+        canvasCombine.drawBitmap(bitmapTemp, 2167 + margin, 0, null);
+        canvasCombine.drawRect(2167 + margin, 0, 2167 + margin + 2167, 2776, rectBorderPaint);
+        canvasCombine.drawRect(2167 + margin + 2, 2, 2167 + margin + 2167 - 2, 2776 - 2, rectBorderPaint);
         bitmapTemp.recycle();
+
+        drawText(canvasCombine);
 
 
         try {
+            File file=new File(sdCardPath+"/生产图/"+childPath+"/");
+            if(!file.exists())
+                file.mkdirs();
+
+            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+
+            String pathSave;
+            if(MainActivity.instance.cb_classify.isChecked()){
+                pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
+            } else
+                pathSave = sdCardPath + "/生产图/" + childPath + "/";
+            if(!new File(pathSave).exists())
+                new File(pathSave).mkdirs();
+            File fileSave = new File(pathSave + nameCombine);
+            BitmapToJpg.save(bitmapCombine, fileSave, 149);
+
+            //释放bitmap
+            bitmapCombine.recycle();
+
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";
             File fileWrite = new File(writePath);
@@ -235,26 +238,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     public void checkremix(){
         if (MainActivity.instance.tb_auto.isChecked()){
             remix();
-        }
-    }
-
-    void setSize() {
-        switch (orderItems.get(currentID).sku) {
-            case "HJY":
-                width = 6174;
-                height = 7888;
-                dpi = 136;
-                break;
-            case "HJS":
-                width = 6160;
-                height = 7920;
-                dpi = 110;
-                break;
-            case "HJM":
-                width = 6200;
-                height = 8200;
-                dpi = 100;
-                break;
         }
     }
 

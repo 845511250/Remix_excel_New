@@ -885,6 +885,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("KVF " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentKVKY());
                 break;
+            case "KX":
+                tv_title.setText("KX " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentKX());
+                break;
             case "KZ":
                 tv_title.setText("KZ " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentKZ());
@@ -892,6 +896,14 @@ public class MainActivity extends FragmentActivity {
             case "LA":
                 tv_title.setText("LA " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentLA());
+                break;
+            case "LF":
+                tv_title.setText("LF " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLF());
+                break;
+            case "LK":
+                tv_title.setText("LK " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLK());
                 break;
             case "N":
                 tv_title.setText("N " + orderItems.get(currentID).order_number);
@@ -985,6 +997,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("Z26 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentZ30());
                 break;
+            case "Z33":
+                tv_title.setText("Z33 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentHGW());
+                break;
             case "CYW-Z30":
                 tv_title.setText("Z26 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentZ30());
@@ -992,6 +1008,10 @@ public class MainActivity extends FragmentActivity {
             case "CYWZ30":
                 tv_title.setText("Z26 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentZ30());
+                break;
+            case "Z22":
+                tv_title.setText("Z22 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentZ22());
                 break;
             case "Z32":
                 tv_title.setText("Z32 " + orderItems.get(currentID).order_number);
@@ -1277,6 +1297,7 @@ public class MainActivity extends FragmentActivity {
 
                     orderItem.colorStr = getContent(row, 7);
                     orderItem.color = orderItem.colorStr;
+                    orderItem.order_id=getContent(row, 10);
                     if (orderItem.color.equalsIgnoreCase("Black"))
                         orderItem.color = "黑";
                     else if (orderItem.color.equalsIgnoreCase("Trans"))
