@@ -301,6 +301,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("AP " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentAP());
                 break;
+            case "AQ":
+                tv_title.setText("AQ " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentDQ());
+                break;
             case "AS":
                 tv_title.setText("AS松糕鞋 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentDQ());
@@ -897,6 +901,14 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("LA " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentLA());
                 break;
+            case "LE":
+                tv_title.setText("LE " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLE());
+                break;
+            case "LEE":
+                tv_title.setText("LEE " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLEE());
+                break;
             case "LF":
                 tv_title.setText("LF " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentLF());
@@ -1255,6 +1267,7 @@ public class MainActivity extends FragmentActivity {
                     orderItems.add(orderItem);
                 }
             }
+            workbook.close();
         }
         catch (Exception e){
             Toast.makeText(context, "读取订单失败！", Toast.LENGTH_SHORT).show();
@@ -1263,7 +1276,7 @@ public class MainActivity extends FragmentActivity {
     }
     public void readExcelOrderNew(String path){
         orderItems.clear();
-        try{
+        try {
             org.apache.poi.ss.usermodel.Workbook workbook = WorkbookFactory.create(new File(path));
             Sheet sheet = workbook.getSheetAt(0);
             Row row;
@@ -1286,18 +1299,18 @@ public class MainActivity extends FragmentActivity {
                     }
 
                     orderItem.customer = "";
-                    if(path.contains("pillowprofits"))
+                    if (path.contains("pillowprofits"))
                         orderItem.customer = "adam";
-                    else if(path.contains("4u2-正丁"))
+                    else if (path.contains("4u2-正丁"))
                         orderItem.customer = "4u2-正丁";
-                    else if(path.contains("4u2-正域"))
+                    else if (path.contains("4u2-正域"))
                         orderItem.customer = "4u2-正域";
-                    else if(path.contains("zhengding-vietnam"))
+                    else if (path.contains("zhengding-vietnam"))
                         orderItem.customer = "zhengding-vietnam";
 
                     orderItem.colorStr = getContent(row, 7);
                     orderItem.color = orderItem.colorStr;
-                    orderItem.order_id=getContent(row, 10);
+                    orderItem.order_id = getContent(row, 10);
                     if (orderItem.color.equalsIgnoreCase("Black"))
                         orderItem.color = "黑";
                     else if (orderItem.color.equalsIgnoreCase("Trans"))
@@ -1362,8 +1375,9 @@ public class MainActivity extends FragmentActivity {
                     orderItems.add(orderItem);
                 }
             }
-        }
-        catch (Exception e){
+
+            workbook.close();
+        } catch (Exception e) {
             Toast.makeText(context, "读取订单失败！", Toast.LENGTH_SHORT).show();
             Log.e("aaa", e.getMessage());
         }

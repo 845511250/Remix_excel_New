@@ -70,7 +70,7 @@ public class FragmentZ41 extends BaseFragment {
         //paint
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(25);
+        paint.setTextSize(28);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setAntiAlias(true);
 
@@ -145,16 +145,11 @@ public class FragmentZ41 extends BaseFragment {
 
     void drawTextMain(Canvas canvas, String LR) {
         canvas.save();
-        canvas.rotate(77.8f, 47, 254);
-        canvas.drawRect(47, 254 - 25, 47 + 350, 254, rectPaint);
-        canvas.drawText(time + "     " + orderItems.get(currentID).newCode, 47, 254 - 2, paintRed);
+        canvas.rotate(-79.7f, 1390, 1224);
+        canvas.drawRect(1390, 1224 - 27, 1390 + 510, 1224, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + "-" + orderItems.get(currentID).size + "码" + orderItems.get(currentID).color + LR + " " + time + " " + orderItems.get(currentID).order_number, 1390, 1224 - 2, paint);
         canvas.restore();
 
-        canvas.save();
-        canvas.rotate(-78f, 765, 593);
-        canvas.drawRect(765, 593 - 25, 765 + 500, 593, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + orderItems.get(currentID).size + "码" + orderItems.get(currentID).color + LR + "   " + orderItems.get(currentID).order_number, 765, 593 - 2, paint);
-        canvas.restore();
     }
 
     void drawTextTongue(Canvas canvas, String LR) {
@@ -185,7 +180,7 @@ public class FragmentZ41 extends BaseFragment {
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z41_main);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextMain(canvasTemp, "左");
+            drawTextMain(canvasTemp, "左");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mainWidth, mainHeight, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, tongueHeight + margin + mainHeight + 10, null);
 
@@ -204,7 +199,7 @@ public class FragmentZ41 extends BaseFragment {
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z41_main);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextMain(canvasTemp, "右");
+            drawTextMain(canvasTemp, "右");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mainWidth, mainHeight, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, tongueHeight + margin, null);
 
