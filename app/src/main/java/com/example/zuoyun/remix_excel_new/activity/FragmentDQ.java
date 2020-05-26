@@ -163,9 +163,15 @@ public class FragmentDQ extends BaseFragment {
 
         canvas.drawRect(115, 441, 270, 459, rectPaint);
         canvas.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + LR + "  " + time, 120, 457, paint);
-        canvas.drawRect(88, 422, 295, 440, rectPaint);
+        canvas.drawRect(88, 422, 305, 440, rectPaint);
         canvas.drawText(orderItems.get(currentID).order_number, 88, 438, paint);
-        canvas.drawText(orderItems.get(currentID).newCode + "", 191, 438, paintRed);
+
+        String str = orderItems.get(currentID).newCode;
+        if(str.length()>10){
+            str = str.substring(0, 1) + str.substring(str.lastIndexOf("-") - 1);
+        }
+        canvas.drawText(str, 235, 438, paintRed);
+
     }
 
     public void remixx(){
