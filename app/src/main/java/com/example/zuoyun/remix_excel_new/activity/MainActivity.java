@@ -413,6 +413,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("D " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentD());
                 break;
+            case "D8":
+                tv_title.setText("D8 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentKVKY());
+                break;
             case "DB":
                 tv_title.setText("手机壳DB " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentPhoneCase());
@@ -905,10 +909,6 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("LE " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentLE());
                 break;
-            case "LEE":
-                tv_title.setText("LEE " + orderItems.get(currentID).order_number);
-                transaction.replace(R.id.frame_main, new FragmentLEE());
-                break;
             case "LF":
                 tv_title.setText("LF " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentLF());
@@ -916,6 +916,14 @@ public class MainActivity extends FragmentActivity {
             case "LK":
                 tv_title.setText("LK " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentLK());
+                break;
+            case "LEE":
+                tv_title.setText("LEE " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLN());
+                break;
+            case "LN":
+                tv_title.setText("LN " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLN());
                 break;
             case "N":
                 tv_title.setText("N " + orderItems.get(currentID).order_number);

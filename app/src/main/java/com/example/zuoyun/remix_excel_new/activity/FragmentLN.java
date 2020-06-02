@@ -29,7 +29,7 @@ import jxl.write.WritableWorkbook;
  * Created by zuoyun on 2016/11/4.
  */
 
-public class FragmentLEE extends BaseFragment {
+public class FragmentLN extends BaseFragment {
     Context context;
 //    String sdCardPath = "/mnt/asec/share";
 String sdCardPath = "/storage/emulated/0/Pictures";
@@ -69,14 +69,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(41);
+        paint.setTextSize(21);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setAntiAlias(true);
 
         rectBorderPaint = new Paint();
         rectBorderPaint.setColor(0xff000000);
         rectBorderPaint.setStyle(Paint.Style.STROKE);
-        rectBorderPaint.setStrokeWidth(4);
+        rectBorderPaint.setStrokeWidth(2);
 
         MainActivity.instance.setMessageListener(new MainActivity.MessageListener() {
             @Override
@@ -123,19 +123,19 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     void drawText(Canvas canvas) {
         canvas.save();
-        canvas.rotate(90, 15, 297);
-        canvas.drawRect(15, 297 - 42, 15 + 1050, 297, rectPaint);
+        canvas.rotate(90, 8, 150);
+        canvas.drawRect(8, 150 - 20, 8 + 400, 150, rectPaint);
         if(orderItems.get(currentID).platform.equals("zy")){
-            canvas.drawText(orderItems.get(currentID).sku + "  " + time + "  " + orderItems.get(currentID).order_number + "  共" + orderItems.get(currentID).newCode + "个" + (orderItems.get(currentID).color.equals("黑") ? "  需黑色缝线" : ""), 15, 297 - 6, paint);
+            canvas.drawText(orderItems.get(currentID).sku + "  " + time + "  " + orderItems.get(currentID).order_number + "  共" + orderItems.get(currentID).newCode + "个" + (orderItems.get(currentID).color.equals("黑") ? "  需黑色缝线" : ""), 8, 150 - 2, paint);
         }else {
-            canvas.drawText(orderItems.get(currentID).sku + "  " + time + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).color + "色缝线", 15, 297 - 5, paint);
+            canvas.drawText(orderItems.get(currentID).sku + "  " + time + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).color + "色缝线", 8, 150 - 2, paint);
         }
         canvas.restore();
     }
 
     public void remixx(){
-        int width = 5882;
-        int height = 5976;
+        int width = 5882 / 2;
+        int height = 5976 / 2;
 
         Bitmap bitmapCombine = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true);
         Canvas canvasCombine= new Canvas(bitmapCombine);
@@ -143,7 +143,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         drawText(canvasCombine);
         canvasCombine.drawRect(0, 0, width, height, rectBorderPaint);
-        canvasCombine.drawRect(2, 2, width - 2, height - 2, rectBorderPaint);
+        canvasCombine.drawRect(1, 1, width - 1, height - 1, rectBorderPaint);
 
         try {
             File file=new File(sdCardPath+"/生产图/"+childPath+"/");
@@ -166,7 +166,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 300);
+            BitmapToJpg.save(bitmapCombine, fileSave, 150);
 
             //释放bitmap
             bitmapCombine.recycle();

@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -169,9 +170,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvas.restore();
 
         if (orderItems.get(currentID).platform.equals("zy")) {
-            paintRed.setTextSize(60);
+            paintRed.setTextSize(50);
             canvas.drawText(time + " " + orderItems.get(currentID).color + "耳挂", 1300, 970, paintRed);
-            canvas.drawText(orderItems.get(currentID).order_number + " 共" + orderItems.get(currentID).newCode + "个", 1250, 1040, paintRed);
+            canvas.drawText(orderItems.get(currentID).order_number + " 共" + orderItems.get(currentID).newCode + "个", 1135, 1068, paintRed);
         }
     }
     void drawBigTextKYS(Canvas canvas) {
@@ -182,7 +183,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvas.restore();
 
         if (orderItems.get(currentID).platform.equals("zy")) {
-            paintRed.setTextSize(32);
+            paintRed.setTextSize(30);
             canvas.drawText(time + " " + orderItems.get(currentID).color, 1100, 838, paintRed);
             canvas.drawText(orderItems.get(currentID).order_number + " 共" + orderItems.get(currentID).newCode + "个", 950, 885, paintRed);
         }
@@ -205,7 +206,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         Bitmap bitmapTemp = null;
         Bitmap bitmapDB = null;
         boolean blackBorder = true;
-
+        Log.e("aaa",orderItems.get(currentID).sku);
         if (orderItems.get(currentID).sku.equals("KY") || orderItems.get(currentID).sku.equals("KYL")) {
             orderItems.get(currentID).sku = "KYL";
             bitmapCombine = Bitmap.createBitmap(1410, 1050, Bitmap.Config.ARGB_8888);
@@ -258,6 +259,18 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 20, 12, 1760, 1076);
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
             bitmapTemp.recycle();
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), blackBorder ? R.drawable.kv_black_border : R.drawable.kv);
+            canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
+            if (orderItems.get(currentID).platform.equals("zy")) {
+                drawBigTextKV(canvasCombine);
+            } else {
+                drawTextKV(canvasCombine);
+            }
+        } else if (orderItems.get(currentID).sku.equals("D8")) {
+            bitmapCombine = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1760, 1076, true);
+            Canvas canvasCombine = new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), blackBorder ? R.drawable.kv_black_border : R.drawable.kv);
             canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
             if (orderItems.get(currentID).platform.equals("zy")) {
