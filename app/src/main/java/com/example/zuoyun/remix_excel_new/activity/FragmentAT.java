@@ -306,7 +306,7 @@ public class FragmentAT extends BaseFragment {
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -2125, -753, null);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ap_l);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.at_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextRL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_main, height_main, true);
@@ -317,7 +317,7 @@ public class FragmentAT extends BaseFragment {
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -2125, 0, null);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ap_r);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.at_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextRR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_main, height_main, true);

@@ -144,29 +144,38 @@ public class FragmentZ41 extends BaseFragment {
     }
 
     void drawTextMain(Canvas canvas, String LR) {
+        String isLS = orderItems.get(currentID).sku.equals("LS") ? "(有缝线)" : "";
+
+        paint.setTextSize(35);
+        paintRed.setTextSize(35);
+
         canvas.save();
-        canvas.rotate(-79.7f, 1390, 1224);
-        canvas.drawRect(1390, 1224 - 27, 1390 + 510, 1224, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "-" + orderItems.get(currentID).size + "码" + orderItems.get(currentID).color + LR + " " + time + " " + orderItems.get(currentID).order_number, 1390, 1224 - 2, paint);
+        canvas.rotate(-79.9f, 1381, 1285);
+        canvas.drawRect(1381, 1285 - 35, 1381 + 580, 1285, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + isLS + "_" + orderItems.get(currentID).size + "码" + orderItems.get(currentID).color + LR + " " + time, 1381, 1285 - 5, paint);
         canvas.restore();
 
+        canvas.save();
+        canvas.rotate(79.8f, 63, 736);
+        canvas.drawRect(63, 736 - 35, 63 + 510, 736, rectPaint);
+        canvas.drawText(orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode, 63, 736 - 5, paint);
+        canvas.restore();
     }
 
     void drawTextTongue(Canvas canvas, String LR) {
-        paint.setTextSize(18);
-        paintRed.setTextSize(18);
+        paint.setTextSize(23);
+        paintRed.setTextSize(23);
 
-        canvas.drawRect(115, 441, 270, 459, rectPaint);
-        canvas.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + LR + "  " + time, 120, 457, paint);
-        canvas.drawRect(88, 422, 295, 440, rectPaint);
-        canvas.drawText(orderItems.get(currentID).order_number, 88, 438, paint);
-        canvas.drawText(orderItems.get(currentID).newCode + "", 191, 438, paintRed);
+        canvas.drawRect(276, 800 - 22, 276 + 110, 800, rectPaint);
+        canvas.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + LR, 276, 800 - 3, paint);
+        canvas.drawRect(180, 773 - 22, 180 + 300, 773, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + " " + time + " " + orderItems.get(currentID).order_number, 180, 773 - 3, paint);
     }
 
     public void remixx(){
         setSize(orderItems.get(currentID).size);
 
-        int margin = 60;
+        int margin = 70;
         Bitmap bitmapCombine = Bitmap.createBitmap(mainWidth + margin, tongueHeight + margin + mainHeight + 10 + mainHeight, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine = new Canvas(bitmapCombine);
         canvasCombine.drawColor(0xffffffff);
@@ -190,6 +199,7 @@ public class FragmentZ41 extends BaseFragment {
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z41_tongue);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextTongue(canvasTemp, "左");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, tongueWidth, tongueHeight, true);
             canvasCombine.drawBitmap(bitmapTemp, margin, 0, null);
 
@@ -209,19 +219,20 @@ public class FragmentZ41 extends BaseFragment {
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z41_tongue);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextTongue(canvasTemp, "右");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, tongueWidth, tongueHeight, true);
             canvasCombine.drawBitmap(bitmapTemp, margin + tongueWidth + margin, 0, null);
 
             bitmapDB.recycle();
             bitmapTemp.recycle();
-        } else if (orderItems.get(currentID).imgs.size() == 1) {
+        } else if (orderItems.get(currentID).imgs.size() == 1 && MainActivity.instance.bitmaps.get(0).getWidth() < 7600) {//4u2批量
             //leftMain
             Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2182, 0, 1537, 1975);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z41_main);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextMain(canvasTemp, "左");
+            drawTextMain(canvasTemp, "左");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mainWidth, mainHeight, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, tongueHeight + margin + mainHeight + 10, null);
 
@@ -231,6 +242,7 @@ public class FragmentZ41 extends BaseFragment {
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z41_tongue);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextTongue(canvasTemp, "左");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, tongueWidth, tongueHeight, true);
             canvasCombine.drawBitmap(bitmapTemp, margin, 0, null);
 
@@ -240,7 +252,7 @@ public class FragmentZ41 extends BaseFragment {
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z41_main);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextMain(canvasTemp, "右");
+            drawTextMain(canvasTemp, "右");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mainWidth, mainHeight, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, tongueHeight + margin, null);
 
@@ -250,6 +262,54 @@ public class FragmentZ41 extends BaseFragment {
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z41_tongue);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextTongue(canvasTemp, "右");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, tongueWidth, tongueHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, margin + tongueWidth + margin, 0, null);
+
+            bitmapDB.recycle();
+            bitmapTemp.recycle();
+        } else if (orderItems.get(currentID).imgs.size() == 1 && MainActivity.instance.bitmaps.get(0).getWidth() == 7600) {//john
+            //leftMain
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3965, 408, 3463, 4292);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1537, 1975, true);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z41_main);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextMain(canvasTemp, "左");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mainWidth, mainHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, tongueHeight + margin + mainHeight + 10, null);
+
+            //leftTongue
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 5138, 153, 1116, 1412);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 645, 816, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z41_tongue);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextTongue(canvasTemp, "左");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, tongueWidth, tongueHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, margin, 0, null);
+
+            //rightMain
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 157, 408, 3463, 4292);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1537, 1975, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z41_main);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextMain(canvasTemp, "右");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mainWidth, mainHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, tongueHeight + margin, null);
+
+            //rightTongue
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1330, 153, 1116, 1412);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 645, 816, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z41_tongue);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextTongue(canvasTemp, "右");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, tongueWidth, tongueHeight, true);
             canvasCombine.drawBitmap(bitmapTemp, margin + tongueWidth + margin, 0, null);
 
@@ -417,6 +477,12 @@ public class FragmentZ41 extends BaseFragment {
                 mainHeight = 2194;
                 tongueWidth = 688;
                 tongueHeight = 891;
+                break;
+            case 47:
+                mainWidth = 1671 + 27;
+                mainHeight = 2194 + 43;
+                tongueWidth = 688 + 22;
+                tongueHeight = 891 + 37;
                 break;
 
         }

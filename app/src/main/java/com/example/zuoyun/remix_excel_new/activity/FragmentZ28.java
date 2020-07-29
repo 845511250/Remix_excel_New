@@ -69,7 +69,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(23);
+        paint.setTextSize(50);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setAntiAlias(true);
 
@@ -123,9 +123,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     void drawText(Canvas canvas) {
         canvas.save();
-        canvas.rotate(90, 6112, 76);
-        canvas.drawRect(6112, 76 - 22, 6112 + 350, 76, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "   " + time + "  " + orderItems.get(currentID).order_number, 6112, 76 - 2, paint);
+        canvas.rotate(-90, 6084, 1000);
+        canvas.drawRect(6084, 1000, 6084 + 900, 1000 + 50, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + "   " + time + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode_short, 6084, 1000 + 44, paint);
         canvas.restore();
     }
 

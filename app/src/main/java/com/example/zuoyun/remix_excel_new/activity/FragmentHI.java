@@ -276,10 +276,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             //
             bitmapTemp.recycle();
             bitmapDB.recycle();
-        }else if (orderItems.get(currentID).imgs.size() == 1) {
-            Matrix matrix = new Matrix();
-            matrix.postScale(-1, 1);
-            MainActivity.instance.bitmaps.add(Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, MainActivity.instance.bitmaps.get(0).getWidth(), MainActivity.instance.bitmaps.get(0).getHeight(), matrix, true));
+        } else if (orderItems.get(currentID).imgs.size() == 1 || orderItems.get(currentID).imgs.size() == 2) {
+            if(orderItems.get(currentID).imgs.size() == 1){
+                Matrix matrix = new Matrix();
+                matrix.postScale(-1, 1);
+                MainActivity.instance.bitmaps.add(Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, MainActivity.instance.bitmaps.get(0).getWidth(), MainActivity.instance.bitmaps.get(0).getHeight(), matrix, true));
+            }
 
             //LR
             Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 13, 14, 1091, 1183);

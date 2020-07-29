@@ -199,7 +199,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         int margin = 130;
         Matrix matrix = new Matrix();
 
-        Bitmap bitmapCombine = Bitmap.createBitmap(width_front + width_arm + margin, height_back + height_front * 2 + margin * 2, Bitmap.Config.ARGB_8888);
+        Bitmap bitmapCombine = Bitmap.createBitmap(width_arm * 2 + width_front * 2 + width_back + margin, Math.max(height_front, height_arm + height_pocket_in + margin), Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
@@ -214,7 +214,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextFrontR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
-            canvasCombine.drawBitmap(bitmapTemp, 0, height_back + margin, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_arm, 0, null);
 
             bitmapTemp = Bitmap.createBitmap(1666, 4090, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
@@ -224,7 +224,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextFrontL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
-            canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + margin, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_arm + width_front + margin, 0, null);
 
             //back
             bitmapTemp = Bitmap.createBitmap(3296, 3480, Bitmap.Config.ARGB_8888);
@@ -235,7 +235,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextBack(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
-            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_arm * 2 + width_front * 2 + margin, 0, null);
 
             //arm_l
             bitmapTemp = Bitmap.createBitmap(2437, 3191, Bitmap.Config.ARGB_8888);
@@ -246,7 +246,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextXiuziL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_arm, height_arm, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_front + margin, height_back + margin, null);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
             //arm_r
             bitmapTemp = Bitmap.createBitmap(2437, 3191, Bitmap.Config.ARGB_8888);
@@ -257,7 +257,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextXiuziR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_arm, height_arm, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_front + margin, height_back + height_arm + margin * 2, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_arm + width_front * 2 + margin, 0, null);
 
             //pocket
             bitmapTemp = Bitmap.createBitmap(297, 983, Bitmap.Config.ARGB_8888);
@@ -268,7 +268,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextPocketInL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket_in, height_pocket_in, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_front + margin, height_back + height_arm * 2 + margin * 3, null);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_arm + margin, null);
 
             bitmapTemp = Bitmap.createBitmap(297, 983, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
@@ -278,7 +278,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextPocketInR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket_in, height_pocket_in, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_front + width_pocket_in + margin * 2, height_back + height_arm * 2 + margin * 3, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_pocket_in + margin, height_arm + margin, null);
 
             bitmapTemp = Bitmap.createBitmap(421, 954, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
@@ -288,7 +288,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextPocketOutL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket_out, height_pocket_out, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_front + width_pocket_in * 2 + margin * 3, height_back + height_arm * 2 + margin * 3, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_pocket_in * 2 + margin * 2, height_arm + margin, null);
 
             bitmapTemp = Bitmap.createBitmap(421, 954, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
@@ -298,7 +298,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextPocketOutR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket_out, height_pocket_out, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_front + width_pocket_in * 2 + width_pocket_out + margin * 4, height_back + height_arm * 2 + margin * 3, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_pocket_in * 2 + width_pocket_out + margin * 3, height_arm + margin, null);
 
             bitmapDB.recycle();
             bitmapTemp.recycle();
@@ -311,7 +311,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextFrontR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
-            canvasCombine.drawBitmap(bitmapTemp, 0, height_back + margin, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_arm, 0, null);
 
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4082, 76, 1666, 4090);
             canvasTemp = new Canvas(bitmapTemp);
@@ -320,7 +320,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextFrontL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
-            canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + margin, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_arm + width_front + margin, 0, null);
 
             //back
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 2452, 33, 3296, 3480);
@@ -330,7 +330,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextBack(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
-            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_arm * 2 + width_front * 2 + margin, 0, null);
 
             //arm_l
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 5747, 708, 2437, 3191);
@@ -340,7 +340,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextXiuziL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_arm, height_arm, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_front + margin, height_back + margin, null);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
             //arm_r
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 15, 708, 2437, 3191);
@@ -350,7 +350,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextXiuziR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_arm, height_arm, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_front + margin, height_back + height_arm + margin * 2, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_arm + width_front * 2 + margin, 0, null);
 
             //pocket
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 5010, 2278, 297, 983);
@@ -360,7 +360,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextPocketInL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket_in, height_pocket_in, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_front + margin, height_back + height_arm * 2 + margin * 3, null);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_arm + margin, null);
 
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2892, 2278, 297, 983);
             canvasTemp = new Canvas(bitmapTemp);
@@ -369,7 +369,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextPocketInR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket_in, height_pocket_in, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_front + width_pocket_in + margin * 2, height_back + height_arm * 2 + margin * 3, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_pocket_in + margin, height_arm + margin, null);
 
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 5010, 2278, 421, 954);
             canvasTemp = new Canvas(bitmapTemp);
@@ -378,7 +378,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextPocketOutL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket_out, height_pocket_out, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_front + width_pocket_in * 2 + margin * 3, height_back + height_arm * 2 + margin * 3, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_pocket_in * 2 + margin * 2, height_arm + margin, null);
 
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2769, 2278, 421, 954);
             canvasTemp = new Canvas(bitmapTemp);
@@ -387,7 +387,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextPocketOutR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket_out, height_pocket_out, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_front + width_pocket_in * 2 + width_pocket_out + margin * 4, height_back + height_arm * 2 + margin * 3, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_pocket_in * 2 + width_pocket_out + margin * 3, height_arm + margin, null);
 
             bitmapDB.recycle();
             bitmapTemp.recycle();
@@ -400,7 +400,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextFrontR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
-            canvasCombine.drawBitmap(bitmapTemp, 0, height_back + margin, null);
+            canvasCombine.drawBitmap(bitmapTemp,  width_arm, 0, null);
 
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4082, 76, 1666, 4090);
             canvasTemp = new Canvas(bitmapTemp);
@@ -409,7 +409,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextFrontL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
-            canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + margin, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_arm + width_front + margin, 0, null);
 
             //back
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2452, 33, 3296, 3480);
@@ -419,7 +419,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextBack(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
-            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_arm * 2 + width_front * 2 + margin, 0, null);
 
             //arm_l
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 5747, 708, 2437, 3191);
@@ -429,7 +429,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextXiuziL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_arm, height_arm, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_front + margin, height_back + margin, null);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
             //arm_r
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 15, 708, 2437, 3191);
@@ -439,7 +439,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextXiuziR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_arm, height_arm, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_front + margin, height_back + height_arm + margin * 2, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_arm + width_front * 2 + margin, 0, null);
 
             //pocket
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 5010, 2278, 297, 983);
@@ -449,7 +449,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextPocketInL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket_in, height_pocket_in, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_front + margin, height_back + height_arm * 2 + margin * 3, null);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_arm + margin, null);
 
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2892, 2278, 297, 983);
             canvasTemp = new Canvas(bitmapTemp);
@@ -458,7 +458,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextPocketInR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket_in, height_pocket_in, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_front + width_pocket_in + margin * 2, height_back + height_arm * 2 + margin * 3, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_pocket_in + margin, height_arm + margin, null);
 
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 5010, 2278, 421, 954);
             canvasTemp = new Canvas(bitmapTemp);
@@ -467,7 +467,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextPocketOutL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket_out, height_pocket_out, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_front + width_pocket_in * 2 + margin * 3, height_back + height_arm * 2 + margin * 3, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_pocket_in * 2 + margin * 2, height_arm + margin, null);
 
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2769, 2278, 421, 954);
             canvasTemp = new Canvas(bitmapTemp);
@@ -476,13 +476,18 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextPocketOutR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket_out, height_pocket_out, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_front + width_pocket_in * 2 + width_pocket_out + margin * 4, height_back + height_arm * 2 + margin * 3, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_pocket_in * 2 + width_pocket_out + margin * 3, height_arm + margin, null);
 
             bitmapDB.recycle();
             bitmapTemp.recycle();
-        } 
-        
-        
+        }
+
+
+        matrix.reset();
+        matrix.postRotate(-90, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
+        bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
+
+
         String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
         String pathSave;
         if(MainActivity.instance.cb_classify.isChecked()){
@@ -496,11 +501,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         bitmapCombine.recycle();
 
         try {
-//            matrix.reset();
-//            matrix.postRotate(-90, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
-//            bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
-
-
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";
             File fileWrite = new File(writePath);

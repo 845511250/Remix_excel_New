@@ -199,7 +199,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         int margin = 130;
         Matrix matrix = new Matrix();
 
-        Bitmap bitmapCombine = Bitmap.createBitmap(width_arm * 2 + width_front * 2 + width_back + margin * 2, height_arm + height_pocket_in + margin, Bitmap.Config.ARGB_8888);
+        Bitmap bitmapCombine = Bitmap.createBitmap(width_arm * 2 + width_front * 2 + width_back + margin * 2, Math.max(height_front, height_arm + height_pocket_in + margin), Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);

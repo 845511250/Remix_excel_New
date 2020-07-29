@@ -111,7 +111,7 @@ public class MainActivity extends FragmentActivity {
     MessageListener messageListener;
     public CircularProgress progress;
     ArrayList<Order> orders = new ArrayList<>();
-    String childPath,orderDate_Print, orderDate_Excel;
+    String childPath,orderDate_Print, orderDate_Excel, orderDate_short;
     //AlertDialog dialog;
     AlertDialog mydialog;
     int onePicWidth, onePicHeight;
@@ -502,7 +502,7 @@ public class MainActivity extends FragmentActivity {
                 transaction.replace(R.id.frame_main, new FragmentDV());
                 break;
             case "DZ":
-                tv_title.setText("Toms " + orderItems.get(currentID).order_number);
+                tv_title.setText("行李包套 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentDZ());
                 break;
             case "E":
@@ -512,6 +512,10 @@ public class MainActivity extends FragmentActivity {
             case "F":
                 tv_title.setText("F包 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentF());
+                break;
+            case "F2":
+                tv_title.setText("F2 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentF2());
                 break;
             case "FA":
                 tv_title.setText("被套 " + orderItems.get(currentID).order_number);
@@ -540,6 +544,10 @@ public class MainActivity extends FragmentActivity {
             case "FE":
                 tv_title.setText("灯鞋低帮 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentFE());
+                break;
+            case "FH":
+                tv_title.setText("FH " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFH());
                 break;
             case "FI":
                 tv_title.setText("卫衣 " + orderItems.get(currentID).order_number);
@@ -773,6 +781,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("HK飞织鞋 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentHK());
                 break;
+            case "HT1":
+                tv_title.setText("HT1方形吊牌 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentHT());
+                break;
             case "HT2":
                 tv_title.setText("HT2方形吊牌 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentHT());
@@ -784,6 +796,10 @@ public class MainActivity extends FragmentActivity {
             case "HV":
                 tv_title.setText("HV " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentHV());
+                break;
+            case "HW":
+                tv_title.setText("HW " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentHW());
                 break;
             case "HX":
                 tv_title.setText("织唛 " + orderItems.get(currentID).order_number);
@@ -869,6 +885,26 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("KS " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentKS());
                 break;
+            case "KT":
+                tv_title.setText("KT " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentKT());
+                break;
+            case "KV":
+                tv_title.setText("KV " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentKVKY());
+                break;
+            case "KVF":
+                tv_title.setText("KVF " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentKVKY());
+                break;
+            case "KW":
+                tv_title.setText("KW " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentKW());
+                break;
+            case "KX":
+                tv_title.setText("KX " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentKX());
+                break;
             case "KY":
                 tv_title.setText("KYL " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentKVKY());
@@ -885,18 +921,6 @@ public class MainActivity extends FragmentActivity {
                 firstOK = false;
                 setnext();
                 break;
-            case "KV":
-                tv_title.setText("KV " + orderItems.get(currentID).order_number);
-                transaction.replace(R.id.frame_main, new FragmentKVKY());
-                break;
-            case "KVF":
-                tv_title.setText("KVF " + orderItems.get(currentID).order_number);
-                transaction.replace(R.id.frame_main, new FragmentKVKY());
-                break;
-            case "KX":
-                tv_title.setText("KX " + orderItems.get(currentID).order_number);
-                transaction.replace(R.id.frame_main, new FragmentKX());
-                break;
             case "KZ":
                 tv_title.setText("KZ " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentKZ());
@@ -904,6 +928,14 @@ public class MainActivity extends FragmentActivity {
             case "LA":
                 tv_title.setText("LA " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentLA());
+                break;
+            case "LC":
+                tv_title.setText("LC " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLC());
+                break;
+            case "LD":
+                tv_title.setText("LD " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLD());
                 break;
             case "LE":
                 tv_title.setText("LE " + orderItems.get(currentID).order_number);
@@ -921,9 +953,33 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("LEE " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentLN());
                 break;
+            case "LH":
+                tv_title.setText("LH " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLH());
+                break;
+            case "LI":
+                tv_title.setText("LI " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLI());
+                break;
             case "LN":
                 tv_title.setText("LN " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentLN());
+                break;
+            case "LO":
+                tv_title.setText("LO夏威夷衬衫 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLO());
+                break;
+            case "LOM":
+                tv_title.setText("LO夏威夷衬衫 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLO());
+                break;
+            case "LOW":
+                tv_title.setText("LOW女夏威夷衬衫 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLO());
+                break;
+            case "LS":
+                tv_title.setText("LS黑底跑鞋 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentZ41());
                 break;
             case "N":
                 tv_title.setText("N " + orderItems.get(currentID).order_number);
@@ -1057,6 +1113,14 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("HK飞织鞋 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentHK());
                 break;
+            case "Z70":
+                tv_title.setText("Z70 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFH());
+                break;
+            case "Z71":
+                tv_title.setText("Z71 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFH());
+                break;
             case "Z72M":
                 tv_title.setText("新材料GQM " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGQM());
@@ -1076,6 +1140,10 @@ public class MainActivity extends FragmentActivity {
             case "Z79":
                 tv_title.setText("Z79(正丁DK) " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentDK());
+                break;
+            case "Z97":
+                tv_title.setText("Z97(内裤) " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentZ97());
                 break;
             default:
                 firstOK = false;
@@ -1295,9 +1363,12 @@ public class MainActivity extends FragmentActivity {
                 row = sheet.getRow(i);
                 if (row != null && getContent(row, 0) != "" && getContent(row, 5).contains(".")) {
                     OrderItem orderItem = new OrderItem();
-                    orderItem.newCode = getContent(row, 3);
                     orderItem.order_number = getContent(row, 0);
                     orderItem.num = Integer.parseInt(getContent(row, 2));
+                    orderItem.newCode = getContent(row, 3);
+                    if (orderItem.newCode.length() > 10 && orderItem.newCode.contains("-")) {
+                        orderItem.newCode_short = orderItem.newCode.substring(0, 1) + "-" + orderItem.newCode.substring(orderItem.newCode.lastIndexOf("-") - 1);
+                    }
                     orderItem.platform = getContent(row, 4);
                     if (orderItem.platform.equals("rework")) {
                         orderItem.platform = "4u2";
@@ -1379,6 +1450,13 @@ public class MainActivity extends FragmentActivity {
                             orderItem.imgs.remove(2);
                         }
                     }
+                    if (orderItem.imgs.size() == 2) {
+                        if(orderItem.imgs.get(0).toLowerCase().contains("right")){
+                            String strTemp = orderItem.imgs.get(0);
+                            orderItem.imgs.remove(0);
+                            orderItem.imgs.add(strTemp);
+                        }
+                    }
 
                     orderItems.add(orderItem);
                 }
@@ -1397,11 +1475,11 @@ public class MainActivity extends FragmentActivity {
 
     String getImageName(String str){
         str = URLDecoder.decode(str);
-        return str.substring(str.lastIndexOf("/")+1, str.length());
+        return str.substring(str.lastIndexOf("/") + 1, str.length());
     }
 
     public static String getLastNewCode(String str){
-        return str.substring(str.lastIndexOf("-")+1, str.length());
+        return str.substring(str.lastIndexOf("-") + 1, str.length());
     }
 
     public void writeWrong(){
@@ -1513,12 +1591,14 @@ public class MainActivity extends FragmentActivity {
         int int_Day = calendar.get(Calendar.DAY_OF_MONTH);
         orderDate_Print = (int_Month + 1) + "月" + int_Day + "日";
         orderDate_Excel = int_Year + "-" + (int_Month + 1) + "-" + int_Day;
+        orderDate_short = (int_Month + 1) + "." + int_Day;
 
         datePicker.init(int_Year, int_Month, int_Day, new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 orderDate_Print = (monthOfYear + 1) + "月" + dayOfMonth + "日";
                 orderDate_Excel = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                orderDate_short = (monthOfYear + 1) + "." + dayOfMonth;
                 Log.e("aaa", orderDate_Excel);
             }
         });

@@ -124,18 +124,18 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     void drawText(Canvas canvas) {
         canvas.save();
         canvas.rotate(90, 8, 150);
-        canvas.drawRect(8, 150 - 20, 8 + 400, 150, rectPaint);
+        canvas.drawRect(8, 150 - 20, 8 + 500, 150, rectPaint);
         if(orderItems.get(currentID).platform.equals("zy")){
-            canvas.drawText(orderItems.get(currentID).sku + "  " + time + "  " + orderItems.get(currentID).order_number + "  共" + orderItems.get(currentID).newCode + "个" + (orderItems.get(currentID).color.equals("黑") ? "  需黑色缝线" : ""), 8, 150 - 2, paint);
+            canvas.drawText(orderItems.get(currentID).sku + "平台订单围脖  " + time + "  " + orderItems.get(currentID).order_number + "  共" + orderItems.get(currentID).newCode + "个" + (orderItems.get(currentID).color.equals("黑") ? "  需黑色缝线" : ""), 8, 150 - 2, paint);
         }else {
-            canvas.drawText(orderItems.get(currentID).sku + "  " + time + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).color + "色缝线", 8, 150 - 2, paint);
+            canvas.drawText(orderItems.get(currentID).sku + "平台订单围脖  " + time + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).color + "色缝线", 8, 150 - 2, paint);
         }
         canvas.restore();
     }
 
     public void remixx(){
-        int width = 5882 / 2;
-        int height = 5976 / 2;
+        int width = 2988;
+        int height = 2988;
 
         Bitmap bitmapCombine = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true);
         Canvas canvasCombine= new Canvas(bitmapCombine);

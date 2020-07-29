@@ -150,8 +150,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     void drawTextMiddle(Canvas canvas) {
         canvas.save();
         canvas.rotate(46.4f, 3070, 57);
-        canvas.drawRect(3070, 57, 3070 + 400, 57 + 20, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "_" + orderItems.get(currentID).color + " " + time + " " + orderItems.get(currentID).order_number, 3070, 57 + 18, paint);
+        canvas.drawRect(3070, 57, 3070 + 500, 57 + 20, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + "_" + orderItems.get(currentID).color + " " + time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 3070, 57 + 18, paint);
         canvas.restore();
     }
 
@@ -159,7 +159,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvas.save();
         canvas.rotate(32.2f, 2009, 48);
         canvas.drawRect(2009, 48, 2009 + 500, 48 + 20, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "_" + orderItems.get(currentID).color + " " + LR + " " + time + " " + orderItems.get(currentID).order_number, 2009, 48 + 18, paint);
+        canvas.drawText(orderItems.get(currentID).sku + "_" + orderItems.get(currentID).color + " " + LR + " " + time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 2009, 48 + 18, paint);
         canvas.restore();
     }
 

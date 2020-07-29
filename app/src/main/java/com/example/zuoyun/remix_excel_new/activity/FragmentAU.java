@@ -423,6 +423,12 @@ public class FragmentAU extends BaseFragment {
 
     void setScale(int size){
         switch (size) {
+            case 28:
+                width_main = 1188-35;
+                height_main = 556-12;
+                width_tongue = 797-15;
+                height_tongue = 970-28;
+                break;
             case 29:
                 width_main = 1188;
                 height_main = 556;

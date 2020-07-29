@@ -365,16 +365,22 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, matrix, null);
             bitmapTemp.recycle();
             bitmapDBLeft.recycle();
-        } else if (orderItems.get(currentID).imgs.size() == 2 && MainActivity.instance.bitmaps.get(0).getWidth() == 3075) {
-            Bitmap bitmapLeft = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1488, 540, true);
-            Bitmap bitmapRight = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 1488, 540, true);
+        } else if (orderItems.get(currentID).imgs.size() == 2 && MainActivity.instance.bitmaps.get(0).getWidth() >= 3075) {
+            Bitmap bitmapLeft = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1491, 476, true);
+            Bitmap bitmapRight = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 1491, 476, true);
 
             //RR
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.de41right);
             Bitmap bitmapTemp = Bitmap.createBitmap(1525, 652, Bitmap.Config.ARGB_8888);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(bitmapRight, 39, 5, null);
+            canvasTemp.drawBitmap(bitmapRight, 34, 0, null);
+
+            matrix = new Matrix();
+            matrix.postScale(1, -1);
+            matrix.postTranslate(34, 476 * 2);
+            canvasTemp.drawBitmap(bitmapRight, matrix, null);
+
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextRR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
@@ -385,7 +391,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp = Bitmap.createBitmap(1525, 652, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(bitmapLeft, 0, 5, null);
+            canvasTemp.drawBitmap(bitmapLeft, 0, 0, null);
+
+            matrix = new Matrix();
+            matrix.postScale(1, -1);
+            matrix.postTranslate(0, 476 * 2);
+            canvasTemp.drawBitmap(bitmapLeft, matrix, null);
+
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextRL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
@@ -400,7 +412,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp = Bitmap.createBitmap(1525, 652, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(bitmapRight, 39, 5, null);
+            canvasTemp.drawBitmap(bitmapRight, 34, 0, null);
+
+            matrix = new Matrix();
+            matrix.postScale(1, -1);
+            matrix.postTranslate(34, 476 * 2);
+            canvasTemp.drawBitmap(bitmapRight, matrix, null);
+
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextLR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
@@ -414,7 +432,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp = Bitmap.createBitmap(1525, 652, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(bitmapLeft, 0, 5, null);
+            canvasTemp.drawBitmap(bitmapLeft, 0, 0, null);
+
+            matrix = new Matrix();
+            matrix.postScale(1, -1);
+            matrix.postTranslate(0, 476 * 2);
+            canvasTemp.drawBitmap(bitmapLeft, matrix, null);
+
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextLL(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);

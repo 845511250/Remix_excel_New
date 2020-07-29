@@ -50,6 +50,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     String strPlus = "";
     int intPlus = 1;
 
+    Paint paint, paintRed, paintBlue, rectPaint;
+    String time = MainActivity.instance.orderDate_Print;
+
     @Override
     public int getLayout() {
         return R.layout.fragment_dg;
@@ -62,6 +65,31 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         orderItems=MainActivity.instance.orderItems;
         currentID = MainActivity.instance.currentID;
         childPath = MainActivity.instance.childPath;
+
+
+        //paint
+        paint = new Paint();
+        paint.setColor(0xff000000);
+        paint.setTextSize(35);
+        paint.setTypeface(Typeface.DEFAULT_BOLD);
+        paint.setAntiAlias(true);
+
+        paintRed = new Paint();
+        paintRed.setColor(0xffff0000);
+        paintRed.setTextSize(35);
+        paintRed.setTypeface(Typeface.DEFAULT_BOLD);
+        paintRed.setAntiAlias(true);
+
+        paintBlue = new Paint();
+        paintBlue.setColor(0xff0000ff);
+        paintBlue.setTextSize(35);
+        paintBlue.setTypeface(Typeface.DEFAULT_BOLD);
+        paintBlue.setAntiAlias(true);
+
+        rectPaint = new Paint();
+        rectPaint.setColor(0xffffffff);
+        rectPaint.setStyle(Paint.Style.FILL);
+
 
         MainActivity.instance.setMessageListener(new MainActivity.MessageListener() {
             @Override
@@ -107,122 +135,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     }
 
-    public void remixx(){
-        //paint
-        Paint paint = new Paint();
-        paint.setColor(0xff000000);
-        paint.setTextSize(30);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
-        paint.setAntiAlias(true);
+    void drawTextMain_4u2(Canvas canvasLeftMain, String LR){
+        paintRed.setTextSize(35);
+        paint.setTextSize(35);
 
-        Paint paintRed = new Paint();
-        paintRed.setColor(0xffff0000);
-        paintRed.setTextSize(30);
-        paintRed.setTypeface(Typeface.DEFAULT_BOLD);
-        paintRed.setAntiAlias(true);
-
-        Paint paintBlue = new Paint();
-        paintBlue.setColor(0xff0000ff);
-        paintBlue.setTextSize(30);
-        paintBlue.setTypeface(Typeface.DEFAULT_BOLD);
-        paintBlue.setAntiAlias(true);
-
-        Paint rectPaint = new Paint();
-        rectPaint.setColor(0xffffffff);
-        rectPaint.setStyle(Paint.Style.FILL);
-        //Bitmap bitmapBarCode = BarCodeUtil.creatBarcode(orderItems.get(currentID).order_number.replace("_", ""), 460, 36);
-        String time = MainActivity.instance.orderDate_Print;
-
-
-        setSize(orderItems.get(currentID).size);
-        Bitmap bitmapDB_main = null, bitmapDB_side = null, bitmapLeftMain = null, bitmapLeftSide = null, bitmapRightMain = null, bitmapRightSide = null;
-        Canvas canvasLeftMain = null, canvasLeftSide = null, canvasRightMain = null, canvasRightSide = null;
-
-        bitmapDB_main = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dj_drop_main);
-        bitmapDB_side = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dj_drop_side);
-
-        if (orderItems.get(currentID).imgs.size() == 1 || orderItems.get(currentID).imgs.size() == 2) {
-            if (orderItems.get(currentID).imgs.size() == 1) {
-                Matrix matrix = new Matrix();
-                matrix.postScale(-1, 1);
-
-                MainActivity.instance.bitmaps.add(Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, MainActivity.instance.bitmaps.get(0).getWidth(), MainActivity.instance.bitmaps.get(0).getHeight(), matrix, true));
-            }
-            //left_main
-            bitmapLeftMain = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 192, 1866 - 1152, 1366, 1152);
-            canvasLeftMain = new Canvas(bitmapLeftMain);
-            canvasLeftMain.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasLeftMain.drawBitmap(bitmapDB_main, 0, 0, null);
-            //left_side
-            Bitmap bitmapLeftSide1 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 669, 892);
-            Bitmap bitmapLeftSide2 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1759 - 669, 0, 669, 892);
-            bitmapLeftSide = Bitmap.createBitmap(1784, 669, Bitmap.Config.ARGB_8888);
-            canvasLeftSide = new Canvas(bitmapLeftSide);
-            canvasLeftSide.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            Matrix matrixSide = new Matrix();
-            matrixSide.postRotate(90);
-            matrixSide.postTranslate(892, 0);
-            canvasLeftSide.drawBitmap(bitmapLeftSide1, matrixSide, null);
-            matrixSide.reset();
-            matrixSide.postRotate(-90);
-            matrixSide.postTranslate(892, 669);
-            canvasLeftSide.drawBitmap(bitmapLeftSide2, matrixSide, null);
-            canvasLeftSide.drawBitmap(bitmapDB_side, 0, 0, null);
-            bitmapLeftSide1.recycle();
-            bitmapLeftSide2.recycle();
-
-            //right_main
-            bitmapRightMain = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 192, 1866 - 1152, 1366, 1152);
-            canvasRightMain = new Canvas(bitmapRightMain);
-            canvasRightMain.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasRightMain.drawBitmap(bitmapDB_main, 0, 0, null);
-            //right_side
-            Bitmap bitmapRightSide1 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 669, 892);
-            Bitmap bitmapRightSide2 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 1759 - 669, 0, 669, 892);
-            bitmapRightSide = Bitmap.createBitmap(1784, 669, Bitmap.Config.ARGB_8888);
-            canvasRightSide = new Canvas(bitmapRightSide);
-            canvasRightSide.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            matrixSide.reset();
-            matrixSide.postRotate(90);
-            matrixSide.postTranslate(892, 0);
-            canvasRightSide.drawBitmap(bitmapRightSide1, matrixSide, null);
-            matrixSide.reset();
-            matrixSide.postRotate(-90);
-            matrixSide.postTranslate(892, 669);
-            canvasRightSide.drawBitmap(bitmapRightSide2, matrixSide, null);
-            canvasRightSide.drawBitmap(bitmapDB_side, 0, 0, null);
-            bitmapRightSide1.recycle();
-            bitmapRightSide2.recycle();
-        } else if (orderItems.get(currentID).imgs.size() == 4) {
-            Matrix matrix = new Matrix();
-            matrix.postRotate(180);
-            matrix.postTranslate(1784, 669);
-            bitmapLeftSide = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 1784, 669, matrix, true);
-            canvasLeftSide = new Canvas(bitmapLeftSide);
-            canvasLeftSide.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasLeftSide.drawBitmap(bitmapDB_side, 0, 0, null);
-
-            bitmapLeftMain = MainActivity.instance.bitmaps.get(1).copy(Bitmap.Config.ARGB_8888, true);
-            canvasLeftMain = new Canvas(bitmapLeftMain);
-            canvasLeftMain.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasLeftMain.drawBitmap(bitmapDB_main, 0, 0, null);
-
-            matrix.reset();
-            matrix.postRotate(180);
-            matrix.postTranslate(1784, 669);
-            bitmapRightSide = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, 1784, 669, matrix, true);
-            canvasRightSide = new Canvas(bitmapRightSide);
-            canvasRightSide.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasRightSide.drawBitmap(bitmapDB_side, 0, 0, null);
-
-            bitmapRightMain = MainActivity.instance.bitmaps.get(3).copy(Bitmap.Config.ARGB_8888, true);
-            canvasRightMain = new Canvas(bitmapRightMain);
-            canvasRightMain.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasRightMain.drawBitmap(bitmapDB_main, 0, 0, null);
-        }
-
-
-        //drawText
         canvasLeftMain.save();
         canvasLeftMain.rotate(-6.4f, 882, 56);
         canvasLeftMain.drawRect(882, 56, 882 + 350, 56 + 30, rectPaint);
@@ -231,22 +147,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasLeftMain.save();
         canvasLeftMain.rotate(6.8f, 92, 44);
         canvasLeftMain.drawRect(42, 8, 500, 44, rectPaint);
-        //canvasLeftMain.drawBitmap(bitmapBarCode, 46, 8, null);
-        canvasLeftMain.drawText("  左 " + orderItems.get(currentID).size + "码", 62, 41, paintRed);
+        canvasLeftMain.drawText(" " + LR + " " + orderItems.get(currentID).size + "码", 62, 41, paintRed);
         canvasLeftMain.restore();
-
-        canvasRightMain.save();
-        canvasRightMain.rotate(-6.4f, 882, 56);
-        canvasRightMain.drawRect(882, 56, 882 + 350, 56 + 30, rectPaint);
-        canvasRightMain.drawText(orderItems.get(currentID).order_number + "  " + time, 882, 56 + 28, paint);
-        canvasRightMain.restore();
-        canvasRightMain.save();
-        canvasRightMain.rotate(6.8f, 92, 44);
-        canvasRightMain.drawRect(42, 8, 500, 44, rectPaint);
-//        canvasRightMain.drawBitmap(bitmapBarCode, 46, 8, null);
-        canvasRightMain.drawText(" 右 " + orderItems.get(currentID).size + "码", 62, 41, paintRed);
-        canvasRightMain.restore();
-
+    }
+    void drawTextSide_4u2(Canvas canvasLeftSide, String LR) {
         paintRed.setTextSize(40);
         paint.setTextSize(40);
 
@@ -260,49 +164,279 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasLeftSide.drawRect(740, 17 - 50, 740 + 400, 17, rectPaint);
         canvasLeftSide.drawText("  " + time + "  " + orderItems.get(currentID).size + "码", 740, 17 - 3, paintRed);
         canvasLeftSide.restore();
+    }
 
-        canvasRightSide.save();
-        canvasRightSide.rotate(-165.9f, 1400, 105);
-        canvasRightSide.drawRect(1400, 105 - 50, 1800, 105, rectPaint);
-        canvasRightSide.drawText(" 右 " + orderItems.get(currentID).newCode, 1400, 105 - 3, paintRed);
-        canvasRightSide.restore();
-        canvasRightSide.save();
-        canvasRightSide.rotate(167.2f, 740, 17);
-        canvasRightSide.drawRect(740, 17 - 50, 740 + 400, 17, rectPaint);
-        canvasRightSide.drawText("  " + time + "  " + orderItems.get(currentID).size + "码", 740, 17 - 3, paintRed);
-        canvasRightSide.restore();
+    void drawTextMain_adam(Canvas canvasLeftMain, String LR){
+        paintRed.setTextSize(35);
+        paint.setTextSize(35);
 
-        bitmapLeftMain = Bitmap.createScaledBitmap(bitmapLeftMain, mainWidth, mainHeight, true);
-        bitmapRightMain = Bitmap.createScaledBitmap(bitmapRightMain, mainWidth, mainHeight, true);
-        bitmapLeftSide = Bitmap.createScaledBitmap(bitmapLeftSide, sideWidth, sideHeight, true);
-        bitmapRightSide = Bitmap.createScaledBitmap(bitmapRightSide, sideWidth, sideHeight, true);
+        canvasLeftMain.save();
+        canvasLeftMain.rotate(-6.8f, 900, 80);
+        canvasLeftMain.drawRect(900, 44, 1250, 80, rectPaint);
+        canvasLeftMain.drawText(orderItems.get(currentID).order_number + "  " + time, 900, 80 - 6, paint);
+        canvasLeftMain.restore();
+        canvasLeftMain.save();
+        canvasLeftMain.rotate(6.8f, 92, 44);
+        canvasLeftMain.drawRect(42, 8, 500, 44, rectPaint);
+        //Bitmap bitmapBarCode = BarCodeUtil.creatBarcode(orderItems.get(currentID).order_number.replace("_", ""), 460, 36);
+        //canvasLeftMain.drawBitmap(bitmapBarCode, 46, 8, null);
+        canvasLeftMain.drawText(" " + LR + orderItems.get(currentID).size + "码", 62, 44 - 6, paintRed);
+        canvasLeftMain.restore();
+    }
+
+    void drawTextSide_adam(Canvas canvasLeftSide, String LR) {
+        paintRed.setTextSize(35);
+        paint.setTextSize(35);
+
+        canvasLeftSide.save();
+        canvasLeftSide.rotate(-165.9f, 1388, 110);
+        canvasLeftSide.drawRect(1388, 110 - 40, 1388 + 350, 110, rectPaint);
+        canvasLeftSide.drawText(" " + LR + " " + orderItems.get(currentID).newCode, 1388, 110 - 6, paintRed);
+        canvasLeftSide.restore();
+        canvasLeftSide.save();
+        canvasLeftSide.rotate(166.4f, 810, 6);
+        canvasLeftSide.drawRect(810, 6 - 40, 810 + 480, 6, rectPaint);
+        canvasLeftSide.drawText(time + "  " + orderItems.get(currentID).size + "码 " + orderItems.get(currentID).order_number, 810, 6 - 6, paintRed);
+        canvasLeftSide.restore();
+    }
+
+    public void remixx(){
+        setSize(orderItems.get(currentID).size);
+
+        Bitmap bitmapCombine = Bitmap.createBitmap(sideWidth + mainHeight * 2 + 200, mainWidth + 100, Bitmap.Config.ARGB_8888);
+        Canvas canvasCombine = new Canvas(bitmapCombine);
+        canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+        canvasCombine.drawColor(0xffffffff);
+
+        if (orderItems.get(currentID).imgs.size() <= 2 && MainActivity.instance.bitmaps.get(0).getWidth() < 1998) {
+            if (orderItems.get(currentID).imgs.size() == 1) {
+                Matrix matrix = new Matrix();
+                matrix.postScale(-1, 1);
+
+                MainActivity.instance.bitmaps.add(Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, MainActivity.instance.bitmaps.get(0).getWidth(), MainActivity.instance.bitmaps.get(0).getHeight(), matrix, true));
+            }
+            //left_main
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 192, 1866 - 1152, 1366, 1152);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dj_drop_main);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextMain_4u2(canvasTemp, "左");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mainWidth, mainHeight, true);
+
+            Matrix matrix = new Matrix();
+            matrix.postRotate(-90);
+            matrix.postTranslate(sideWidth + 100, mainWidth);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //left_side
+            Bitmap bitmapSide1 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 669, 892);
+            Bitmap bitmapSide2 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1759 - 669, 0, 669, 892);
+
+            bitmapTemp = Bitmap.createBitmap(1784, 669, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+
+            matrix = new Matrix();
+            matrix.postRotate(90);
+            matrix.postTranslate(892, 0);
+            canvasTemp.drawBitmap(bitmapSide1, matrix, null);
+            matrix.reset();
+            matrix.postRotate(-90);
+            matrix.postTranslate(892, 669);
+            canvasTemp.drawBitmap(bitmapSide2, matrix, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dj_drop_side);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSide_4u2(canvasTemp,"左");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+
+            matrix = new Matrix();
+            matrix.postTranslate(0, 0);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //right_main
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 192, 1866 - 1152, 1366, 1152);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dj_drop_main);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextMain_4u2(canvasTemp, "右");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mainWidth, mainHeight, true);
+
+            matrix.reset();
+            matrix.postRotate(-90);
+            matrix.postTranslate(sideWidth + mainHeight + 200, mainWidth);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //right_side
+            bitmapSide1 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 669, 892);
+            bitmapSide2 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 1759 - 669, 0, 669, 892);
+            bitmapTemp = Bitmap.createBitmap(1784, 669, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            matrix.reset();
+            matrix.postRotate(90);
+            matrix.postTranslate(892, 0);
+            canvasTemp.drawBitmap(bitmapSide1, matrix, null);
+            matrix.reset();
+            matrix.postRotate(-90);
+            matrix.postTranslate(892, 669);
+            canvasTemp.drawBitmap(bitmapSide2, matrix, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dj_drop_side);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSide_4u2(canvasTemp,"右");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+
+            matrix.reset();
+            matrix.postTranslate(0, sideHeight + 100);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            bitmapSide1.recycle();
+            bitmapSide2.recycle();
+            bitmapTemp.recycle();
+            bitmapDB.recycle();
+        } else if (orderItems.get(currentID).imgs.size() == 2 && MainActivity.instance.bitmaps.get(0).getWidth() == 1998) {
+            Bitmap bitmapDB_main = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dj_adam_main);
+            Bitmap bitmapDB_side = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dj_adam_side);
+
+            //left_main
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 331, 1015, 1288, 1086);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(bitmapDB_main, 0, 0, null);
+            drawTextMain_adam(canvasTemp, "左");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mainWidth, mainHeight, true);
+
+            Matrix matrix = new Matrix();
+            matrix.postRotate(-90);
+            matrix.postTranslate(sideWidth + 100, mainWidth);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //left_side
+            Bitmap bitmapSide1 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 297, 124, 698, 890);
+            Bitmap bitmapSide2 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1062, 124, 698, 890);
+
+            bitmapTemp = Bitmap.createBitmap(1780, 698, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            Matrix matrixSide = new Matrix();
+            matrixSide.postRotate(90);
+            matrixSide.postTranslate(890 + 2, 0);
+            canvasTemp.drawBitmap(bitmapSide1, matrixSide, null);
+            matrixSide.reset();
+            matrixSide.postRotate(-90);
+            matrixSide.postTranslate(890 - 2, 698);
+            canvasTemp.drawBitmap(bitmapSide2, matrixSide, null);
+            canvasTemp.drawBitmap(bitmapDB_side, 0, 0, null);
+            drawTextSide_adam(canvasTemp, "左");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+
+            matrix = new Matrix();
+            matrix.postTranslate(0, 0);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //right_main
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 331, 1015, 1288, 1086);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(bitmapDB_main, 0, 0, null);
+            drawTextMain_adam(canvasTemp, "右");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mainWidth, mainHeight, true);
+
+            matrix.reset();
+            matrix.postRotate(-90);
+            matrix.postTranslate(sideWidth + mainHeight + 200, mainWidth);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //right_side
+            bitmapSide1 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 297, 124, 698, 890);
+            bitmapSide2 = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 1062, 124, 698, 890);
+
+            bitmapTemp = Bitmap.createBitmap(1780, 698, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            matrixSide.reset();
+            matrixSide.postRotate(90);
+            matrixSide.postTranslate(890 + 2, 0);
+            canvasTemp.drawBitmap(bitmapSide1, matrixSide, null);
+            matrixSide.reset();
+            matrixSide.postRotate(-90);
+            matrixSide.postTranslate(890 - 2, 698);
+            canvasTemp.drawBitmap(bitmapSide2, matrixSide, null);
+            canvasTemp.drawBitmap(bitmapDB_side, 0, 0, null);
+            drawTextSide_adam(canvasTemp, "右");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+
+            matrix.reset();
+            matrix.postTranslate(0, sideHeight + 100);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            bitmapDB_main.recycle();
+            bitmapDB_side.recycle();
+            bitmapTemp.recycle();
+            bitmapSide1.recycle();
+            bitmapSide2.recycle();
+        } else if (orderItems.get(currentID).imgs.size() == 4) {
+            Matrix matrix = new Matrix();
+            matrix.postRotate(180);
+            matrix.postTranslate(1784, 669);
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 1784, 669, matrix, true);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dj_drop_side);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSide_4u2(canvasTemp,"左");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+            matrix = new Matrix();
+            matrix.postTranslate(0, 0);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            bitmapTemp = MainActivity.instance.bitmaps.get(1).copy(Bitmap.Config.ARGB_8888, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dj_drop_main);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextMain_4u2(canvasTemp, "左");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mainWidth, mainHeight, true);
+            matrix = new Matrix();
+            matrix.postRotate(-90);
+            matrix.postTranslate(sideWidth + 100, mainWidth);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(1784, 669);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, 1784, 669, matrix, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dj_drop_side);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSide_4u2(canvasTemp,"右");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+            matrix.reset();
+            matrix.postTranslate(0, sideHeight + 100);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            bitmapTemp = MainActivity.instance.bitmaps.get(3).copy(Bitmap.Config.ARGB_8888, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dj_drop_main);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextMain_4u2(canvasTemp, "右");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mainWidth, mainHeight, true);
+            matrix.reset();
+            matrix.postRotate(-90);
+            matrix.postTranslate(sideWidth + mainHeight + 200, mainWidth);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            bitmapTemp.recycle();
+            bitmapDB.recycle();
+        }
+
 
         try {
-            Bitmap bitmapCombine = Bitmap.createBitmap(sideWidth + mainHeight * 2 + 200, mainWidth + 100, Bitmap.Config.ARGB_8888);
-            Canvas canvasCombine = new Canvas(bitmapCombine);
-            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasCombine.drawColor(0xffffffff);
-            //left_side
-            Matrix matrixCombine = new Matrix();
-            matrixCombine.postTranslate(0, 0);
-            canvasCombine.drawBitmap(bitmapLeftSide, matrixCombine, null);
-            //right_side
-            matrixCombine.reset();
-            matrixCombine.postTranslate(0, sideHeight + 100);
-            canvasCombine.drawBitmap(bitmapRightSide, matrixCombine, null);
-            //left_main
-            matrixCombine.reset();
-            matrixCombine.postRotate(-90);
-            matrixCombine.postTranslate(sideWidth + 100, mainWidth);
-            canvasCombine.drawBitmap(bitmapLeftMain, matrixCombine, null);
-            //right_main
-            matrixCombine.reset();
-            matrixCombine.postRotate(-90);
-            matrixCombine.postTranslate(sideWidth + mainHeight + 200, mainWidth);
-            canvasCombine.drawBitmap(bitmapRightMain, matrixCombine, null);
-
-            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku + orderItems.get(currentID).size : "";
-            String nameCombine = noNewCode + orderItems.get(currentID).sku + orderItems.get(currentID).newCode + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku + orderItems.get(currentID).size + "_" : "";
+            String nameCombine = noNewCode + orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -312,15 +446,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 150);
+            BitmapToJpg.save(bitmapCombine, fileSave, 149);
 
             //释放bitmap
-            bitmapDB_main.recycle();
-            bitmapDB_side.recycle();
-            bitmapLeftMain.recycle();
-            bitmapLeftSide.recycle();
-            bitmapRightMain.recycle();
-            bitmapRightSide.recycle();
             bitmapCombine.recycle();
 
             //写入excel

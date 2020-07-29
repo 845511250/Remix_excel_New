@@ -50,7 +50,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     String time = MainActivity.instance.orderDate_Print;
     Paint rectPaint,paint, rectBorderPaint;
 
-    int width,height, dpi;
+    int width,height, dpi, strokeWidth, textSize;
 
     @Override
     public int getLayout() {
@@ -124,8 +124,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawText(Canvas canvas) {
-        canvas.drawRect(3000, 8190 - 24, 3000 + 800, 8190, rectPaint);
-        canvas.drawText("毛毯 尺码" + orderItems.get(currentID).sku.substring(2) + "  " + time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).newCode, 3000, 8190 - 2, paint);
+        canvas.drawRect(3000, strokeWidth, 3000 + 800, strokeWidth + textSize, rectPaint);
+        canvas.drawText("毛毯 尺码" + orderItems.get(currentID).sku.substring(2) + "  " + time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).newCode, 3000, strokeWidth + textSize - 2, paint);
+    }
+    void drawText_4u2(Canvas canvas) {
+        canvas.drawRect(3000, height - 14 - textSize, 3000 + 800, height - 14, rectPaint);
+        canvas.drawText("毛毯 尺码" + orderItems.get(currentID).sku.substring(2) + "  " + time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).newCode, 3000, height - 14 - 2, paint);
     }
 
     public void remixx(){
@@ -139,16 +143,40 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             }
         }
         setSize();
+        rectBorderPaint.setStrokeWidth(strokeWidth);
+        paint.setTextSize(textSize);
 
-        Bitmap bitmapTemp = Bitmap.createBitmap(6200, 8200, Bitmap.Config.ARGB_8888);
-        Canvas canvasTemp= new Canvas(bitmapTemp);
-        canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+        Bitmap bitmapTemp = null;
 
-        canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-        canvasTemp.drawRect(0, 0, 6200, 8200, rectBorderPaint);
-        canvasTemp.drawRect(5, 5, 6200, 8200, rectBorderPaint);
-        drawText(canvasTemp);
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+
+        if(orderItems.get(currentID).platform.equals("testaprint")){
+            bitmapTemp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+
+            canvasTemp.drawBitmap(Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width - 110, height - 170, true), 60, 80, null);
+
+            rectBorderPaint.setColor(0xffffffff);
+            canvasTemp.drawRect(strokeWidth, strokeWidth, width - strokeWidth, height - strokeWidth, rectBorderPaint);
+            canvasTemp.drawRect(strokeWidth + strokeWidth / 2, strokeWidth + strokeWidth / 2, width - strokeWidth- strokeWidth / 2, height - strokeWidth- strokeWidth / 2, rectBorderPaint);
+
+            drawText(canvasTemp);
+
+            rectBorderPaint.setColor(0xffff0000);
+            canvasTemp.drawRect(0, 0, width, height, rectBorderPaint);
+            canvasTemp.drawRect(strokeWidth / 2, strokeWidth / 2, width - strokeWidth / 2, height - strokeWidth / 2, rectBorderPaint);
+
+        }else {
+            bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true);
+            Canvas canvasTemp= new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+
+            rectBorderPaint.setStrokeWidth(12);
+            canvasTemp.drawRect(0, 0, width, height, rectBorderPaint);
+            canvasTemp.drawRect(6, 6, width - 6, height - 6, rectBorderPaint);
+            drawText_4u2(canvasTemp);
+        }
 
 
         Matrix matrix = new Matrix();
@@ -244,16 +272,22 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 width = 6174;
                 height = 7888;
                 dpi = 136;
+                textSize = 32;
+                strokeWidth = 20;
                 break;
             case "HJS":
                 width = 6160;
                 height = 7920;
                 dpi = 110;
+                textSize = 26;
+                strokeWidth = 16;
                 break;
             case "HJM":
-                width = 6200;
+                width = 6201;
                 height = 8200;
                 dpi = 100;
+                textSize = 24;
+                strokeWidth = 16;
                 break;
         }
     }

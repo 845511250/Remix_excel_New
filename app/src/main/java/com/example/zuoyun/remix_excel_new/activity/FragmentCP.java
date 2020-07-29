@@ -172,30 +172,29 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapDB.recycle();
 
         } else if (orderItems.get(currentID).imgs.size() == 1) {
-//            Bitmap bitmapTemp = MainActivity.instance.bitmaps.get(2).copy(Bitmap.Config.ARGB_8888, true);
-//            Canvas canvasTemp = new Canvas(bitmapTemp);
-//            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-//            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.cp1);
-//            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            canvasCombine.drawBitmap(bitmapTemp, 0, 2256, null);
-//
-//            bitmapTemp = MainActivity.instance.bitmaps.get(1).copy(Bitmap.Config.ARGB_8888, true);
-//            canvasTemp = new Canvas(bitmapTemp);
-//            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-//            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.cp2);
-//            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            canvasCombine.drawBitmap(bitmapTemp, 346, 0, null);
-//
-//            bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
-//            canvasTemp = new Canvas(bitmapTemp);
-//            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-//            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.cp3);
-//            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            canvasCombine.drawBitmap(bitmapTemp, 2602, 0, null);
-//
-//            bitmapTemp.recycle();
-//            bitmapDB.recycle();
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 2256, 2512, 2014);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.cp1);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 2256, null);
 
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 346, 0, 1821, 2256);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.cp2);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, 346, 0, null);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2571, 427, 2402, 3843);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.cp3);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2602, 0, null);
+
+            bitmapTemp.recycle();
+            bitmapDB.recycle();
         }
 
 

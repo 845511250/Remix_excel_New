@@ -165,7 +165,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     public void remixx(){
         int width = 6260;
-        int height = 6142;
+        int height = 6200;
+//        int height = 6142;
 
         Bitmap bitmapCombine = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);

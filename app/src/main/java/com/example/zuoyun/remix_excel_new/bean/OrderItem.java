@@ -13,6 +13,7 @@ public class OrderItem {
     public String colorStr;
     public String sizeStr, skuStr;
     public String newCode;
+    public String newCode_short = "";
     public String platform;
     public String customer;
     public String order_id;

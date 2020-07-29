@@ -306,7 +306,7 @@ public class FragmentDD extends BaseFragment {
             bitmapDBLeft.recycle();
             bitmapDBRight.recycle();
 
-        } else if (orderItems.get(currentID).imgs.size() == 2 && MainActivity.instance.bitmaps.get(0).getWidth() == 1567) {
+        } else if (orderItems.get(currentID).imgs.size() == 2 && MainActivity.instance.bitmaps.get(0).getWidth() == 1567) {//4u2
             //LL
             Bitmap bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             Canvas canvasTemp = new Canvas(bitmapTemp);
@@ -362,8 +362,65 @@ public class FragmentDD extends BaseFragment {
             bitmapDBLeft.recycle();
             bitmapDBRight.recycle();
 
-        } else {
-            showDialogSizeWrong(orderItems.get(currentID).order_number);
+        } else if (orderItems.get(currentID).imgs.size() == 2 && MainActivity.instance.bitmaps.get(0).getWidth() > 1567) {//adam
+            MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1477, 681, true));
+            MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 1477, 681, true));
+
+            //LL
+            Bitmap bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 48, 6, null);
+            canvasTemp.drawBitmap(bitmapDBLeft, 0, 0, null);
+            drawTextLeft(canvasTemp, "左外");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(width, height * 4 + 200);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //LR
+            bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(1), 42, 6, null);
+            canvasTemp.drawBitmap(bitmapDBRight, 0, 0, null);
+            drawTextRight(canvasTemp, "左内");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+
+            matrix.reset();
+            matrix.postTranslate(0, height * 2 + 120);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //RL
+            bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 48, 6, null);
+            canvasTemp.drawBitmap(bitmapDBLeft, 0, 0, null);
+            drawTextLeft(canvasTemp, "右内");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(width, height * 2 + 80);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //RR
+            bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(1), 42, 6, null);
+            canvasTemp.drawBitmap(bitmapDBRight, 0, 0, null);
+            drawTextRight(canvasTemp, "右外");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            bitmapTemp.recycle();
+            bitmapDBLeft.recycle();
+            bitmapDBRight.recycle();
+
         }
 
         try {

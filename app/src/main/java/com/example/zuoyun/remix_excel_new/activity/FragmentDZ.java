@@ -148,33 +148,31 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     public void remixx(){
         Bitmap bitmapCombine = null;
 
-        if (orderItems.get(currentID).platform.equals("4u2")) {
-            setScale4u2(orderItems.get(currentID).sizeStr);
+        setScale4u2(orderItems.get(currentID).sizeStr);
 
-            bitmapCombine = Bitmap.createBitmap(height, width * 2 + 60, Bitmap.Config.ARGB_8888);
-            Canvas canvasCombine= new Canvas(bitmapCombine);
-            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasCombine.drawColor(0xffffffff);
+        bitmapCombine = Bitmap.createBitmap(height, width * 2 + 60, Bitmap.Config.ARGB_8888);
+        Canvas canvasCombine= new Canvas(bitmapCombine);
+        canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+        canvasCombine.drawColor(0xffffffff);
 
-            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), dbID);
+        Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), dbID);
 
-            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 22, 4, 2555, 3691);
-            Canvas canvasTemp = new Canvas(bitmapTemp);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawText4u2(canvasTemp);
-            bitmapDB.recycle();
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+        Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 22, 4, 2555, 3691);
+        Canvas canvasTemp = new Canvas(bitmapTemp);
+        canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+        drawText4u2(canvasTemp);
+        bitmapDB.recycle();
+        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
 
-            Matrix matrix = new Matrix();
-            matrix.postRotate(-90);
-            matrix.postTranslate(0, width);
+        Matrix matrix = new Matrix();
+        matrix.postRotate(-90);
+        matrix.postTranslate(0, width);
 
-            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
-            matrix.postTranslate(0, width + 60);
-            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+        canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+        matrix.postTranslate(0, width + 60);
+        canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
-            bitmapTemp.recycle();
-        }
+        bitmapTemp.recycle();
 
         try {
             Matrix matrix90 = new Matrix();
