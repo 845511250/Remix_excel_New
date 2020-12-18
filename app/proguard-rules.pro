@@ -22,6 +22,8 @@
 -dontwarn android.support.**
 
 -keep class com.example.zuoyun.remix_excel_new.bean.ResponseMessage {*;}
+-keep class com.example.zuoyun.remix_excel_new.bean.HLPics {*;}
+-keep class com.example.zuoyun.remix_excel_new.net.** {*;}
 
 -keep class jxl.** { *; }
 

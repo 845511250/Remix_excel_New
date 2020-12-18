@@ -92,7 +92,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                            intPlus += 1;
+                            intPlus += orderItems.get(i).num;;
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -128,28 +128,69 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         String time = MainActivity.instance.orderDate_Print;
 
         try {
+            Matrix matrix = new Matrix();
 
             Bitmap bitmapCombine = Bitmap.createBitmap(2126, 2598 * 2, Bitmap.Config.ARGB_8888);
             Canvas canvasCombine = new Canvas(bitmapCombine);
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasCombine.drawColor(0xffffffff);
 
-            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-            
-            Matrix matrix = new Matrix();
-            matrix.postRotate(180);
-            matrix.postTranslate(2126, 2598 * 2);
-            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.size() == 2 ? MainActivity.instance.bitmaps.get(1) : MainActivity.instance.bitmaps.get(0), matrix, null);
+            if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {
+                if (MainActivity.instance.bitmaps.get(0).getWidth() != 4380) {
+                    MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 4380, 4380, true));
+                }
+
+                Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 50, 891, 2126, 2598);
+                canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2212, 891, 2126, 2598);
+                matrix = new Matrix();
+                matrix.postRotate(180);
+                matrix.postTranslate(2126, 2598 * 2);
+                canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+                bitmapTemp.recycle();
+            } else {
+                canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
+
+                matrix = new Matrix();
+                matrix.postRotate(180);
+                matrix.postTranslate(2126, 2598 * 2);
+                canvasCombine.drawBitmap(MainActivity.instance.bitmaps.size() == 2 ? MainActivity.instance.bitmaps.get(1) : MainActivity.instance.bitmaps.get(0), matrix, null);
+            }
 
             canvasCombine.drawRect(0, 0, 2126, 2598 * 2, rectBorderPaint);
             canvasCombine.drawRect(1000, 5, 1400, 5 + 23, rectPaint);
             canvasCombine.drawText(time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode, 1000, 5 + 21, paint);
 
             matrix.reset();
-            matrix.postRotate(-90, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
+            matrix.postRotate(-90);
             bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
 
+            //check if is JJ
+            if (orderItems.get(currentID).platform.endsWith("jj")) {
+                String sizeStr = "S";
+                String orderNumberSub = orderItems.get(currentID).order_number.contains("_") ? orderItems.get(currentID).order_number.substring(0, orderItems.get(currentID).order_number.indexOf("_")) : orderItems.get(currentID).order_number;
+                for (int i = 0; i < orderItems.size(); i++) {
+                    if (orderItems.get(i).order_number.contains(orderNumberSub) && (!orderItems.get(i).sku.equals("HA"))) {
+                        if (orderItems.get(i).sku.equals("DY") || orderItems.get(i).sku.equals("LR")) {
+                            sizeStr = "L";
+                        }
+                        break;
+                    }
+                }
+
+                if (sizeStr.equals("S")) {
+                    bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, 6619, 2194, true);
+                } else if (sizeStr.equals("L")) {
+                    bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, 6619, 2483, true);
+                }
+            }
+
             String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            if(orderItems.get(currentID).platform.contains("zy")){
+                nameCombine = orderItems.get(currentID).sku + "(" + MainActivity.instance.orderDate_short + "-" + (currentID + 1) + ")_" + orderItems.get(currentID).order_number + "_共" + orderItems.get(currentID).newCode + "个" + strPlus + ".jpg";
+            }
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

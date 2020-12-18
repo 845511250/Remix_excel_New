@@ -158,11 +158,16 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawText(Canvas canvas) {
+        paint.setTextSize(40);
         canvas.save();
         canvas.rotate(90, 0, 1600);
         canvas.drawRect(0, 1600 - 40, 650, 1600, rectPaint);
         canvas.drawText(orderItems.get(currentID).skuStr + "_" + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode_short, 0, 1600 - 4, paint);
         canvas.restore();
+
+        paint.setTextSize(60);
+        canvas.drawRect(1262, 3958 - 60, 1262 + 130, 3958, rectPaint);
+        canvas.drawText("背面", 1262, 3958 - 5, paint);
     }
 
     public void remixx(){
@@ -171,14 +176,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 21, 0, 2657, 1994);
-        canvasCombine.drawBitmap(bitmapTemp, 0, 1994, null);
-
-        bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), 21, 0, 2657, 1994);
+        Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), 21, 0, 2657, 1994);
         Matrix matrix = new Matrix();
         matrix.postRotate(180);
         matrix.postTranslate(2657, 1995);
         canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+        bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 21, 0, 2657, 1994);
+        canvasCombine.drawBitmap(bitmapTemp, 0, 1994, null);
         bitmapTemp.recycle();
 
         Bitmap bitmapDB = BitmapFactory.decodeResource(getResources(), R.drawable.z97);
@@ -304,32 +309,32 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     void setSize(){
         switch (orderItems.get(currentID).sizeStr) {
             case "XS":
-                width = 2264;
-                height = 1660 + 59 * 2;
+                width = 2264 + 50;
+                height = 1660 + 50;
                 break;
             case "S":
-                width = 2388;
-                height = 1825 + 59 * 2;
+                width = 2388 + 50;
+                height = 1825 + 50;
                 break;
             case "M":
-                width = 2577;
-                height = 1920 + 59 * 2;
+                width = 2577 + 50;
+                height = 1920 + 50;
                 break;
             case "L":
-                width = 2657;
-                height = 1994 + 59 * 3;
+                width = 2657 + 50;
+                height = 1994 + 50;
                 break;
             case "XL":
-                width = 2788;
-                height = 2060 + 59 * 2;
+                width = 2788 + 50;
+                height = 2060 + 50;
                 break;
             case "2XL":
-                width = 3031;
-                height = 2112 + 59 * 2;
+                width = 3031 + 50;
+                height = 2112 + 50;
                 break;
             case "3XL":
-                width = 3054;
-                height = 2194 + 59 * 2;
+                width = 3054 + 50;
+                height = 2194 + 50;
                 break;
 
             default:

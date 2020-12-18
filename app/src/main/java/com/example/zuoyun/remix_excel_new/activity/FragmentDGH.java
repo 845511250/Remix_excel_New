@@ -96,7 +96,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                            intPlus += 1;
+                            intPlus += orderItems.get(i).num;;
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -142,10 +142,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 bitmapBorderDG.recycle();
 
                 canvasremix.drawRect(600, 2274, 770, 2300, rectPaint);
-                canvasremix.drawText("流水号:"+(currentID+1),601,2297,paintRed);
                 canvasremix.drawRect(850, 2274, 1270, 2300, rectPaint);
                 canvasremix.drawText(time+"    "+orderItems.get(currentID).order_number+"    抱枕套", 852, 2297, paint);
             } else {
+                if (MainActivity.instance.bitmaps.get(0).getWidth() == 3158) {
+                    MainActivity.instance.bitmaps.set(0, Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 79, 79, 3000, 3000));
+                }
                 if (MainActivity.instance.bitmaps.get(0).getWidth() != 2000) {
                     MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2000, 2000, true));
                 }
@@ -163,12 +165,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 bitmapBorderDH.recycle();
 
                 canvasremix.drawRect(600, 1974, 770, 2000, rectPaint);
-                canvasremix.drawText("流水号:"+(currentID+1),601,1997,paintRed);
                 canvasremix.drawRect(850, 1974, 1270, 2000, rectPaint);
                 canvasremix.drawText(time+"    "+orderItems.get(currentID).order_number+"    购物袋", 852, 1997, paint);
 
                 canvasremix.drawRect(600+2100, 1974, 770+2100, 2000, rectPaint);
-                canvasremix.drawText("流水号:"+(currentID+1),601+2100,1997,paintRed);
                 canvasremix.drawRect(850+2100, 1974, 1270+2100, 2000, rectPaint);
                 canvasremix.drawText(time+"    "+orderItems.get(currentID).order_number+"    购物袋", 852+2100, 1997, paint);
             }

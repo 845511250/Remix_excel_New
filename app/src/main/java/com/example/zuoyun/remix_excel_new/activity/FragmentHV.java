@@ -129,7 +129,7 @@ public class FragmentHV extends BaseFragment {
                     intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                            intPlus += 1;
+                            intPlus += orderItems.get(i).num;;
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -174,31 +174,60 @@ public class FragmentHV extends BaseFragment {
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 38, 0, 1123, 499);
-        Canvas canvasTemp = new Canvas(bitmapTemp);
-        canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasTemp.drawBitmap(bitmapDBLeft, 0, 0, null);
-        bitmapDBLeft.recycle();
-        drawTextL(canvasTemp);
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
-        Matrix matrix = new Matrix();
-        matrix.postRotate(180);
-        matrix.postTranslate(width, height);
-        canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {
+            if (MainActivity.instance.bitmaps.get(0).getWidth() != 2526) {
+                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2526, 2526, true));
+            }
 
-        bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), 39, 0, 1123, 499);
-        canvasTemp = new Canvas(bitmapTemp);
-        canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasTemp.drawBitmap(bitmapDBRight, 0, 0, null);
-        bitmapDBRight.recycle();
-        drawTextR(canvasTemp);
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
-        matrix.postTranslate(1380, 0);
-        canvasCombine.drawBitmap(bitmapTemp, matrix, null);
-        bitmapTemp.recycle();
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 101, 1012, 1123, 499);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(bitmapDBLeft, 0, 0, null);
+            bitmapDBLeft.recycle();
+//        drawTextL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+            Matrix matrix = new Matrix();
+            matrix.postRotate(180);
+            matrix.postTranslate(width, height);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1302, 1012, 1123, 499);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(bitmapDBRight, 0, 0, null);
+            bitmapDBRight.recycle();
+//        drawTextR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+            matrix.postTranslate(1380, 0);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+            bitmapTemp.recycle();
+        }else {
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 38, 0, 1123, 499);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(bitmapDBLeft, 0, 0, null);
+            bitmapDBLeft.recycle();
+//        drawTextL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+            Matrix matrix = new Matrix();
+            matrix.postRotate(180);
+            matrix.postTranslate(width, height);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), 39, 0, 1123, 499);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(bitmapDBRight, 0, 0, null);
+            bitmapDBRight.recycle();
+//        drawTextR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+            matrix.postTranslate(1380, 0);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+            bitmapTemp.recycle();
 
 //        canvasCombine.drawRect(0, 0, 2, 565, rectPaintRed);
 //        canvasCombine.drawRect(1379, 0, 1381, 565, rectPaintRed);
+        }
 
 
         try {
@@ -206,11 +235,11 @@ public class FragmentHV extends BaseFragment {
             String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).sizeStr + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
-            if(MainActivity.instance.cb_classify.isChecked()){
+            if (MainActivity.instance.cb_classify.isChecked()) {
                 pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
             } else
                 pathSave = sdCardPath + "/生产图/" + childPath + "/";
-            if(!new File(pathSave).exists())
+            if (!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 150);
@@ -219,7 +248,7 @@ public class FragmentHV extends BaseFragment {
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";
             File fileWrite = new File(writePath);
-            if(!fileWrite.exists()){
+            if (!fileWrite.exists()) {
                 WritableWorkbook book = Workbook.createWorkbook(fileWrite);
                 WritableSheet sheet = book.createSheet("sheet1", 0);
                 Label label0 = new Label(0, 0, "货号");
@@ -241,25 +270,25 @@ public class FragmentHV extends BaseFragment {
             }
 
             Workbook book = Workbook.getWorkbook(fileWrite);
-            WritableWorkbook workbook = Workbook.createWorkbook(fileWrite,book);
+            WritableWorkbook workbook = Workbook.createWorkbook(fileWrite, book);
             WritableSheet sheet = workbook.getSheet(0);
             Label label0 = new Label(0, currentID + 1, orderItems.get(currentID).order_number + orderItems.get(currentID).sku + orderItems.get(currentID).size + printColor);
             sheet.addCell(label0);
-            Label label1 = new Label(1, currentID+1, orderItems.get(currentID).sku+orderItems.get(currentID).size+printColor);
+            Label label1 = new Label(1, currentID + 1, orderItems.get(currentID).sku + orderItems.get(currentID).size + printColor);
             sheet.addCell(label1);
-            Number number2 = new Number(2, currentID+1, orderItems.get(currentID).num);
+            Number number2 = new Number(2, currentID + 1, orderItems.get(currentID).num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
+            Label label3 = new Label(3, currentID + 1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID + 1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);
-            Label label6 = new Label(6, currentID+1, "平台大货");
+            Label label6 = new Label(6, currentID + 1, "平台大货");
             sheet.addCell(label6);
 
             workbook.write();
             workbook.close();
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         if (num == 1) {
@@ -276,6 +305,7 @@ public class FragmentHV extends BaseFragment {
             });
         }
     }
+
 
     public void checkremix(){
         if (MainActivity.instance.tb_auto.isChecked()){

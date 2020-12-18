@@ -113,7 +113,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                            intPlus += 1;
+                            intPlus += orderItems.get(i).num;
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -136,7 +136,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     public void remixx(){
         Bitmap bitmapTemp = null;
         if (orderItems.get(currentID).sizeStr.equals("L")) {
-            bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 4315, 5201, true);
+            if (MainActivity.instance.bitmaps.get(0).getHeight() == 5201) {
+                bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+            } else {
+                bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 4315, 5201, true);
+            }
             Canvas canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
 

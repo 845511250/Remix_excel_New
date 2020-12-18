@@ -116,6 +116,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     iv_pillow.setImageDrawable(null);
                     bt_remix.setClickable(false);
                 } else if (message == MainActivity.LOADED_IMGS) {
+                    bt_remix.setClickable(true);
                     checkremix();
                 } else if (message == 3) {
                     bt_remix.setClickable(false);
@@ -173,7 +174,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        orderItems.get(currentID).sizeStr = orderItems.get(currentID).sizeStr.startsWith("R") ? "L" : "XL";
+        if (!(orderItems.get(currentID).sizeStr.equals("L") || orderItems.get(currentID).sizeStr.equals("XL"))) {
+            if (orderItems.get(currentID).sizeStr.startsWith("R")) {
+                orderItems.get(currentID).sizeStr = "L";
+            } else {
+                orderItems.get(currentID).sizeStr = "XL";
+            }
+        }
         setSize();
 
         int margin = 100;

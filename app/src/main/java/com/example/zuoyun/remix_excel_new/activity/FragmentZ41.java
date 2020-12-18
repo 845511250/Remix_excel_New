@@ -132,7 +132,7 @@ public class FragmentZ41 extends BaseFragment {
                     intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                            intPlus += 1;
+                            intPlus += orderItems.get(i).num;;
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -481,6 +481,12 @@ public class FragmentZ41 extends BaseFragment {
             case 47:
                 mainWidth = 1671 + 27;
                 mainHeight = 2194 + 43;
+                tongueWidth = 688 + 22;
+                tongueHeight = 891 + 37;
+                break;
+            case 48:
+                mainWidth = 1671 + 27 * 2;
+                mainHeight = 2194 + 43 * 2;
                 tongueWidth = 688 + 22;
                 tongueHeight = 891 + 37;
                 break;

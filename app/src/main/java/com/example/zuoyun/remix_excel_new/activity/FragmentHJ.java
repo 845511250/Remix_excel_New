@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
-import android.graphics.Typeface;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -72,7 +71,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         paint = new Paint();
         paint.setColor(0xff000000);
         paint.setTextSize(24);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setAntiAlias(true);
 
         rectBorderPaint = new Paint();
@@ -112,7 +110,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                            intPlus += 1;
+                            intPlus += orderItems.get(i).num;
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -124,8 +122,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawText(Canvas canvas) {
-        canvas.drawRect(3000, strokeWidth, 3000 + 800, strokeWidth + textSize, rectPaint);
-        canvas.drawText("毛毯 尺码" + orderItems.get(currentID).sku.substring(2) + "  " + time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).newCode, 3000, strokeWidth + textSize - 2, paint);
+        canvas.drawRect(3000, strokeWidth + 2, 3000 + 800, strokeWidth + 5 + textSize, rectPaint);
+        canvas.drawText("毛毯上边 尺码" + orderItems.get(currentID).sku.substring(2) + "  " + time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).newCode, 3000, strokeWidth + 5 + textSize - 4, paint);
+
+        canvas.drawRect(3000, height - strokeWidth - textSize - 5, 3000 + 800, height - strokeWidth - 2, rectPaint);
+        canvas.drawText("毛毯下边 尺码" + orderItems.get(currentID).sku.substring(2) + "  " + time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).newCode, 3000, height - strokeWidth - 5 - 2, paint);
     }
     void drawText_4u2(Canvas canvas) {
         canvas.drawRect(3000, height - 14 - textSize, 3000 + 800, height - 14, rectPaint);
@@ -134,7 +135,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     public void remixx(){
         if (orderItems.get(currentID).sku.equals("HJ")) {
-            if (orderItems.get(currentID).sizeStr.equals("XS")) {
+            if (orderItems.get(currentID).sizeStr.equals("XS") || orderItems.get(currentID).sizeStr.equals("Youth")|| orderItems.get(currentID).sizeStr.equals("Y")) {
                 orderItems.get(currentID).sku = "HJY";
             } else if (orderItems.get(currentID).sizeStr.equals("S")) {
                 orderItems.get(currentID).sku = "HJS";
@@ -142,6 +143,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 orderItems.get(currentID).sku = "HJM";
             }
         }
+
         setSize();
         rectBorderPaint.setStrokeWidth(strokeWidth);
         paint.setTextSize(textSize);
@@ -149,23 +151,46 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         Bitmap bitmapTemp = null;
 
 
-        if(orderItems.get(currentID).platform.equals("testaprint")){
-            bitmapTemp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-            Canvas canvasTemp = new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
+        if(orderItems.get(currentID).platform.endsWith("-jj")){
+            if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {
+                if (MainActivity.instance.bitmaps.get(0).getWidth() != 8632) {
+                    MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 8632, 8632, true));
+                }
 
-            canvasTemp.drawBitmap(Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width - 110, height - 170, true), 60, 80, null);
+                Matrix matrix = new Matrix();
+                matrix.postScale(width / 6284f, height / 8291f);
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1178, 175, 6284, 8291, matrix, true);
+                Canvas canvasTemp = new Canvas(bitmapTemp);
+                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
 
-            rectBorderPaint.setColor(0xffffffff);
-            canvasTemp.drawRect(strokeWidth, strokeWidth, width - strokeWidth, height - strokeWidth, rectBorderPaint);
-            canvasTemp.drawRect(strokeWidth + strokeWidth / 2, strokeWidth + strokeWidth / 2, width - strokeWidth- strokeWidth / 2, height - strokeWidth- strokeWidth / 2, rectBorderPaint);
+                rectBorderPaint.setColor(0xffffffff);
+                canvasTemp.drawRect(strokeWidth, strokeWidth, width - strokeWidth, height - strokeWidth, rectBorderPaint);
+                canvasTemp.drawRect(strokeWidth + strokeWidth / 2, strokeWidth + strokeWidth / 2, width - strokeWidth- strokeWidth / 2, height - strokeWidth- strokeWidth / 2, rectBorderPaint);
 
-            drawText(canvasTemp);
+                drawText(canvasTemp);
 
-            rectBorderPaint.setColor(0xffff0000);
-            canvasTemp.drawRect(0, 0, width, height, rectBorderPaint);
-            canvasTemp.drawRect(strokeWidth / 2, strokeWidth / 2, width - strokeWidth / 2, height - strokeWidth / 2, rectBorderPaint);
+                rectBorderPaint.setColor(0xffff0000);
+                canvasTemp.drawRect(0, 0, width, height, rectBorderPaint);
+                canvasTemp.drawRect(strokeWidth / 2, strokeWidth / 2, width - strokeWidth / 2, height - strokeWidth / 2, rectBorderPaint);
+
+            } else {//adam 同第二版
+                bitmapTemp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+                Canvas canvasTemp = new Canvas(bitmapTemp);
+                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+                canvasTemp.drawColor(0xffffffff);
+
+                canvasTemp.drawBitmap(Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width - 110, height - 120, true), 60, 60, null);
+
+                rectBorderPaint.setColor(0xffffffff);
+                canvasTemp.drawRect(strokeWidth, strokeWidth, width - strokeWidth, height - strokeWidth, rectBorderPaint);
+                canvasTemp.drawRect(strokeWidth + strokeWidth / 2, strokeWidth + strokeWidth / 2, width - strokeWidth- strokeWidth / 2, height - strokeWidth- strokeWidth / 2, rectBorderPaint);
+
+                drawText(canvasTemp);
+
+                rectBorderPaint.setColor(0xffff0000);
+                canvasTemp.drawRect(0, 0, width, height, rectBorderPaint);
+                canvasTemp.drawRect(strokeWidth / 2, strokeWidth / 2, width - strokeWidth / 2, height - strokeWidth / 2, rectBorderPaint);
+            }
 
         }else {
             bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true);
@@ -187,7 +212,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 break;
         }
 
-        String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+        String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+
         String pathSave;
         if(MainActivity.instance.cb_classify.isChecked()){
             pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
@@ -198,7 +224,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         File fileSave = new File(pathSave + nameCombine);
         BitmapToJpg.save(bitmapTemp, fileSave, dpi);
         bitmapTemp.recycle();
-
 
         try {
             //写入excel

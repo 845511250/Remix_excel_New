@@ -148,7 +148,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     intPlus = orderItems.get(currentID).num - num + 1;
                         for(int i=0;i<currentID;i++) {
                             if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                                intPlus += 1;
+                                intPlus += orderItems.get(i).num;
                             }
                         }
                         strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -163,7 +163,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     void drawText(Canvas canvas) {
 //        canvas.drawText(orderItems.get(currentID).sizeStr, 2300, 3300, paint);
 //        canvas.drawRect(1000, 3684 - 21, 1000 + 400, 3684, rectPaint);
-        canvas.drawText(time+"   "+orderItems.get(currentID).order_number+"    "+orderItems.get(currentID).sizeStr, 10, 100, paintSmall);
+        canvas.drawText(time + "  " + orderItems.get(currentID).sizeStr + "  " + orderItems.get(currentID).order_number, 10, 100, paintSmall);
     }
 
     public void remixx(){
@@ -172,27 +172,35 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), dbID);
-        bitmapDB = Bitmap.createScaledBitmap(bitmapDB, width, height * 2, true);
-        MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true));
-        if (orderItems.get(currentID).imgs.size() == 2) {
-            MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), width, height, true));
+        if (orderItems.get(currentID).platform.endsWith("jj")) {
+
+        } else {
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), dbID);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, width, height * 2, true);
+            MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true));
+            if (orderItems.get(currentID).imgs.size() == 2) {
+                MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), width, height, true));
+            }
+
+            Matrix matrix = new Matrix();
+            matrix.postTranslate(0, height);
+            canvasCombine.drawBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), matrix, null);
+
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(width, height);
+            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
+            canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
+            drawText(canvasCombine);
+            bitmapDB.recycle();
         }
 
-        Matrix matrix = new Matrix();
-        matrix.postTranslate(0, height);
-        canvasCombine.drawBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), matrix, null);
-
-        matrix.reset();
-        matrix.postRotate(180);
-        matrix.postTranslate(width, height);
-        canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
-        canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
-        drawText(canvasCombine);
-        bitmapDB.recycle();
 
         try {
-            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            if(orderItems.get(currentID).platform.equals("zy")){
+                nameCombine = orderItems.get(currentID).sku+ "(" + MainActivity.instance.orderDate_short + "-" + (currentID + 1) + ")_" + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + "_共" + orderItems.get(currentID).newCode + "个" + strPlus + ".jpg";
+            }
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -302,6 +310,28 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 width = 2545;
                 height = 1590;
                 dbID = R.drawable.ay_3xl;
+                break;
+        }
+        height += 40;
+    }
+
+    void getSizeJJ(String sizeStr) {
+        switch (sizeStr) {
+            case "S":
+                width = 1992;
+                height = 1466;
+                break;
+            case "M":
+                width = 2246;
+                height = 1537;
+                break;
+            case "L":
+                width = 2259;
+                height = 1535;
+                break;
+            case "XL":
+                width = 2470;
+                height = 1705;
                 break;
         }
         height += 40;

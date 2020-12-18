@@ -136,7 +136,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawColor(0xffffffff);
 
         //front
-        Bitmap bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+        Bitmap bitmapTemp = (orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1)).copy(Bitmap.Config.ARGB_8888, true);
         Canvas canvasTemp = new Canvas(bitmapTemp);
         canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z20_main);
@@ -163,12 +163,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z20_bottom);
         canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-        bitmapDB.recycle();
         bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1654, 969, true);
         canvasCombine.drawBitmap(bitmapTemp, 1873 * 2 + margin * 2, 0, null);
-        bitmapTemp.recycle();
-
         drawText(canvasCombine);
+
+        bitmapTemp.recycle();
+        bitmapDB.recycle();
+
 
         try {
             File file=new File(sdCardPath+"/生产图/"+childPath+"/");
@@ -185,7 +186,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 149);
+            BitmapToJpg.save(bitmapCombine, fileSave, 148);
 
             //释放bitmap
             bitmapCombine.recycle();

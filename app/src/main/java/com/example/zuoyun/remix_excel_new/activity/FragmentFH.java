@@ -71,7 +71,7 @@ public class FragmentFH extends BaseFragment {
         //paint
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(30);
+        paint.setTextSize(26);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setAntiAlias(true);
 
@@ -162,7 +162,7 @@ public class FragmentFH extends BaseFragment {
 
     void drawTextL(Canvas canvas, String LR) {
         canvas.drawRect(720, 565, 1200, 595, rectPaint);
-        canvas.drawText(time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).size + "码 " + LR + " " + orderItems.get(currentID).color, 720, 592, paint);
+        canvas.drawText(orderItems.get(currentID).size + "码" + LR + orderItems.get(currentID).color + " " + orderItems.get(currentID).order_number + " " + time, 720, 592, paint);
 
         canvas.drawRect(270, 630, 640, 660, rectPaint);
         canvas.drawText(orderItems.get(currentID).newCode , 270, 657, paintRed);
@@ -170,7 +170,7 @@ public class FragmentFH extends BaseFragment {
 
     void drawTextR(Canvas canvas, String LR) {
         canvas.drawRect(80, 565, 560, 595, rectPaint);
-        canvas.drawText(time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).size + "码 " + LR + " " + orderItems.get(currentID).color, 80, 592, paint);
+        canvas.drawText(orderItems.get(currentID).size + "码" + LR + orderItems.get(currentID).color + " " + orderItems.get(currentID).order_number + " " + time, 80, 592, paint);
 
         canvas.drawRect(645, 630, 1020, 660, rectPaint);
         canvas.drawText(orderItems.get(currentID).newCode, 645, 657, paintRed);
@@ -186,7 +186,7 @@ public class FragmentFH extends BaseFragment {
         canvasCombine.drawColor(0xffffffff);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
 
-        if (orderItems.get(currentID).platform.equals("testaprint")) {
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == 2400) {//adam
             //left main
             Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 582, 753, 1235, 1401);
             Canvas canvasTemp = new Canvas(bitmapTemp);
@@ -272,8 +272,8 @@ public class FragmentFH extends BaseFragment {
             canvasTemp.drawBitmap(bitmapCut, matrix, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fh_side_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
             drawTextR(canvasTemp, "右");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
             canvasCombine.drawBitmap(bitmapTemp, mianWidth + margin, mainHeight + margin + sideHeight, null);
 
             bitmapTemp.recycle();

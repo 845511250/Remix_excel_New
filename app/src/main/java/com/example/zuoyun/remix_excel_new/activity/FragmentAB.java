@@ -123,7 +123,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                            intPlus += 1;
+                            intPlus += orderItems.get(i).num;;
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -139,26 +139,61 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         Bitmap bitmapCombine = null;
         String intSize = orderItems.get(currentID).sizeStr;
         if (orderItems.get(currentID).sizeStr.equals("S")) {
-            if (orderItems.get(currentID).skuStr.startsWith("ABM")||orderItems.get(currentID).skuStr.startsWith("M")) {
-                intSize = "7";
-            } else {
+            if (orderItems.get(currentID).skuStr.startsWith("ABW")||orderItems.get(currentID).skuStr.startsWith("W")) {
                 intSize = "5";
+            } else {
+                intSize = "7";
             }
         } else if (orderItems.get(currentID).sizeStr.equals("M")) {
-            if (orderItems.get(currentID).skuStr.startsWith("ABM")||orderItems.get(currentID).skuStr.startsWith("M")) {
-                intSize = "9";
-            } else {
+            if (orderItems.get(currentID).skuStr.startsWith("ABW")||orderItems.get(currentID).skuStr.startsWith("W")) {
                 intSize = "7";
+            } else {
+                intSize = "9";
             }
         } else if (orderItems.get(currentID).sizeStr.equals("L")) {
-            if (orderItems.get(currentID).skuStr.startsWith("ABM")||orderItems.get(currentID).skuStr.startsWith("M")) {
-                intSize = "11";
-            } else {
+            if (orderItems.get(currentID).skuStr.startsWith("ABW")||orderItems.get(currentID).skuStr.startsWith("W")) {
                 intSize = "9";
+            } else {
+                intSize = "11";
             }
         }
 
-        if (!orderItems.get(currentID).platform.equals("4u2")) {
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {
+            if (MainActivity.instance.bitmaps.get(0).getWidth() != 2000) {
+                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2000, 2000, true));
+            }
+
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ds);
+
+            bitmapCombine = Bitmap.createBitmap(1241 + 59, 1603 + 59, Bitmap.Config.ARGB_8888);
+            Canvas canvasCombine = new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasCombine.drawColor(0xffffffff);
+
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 395, 213, 586, 1569);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 609, 1592, true);
+            canvasCombine.drawBitmap(bitmapTemp, 6, 7, null);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1020, 213, 586, 1569);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 609, 1592, true);
+            canvasCombine.drawBitmap(bitmapTemp, 629, 7, null);
+            bitmapTemp.recycle();
+
+            canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapDB.recycle();
+
+            String gender = (orderItems.get(currentID).skuStr.startsWith("ABM")||orderItems.get(currentID).skuStr.startsWith("M")) ? "男" : "女";
+
+            canvasCombine.drawText(gender + intSize + "黑", 563, 1599, paint);
+            canvasCombine.save();
+            canvasCombine.rotate(90, 10, 1000);
+            canvasCombine.drawText(time + "  " + orderItems.get(currentID).order_number, 10, 996, paint);
+            canvasCombine.restore();
+
+            setScale(gender + intSize);
+            bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, (int) ((1241 + 59) * scaleX), (int) ((1603 + 59) * scaleY), true);
+
+        } else if (!orderItems.get(currentID).platform.equals("4u2")) {
             MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1241, 1603, true));
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ds);
 
@@ -170,13 +205,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
             bitmapDB.recycle();
 
-            String gender = (orderItems.get(currentID).skuStr.startsWith("ABM")||orderItems.get(currentID).skuStr.startsWith("M")) ? "男" : "女";
+            String gender = (orderItems.get(currentID).skuStr.startsWith("ABW")||orderItems.get(currentID).skuStr.startsWith("W")) ? "女" : "男";
 
             canvasCombine.drawText(gender + intSize + "黑", 563, 1599, paint);
             canvasCombine.save();
             canvasCombine.rotate(90, 10, 1000);
             canvasCombine.drawText(time + "  " + orderItems.get(currentID).order_number, 10, 996, paint);
-            canvasCombine.drawText("流水号：" + (currentID + 1), 300, 996, paintRed);
             canvasCombine.restore();
 
             setScale(gender + intSize);
@@ -206,13 +240,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
             bitmapDB.recycle();
 
-            String gender = (orderItems.get(currentID).skuStr.startsWith("ABM")||orderItems.get(currentID).skuStr.startsWith("M")) ? "男" : "女";
+            String gender = (orderItems.get(currentID).skuStr.startsWith("ABW")||orderItems.get(currentID).skuStr.startsWith("W")) ? "女" : "男";
 
             canvasCombine.drawText(gender + intSize + "黑", 563, 1599, paint);
             canvasCombine.save();
             canvasCombine.rotate(90, 10, 1000);
             canvasCombine.drawText(time + "  " + orderItems.get(currentID).order_number, 10, 996, paint);
-            canvasCombine.drawText("流水号：" + (currentID + 1), 300, 996, paintRed);
             canvasCombine.restore();
 
             setScale(gender + intSize);
@@ -228,13 +261,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
             bitmapDB.recycle();
 
-            String gender = (orderItems.get(currentID).skuStr.startsWith("ABM")||orderItems.get(currentID).skuStr.startsWith("M")) ? "男" : "女";
+            String gender = (orderItems.get(currentID).skuStr.startsWith("ABW")||orderItems.get(currentID).skuStr.startsWith("W")) ? "女" : "男";
 
             canvasCombine.drawText(gender + intSize + "黑", 563, 1599, paint);
             canvasCombine.save();
             canvasCombine.rotate(90, 10, 1000);
             canvasCombine.drawText(time + "  " + orderItems.get(currentID).order_number, 10, 996, paint);
-            canvasCombine.drawText("流水号：" + (currentID + 1), 300, 996, paintRed);
             canvasCombine.restore();
 
             setScale(gender + intSize);
@@ -247,11 +279,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             String printColor = "B";
             String nameCombine;
             if (orderItems.get(currentID).platform.equals("4u2")) {
-                String gender = (orderItems.get(currentID).skuStr.startsWith("ABM")||orderItems.get(currentID).skuStr.startsWith("M")) ? "男" : "女";
-                nameCombine = orderItems.get(currentID).sku + gender + intSize + printColor + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+                String gender = (orderItems.get(currentID).skuStr.startsWith("ABW")||orderItems.get(currentID).skuStr.startsWith("W")) ? "女" : "男";
+                nameCombine = "AB" + gender + intSize + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
             } else {
-                String gender = (orderItems.get(currentID).skuStr.startsWith("ABM")||orderItems.get(currentID).skuStr.startsWith("M")) ? "男" : "女";
-                nameCombine = orderItems.get(currentID).sku + gender + intSize + printColor + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+                String gender = (orderItems.get(currentID).skuStr.startsWith("ABW")||orderItems.get(currentID).skuStr.startsWith("W")) ? "女" : "男";
+                nameCombine = "AB" + gender + intSize + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
             }
 
             String pathSave;

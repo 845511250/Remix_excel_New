@@ -77,7 +77,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         rectBorderPaint = new Paint();
         rectBorderPaint.setColor(0xff000000);
         rectBorderPaint.setStyle(Paint.Style.STROKE);
-        rectBorderPaint.setStrokeWidth(6);
+        rectBorderPaint.setStrokeWidth(2);
 
         MainActivity.instance.setMessageListener(new MainActivity.MessageListener() {
             @Override
@@ -111,7 +111,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                            intPlus += 1;
+                            intPlus += orderItems.get(i).num;;
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -124,10 +124,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     void drawText(Canvas canvas) {
         canvas.drawRect(2500, 10, 3000, 10 + 22, rectPaint);
-        canvas.drawText(time + "   " + orderItems.get(currentID).order_number + "    " + orderItems.get(currentID).newCode, 2520, 10 + 20, paint);
+        canvas.drawText(time + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode, 2520, 10 + 20, paint);
     }
 
     public void remixx(){
+        if (MainActivity.instance.bitmaps.get(0).getWidth() != 8000) {
+            MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 8000, 5300, true));
+        }
+
         Bitmap bitmapCombine = Bitmap.createBitmap(5300, 8000 + 60, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
@@ -138,8 +142,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         matrix.postTranslate(5300, 0);
 
         canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
-        canvasCombine.drawRect(0, 0, 5297, 7997, rectBorderPaint);
-        canvasCombine.drawRect(3, 3, 5297, 7997, rectBorderPaint);
+        canvasCombine.drawRect(0, 0, 5300, 8000, rectBorderPaint);
+        canvasCombine.drawRect(1, 1, 5300 - 1, 8000 - 1, rectBorderPaint);
         drawText(canvasCombine);
 
 
@@ -158,7 +162,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 150);
+            BitmapToJpg.save(bitmapCombine, fileSave, 120);
 
             //释放bitmap
             bitmapCombine.recycle();

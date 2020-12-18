@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
@@ -49,6 +48,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     String strPlus = "";
     int intPlus = 1;
 
+    String time = MainActivity.instance.orderDate_Print;
+
+    Paint rectPaint, paint, paintWhite, paintRed;
+
     @Override
     public int getLayout() {
         return R.layout.fragment_dg;
@@ -61,6 +64,28 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         orderItems=MainActivity.instance.orderItems;
         currentID = MainActivity.instance.currentID;
         childPath = MainActivity.instance.childPath;
+
+        rectPaint = new Paint();
+        rectPaint.setColor(0xffffffff);
+        rectPaint.setStyle(Paint.Style.FILL);
+
+        paint = new Paint();
+        paint.setColor(0xff000000);
+        paint.setTextSize(30);
+        paint.setAntiAlias(true);
+
+        paintWhite = new Paint();
+        paintWhite.setColor(0xffffffff);
+        paintWhite.setStrokeWidth(2f);
+        paintWhite.setTypeface(Typeface.DEFAULT_BOLD);
+        paintWhite.setAntiAlias(true);
+
+        paintRed = new Paint();
+        paintRed.setColor(0xffff0000);
+        paintRed.setTextSize(38);
+        paintRed.setTypeface(Typeface.DEFAULT_BOLD);
+        paintRed.setAntiAlias(true);
+
 
         MainActivity.instance.setMessageListener(new MainActivity.MessageListener() {
             @Override
@@ -97,7 +122,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                            intPlus += 1;
+                            intPlus += orderItems.get(i).num;;
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -109,136 +134,86 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        Paint rectPaint = new Paint();
-        rectPaint.setColor(0xffffffff);
-        rectPaint.setStyle(Paint.Style.FILL);
-
-        Paint paint = new Paint();
-        paint.setColor(0xff000000);
-        paint.setStrokeWidth(2f);
-        paint.setTextSize(38);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
-        paint.setAntiAlias(true);
-
-        Paint paintWhite = new Paint();
-        paintWhite.setColor(0xffffffff);
-        paintWhite.setStrokeWidth(2f);
-        paintWhite.setTypeface(Typeface.DEFAULT_BOLD);
-        paintWhite.setAntiAlias(true);
-
-        Paint paintRed = new Paint();
-        paintRed.setColor(0xffff0000);
-        paintRed.setTextSize(38);
-        paintRed.setTypeface(Typeface.DEFAULT_BOLD);
-        paintRed.setAntiAlias(true);
-
         Bitmap bitmapRFront = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 609, 2220);
-        Bitmap bitmapRBack = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 21, 0, 609, 2220);
+        Bitmap bitmapRBack = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 18, 0, 609, 2220);
         Bitmap bitmapLFront = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 609, 2220);
-        Bitmap bitmapLBack = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 21, 0, 609, 2220);
-        if (orderItems.get(currentID).imgs.size() == 2 && orderItems.get(currentID).imgs.get(0).contains("right")) {//dropshipping的bernardo订单 左右脚不一样
-            bitmapLFront = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 609, 2220);
-            bitmapLBack = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 21, 0, 609, 2220);
-        } else if (orderItems.get(currentID).imgs.size() == 2) {//4u2订单左右脚一样，前后不一样
+        Bitmap bitmapLBack = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 18, 0, 609, 2220);
+
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {
+            if (MainActivity.instance.bitmaps.get(0).getWidth() != 2738) {
+                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2738, 2738, true));
+            }
+            bitmapLFront = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1385, 259, 609, 2220);
+            bitmapLBack = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2043 + 21, 259, 609, 2220);
+            bitmapRFront = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 728, 259, 609, 2220);
+            bitmapRBack = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 68 + 21, 259, 609, 2220);
+        } else if (orderItems.get(currentID).imgs.size() == 2 && orderItems.get(currentID).imgs.get(0).contains("back")) {//4u2订单左右脚一样，前后不一样
             bitmapRFront = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 609, 2220);
             bitmapLFront = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 609, 2220);
+        } else if (orderItems.get(currentID).imgs.size() == 2) {//左右脚不一样
+            bitmapLFront = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 609, 2220);
+            bitmapLBack = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 18, 0, 609, 2220);
         } else if (orderItems.get(currentID).imgs.size() == 4) {//4u2订单左前 左后 右前 右后
-            bitmapLBack = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 21, 0, 609, 2220);
-            bitmapRFront = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, 609, 2220);
-            bitmapRBack = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(3), 21, 0, 609, 2220);
+            bitmapLBack = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 18, 0, 609, 2220);
+            bitmapLFront = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 609, 2220);
+            bitmapRBack = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 18, 0, 609, 2220);
+            bitmapRFront = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, 609, 2220);
         }
 
+        orderItems.get(currentID).sizeStr = orderItems.get(currentID).sizeStr.replace("/", "-");
+        orderItems.get(currentID).newCode = orderItems.get(currentID).newCode.replace("/", "-");
 
-        String time = MainActivity.instance.orderDate_Print;
+        int width, height_front, height_back;
+        int id_DB;
+        if (orderItems.get(currentID).sizeStr.contains("L")) {
+            width = 1196 / 2;
+            height_front = 2412;
+            height_back = (int) (height_front * 0.794);
+            id_DB = R.drawable.dk_l_xl;
+        } else {
+            width = 1196 / 2;
+            height_front = 2284;
+            height_back = (int) (height_front * 0.794);
+            id_DB = R.drawable.dk_s_m;
+        }
+
+        Bitmap bitmapComnine = Bitmap.createBitmap(width * 4 + 300, height_front, Bitmap.Config.ARGB_8888);
+        Canvas canvasCombine = new Canvas(bitmapComnine);
+        canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+        canvasCombine.drawColor(0xffffffff);
+
+        bitmapLFront = Bitmap.createScaledBitmap(bitmapLFront, width, height_front, true);
+        canvasCombine.drawBitmap(bitmapLFront, 0, 0, null);
+        bitmapLBack = Bitmap.createScaledBitmap(bitmapLBack, width, height_back, true);
+        canvasCombine.drawBitmap(bitmapLBack, width, 0, null);
+        bitmapLBack = Bitmap.createScaledBitmap(bitmapLBack, width, -height_back, true);
+        canvasCombine.drawBitmap(bitmapLBack, width, height_back, null);
+        Bitmap bitmapDB = BitmapFactory.decodeResource(getResources(), id_DB);
+        canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
+
+        bitmapRFront = Bitmap.createScaledBitmap(bitmapRFront, width, height_front, true);
+        canvasCombine.drawBitmap(bitmapRFront, width * 2 + 300, 0, null);
+        bitmapRBack = Bitmap.createScaledBitmap(bitmapRBack, width, height_back, true);
+        canvasCombine.drawBitmap(bitmapRBack, width * 3 + 300, 0, null);
+        bitmapRBack = Bitmap.createScaledBitmap(bitmapRBack, width, -height_back, true);
+        canvasCombine.drawBitmap(bitmapRBack, width * 3 + 300, height_back, null);
+        canvasCombine.drawBitmap(bitmapDB, width * 2 + 300, 0, null);
+
+        //drawText
+        canvasCombine.drawRect(750, 1840, 750 + 300, 1840 + 170, rectPaint);
+        canvasCombine.drawText(orderItems.get(currentID).newCode, 750, 1840 + 40, paintRed);
+        canvasCombine.drawText(orderItems.get(currentID).order_number, 750, 1840 + 80, paint);
+        canvasCombine.drawText(orderItems.get(currentID).sizeStr.contains("L") ? "大号袜子" : "中号袜子", 750, 1840 + 120, paint);
+        canvasCombine.drawText(time, 750, 1840 + 160, paint);
+
+        canvasCombine.drawRect(2250, 1840, 2250 + 300, 1840 + 170, rectPaint);
+        canvasCombine.drawText(orderItems.get(currentID).newCode, 2250, 1840 + 40, paintRed);
+        canvasCombine.drawText(orderItems.get(currentID).order_number, 2250, 1840 + 80, paint);
+        canvasCombine.drawText(orderItems.get(currentID).sizeStr.contains("L") ? "大号袜子" : "中号袜子", 2250, 1840 + 120, paint);
+        canvasCombine.drawText(time, 2250, 1840 + 160, paint);
+
+
         try {
-            Bitmap bitmapremix;
-            Canvas canvasremix;
-            orderItems.get(currentID).sizeStr = orderItems.get(currentID).sizeStr.replace("/", "-");
-            orderItems.get(currentID).newCode = orderItems.get(currentID).newCode.replace("/", "-");
-            if (orderItems.get(currentID).sizeStr .equals("M")||orderItems.get(currentID).sizeStr .equals("S-M")) {
-                bitmapremix = Bitmap.createBitmap(2616+60, 2330+60, Bitmap.Config.ARGB_8888);
-                canvasremix = new Canvas(bitmapremix);
-                canvasremix.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasremix.drawColor(0xffffffff);
-
-                Matrix matrix = new Matrix();
-                matrix.postScale(1, 1.05f);
-                canvasremix.drawBitmap(bitmapRFront, matrix, null);
-                matrix.reset();
-                matrix.postScale(1, 1.05f);
-                matrix.postTranslate(609, 0);
-                canvasremix.drawBitmap(bitmapRBack, matrix, null);
-                canvasremix.drawLine(609, 0, 609, 50, paint);
-                canvasremix.drawLine(609, 2170, 609, 2220, paint);
-                canvasremix.drawLine(611, 0, 611, 50, paintWhite);
-                canvasremix.drawLine(611, 2170, 611, 2220, paintWhite);
-                canvasremix.drawRect(750, 1900, 1000, 2150, rectPaint);
-                canvasremix.drawText(orderItems.get(currentID).newCode, 751, 1945, paintRed);
-                canvasremix.drawText(orderItems.get(currentID).order_number, 751, 2000, paint);
-                canvasremix.drawText("中号袜子",751,2080,paint);
-                canvasremix.drawText(time, 751, 2145, paint);
-
-                matrix.reset();
-                matrix.postScale(1, 1.05f);
-                matrix.postTranslate(1398, 0);
-                canvasremix.drawBitmap(bitmapLFront, matrix, null);
-                matrix.reset();
-                matrix.postScale(1, 1.05f);
-                matrix.postTranslate(2007, 0);
-                canvasremix.drawBitmap(bitmapLBack, matrix, null);
-                canvasremix.drawLine(2007, 0, 2007, 50, paint);
-                canvasremix.drawLine(2007, 2170, 2007, 2220, paint);
-                canvasremix.drawLine(2009, 0, 2009, 50, paintWhite);
-                canvasremix.drawLine(2009, 2170, 2009, 2220, paintWhite);
-                canvasremix.drawRect(2150, 1900, 2400, 2150, rectPaint);
-                canvasremix.drawText(orderItems.get(currentID).newCode, 2151, 1945, paintRed);
-                canvasremix.drawText(orderItems.get(currentID).order_number, 2151, 2000, paint);
-                canvasremix.drawText("中号袜子",2151,2080,paint);
-                canvasremix.drawText(time, 2151, 2145, paint);
-                canvasremix.drawBitmap(BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.border_dk), 0, 0, null);
-            } else {
-                bitmapremix = Bitmap.createBitmap(2616+60, 2460+60, Bitmap.Config.ARGB_8888);
-                canvasremix = new Canvas(bitmapremix);
-                canvasremix.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasremix.drawColor(0xffffffff);
-
-                Matrix matrix = new Matrix();
-                matrix.postScale(1, 1.1081f);
-                canvasremix.drawBitmap(bitmapRFront, matrix, null);
-                matrix.reset();
-                matrix.postScale(1, 1.1081f);
-                matrix.postTranslate(609, 0);
-                canvasremix.drawBitmap(bitmapRBack, matrix, null);
-                canvasremix.drawLine(609, 0, 609, 50, paint);
-                canvasremix.drawLine(609, 2290, 609, 2340, paint);
-                canvasremix.drawLine(611, 0, 611, 50, paintWhite);
-                canvasremix.drawLine(611, 2290, 611, 2340, paintWhite);
-                canvasremix.drawRect(750, 1900, 1000, 2150, rectPaint);
-                canvasremix.drawText(orderItems.get(currentID).newCode, 751, 1945, paintRed);
-                canvasremix.drawText(orderItems.get(currentID).order_number, 751, 2000, paint);
-                canvasremix.drawText("大号袜子",751,2080,paint);
-                canvasremix.drawText(time, 751, 2145, paint);
-
-                matrix.reset();
-                matrix.postScale(1, 1.1081f);
-                matrix.postTranslate(1398, 0);
-                canvasremix.drawBitmap(bitmapLFront, matrix, null);
-                matrix.reset();
-                matrix.postScale(1, 1.1081f);
-                matrix.postTranslate(2007, 0);
-                canvasremix.drawBitmap(bitmapLBack, matrix, null);
-                canvasremix.drawLine(2007, 0, 2007, 50, paint);
-                canvasremix.drawLine(2007, 2290, 2007, 2340, paint);
-                canvasremix.drawLine(2009, 0, 2009, 50, paintWhite);
-                canvasremix.drawLine(2009, 2290, 2009, 2340, paintWhite);
-                canvasremix.drawRect(2150, 1900, 2400, 2150, rectPaint);
-                canvasremix.drawText(orderItems.get(currentID).newCode, 2151, 1945, paintRed);
-                canvasremix.drawText(orderItems.get(currentID).order_number, 2151, 2000, paint);
-                canvasremix.drawText("大号袜子",2151,2080,paint);
-                canvasremix.drawText(time, 2151, 2145, paint);
-                canvasremix.drawBitmap(BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.border_dk), 0, 0, null);
-            }
-
             String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
@@ -249,14 +224,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapremix, fileSave, 153);
+            BitmapToJpg.save(bitmapComnine, fileSave, 150);
 
             //释放bitmap
+            bitmapDB.recycle();
             bitmapRFront.recycle();
             bitmapRBack.recycle();
             bitmapLFront.recycle();
             bitmapLBack.recycle();
-            bitmapremix.recycle();
+            bitmapComnine.recycle();
 
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";

@@ -120,12 +120,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     for(num=orderItems.get(currentID).num;num>=1;num--) {
                         for(int i=0;i<currentID;i++) {
                             if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                                intPlus += 1;
+                                intPlus += orderItems.get(i).num;
                             }
                         }
                         strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                         remixx();
-                        intPlus += 1;
                     }
                 }
             }.start();
@@ -187,7 +186,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        if (orderItems.get(currentID).platform.equals("testaprint")) {
+        if (orderItems.get(currentID).platform.contains("testaprint")) {//adam
             int width = 1789 + 35;//90dpi,35=1cm
             int height = 4803 + 35;
 
@@ -425,8 +424,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         tv_title_update.setText("FV座椅套");
         tv_content.setText("请选择排版方式");
-        bt_yes.setText("滚筒机");
-        bt_no.setText("激光裁");
+        bt_yes.setText("裁片印");
+        bt_no.setText("激光电雕");
 
         bt_yes.setOnClickListener(new View.OnClickListener() {
             @Override

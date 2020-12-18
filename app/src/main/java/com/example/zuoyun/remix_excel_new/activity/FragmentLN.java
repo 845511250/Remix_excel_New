@@ -3,6 +3,7 @@ package com.example.zuoyun.remix_excel_new.activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
@@ -110,7 +111,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                            intPlus += 1;
+                            intPlus += orderItems.get(i).num;;
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -128,7 +129,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         if(orderItems.get(currentID).platform.equals("zy")){
             canvas.drawText(orderItems.get(currentID).sku + "平台订单围脖  " + time + "  " + orderItems.get(currentID).order_number + "  共" + orderItems.get(currentID).newCode + "个" + (orderItems.get(currentID).color.equals("黑") ? "  需黑色缝线" : ""), 8, 150 - 2, paint);
         }else {
-            canvas.drawText(orderItems.get(currentID).sku + "平台订单围脖  " + time + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).color + "色缝线", 8, 150 - 2, paint);
+            canvas.drawText(orderItems.get(currentID).sku + "平台订单围脖  " + time + "  " + orderItems.get(currentID).order_number + "  " + (orderItems.get(currentID).color.equals("黑") ? "  需黑色缝线" : ""), 8, 150 - 2, paint);
         }
         canvas.restore();
     }
@@ -136,14 +137,57 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     public void remixx(){
         int width = 2988;
         int height = 2988;
-
-        Bitmap bitmapCombine = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true);
-        Canvas canvasCombine= new Canvas(bitmapCombine);
+        Bitmap bitmapCombine = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvasCombine = new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+        canvasCombine.drawColor(0xffffffff);
 
-        drawText(canvasCombine);
-        canvasCombine.drawRect(0, 0, width, height, rectBorderPaint);
-        canvasCombine.drawRect(1, 1, width - 1, height - 1, rectBorderPaint);
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight() && MainActivity.instance.bitmaps.get(0).getWidth() == 6145) {
+            Bitmap bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height - 130, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 130, null);
+
+            Matrix matrix = new Matrix();
+            matrix.postScale(1, -1);
+            bitmapTemp = Bitmap.createBitmap(bitmapTemp, 0, 0, width, 130, matrix, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            drawText(canvasCombine);
+            canvasCombine.drawRect(0, 0, width, height, rectBorderPaint);
+            canvasCombine.drawRect(1, 1, width - 1, height - 1, rectBorderPaint);
+            bitmapTemp.recycle();
+        } else if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {
+            if (MainActivity.instance.bitmaps.get(0).getWidth() != 3109) {
+                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 3109, 3109, true));
+            }
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 77, 93, 2954, 2930);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height - 130, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 130, null);
+
+            Matrix matrix = new Matrix();
+            matrix.postScale(1, -1);
+            bitmapTemp = Bitmap.createBitmap(bitmapTemp, 0, 0, width, 130, matrix, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            drawText(canvasCombine);
+            canvasCombine.drawRect(0, 0, width, height, rectBorderPaint);
+            canvasCombine.drawRect(1, 1, width - 1, height - 1, rectBorderPaint);
+            bitmapTemp.recycle();
+        } else {
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 4, 2954, 2926);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height - 130, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 130, null);
+
+            Matrix matrix = new Matrix();
+            matrix.postScale(1, -1);
+            bitmapTemp = Bitmap.createBitmap(bitmapTemp, 0, 0, width, 130, matrix, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            drawText(canvasCombine);
+            canvasCombine.drawRect(0, 0, width, height, rectBorderPaint);
+            canvasCombine.drawRect(1, 1, width - 1, height - 1, rectBorderPaint);
+            bitmapTemp.recycle();
+        }
+
 
         try {
             File file=new File(sdCardPath+"/生产图/"+childPath+"/");
@@ -152,8 +196,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             String nameCombine;
             if(orderItems.get(currentID).platform.equals("zy")){
-                nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).order_number + "_共" + orderItems.get(currentID).newCode + "个" + (orderItems.get(currentID).color.equals("黑") ? "_需黑色缝线" : "") + strPlus + ".jpg";
-            }else{
+                nameCombine = orderItems.get(currentID).sku + "(" + MainActivity.instance.orderDate_short + "-" + (currentID + 1) + ")_" + orderItems.get(currentID).order_number + "_共" + orderItems.get(currentID).newCode + "个" + (orderItems.get(currentID).color.equals("黑") ? "_需黑色缝线" : "") + strPlus + ".jpg";
+            } else{
                 nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
             }
 

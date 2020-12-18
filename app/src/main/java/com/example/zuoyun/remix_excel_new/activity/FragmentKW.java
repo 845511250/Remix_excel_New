@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
+import android.graphics.Point;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -125,12 +126,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvas.drawText(orderItems.get(currentID).newCode_short, 1095, 791 - 3, paint);
     }
     void drawText3(Canvas canvas) {
-        canvas.drawRect(1155, 884 - 26, 1155 + 100, 884, rectPaint);
-        canvas.drawText(orderItems.get(currentID).newCode_short, 1155, 884 - 3, paint);
+        canvas.drawRect(1155, 884 - 26, 1155 + 200, 884, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + "  " + orderItems.get(currentID).newCode_short, 1155, 884 - 3, paint);
     }
 
     public void remixx(){
-        Bitmap bitmapCombine = Bitmap.createBitmap(3629, 2449, Bitmap.Config.ARGB_8888);
+        Point point = new Point(1, 1);
+        Bitmap bitmapCombine = Bitmap.createBitmap(3660, 2400, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
@@ -142,7 +144,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             Bitmap bitmapDB = BitmapFactory.decodeResource(getResources(), R.drawable.kw_top_left);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 503, 739, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 507, null);
 
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 487, 0, 2421, 797);
             canvasTemp = new Canvas(bitmapTemp);
@@ -150,14 +153,16 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapDB = BitmapFactory.decodeResource(getResources(), R.drawable.kw_front1);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawText1(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 598, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 2481, 857, true);
+            canvasCombine.drawBitmap(bitmapTemp, 584, 506, null);
 
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 2949, 0, 443, 679);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getResources(), R.drawable.kw_top_right);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            canvasCombine.drawBitmap(bitmapTemp, 3181, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 503, 739, true);
+            canvasCombine.drawBitmap(bitmapTemp, 3157, 507, null);
 
             //front
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 295, 0, 2805, 354);
@@ -165,7 +170,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getResources(), R.drawable.kw_front2);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            canvasCombine.drawBitmap(bitmapTemp, 379, 931, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 2865, 414, true);
+            canvasCombine.drawBitmap(bitmapTemp, 392, 0, null);
 
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 265, 113, 2868, 886);
             canvasTemp = new Canvas(bitmapTemp);
@@ -173,7 +179,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapDB = BitmapFactory.decodeResource(getResources(), R.drawable.kw_front3);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawText3(canvasTemp);
-            canvasCombine.drawBitmap(bitmapTemp, 367, 1461, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 2928, 935, true);
+            canvasCombine.drawBitmap(bitmapTemp, 360, 1464, null);
         }
 
 

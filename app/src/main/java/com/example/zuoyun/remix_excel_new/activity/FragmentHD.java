@@ -149,7 +149,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     intPlus = orderItems.get(currentID).num - num + 1;
                         for(int i=0;i<currentID;i++) {
                             if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                                intPlus += 1;
+                                intPlus += orderItems.get(i).num;;
                             }
                         }
                         strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -284,6 +284,83 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             matrix.postTranslate(149 + 56, 2142 + 2142);
             canvasSide.drawBitmap(bitmapTemp, matrix, null);
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(3), 50, 0, 149, 2142);
+            canvasSide.drawBitmap(bitmapTemp, 56, 0, null);
+            bitmapTemp.recycle();
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hd_side_r);
+            canvasSide.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapDB.recycle();
+            drawTextSideR(canvasSide);
+            bitmapSide = Bitmap.createScaledBitmap(bitmapSide, width_side, height_side, true);
+            canvasCombine.drawBitmap(bitmapSide, width_side + width_2 * 2 + margin * 3, 0, null);
+            bitmapSide.recycle();
+        } else if (orderItems.get(currentID).imgs.size() == 1 && (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight())) {
+            if (MainActivity.instance.bitmaps.get(0).getWidth() == 4000) {
+                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 3592, 3592, true));
+            }
+            //1
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1859, 2290, 1387, 1239);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hd_up);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawText1L(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_1, height_1, true);
+            canvasCombine.drawBitmap(bitmapTemp, (width_side * 2 + width_2 * 2) / 2 - width_1 / 2, height_2, null);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 346, 2271, 1387, 1239);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawText1R(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_1, height_1, true);
+            canvasCombine.drawBitmap(bitmapTemp, (width_side * 2 + width_2 * 2) / 2 - width_1 / 2, height_2 + height_1, null);
+
+            //2
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2186, 207, 750, 1910);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hd_sole_left);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawText2L(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_2, height_2, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_side + width_2 + margin * 2, 0, null);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 656, 207, 750, 1910);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hd_sole_right);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawText2R(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_2, height_2, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_side + margin, 0, null);
+
+            //sideL
+            Bitmap bitmapSide = Bitmap.createBitmap(221, 4284, Bitmap.Config.ARGB_8888);
+            Canvas canvasSide = new Canvas(bitmapSide);
+            canvasSide.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasSide.drawColor(0xffffffff);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1879, 90, 149, 2142);
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(149 + 16, 2142 + 2142);
+            canvasSide.drawBitmap(bitmapTemp, matrix, null);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3077, 90, 149, 2142);
+            canvasSide.drawBitmap(bitmapTemp, 16, 0, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hd_side_l);
+            canvasSide.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSideL(canvasSide);
+            bitmapSide = Bitmap.createScaledBitmap(bitmapSide, width_side, height_side, true);
+            canvasCombine.drawBitmap(bitmapSide, 0, 0, null);
+
+            //sideR
+            bitmapSide = Bitmap.createBitmap(221, 4284, Bitmap.Config.ARGB_8888);
+            canvasSide = new Canvas(bitmapSide);
+            canvasSide.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasSide.drawColor(0xffffffff);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1564, 90, 149, 2142);
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(149 + 56, 2142 + 2142);
+            canvasSide.drawBitmap(bitmapTemp, matrix, null);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 366, 90, 149, 2142);
             canvasSide.drawBitmap(bitmapTemp, 56, 0, null);
             bitmapTemp.recycle();
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hd_side_r);

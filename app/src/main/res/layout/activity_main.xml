@@ -160,7 +160,7 @@
             android:layout_width="match_parent"
             android:layout_height="28dp"
             android:background="#ddd"
-            android:text="福 建 正 域 自 动 化 生 产 系 统(ForUDropShipping)"
+            android:text="福 建 正 域 自 动 化 生 产 系 统(4u2)"
             android:gravity="center"
             android:textSize="18sp"
             android:fontFamily=""/>

@@ -147,7 +147,7 @@ public class FragmentDD extends BaseFragment {
                     intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                            intPlus += 1;
+                            intPlus += orderItems.get(i).num;;
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -163,14 +163,14 @@ public class FragmentDD extends BaseFragment {
         canvas.drawRect(120, 720 - 40, 1520, 720, rectPaint);
         canvas.drawText(time, 120, 716, paint);
         canvas.drawText(isKK + orderItems.get(currentID).order_number, 320, 716, paint);
-        canvas.drawText(orderItems.get(currentID).newCode + " " + orderItems.get(currentID).customer, 700, 716, paint);
+        canvas.drawText(orderItems.get(currentID).newCode.contains("-") ? orderItems.get(currentID).newCode : orderItems.get(currentID).sku + "-" + orderItems.get(currentID).size + "-" + orderItems.get(currentID).color, 700, 716, paint);
         canvas.drawText("生产尺寸:" + (orderItems.get(currentID).size - 1) + "码" + orderItems.get(currentID).color + " " + LR, 1120, 716, paintRed);
     }
     void drawTextLeft(Canvas canvas, String LR) {
         String isKK = orderItems.get(currentID).sku.equals("KK") ? "KK(MD鞋底) " : "";
         canvas.drawRect(70, 720 - 40, 1500, 720, rectPaint);
         canvas.drawText("生产尺寸:" + (orderItems.get(currentID).size - 1) + "码" + orderItems.get(currentID).color + " " + LR, 70, 716, paintRed);
-        canvas.drawText(orderItems.get(currentID).newCode + " " + orderItems.get(currentID).customer, 500, 716, paint);
+        canvas.drawText(orderItems.get(currentID).newCode.contains("-") ? orderItems.get(currentID).newCode : orderItems.get(currentID).sku + "-" + orderItems.get(currentID).size + "-" + orderItems.get(currentID).color, 500, 716, paint);
         canvas.drawText(time, 900, 716, paint);
         canvas.drawText(isKK + orderItems.get(currentID).order_number, 1100, 716, paint);
     }
@@ -187,12 +187,13 @@ public class FragmentDD extends BaseFragment {
         canvasCombine.drawColor(0xffffffff);
         Matrix matrix = new Matrix();
 
-        if (orderItems.get(currentID).imgs.size() == 4) {
+        if (orderItems.get(currentID).imgs.size() == 4 && orderItems.get(currentID).platform.equalsIgnoreCase("4u2")) {
             //LL
             Bitmap bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(orderItems.get(currentID).platform.equals("4u2") ? MainActivity.instance.bitmaps.get(1) : checkContains("printsLL") ? getBitmapWith("printsLL") : MainActivity.instance.bitmaps.get(0), 0, 0, null);
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, null);
             canvasTemp.drawBitmap(bitmapDBLeft, 0, 0, null);
             drawTextLeft(canvasTemp, "左外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
@@ -203,10 +204,11 @@ public class FragmentDD extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
             //LR
-            bitmapTemp = Bitmap.createBitmap(1567,804, Bitmap.Config.ARGB_8888);
+            bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(orderItems.get(currentID).platform.equals("4u2") ? MainActivity.instance.bitmaps.get(0) : checkContains("printsLR") ? getBitmapWith("printsLR") : MainActivity.instance.bitmaps.get(1), 0, 0, null);
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
             canvasTemp.drawBitmap(bitmapDBRight, 0, 0, null);
             drawTextRight(canvasTemp, "左内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
@@ -219,8 +221,9 @@ public class FragmentDD extends BaseFragment {
             bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, null);
-            canvasTemp.drawBitmap(bitmapDBLeft,0,0,null);
+            canvasTemp.drawBitmap(bitmapDBLeft, 0, 0, null);
             drawTextLeft(canvasTemp, "右内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
 
@@ -230,9 +233,10 @@ public class FragmentDD extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
             //RR
-            bitmapTemp = Bitmap.createBitmap(1567,804, Bitmap.Config.ARGB_8888);
+            bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, null);
             canvasTemp.drawBitmap(bitmapDBRight, 0, 0, null);
             drawTextRight(canvasTemp, "右外");
@@ -243,11 +247,134 @@ public class FragmentDD extends BaseFragment {
             bitmapDBLeft.recycle();
             bitmapDBRight.recycle();
 
+        } else if (orderItems.get(currentID).imgs.size() == 4) {
+            //LL
+            Bitmap bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(checkContains("left_outside") ? getBitmapWith("left_outside") : checkContains("printsLL") ? getBitmapWith("printsLL") : MainActivity.instance.bitmaps.get(0), 0, 0, null);
+            canvasTemp.drawBitmap(bitmapDBLeft, 0, 0, null);
+            drawTextLeft(canvasTemp, "左外");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(width, height * 4 + 200);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //LR
+            bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(checkContains("left_inside") ? getBitmapWith("left_inside") : checkContains("printsLR") ? getBitmapWith("printsLR") : MainActivity.instance.bitmaps.get(1), 0, 0, null);
+            canvasTemp.drawBitmap(bitmapDBRight, 0, 0, null);
+            drawTextRight(canvasTemp, "左内");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+
+            matrix.reset();
+            matrix.postTranslate(0, height * 2 + 120);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //RL
+            bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, null);
+            canvasTemp.drawBitmap(bitmapDBLeft, 0, 0, null);
+            drawTextLeft(canvasTemp, "右内");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(width, height * 2 + 80);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //RR
+            bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, null);
+            canvasTemp.drawBitmap(bitmapDBRight, 0, 0, null);
+            drawTextRight(canvasTemp, "右外");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            bitmapTemp.recycle();
+            bitmapDBLeft.recycle();
+            bitmapDBRight.recycle();
+
+        } else if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {
+            if (MainActivity.instance.bitmaps.get(0).getWidth() == 4000) {
+                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 3316, 3316, true));
+            }
+            //LL
+            Bitmap bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -83, -847, null);
+            canvasTemp.drawBitmap(bitmapDBLeft, 0, 0, null);
+            drawTextLeft(canvasTemp, "左外");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(width, height * 4 + 200);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //LR
+            bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -1667, -847, null);
+            canvasTemp.drawBitmap(bitmapDBRight, 0, 0, null);
+            drawTextRight(canvasTemp, "左内");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+
+            matrix.reset();
+            matrix.postTranslate(0, height * 2 + 120);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //RL
+            bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -83, -1665, null);
+            canvasTemp.drawBitmap(bitmapDBLeft, 0, 0, null);
+            drawTextLeft(canvasTemp, "右内");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(width, height * 2 + 80);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //RR
+            bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -1667, -1665, null);
+            canvasTemp.drawBitmap(bitmapDBRight, 0, 0, null);
+            drawTextRight(canvasTemp, "右外");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            bitmapTemp.recycle();
+            bitmapDBLeft.recycle();
+            bitmapDBRight.recycle();
         } else if (orderItems.get(currentID).imgs.size() == 1) {
             //LL
             Bitmap bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
             canvasTemp.drawBitmap(bitmapDBLeft, 0, 0, null);
             drawTextLeft(canvasTemp, "左外");
@@ -263,9 +390,10 @@ public class FragmentDD extends BaseFragment {
             matrix.postScale(-1, 1);
             matrix.postTranslate(MainActivity.instance.bitmaps.get(0).getWidth(), 0);
 
-            bitmapTemp = Bitmap.createBitmap(1567,804, Bitmap.Config.ARGB_8888);
+            bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
             canvasTemp.drawBitmap(bitmapDBRight, 0, 0, null);
             drawTextRight(canvasTemp, "左内");
@@ -278,8 +406,9 @@ public class FragmentDD extends BaseFragment {
             bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-            canvasTemp.drawBitmap(bitmapDBLeft,0,0,null);
+            canvasTemp.drawBitmap(bitmapDBLeft, 0, 0, null);
             drawTextLeft(canvasTemp, "右内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
 
@@ -293,9 +422,10 @@ public class FragmentDD extends BaseFragment {
             matrix.postScale(-1, 1);
             matrix.postTranslate(MainActivity.instance.bitmaps.get(0).getWidth(), 0);
 
-            bitmapTemp = Bitmap.createBitmap(1567,804, Bitmap.Config.ARGB_8888);
+            bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
             canvasTemp.drawBitmap(bitmapDBRight, 0, 0, null);
             drawTextRight(canvasTemp, "右外");
@@ -311,6 +441,7 @@ public class FragmentDD extends BaseFragment {
             Bitmap bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
             canvasTemp.drawBitmap(bitmapDBLeft, 0, 0, null);
             drawTextLeft(canvasTemp, "左外");
@@ -325,6 +456,7 @@ public class FragmentDD extends BaseFragment {
             bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, null);
             canvasTemp.drawBitmap(bitmapDBRight, 0, 0, null);
             drawTextRight(canvasTemp, "左内");
@@ -338,6 +470,7 @@ public class FragmentDD extends BaseFragment {
             bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
             canvasTemp.drawBitmap(bitmapDBLeft, 0, 0, null);
             drawTextLeft(canvasTemp, "右内");
@@ -352,6 +485,7 @@ public class FragmentDD extends BaseFragment {
             bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, null);
             canvasTemp.drawBitmap(bitmapDBRight, 0, 0, null);
             drawTextRight(canvasTemp, "右外");
@@ -362,14 +496,17 @@ public class FragmentDD extends BaseFragment {
             bitmapDBLeft.recycle();
             bitmapDBRight.recycle();
 
-        } else if (orderItems.get(currentID).imgs.size() == 2 && MainActivity.instance.bitmaps.get(0).getWidth() > 1567) {//adam
-            MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1477, 681, true));
-            MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 1477, 681, true));
+        } else if (orderItems.get(currentID).imgs.size() == 2 && (MainActivity.instance.bitmaps.get(0).getWidth() > 1567 || MainActivity.instance.bitmaps.get(0).getWidth() == 1477)) {//adam
+            if (MainActivity.instance.bitmaps.get(0).getWidth() != 1477) {
+                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1477, 681, true));
+                MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 1477, 681, true));
+            }
 
             //LL
             Bitmap bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 48, 6, null);
             canvasTemp.drawBitmap(bitmapDBLeft, 0, 0, null);
             drawTextLeft(canvasTemp, "左外");
@@ -384,6 +521,7 @@ public class FragmentDD extends BaseFragment {
             bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(1), 42, 6, null);
             canvasTemp.drawBitmap(bitmapDBRight, 0, 0, null);
             drawTextRight(canvasTemp, "左内");
@@ -397,6 +535,7 @@ public class FragmentDD extends BaseFragment {
             bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 48, 6, null);
             canvasTemp.drawBitmap(bitmapDBLeft, 0, 0, null);
             drawTextLeft(canvasTemp, "右内");
@@ -411,6 +550,7 @@ public class FragmentDD extends BaseFragment {
             bitmapTemp = Bitmap.createBitmap(1567, 804, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(1), 42, 6, null);
             canvasTemp.drawBitmap(bitmapDBRight, 0, 0, null);
             drawTextRight(canvasTemp, "右外");
@@ -427,6 +567,10 @@ public class FragmentDD extends BaseFragment {
             String printColor = orderItems.get(currentID).color.equals("黑") ? "B" : "W";
             String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku + orderItems.get(currentID).size : "";
             String nameCombine = noNewCode + orderItems.get(currentID).newCode + orderItems.get(currentID).color + "-" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+
+            if (orderItems.get(currentID).platform.equals("zy")) {
+                nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + orderItems.get(currentID).color + "(" + MainActivity.instance.orderDate_short + "-" + (currentID + 1) + ")_" + orderItems.get(currentID).order_number + strPlus + "_共" + orderItems.get(currentID).newCode + "个" + ".jpg";
+            }
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

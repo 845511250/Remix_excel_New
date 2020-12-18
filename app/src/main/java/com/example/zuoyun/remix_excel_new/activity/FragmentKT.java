@@ -330,10 +330,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     void setSize(){
         switch (orderItems.get(currentID).sizeStr) {
             case "S":
-//                width = 1700;
-//                height = 2290;
+//                width_side = 1700;
+//                height_side = 2290;
                 width = 1500;
-                height = 2190;
+                height = 2230;
                 break;
             case "L":
                 width = 3900 - 24;

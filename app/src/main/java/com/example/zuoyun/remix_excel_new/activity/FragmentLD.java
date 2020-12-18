@@ -120,37 +120,39 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawText(Canvas canvas) {
-        canvas.drawRect(916, 33 - 26, 916 + 600, 33, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "  " + time + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode_short, 916, 33 - 3, paint);
+        canvas.drawRect(916, 32 - 26, 916 + 600, 32, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + "  " + time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).newCode, 916, 32 - 3, paint);
     }
 
     public void remixx(){
         int margin = 200;
+        int width = 3650;
+        int height = 3060;
 
-        Bitmap bitmapCombine = Bitmap.createBitmap(4100 * 2 + margin, 3300, Bitmap.Config.ARGB_8888);
+        Bitmap bitmapCombine = Bitmap.createBitmap(width * 2 + margin, height, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
         //front
-        Bitmap bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+        Bitmap bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true);
         Canvas canvasTemp = new Canvas(bitmapTemp);
         canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         drawText(canvasTemp);
 
-        canvasTemp.drawRect(0, 0, 4100 * 2 + margin, 3300, rectBorderPaint);
-        canvasTemp.drawRect(1, 1, 4100 * 2 + margin - 1, 3300 - 1, rectBorderPaint);
+        canvasTemp.drawRect(0, 0, width, height, rectBorderPaint);
+        canvasTemp.drawRect(1, 1, width - 1, height - 1, rectBorderPaint);
         canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
         //back
-        bitmapTemp = (orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1)).copy(Bitmap.Config.ARGB_8888, true);
+        bitmapTemp = Bitmap.createScaledBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), width, height, true);
         canvasTemp = new Canvas(bitmapTemp);
         canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         drawText(canvasTemp);
 
-        canvasTemp.drawRect(0, 0, 4100 * 2 + margin, 3300, rectBorderPaint);
-        canvasTemp.drawRect(1, 1, 4100 * 2 + margin - 1, 3300 - 1, rectBorderPaint);
-        canvasCombine.drawBitmap(bitmapTemp, 4100 + margin, 0, null);
+        canvasTemp.drawRect(0, 0, width, height, rectBorderPaint);
+        canvasTemp.drawRect(1, 1, width - 1, height - 1, rectBorderPaint);
+        canvasCombine.drawBitmap(bitmapTemp, width + margin, 0, null);
 
         bitmapTemp.recycle();
 
@@ -162,6 +164,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 file.mkdirs();
 
             String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            if (orderItems.get(currentID).newCode.length() >= 1) {
+                nameCombine = orderItems.get(currentID).newCode + "__" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            }
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -171,7 +176,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 149);
+            BitmapToJpg.save(bitmapCombine, fileSave, 150);
 
             //释放bitmap
             bitmapCombine.recycle();

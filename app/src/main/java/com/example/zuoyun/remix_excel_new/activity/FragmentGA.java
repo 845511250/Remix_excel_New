@@ -142,12 +142,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                            intPlus += 1;
+                            intPlus += orderItems.get(i).num;;
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
                     remixx100();
-                    intPlus += 1;
                 }
 
             }
@@ -200,10 +199,135 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawColor(0xffffffff);
 
 
-        if (orderItems.get(currentID).imgs.size() == 1) {
+        if (orderItems.get(currentID).imgs.size() == 1 && MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {
+            if(MainActivity.instance.bitmaps.get(0).getWidth() == 4000){
+                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 10526, 10526, true));
+            }
+            //腰带
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 709, 1135, 8572, 521);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ga_belt);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90);
+            matrix.postTranslate(521 + 4002, 0);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //back
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 735, 4989, 3255, 4400);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ga_back);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBack(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            //frontR
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 6052, 1932, 1883, 4451);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ga_front_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextFrontR(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 4599, null);
+
+            //frontL
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 7935, 1932, 1882, 4451);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ga_front_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextFrontL(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 1995, 4599, null);
+
+            //loopTop
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 7603, 2087, 666, 222);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ga_loop_top);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, 982, 15159, null);
+
+            //collarL
+            matrix.reset();
+            matrix.setRotate(-90);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 806, 3087, 5072, 1008, matrix, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ga_collar_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(1008, 5072 + 9280);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //collarR
+            matrix.reset();
+            matrix.setRotate(-90);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 806, 1939, 5072, 1008, matrix, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ga_collar_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, 1095, 9855, null);
+
+            //armR
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4587, 6914, 2209, 2478);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ga_arm_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextArmR(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 2201, 11976, null);
+
+            //armL
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 7608, 6914, 2209, 2478);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ga_arm_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextArmL(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 2201, 9271, null);
+
+            //pocketL
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4687, 4456, 808, 973);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ga_pocket);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextPocketL(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 2621, 14642, null);
+
+            //pocketR
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4687, 5536, 808, 973);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ga_pocket);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextPocketR(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 3695, 14672, null);
+
+            //collarBack
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 969, 4120, 2782, 668);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ga_collar_back);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextCollarBack(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 15645, null);
+
+            //loopL
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 9830, 3786, 222, 571);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ga_loop);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 14753, null);
+
+            //loopR
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 5824, 3786, 222, 571);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ga_loop);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, 436, 14753, null);
+
+            bitmapDB.recycle();
+            bitmapTemp.recycle();
+        } else if (orderItems.get(currentID).imgs.size() == 1) {
             //腰带
             Bitmap bitmapBelt = Bitmap.createBitmap(8572, 521, Bitmap.Config.ARGB_8888);
-            Canvas canvasBelt= new Canvas(bitmapBelt);
+            Canvas canvasBelt = new Canvas(bitmapBelt);
             canvasBelt.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasBelt.drawColor(0xffffffff);
 
@@ -354,7 +478,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         } else if (orderItems.get(currentID).imgs.size() == 4) {
             //腰带
             Bitmap bitmapBelt = Bitmap.createBitmap(8572, 521, Bitmap.Config.ARGB_8888);
-            Canvas canvasBelt= new Canvas(bitmapBelt);
+            Canvas canvasBelt = new Canvas(bitmapBelt);
             canvasBelt.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasBelt.drawColor(0xffffffff);
 
@@ -499,7 +623,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 120);
+            BitmapToJpg.save(bitmapCombine, fileSave, 119);
             bitmapCombine.recycle();
 
             //写入excel

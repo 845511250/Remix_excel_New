@@ -32,7 +32,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/dq31_main" />
+                android:src="@drawable/dv_main_adam" />
         </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -96,7 +96,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/dq31_main"/>
+                android:src="@drawable/dv_main_adam"/>
         </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"

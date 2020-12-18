@@ -124,7 +124,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                            intPlus += 1;
+                            intPlus += orderItems.get(i).num;;
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -157,7 +157,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasLeftSide.save();
         canvasLeftSide.rotate(-165.9f, 1400, 105);
         canvasLeftSide.drawRect(1400, 105 - 50, 1800, 105, rectPaint);
-        canvasLeftSide.drawText(" 左 " + orderItems.get(currentID).newCode, 1400, 105 - 3, paintRed);
+        canvasLeftSide.drawText(LR + " " + orderItems.get(currentID).newCode, 1400, 105 - 3, paintRed);
         canvasLeftSide.restore();
         canvasLeftSide.save();
         canvasLeftSide.rotate(167.2f, 740, 17);
@@ -208,7 +208,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        if (orderItems.get(currentID).imgs.size() <= 2 && MainActivity.instance.bitmaps.get(0).getWidth() < 1998) {
+        if (orderItems.get(currentID).imgs.size() <= 2 && MainActivity.instance.bitmaps.get(0).getWidth() < 1998) {//4u2
             if (orderItems.get(currentID).imgs.size() == 1) {
                 Matrix matrix = new Matrix();
                 matrix.postScale(-1, 1);
@@ -295,7 +295,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapSide2.recycle();
             bitmapTemp.recycle();
             bitmapDB.recycle();
-        } else if (orderItems.get(currentID).imgs.size() == 2 && MainActivity.instance.bitmaps.get(0).getWidth() == 1998) {
+        } else if (orderItems.get(currentID).imgs.size() == 2 && MainActivity.instance.bitmaps.get(0).getWidth() == 1998) {//adam
             Bitmap bitmapDB_main = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dj_adam_main);
             Bitmap bitmapDB_side = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dj_adam_side);
 

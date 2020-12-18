@@ -9,6 +9,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -135,7 +136,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     intPlus = orderItems.get(currentID).num - num + 1;
                         for(int i=0;i<currentID;i++) {
                             if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                                intPlus += 1;
+                                intPlus += orderItems.get(i).num;;
                             }
                         }
                         strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -169,6 +170,16 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawColor(0xffffffff);
         Matrix matrixCombine = new Matrix();
         if (orderItems.get(currentID).imgs.size() == 1) {
+            if (MainActivity.instance.bitmaps.get(0).getWidth() == 4224) {//adam
+                MainActivity.instance.bitmaps.set(0, createScaledBitmap(MainActivity.instance.bitmaps.get(0), 4384, 4686, true));
+                MainActivity.instance.bitmaps.set(0, createBitmap(MainActivity.instance.bitmaps.get(0), 146, 86, 4100, 4500));
+            } else if (MainActivity.instance.bitmaps.get(0).getWidth() == 4737) {//jj
+                MainActivity.instance.bitmaps.set(0, createBitmap(MainActivity.instance.bitmaps.get(0), 316, 115, 4100, 4500));
+            } else if (MainActivity.instance.bitmaps.get(0).getWidth() == 4373) {//jj
+                MainActivity.instance.bitmaps.set(0, createScaledBitmap(MainActivity.instance.bitmaps.get(0), 4737, 4737, true));
+                MainActivity.instance.bitmaps.set(0, createBitmap(MainActivity.instance.bitmaps.get(0), 316, 115, 4100, 4500));
+            }
+
             //part1
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dx_part1);
             Bitmap bitmapTemp = createBitmap(MainActivity.instance.bitmaps.get(0), 319, 0, 3440, 845);
@@ -385,11 +396,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            bitmapDB.recycle();
             drawText(canvasTemp, 1537, 28);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_part8, height_part8, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            bitmapDB.recycle();
             bitmapTemp.recycle();
+            if (num == 1) {
+                MainActivity.recycleExcelImages();
+            }
         }
 
         try {
@@ -397,11 +412,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             String nameCombine = noNewCode + orderItems.get(currentID).newCode + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
 
             String pathSave;
-            if(MainActivity.instance.cb_classify.isChecked()){
+            if (MainActivity.instance.cb_classify.isChecked()) {
                 pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
             } else
                 pathSave = sdCardPath + "/生产图/" + childPath + "/";
-            if(!new File(pathSave).exists())
+            if (!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 150);
@@ -412,7 +427,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";
             File fileWrite = new File(writePath);
-            if(!fileWrite.exists()){
+            if (!fileWrite.exists()) {
                 WritableWorkbook book = Workbook.createWorkbook(fileWrite);
                 WritableSheet sheet = book.createSheet("sheet1", 0);
                 Label label0 = new Label(0, 0, "货号");
@@ -434,26 +449,27 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             }
 
             Workbook book = Workbook.getWorkbook(fileWrite);
-            WritableWorkbook workbook = Workbook.createWorkbook(fileWrite,book);
+            WritableWorkbook workbook = Workbook.createWorkbook(fileWrite, book);
             WritableSheet sheet = workbook.getSheet(0);
-            Label label0 = new Label(0, currentID+1, orderItems.get(currentID).order_number+orderItems.get(currentID).sku);
+            Label label0 = new Label(0, currentID + 1, orderItems.get(currentID).order_number + orderItems.get(currentID).sku);
             sheet.addCell(label0);
-            Label label1 = new Label(1, currentID+1, orderItems.get(currentID).sku);
+            Label label1 = new Label(1, currentID + 1, orderItems.get(currentID).sku);
             sheet.addCell(label1);
-            int num=orderItems.get(currentID).num;
-            Number number2 = new Number(2, currentID+1, num);
+            int num = orderItems.get(currentID).num;
+            Number number2 = new Number(2, currentID + 1, num);
             sheet.addCell(number2);
-            Label label3 = new Label(3, currentID+1, orderItems.get(currentID).customer);
+            Label label3 = new Label(3, currentID + 1, orderItems.get(currentID).customer);
             sheet.addCell(label3);
             Label label4 = new Label(4, currentID + 1, MainActivity.instance.orderDate_Excel);
             sheet.addCell(label4);
-            Label label6 = new Label(6, currentID+1, "平台大货");
+            Label label6 = new Label(6, currentID + 1, "平台大货");
             sheet.addCell(label6);
 
             workbook.write();
             workbook.close();
 
-        }catch (Exception e){
+        } catch (Exception e) {
+            Log.e("aaa", e.getMessage());
         }
         if (num == 1) {
             MainActivity.recycleExcelImages();
@@ -475,11 +491,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void setSize(String size) {
-        if (orderItems.get(currentID).imgs.size() == 1 & MainActivity.instance.bitmaps.get(0).getHeight() != 4500) {
-            showDialogImageWrong(orderItems.get(currentID).order_number);
-            sizeOK = false;
-            return;
-        }
         switch (size) {
             case "S":
                 width_part1 = 2716;

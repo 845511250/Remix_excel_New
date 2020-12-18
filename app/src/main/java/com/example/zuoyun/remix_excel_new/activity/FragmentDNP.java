@@ -96,7 +96,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                            intPlus += 1;
+                            intPlus += orderItems.get(i).num;;
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -131,6 +131,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         try {
             Bitmap bitmapremix;
             Canvas canvasremix;
+            if (orderItems.get(currentID).sku.equals("DN") && orderItems.get(currentID).sizeStr.equals("M")) {
+                orderItems.get(currentID).sku = "DP";
+            }
+
             if(orderItems.get(currentID).sku.equals("DN")){
                 bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.border_dn);
                 if (orderItems.get(currentID).imgs.size() == 1) {
@@ -209,6 +213,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             }
             String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku : "";
             String nameCombine = noNewCode + orderItems.get(currentID).newCode + orderItems.get(currentID).order_number + strPlus + ".jpg";
+
+            if (orderItems.get(currentID).platform.equals("zy")) {
+                nameCombine = orderItems.get(currentID).sku + "(" + MainActivity.instance.orderDate_short + "-" + (currentID + 1) + ")_" + orderItems.get(currentID).order_number + strPlus + "_共" + orderItems.get(currentID).newCode + "个" + ".jpg";
+            }
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

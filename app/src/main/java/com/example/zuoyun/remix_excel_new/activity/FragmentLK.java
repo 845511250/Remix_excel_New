@@ -158,7 +158,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvas.save();
         canvas.rotate(90, 15, 297);
         canvas.drawRect(15, 297 - 44, 15 + 900, 297, rectPaint);
-        canvas.drawText(orderItems.get(currentID).order_number + "(3-" + number + ")     " + time + " 第" + groupID() + "组第" + (idInGroup() + number - 1) + "图", 15, 297 - 6, paint);
+        canvas.drawText(orderItems.get(currentID).order_number + "(3-" + number + ")   " + time + "   " + orderItems.get(currentID).newCode, 15, 297 - 6, paint);
         canvas.restore();
 
     }
@@ -166,7 +166,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     public void remixx(){
         int width = 6260;
         int height = 6200;
-//        int height = 6142;
+//        int height_side = 6142;
 
         Bitmap bitmapCombine = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
@@ -190,10 +190,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawRect(1, 1, width - 1, height - 1, rectBorderPaint);
         drawText(canvasCombine, 1);
 
-        String nameCombine = orderItems.get(currentID).sku + groupID() + "-" + idInGroup() + "_" + "订单号" + orderItems.get(currentID).order_number + "(3-1)" + strPlus + ".jpg";
+        String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode_short + "_" + "订单号" + orderItems.get(currentID).order_number + "(3-1)" + strPlus + ".jpg";
         String pathSave;
         if(MainActivity.instance.cb_classify.isChecked()){
-            pathSave = sdCardPath + "/生产图/" + childPath + "/" + groupName() + "/";
+            pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
         } else
             pathSave = sdCardPath + "/生产图/" + childPath + "/";
         if(!new File(pathSave).exists()) {
@@ -223,9 +223,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawRect(1, 1, width - 1, height - 1, rectBorderPaint);
         drawText(canvasCombine, 2);
 
-        nameCombine = orderItems.get(currentID).sku + groupID() + "-" + (idInGroup() + 1) + "_" + "订单号" + orderItems.get(currentID).order_number + "(3-2)" + strPlus + ".jpg";
+        nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode_short + "_" + "订单号" + orderItems.get(currentID).order_number + "(3-2)" + strPlus + ".jpg";
         if(MainActivity.instance.cb_classify.isChecked()){
-            pathSave = sdCardPath + "/生产图/" + childPath + "/" + groupName() + "/";
+            pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
         } else
             pathSave = sdCardPath + "/生产图/" + childPath + "/";
         if(!new File(pathSave).exists()) {
@@ -255,9 +255,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawRect(1, 1, width - 1, height - 1, rectBorderPaint);
         drawText(canvasCombine, 3);
 
-        nameCombine = orderItems.get(currentID).sku + groupID() + "-" + (idInGroup() + 2) + "_" + "订单号" + orderItems.get(currentID).order_number + "(3-3)" + strPlus + ".jpg";
+        nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode_short + "_" + "订单号" + orderItems.get(currentID).order_number + "(3-3)" + strPlus + ".jpg";
         if(MainActivity.instance.cb_classify.isChecked()){
-            pathSave = sdCardPath + "/生产图/" + childPath + "/" + groupName() + "/";
+            pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
         } else
             pathSave = sdCardPath + "/生产图/" + childPath + "/";
         if(!new File(pathSave).exists()) {
@@ -268,52 +268,49 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         bitmapCombine.recycle();
 
 
-        if (MainActivity.instance.cb_classify.isChecked()) {
-            //write id to txt
-            String writePath = sdCardPath + "/生产图/" + childPath + "/" + groupName() + ".txt";
-            writeTxtAppend(new File(writePath), orderItems.get(currentID).order_id);
-        } else {
-            try {
-                //写入excel
-                String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";
-                File fileWrite = new File(writePath);
-                if(!fileWrite.exists()){
-                    WritableWorkbook book = Workbook.createWorkbook(fileWrite);
-                    WritableSheet sheet = book.createSheet("sheet1", 0);
-                    Label label0 = new Label(0, 0, "货号");
-                    sheet.addCell(label0);
-                    Label label1 = new Label(1, 0, "结构");
-                    sheet.addCell(label1);
-                    Label label2 = new Label(2, 0, "数量");
-                    sheet.addCell(label2);
-                    Label label3 = new Label(3, 0, "业务员");
-                    sheet.addCell(label3);
-                    Label label4 = new Label(4, 0, "销售日期");
-                    sheet.addCell(label4);
-                    Label label5 = new Label(5, 0, "备注");
-                    sheet.addCell(label5);
-                    Label label6 = new Label(6, 0, "部门");
-                    sheet.addCell(label6);
-                    book.write();
-                    book.close();
-                }
-
-                Workbook book = Workbook.getWorkbook(fileWrite);
-                WritableWorkbook workbook = Workbook.createWorkbook(fileWrite,book);
-                WritableSheet sheet = workbook.getSheet(0);
-                Label label0 = new Label(0, currentID+1, orderItems.get(currentID).order_number);
+        try {
+            //写入excel
+            String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";
+            File fileWrite = new File(writePath);
+            if(!fileWrite.exists()){
+                WritableWorkbook book = Workbook.createWorkbook(fileWrite);
+                WritableSheet sheet = book.createSheet("sheet1", 0);
+                Label label0 = new Label(0, 0, "货号");
                 sheet.addCell(label0);
-                Label label1 = new Label(1, currentID+1, orderItems.get(currentID).sku);
+                Label label1 = new Label(1, 0, "结构");
                 sheet.addCell(label1);
-                int num=orderItems.get(currentID).num;
-                Number number2 = new Number(2, currentID+1, num);
-                sheet.addCell(number2);
-
-                workbook.write();
-                workbook.close();
-
-            }catch (Exception e){
+                Label label2 = new Label(2, 0, "数量");
+                sheet.addCell(label2);
+                Label label3 = new Label(3, 0, "业务员");
+                sheet.addCell(label3);
+                Label label4 = new Label(4, 0, "销售日期");
+                sheet.addCell(label4);
+                Label label5 = new Label(5, 0, "备注");
+                sheet.addCell(label5);
+                Label label6 = new Label(6, 0, "部门");
+                sheet.addCell(label6);
+                book.write();
+                book.close();
             }
+
+            Workbook book = Workbook.getWorkbook(fileWrite);
+            WritableWorkbook workbook = Workbook.createWorkbook(fileWrite,book);
+            WritableSheet sheet = workbook.getSheet(0);
+            Label label0 = new Label(0, currentID+1, orderItems.get(currentID).order_number);
+            sheet.addCell(label0);
+            Label label1 = new Label(1, currentID+1, orderItems.get(currentID).sku);
+            sheet.addCell(label1);
+            int num=orderItems.get(currentID).num;
+            Number number2 = new Number(2, currentID+1, num);
+            sheet.addCell(number2);
+            Label label4 = new Label(4, currentID + 1, MainActivity.instance.orderDate_Excel);
+            sheet.addCell(label4);
+
+            workbook.write();
+            workbook.close();
+
+        }catch (Exception e){
+
         }
 
 

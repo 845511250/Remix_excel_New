@@ -143,7 +143,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     intPlus = orderItems.get(currentID).num - num + 1;
                         for(int i=0;i<currentID;i++) {
                             if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                                intPlus += 1;
+                                intPlus += orderItems.get(i).num;;
                             }
                         }
                         strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -163,7 +163,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     public void remixx(){
         Bitmap bitmapCombine = null;
         if (orderItems.get(currentID).sizeStr.equals("S")) {
-            bitmapCombine = Bitmap.createBitmap(7235, 5436+60, Bitmap.Config.ARGB_8888);
+            bitmapCombine = Bitmap.createBitmap(7235, 5436, Bitmap.Config.ARGB_8888);
             Canvas canvasCombine= new Canvas(bitmapCombine);
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasCombine.drawColor(0xffffffff);
@@ -184,8 +184,30 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             Matrix matrix=new Matrix();
             matrix.postRotate(180, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
             bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
+        } else if (orderItems.get(currentID).sizeStr.equals("M")) {
+            bitmapCombine = Bitmap.createBitmap(7235, 6378, Bitmap.Config.ARGB_8888);
+            Canvas canvasCombine= new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasCombine.drawColor(0xffffffff);
+
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fy_s);
+
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 86, 54, 7126, 5492);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawText(canvasTemp);
+            bitmapDB.recycle();
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 7235, 6378, true);
+
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+            bitmapTemp.recycle();
+
+            Matrix matrix=new Matrix();
+            matrix.postRotate(180, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
+            bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
         } else if (orderItems.get(currentID).sizeStr.equals("L")) {
-            bitmapCombine = Bitmap.createBitmap(7191, 5492 + 60, Bitmap.Config.ARGB_8888);
+            bitmapCombine = Bitmap.createBitmap(7191, 5492, Bitmap.Config.ARGB_8888);
             Canvas canvasCombine= new Canvas(bitmapCombine);
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasCombine.drawColor(0xffffffff);

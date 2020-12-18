@@ -143,7 +143,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                            intPlus += 1;
+                            intPlus += orderItems.get(i).num;;
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -195,7 +195,122 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        if (orderItems.get(currentID).imgs.size() == 1) {
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight() && MainActivity.instance.bitmaps.get(0).getWidth() == 11712) {
+            //frontR
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 459, 3707, 2095, 6640);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gb_front_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextFrontR(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 6151, null);
+
+            //frontL
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2552, 3707, 2095, 6640);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gb_front_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextFrontL(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 2181, 6151, null);
+
+            //armL
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 8768, 1582, 2491, 2939);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gb_arm_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextArmL(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 12964, null);
+
+            //armR
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 8768, 5391, 2491, 2939);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gb_arm_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextArmR(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 16181, null);
+
+            //collarL
+            Matrix matrix = new Matrix();
+            matrix.postRotate(-90);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 621, 3001, 6532, 942, matrix, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gb_collar_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2596, 12964, null);
+
+            //collarR
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 621, 1950, 6532, 942, matrix, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gb_collar_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+
+            matrix = new Matrix();
+            matrix.postRotate(180);
+            matrix.postTranslate(942 + 3315, 6532 + 14263);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //back
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4873, 4375, 3502, 5979);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gb_back);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBack(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            //belt
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 450, 1351, 8075, 525);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gb_belt);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+
+            matrix = new Matrix();
+            matrix.postRotate(90);
+            matrix.postTranslate(height_belt + 3806, 0);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //pocketL
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 10057, 9200, 1045, 1154);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gb_pocket);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextPocketL(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 19496, null);
+
+            //pocketR
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 8880, 9200, 1044, 1154);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gb_pocket);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextPocketR(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 1246, 19496, null);
+
+            //loopL
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4520, 6588, 205, 526);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gb_loop);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2596, 19789, null);
+
+            //loopR
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 405, 6593, 205, 525);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gb_loop);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2965, 19789, null);
+
+            //loopTop
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2245, 3657, 612, 205);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gb_loop_top);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapDB.recycle();
+            canvasCombine.drawBitmap(bitmapTemp, 2596, 20513, null);
+            bitmapTemp.recycle();
+
+            if (num == 1) {
+                MainActivity.recycleExcelImages();
+            }
+
+        } else if (orderItems.get(currentID).imgs.size() == 1) {
             //frontR
             Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2234, 16, 2095, 6640);
             Canvas canvasTemp = new Canvas(bitmapTemp);
@@ -286,7 +401,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gb_loop);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            canvasCombine.drawBitmap(bitmapTemp,  2596, 19789, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2596, 19789, null);
 
             //loopR
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2406, 2923, 205, 525);
@@ -303,7 +418,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapDB.recycle();
             canvasCombine.drawBitmap(bitmapTemp, 2596, 20513, null);
             bitmapTemp.recycle();
-        }else if (orderItems.get(currentID).imgs.size() == 4) {
+        } else if (orderItems.get(currentID).imgs.size() == 4) {
             //frontR
             Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 16, 2095, 6640);
             Canvas canvasTemp = new Canvas(bitmapTemp);
@@ -364,7 +479,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             //belt
             Bitmap bitmapBelt = Bitmap.createBitmap(8075, 525, Bitmap.Config.ARGB_8888);
-            Canvas canvasBelt= new Canvas(bitmapBelt);
+            Canvas canvasBelt = new Canvas(bitmapBelt);
             canvasBelt.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasBelt.drawColor(0xffffffff);
 
@@ -402,7 +517,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gb_loop);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            canvasCombine.drawBitmap(bitmapTemp,  2596, 19789, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2596, 19789, null);
 
             //loopR
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 172, 2923, 205, 525);
@@ -437,7 +552,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 110);
+            BitmapToJpg.save(bitmapCombine, fileSave, 109);
             bitmapCombine.recycle();
 
             //写入excel

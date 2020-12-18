@@ -133,7 +133,7 @@ public class FragmentFD extends BaseFragment {
                     intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                            intPlus += 1;
+                            intPlus += orderItems.get(i).num;;
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -169,7 +169,7 @@ public class FragmentFD extends BaseFragment {
         canvas.restore();
 
 //        canvas.drawRect(270, 630, 640, 660, rectPaint);
-//        canvas.drawText(orderItems.get(currentID).newCode + "      验片码" + orderItems.get(currentID).platform, 270, 657, paintRed);
+//        canvas.drawText(orderItems.get(currentID).newCode + "      验片码" + orderItems.get(currentID).platform, 270, 657, paintSmall);
     }
 
     void drawTextTongue(Canvas canvas, String LR) {
@@ -177,7 +177,7 @@ public class FragmentFD extends BaseFragment {
         canvas.drawText(orderItems.get(currentID).size + "码 " + LR + "  " + orderItems.get(currentID).order_number, 282, 1133, paint);
 
 //        canvas.drawRect(645, 630, 1020, 660, rectPaint);
-//        canvas.drawText(orderItems.get(currentID).newCode + "      验片码" + orderItems.get(currentID).platform, 645, 657, paintRed);
+//        canvas.drawText(orderItems.get(currentID).newCode + "      验片码" + orderItems.get(currentID).platform, 645, 657, paintSmall);
     }
     public void remixx(){
         setSize(orderItems.get(currentID).size);

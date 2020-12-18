@@ -34,11 +34,12 @@ import android.widget.ToggleButton;
 import com.example.zuoyun.remix_excel_new.R;
 import com.example.zuoyun.remix_excel_new.adapter.ListviewOrdersAdapter;
 import com.example.zuoyun.remix_excel_new.bean.Config;
+import com.example.zuoyun.remix_excel_new.bean.HLPics;
 import com.example.zuoyun.remix_excel_new.bean.Order;
 import com.example.zuoyun.remix_excel_new.bean.OrderItem;
 import com.example.zuoyun.remix_excel_new.bean.RemakeItem;
+import com.example.zuoyun.remix_excel_new.net.UpdateUtil;
 import com.example.zuoyun.remix_excel_new.tools.CircularProgress;
-import com.example.zuoyun.remix_excel_new.update.UpdateUtil;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.RequestMethod;
 import com.yolanda.nohttp.rest.OnResponseListener;
@@ -59,6 +60,7 @@ import java.io.InputStreamReader;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -115,9 +117,12 @@ public class MainActivity extends FragmentActivity {
     //AlertDialog dialog;
     AlertDialog mydialog;
     int onePicWidth, onePicHeight;
+    long startTime;
 
     DataFormatter dataFormatter = new DataFormatter();
     RequestQueue requestQueue = NoHttp.newRequestQueue();
+
+    public HLPics hlPics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +139,7 @@ public class MainActivity extends FragmentActivity {
         initviews();
         tv_version.setText("版本号：" + getVersionCode());
         new UpdateUtil(context).checkUpdate();
+//        new HLUtil(context).get();
     }
 
     void initviews(){
@@ -329,6 +335,18 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("B " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentB());
                 break;
+            case "B1":
+                tv_title.setText("B1 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentB1());
+                break;
+            case "B2":
+                tv_title.setText("B2 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentB2());
+                break;
+            case "B3":
+                tv_title.setText("B3 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentB3());
+                break;
             case "BB":
                 tv_title.setText("BB " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentBB());
@@ -409,13 +427,65 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("CT " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentCT());
                 break;
+            case "CYW-GU":
+                tv_title.setText("CT " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentGUM());
+                break;
             case "D":
                 tv_title.setText("D " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentD());
                 break;
+            case "D3":
+                tv_title.setText("D3 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentD3());
+                break;
             case "D8":
                 tv_title.setText("D8 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentKVKY());
+                break;
+            case "D14":
+                tv_title.setText("D14 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentD14());
+                break;
+            case "D17":
+                tv_title.setText("D17 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentME());
+                break;
+            case "D40":
+                tv_title.setText("D40女长袖长裙 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentD40());
+                break;
+            case "D48":
+                tv_title.setText("D48女长袖披风长裤套装 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentD48());
+                break;
+            case "D63":
+                tv_title.setText("D63 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentD63());
+                break;
+            case "D69":
+                tv_title.setText("D69 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentD69());
+                break;
+            case "D70":
+                tv_title.setText("D70 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentD70());
+                break;
+            case "D71":
+                tv_title.setText("D71 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentD70());
+                break;
+            case "SF_D71":
+                tv_title.setText("D71 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentD70());
+                break;
+            case "D82":
+                tv_title.setText("D82 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentD82());
+                break;
+            case "D83":
+                tv_title.setText("D83 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentD83());
                 break;
             case "DB":
                 tv_title.setText("手机壳DB " + orderItems.get(currentID).order_number);
@@ -517,6 +587,14 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("F2 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentF2());
                 break;
+            case "F3":
+                tv_title.setText("F3 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentF3());
+                break;
+            case "F9":
+                tv_title.setText("F9 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentF9());
+                break;
             case "FA":
                 tv_title.setText("被套 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentFA());
@@ -533,6 +611,54 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("被套 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentFA());
                 break;
+            case "FA1":
+                tv_title.setText("被罩 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFA());
+                break;
+            case "FA2":
+                tv_title.setText("被罩 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFA());
+                break;
+            case "FA3":
+                tv_title.setText("被罩 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFA());
+                break;
+            case "FA4":
+                tv_title.setText("被罩 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFA());
+                break;
+            case "FA5":
+                tv_title.setText("被罩 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFA());
+                break;
+            case "FA6":
+                tv_title.setText("被罩 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFA());
+                break;
+            case "FA7":
+                tv_title.setText("被罩 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFA());
+                break;
+            case "FA8":
+                tv_title.setText("被罩 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFA());
+                break;
+            case "FA9":
+                tv_title.setText("被罩 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFA());
+                break;
+            case "FA10":
+                tv_title.setText("被罩 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFA());
+                break;
+            case "FA11":
+                tv_title.setText("被罩 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFA());
+                break;
+            case "FA12":
+                tv_title.setText("被罩 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFA());
+                break;
             case "FB":
                 tv_title.setText("高跟鞋 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentFB());
@@ -544,6 +670,10 @@ public class MainActivity extends FragmentActivity {
             case "FE":
                 tv_title.setText("灯鞋低帮 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentFE());
+                break;
+            case "FF":
+                tv_title.setText("FF雪地靴 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFF());
                 break;
             case "FH":
                 tv_title.setText("FH " + orderItems.get(currentID).order_number);
@@ -685,6 +815,14 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("男卫衣 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGQM());
                 break;
+            case "CYW-GQ":
+                tv_title.setText("男卫衣 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentGQM());
+                break;
+            case "CYW-GQM":
+                tv_title.setText("男卫衣 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentGQM());
+                break;
             case "GQW":
                 tv_title.setText("女卫衣 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGQW());
@@ -705,6 +843,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("丝巾 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGT());
                 break;
+            case "GU":
+                tv_title.setText("GU夹克 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentGUM());
+                break;
             case "GUM":
                 tv_title.setText("GU夹克 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentGUM());
@@ -715,11 +857,11 @@ public class MainActivity extends FragmentActivity {
                 break;
             case "GV":
                 tv_title.setText("polo衫 " + orderItems.get(currentID).order_number);
-                transaction.replace(R.id.frame_main, new FragmentGV());
+                transaction.replace(R.id.frame_main, new FragmentGVM());
                 break;
             case "GVM":
                 tv_title.setText("polo衫 " + orderItems.get(currentID).order_number);
-                transaction.replace(R.id.frame_main, new FragmentGV());
+                transaction.replace(R.id.frame_main, new FragmentGVM());
                 break;
             case "GVW":
                 tv_title.setText("polo衫 " + orderItems.get(currentID).order_number);
@@ -781,6 +923,42 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("HK飞织鞋 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentHK());
                 break;
+            case "HL1":
+                tv_title.setText("空调毯 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentHL());
+                break;
+            case "HL2":
+                tv_title.setText("空调毯 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentHL());
+                break;
+            case "HL3":
+                tv_title.setText("空调毯 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentHL());
+                break;
+            case "HL4":
+                tv_title.setText("空调毯 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentHL());
+                break;
+            case "HL5":
+                tv_title.setText("空调毯 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentHL());
+                break;
+            case "HLL":
+                tv_title.setText("空调毯带枕套 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentHLL());
+                break;
+            case "HLL3":
+                tv_title.setText("空调毯带枕套 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentHLL());
+                break;
+            case "HLL4":
+                tv_title.setText("空调毯带枕套 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentHLL());
+                break;
+            case "HLL5":
+                tv_title.setText("空调毯带枕套 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentHLL());
+                break;
             case "HT1":
                 tv_title.setText("HT1方形吊牌 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentHT());
@@ -792,6 +970,10 @@ public class MainActivity extends FragmentActivity {
             case "HT3":
                 tv_title.setText("HT3长条吊牌 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentHT());
+                break;
+            case "HT4":
+                firstOK = false;
+                setnext();
                 break;
             case "HV":
                 tv_title.setText("HV " + orderItems.get(currentID).order_number);
@@ -857,9 +1039,17 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("K笔袋 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentKA());
                 break;
+            case "KC":
+                tv_title.setText("瑜伽短裤 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentKC());
+                break;
             case "KD":
                 tv_title.setText("加绒匡威 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentKD());
+                break;
+            case "KE":
+                tv_title.setText("KE健身背心 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentKE());
                 break;
             case "KF":
                 tv_title.setText("KF镂空健身背心 " + orderItems.get(currentID).order_number);
@@ -929,6 +1119,18 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("LA " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentLA());
                 break;
+            case "LB":
+                tv_title.setText("LB " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLB());
+                break;
+            case "LB6":
+                tv_title.setText("LB " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLB());
+                break;
+            case "LB13":
+                tv_title.setText("LB " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLB());
+                break;
             case "LC":
                 tv_title.setText("LC " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentLC());
@@ -953,6 +1155,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("LEE " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentLN());
                 break;
+            case "LG":
+                tv_title.setText("LG " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLG());
+                break;
             case "LH":
                 tv_title.setText("LH " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentLH());
@@ -960,6 +1166,14 @@ public class MainActivity extends FragmentActivity {
             case "LI":
                 tv_title.setText("LI " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentLI());
+                break;
+            case "LMS":
+                tv_title.setText("LM " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLM());
+                break;
+            case "LML":
+                tv_title.setText("LM " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLM());
                 break;
             case "LN":
                 tv_title.setText("LN " + orderItems.get(currentID).order_number);
@@ -977,9 +1191,53 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("LOW女夏威夷衬衫 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentLO());
                 break;
+            case "LQ":
+                tv_title.setText("LQ女一脚蹬 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLQ());
+                break;
+            case "LR":
+                tv_title.setText("LR马丁靴 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLR());
+                break;
             case "LS":
                 tv_title.setText("LS黑底跑鞋 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentZ41());
+                break;
+            case "LT":
+                tv_title.setText("LT新T恤 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLT());
+                break;
+            case "LU":
+                tv_title.setText("LU鞋盒 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLU());
+                break;
+            case "LU3":
+                tv_title.setText("LU3鞋盒 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLU());
+                break;
+            case "LU4":
+                tv_title.setText("LU4鞋盒 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLU());
+                break;
+            case "LV":
+                tv_title.setText("LV大鼠标垫 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLV());
+                break;
+            case "LW":
+                tv_title.setText("LW " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLW());
+                break;
+            case "LX":
+                tv_title.setText("LX乔13 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLX());
+                break;
+            case "MA":
+                tv_title.setText("MA " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentMA());
+                break;
+            case "ME":
+                tv_title.setText("ME " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentME());
                 break;
             case "N":
                 tv_title.setText("N " + orderItems.get(currentID).order_number);
@@ -1053,6 +1311,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("Z21 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentZ21());
                 break;
+            case "Z22":
+                tv_title.setText("Z22 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentZ22());
+                break;
             case "Z24":
                 tv_title.setText("Z24 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentZ24());
@@ -1084,10 +1346,6 @@ public class MainActivity extends FragmentActivity {
             case "CYWZ30":
                 tv_title.setText("Z26 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentZ30());
-                break;
-            case "Z22":
-                tv_title.setText("Z22 " + orderItems.get(currentID).order_number);
-                transaction.replace(R.id.frame_main, new FragmentZ22());
                 break;
             case "Z32":
                 tv_title.setText("Z32 " + orderItems.get(currentID).order_number);
@@ -1147,7 +1405,7 @@ public class MainActivity extends FragmentActivity {
                 break;
             default:
                 firstOK = false;
-                showDialogTip("错误！", "订单号 " + orderItems.get(currentID).order_number + " 商品暂未添加，跳过此单号并继续？");
+                showDialogTip("错误！", "订单号 " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).sku + "暂未添加，跳过此单号并继续？");
                 break;
         }
 
@@ -1174,6 +1432,8 @@ public class MainActivity extends FragmentActivity {
                     });
 
                     bitmaps.clear();
+                    startTime=new Date().getTime();
+                    Log.e("aaa", "开始--" + startTime);
                     for (String imgName : orderItems.get(currentID).imgs) {
                         Log.e("aaa", imgName);
                         bitmaps.add(BitmapFactory.decodeFile(sdCardPath + "/pictures/" + imgName));
@@ -1366,15 +1626,59 @@ public class MainActivity extends FragmentActivity {
                     orderItem.order_number = getContent(row, 0);
                     orderItem.num = Integer.parseInt(getContent(row, 2));
                     orderItem.newCode = getContent(row, 3);
-                    if (orderItem.newCode.length() > 10 && orderItem.newCode.contains("-")) {
-                        orderItem.newCode_short = orderItem.newCode.substring(0, 1) + "-" + orderItem.newCode.substring(orderItem.newCode.lastIndexOf("-") - 1);
-                    }
                     orderItem.platform = getContent(row, 4);
+
+                    String SKU = getContent(row, 1);
+                    orderItem.skuStr = SKU;
+                    orderItem.sku = SKU;
+
                     if (orderItem.platform.equals("rework")) {
                         orderItem.platform = "4u2";
                     } else if (orderItem.platform.equals("zy")) {
                         orderItem.newCode = orderItem.num + "";
                         orderItem.num = 1;
+                    } else if (orderItem.platform.endsWith("jj")) {
+                        orderItem.order_number = "本厂" + orderItem.order_number;
+                    }
+
+                    orderItem.colorStr = getContent(row, 7);
+                    orderItem.color = orderItem.colorStr;
+                    orderItem.order_id = getContent(row, 10);
+                    orderItem.barcode_str = getContent(row, 11);
+
+                    if (orderItem.color.toLowerCase().contains("black"))
+                        orderItem.color = "黑";
+                    else if (orderItem.color.toLowerCase().contains("white"))
+                        orderItem.color = "白";
+                    else if (orderItem.color.equalsIgnoreCase("Trans"))
+                        orderItem.color = "透";
+                    else if (orderItem.color.equalsIgnoreCase("Brown"))
+                        orderItem.color = "棕色";
+                    else if (orderItem.color.equalsIgnoreCase("Beige"))
+                        orderItem.color = "米色";
+                    else if (orderItem.color.equalsIgnoreCase(""))
+                        orderItem.color = "白";
+
+                    //newCode_short
+                    if (orderItem.newCode.length() > 8 && orderItem.newCode.contains("-")) {
+                        String str_sub = orderItem.newCode.substring(0, orderItem.newCode.lastIndexOf("-"));
+                        orderItem.newCode_short = orderItem.newCode.substring(0, 1) + str_sub.substring(str_sub.lastIndexOf("-")) + orderItem.newCode.substring(orderItem.newCode.lastIndexOf("-"));
+                    } else {
+                        orderItem.newCode_short = orderItem.newCode;
+                    }
+
+                    if (orderItem.newCode.length() > 8 && orderItem.sku.startsWith("HL")) {
+                        if (orderItem.platform.endsWith("-jj")) {
+                            orderItem.newCode_short = orderItem.newCode.substring(0, 1) + orderItem.color + orderItem.newCode.substring(orderItem.newCode.lastIndexOf("-"));
+                        } else {
+                            String str_sub = orderItem.newCode.substring(0, orderItem.newCode.lastIndexOf("-"));
+                            orderItem.newCode_short = orderItem.newCode.substring(0, 1) + orderItem.color + str_sub.substring(str_sub.lastIndexOf("-")) + orderItem.newCode.substring(orderItem.newCode.lastIndexOf("-"));
+                        }
+
+                    }
+                    String order_number_copy = orderItem.order_number.toLowerCase();
+                    if (order_number_copy.contains("blackline")) {
+                        orderItem.order_number = order_number_copy.replace("blackline", "黑缝线");
                     }
 
                     orderItem.customer = "";
@@ -1387,21 +1691,6 @@ public class MainActivity extends FragmentActivity {
                     else if (path.contains("zhengding-vietnam"))
                         orderItem.customer = "zhengding-vietnam";
 
-                    orderItem.colorStr = getContent(row, 7);
-                    orderItem.color = orderItem.colorStr;
-                    orderItem.order_id = getContent(row, 10);
-                    if (orderItem.color.equalsIgnoreCase("Black"))
-                        orderItem.color = "黑";
-                    else if (orderItem.color.equalsIgnoreCase("Trans"))
-                        orderItem.color = "透";
-                    else if (orderItem.color.equalsIgnoreCase("White"))
-                        orderItem.color = "白";
-                    else if (orderItem.color.equalsIgnoreCase("Brown"))
-                        orderItem.color = "棕色";
-                    else if (orderItem.color.equalsIgnoreCase("Beige"))
-                        orderItem.color = "米色";
-                    else if (orderItem.color.equalsIgnoreCase(""))
-                        orderItem.color = "白";
 
                     String sizestr = getContent(row, 8);
                     orderItem.sizeStr = sizestr;
@@ -1426,12 +1715,124 @@ public class MainActivity extends FragmentActivity {
 
                     }
 
-                    //sku
-                    String SKU = getContent(row, 1);
-                    orderItem.skuStr = SKU;
-                    orderItem.sku = SKU;
                     if (SKU.equals("ABMEN") || SKU.equals("MENFLIPFLOP") || SKU.equals("ABWOMEN") || SKU.equals("WOMENFLIPFLOP"))
                         orderItem.sku = "AB";
+                    else if (SKU.equalsIgnoreCase("D4"))
+                        orderItem.sku = "LMS";
+                    else if (SKU.equalsIgnoreCase("D5"))
+                        orderItem.sku = "LML";
+                    else if (SKU.equalsIgnoreCase("D6"))
+                        orderItem.sku = "LN";
+                    else if (SKU.equalsIgnoreCase("D15"))
+                        orderItem.sku = "LG";
+                    else if (SKU.equalsIgnoreCase("D16"))
+                        orderItem.sku = "LH";
+                    else if (SKU.equalsIgnoreCase("D167"))
+                        orderItem.sku = "ME";
+                    else if (SKU.equalsIgnoreCase("D19"))
+                        orderItem.sku = "HZ";
+                    else if (SKU.equalsIgnoreCase("D20"))
+                        orderItem.sku = "LR";
+                    else if (SKU.equalsIgnoreCase("D22"))
+                        orderItem.sku = "F2";
+                    else if (SKU.equalsIgnoreCase("D23"))
+                        orderItem.sku = "DQ";
+                    else if (SKU.equalsIgnoreCase("D24"))
+                        orderItem.sku = "FX";
+                    else if (SKU.equalsIgnoreCase("D25"))
+                        orderItem.sku = "FW";
+                    else if (SKU.equalsIgnoreCase("D27") && orderItem.platform.endsWith("jj"))
+                        orderItem.sku = "F3";
+                    else if (SKU.equalsIgnoreCase("D28"))
+                        orderItem.sku = "DU";
+                    else if (SKU.equalsIgnoreCase("D30"))
+                        orderItem.sku = "HV";
+                    else if (SKU.equalsIgnoreCase("D31"))
+                        orderItem.sku = "DT";
+                    else if (SKU.equalsIgnoreCase("D35"))
+                        orderItem.sku = "HD";
+                    else if (SKU.equalsIgnoreCase("D36"))
+                        orderItem.sku = "DH";
+                    else if (SKU.equalsIgnoreCase("D37"))
+                        orderItem.sku = "Q";
+                    else if (SKU.equalsIgnoreCase("D39"))
+                        orderItem.sku = "DX";
+                    else if (SKU.equalsIgnoreCase("D40") && orderItem.platform.endsWith("jj")){
+                        orderItem.sku = "MENSAB";
+                        orderItem.skuStr = "MENSAB";
+                    }
+                    else if (SKU.equalsIgnoreCase("D41"))
+                        orderItem.sku = "DY";
+                    else if (SKU.equalsIgnoreCase("D42"))
+                        orderItem.sku = "C";
+                    else if (SKU.equalsIgnoreCase("D43"))
+                        orderItem.sku = "HJ";
+                    else if (SKU.equalsIgnoreCase("D44"))
+                        orderItem.sku = "AL";
+                    else if (SKU.equalsIgnoreCase("D45"))
+                        orderItem.sku = "DK";
+                    else if (SKU.equalsIgnoreCase("D46"))
+                        orderItem.sku = "DG";
+                    else if (SKU.equalsIgnoreCase("D47"))
+                        orderItem.sku = "HB";
+                    else if (SKU.equalsIgnoreCase("D48") && orderItem.platform.endsWith("jj")) {
+                        orderItem.sku = "GX";
+                    }
+                    else if (SKU.equalsIgnoreCase("D51"))
+                        orderItem.sku = "HLL";
+                    else if (SKU.equalsIgnoreCase("D52"))
+                        orderItem.sku = "GA";
+                    else if (SKU.equalsIgnoreCase("D53"))
+                        orderItem.sku = "GB";
+                    else if (SKU.equalsIgnoreCase("D55"))
+                        orderItem.sku = "GQM";
+                    else if (SKU.equalsIgnoreCase("D56"))
+                        orderItem.sku = "DV";
+                    else if (SKU.equalsIgnoreCase("D57"))
+                        orderItem.sku = "GRW";
+                    else if (SKU.equalsIgnoreCase("D58"))
+                        orderItem.sku = "GRM";
+                    else if (SKU.equalsIgnoreCase("D60"))
+                        orderItem.sku = "GVM";
+                    else if (SKU.equalsIgnoreCase("D61"))
+                        orderItem.sku = "GH";
+                    else if (SKU.equalsIgnoreCase("D65"))
+                        orderItem.sku = "BV";
+                    else if (SKU.equalsIgnoreCase("D66"))
+                        orderItem.sku = "GS";
+                    else if (SKU.equalsIgnoreCase("D67"))
+                        orderItem.sku = "CF";
+                    else if (SKU.equalsIgnoreCase("D68"))
+                        orderItem.sku = "CA";
+                    else if (SKU.equalsIgnoreCase("GIFT"))
+                        orderItem.sku = "HA";
+                    else if (SKU.equalsIgnoreCase("SF_D75"))
+                        orderItem.sku = "HGW";
+                    else if (SKU.equalsIgnoreCase("SF_D80"))
+                        orderItem.sku = "GUW";
+                    else if (SKU.equalsIgnoreCase("SF_D81"))
+                        orderItem.sku = "GUM";
+                    else if (SKU.equalsIgnoreCase("SF_D82"))
+                        orderItem.sku = "D82";
+                    else if (SKU.equalsIgnoreCase("SF_D83"))
+                        orderItem.sku = "D83";
+                    else if (SKU.equalsIgnoreCase("SF_D84"))
+                        orderItem.sku = "FIW";
+                    else if (SKU.equalsIgnoreCase("SF_D85"))
+                        orderItem.sku = "FIM";
+                    else if (SKU.equalsIgnoreCase("SF_D86"))
+                        orderItem.sku = "HI";
+                    else if (SKU.equalsIgnoreCase("SF_D88"))
+                        orderItem.sku = "AK";
+                    else if (SKU.equalsIgnoreCase("SF_D89"))
+                        orderItem.sku = "LX";
+                    else if (SKU.equalsIgnoreCase("SF_D95"))
+                        orderItem.sku = "HGM";
+                    else if (SKU.equalsIgnoreCase("SF_F1"))
+                        orderItem.sku = "HA";
+                    else if (SKU.equalsIgnoreCase("SF_F7"))
+                        orderItem.sku = "FA";
+
 
                     //imgs
                     String[] images = getContent(row, 5).trim().split(" ");

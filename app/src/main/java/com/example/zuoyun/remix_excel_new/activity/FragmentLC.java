@@ -150,6 +150,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         Canvas canvasTemp = new Canvas(bitmapTemp);
         canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lc);
+        bitmapDB = Bitmap.createScaledBitmap(bitmapDB, width, height, true);
         canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
         drawText(canvasTemp);
 
