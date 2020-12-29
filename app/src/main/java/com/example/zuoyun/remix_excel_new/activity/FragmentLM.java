@@ -169,19 +169,25 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 if (MainActivity.instance.bitmaps.get(0).getWidth() == 4000) {
                     MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 3660, 3660, true));
                 }
-                bitmapCombine = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 93, 885, 3472, 1886);
-                Canvas canvasCombine = new Canvas(bitmapCombine);
-                canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
 
+                bitmapCombine = Bitmap.createBitmap(3472, 1886, Bitmap.Config.ARGB_8888);
+                Canvas canvasCombine= new Canvas(bitmapCombine);
+                canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+                canvasCombine.drawColor(0xffffffff);
+
+                canvasCombine.drawBitmap(Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 93, 885, 3472, 1886), 0, 0, null);
                 Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lms);
                 canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
 
                 drawTextLMS(canvasCombine);
                 bitmapDB.recycle();
-            }else{
-                bitmapCombine = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2, 0, 3472, 1886);
-                Canvas canvasCombine = new Canvas(bitmapCombine);
+            } else {
+                bitmapCombine = Bitmap.createBitmap(3472, 1886, Bitmap.Config.ARGB_8888);
+                Canvas canvasCombine= new Canvas(bitmapCombine);
                 canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+                canvasCombine.drawColor(0xffffffff);
+
+                canvasCombine.drawBitmap(Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2, 0, 3472, 1886), 0, 0, null);
 
                 Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lms);
                 canvasCombine.drawBitmap(bitmapDB, 0, 0, null);

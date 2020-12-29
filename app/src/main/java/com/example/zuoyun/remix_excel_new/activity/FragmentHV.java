@@ -449,7 +449,7 @@ public class FragmentHV extends BaseFragment {
                 break;
         }
         width += 5;
-        height += 12;
+        height += 16;
     }
 
 }

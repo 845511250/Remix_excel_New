@@ -74,9 +74,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         rectBorderPaint.setStrokeWidth(2);
 
         paint = new Paint();
-        paint.setColor(0xff000000);
-        paint.setTextSize(26);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
+        paint.setColor(0xff888888);
+        paint.setTextSize(40);
         paint.setAntiAlias(true);
 
         paintRed = new Paint();
@@ -146,15 +145,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }.start();
     }
 
-    void drawText(Canvas canvas, String LR) {
-        canvas.drawRect(340, 9, 340 + 230, 9 + 25, rectPaint);
-        canvas.drawText(LR + " " + orderItems.get(currentID).order_number, 340, 9 + 23, paint);
-    }
 
     public void remixx(){
         Bitmap bitmapCombine = null;
 
-        if (orderItems.get(currentID).sku.equals("HT2")) {
+        if (orderItems.get(currentID).sku.equals("HT1")) {
             bitmapCombine = Bitmap.createBitmap(768 + 120, 768 + 120, Bitmap.Config.ARGB_8888);
             Canvas canvasCombine= new Canvas(bitmapCombine);
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
@@ -162,6 +157,18 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 89, 89, 768, 768);
             canvasCombine.drawBitmap(bitmapTemp,0,0,null);
+            canvasCombine.drawText("方形透明磨砂吊牌", 10, 868, paint);
+            bitmapTemp.recycle();
+
+        } else if (orderItems.get(currentID).sku.equals("HT2")) {
+            bitmapCombine = Bitmap.createBitmap(768 + 120, 768 + 120, Bitmap.Config.ARGB_8888);
+            Canvas canvasCombine= new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasCombine.drawColor(0xffffffff);
+
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 89, 89, 768, 768);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+            canvasCombine.drawText("方形白卡吊牌", 10, 868, paint);
             bitmapTemp.recycle();
 
         } else if (orderItems.get(currentID).sku.equals("HT3")) {
@@ -171,7 +178,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawColor(0xffffffff);
 
             Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 591, 118, 471, 1417);
-            canvasCombine.drawBitmap(bitmapTemp,0,0,null);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+            canvasCombine.drawText("长条白卡吊牌", 10, 1517, paint);
             bitmapTemp.recycle();
         }
 

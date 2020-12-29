@@ -177,7 +177,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             id_DB = R.drawable.dk_s_m;
         }
 
-        Bitmap bitmapComnine = Bitmap.createBitmap(width * 4 + 300, height_front, Bitmap.Config.ARGB_8888);
+        int margin = 70;
+        Bitmap bitmapComnine = Bitmap.createBitmap(width * 4 + margin, height_front, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine = new Canvas(bitmapComnine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
@@ -192,12 +193,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
 
         bitmapRFront = Bitmap.createScaledBitmap(bitmapRFront, width, height_front, true);
-        canvasCombine.drawBitmap(bitmapRFront, width * 2 + 300, 0, null);
+        canvasCombine.drawBitmap(bitmapRFront, width * 2 + margin, 0, null);
         bitmapRBack = Bitmap.createScaledBitmap(bitmapRBack, width, height_back, true);
-        canvasCombine.drawBitmap(bitmapRBack, width * 3 + 300, 0, null);
+        canvasCombine.drawBitmap(bitmapRBack, width * 3 + margin, 0, null);
         bitmapRBack = Bitmap.createScaledBitmap(bitmapRBack, width, -height_back, true);
-        canvasCombine.drawBitmap(bitmapRBack, width * 3 + 300, height_back, null);
-        canvasCombine.drawBitmap(bitmapDB, width * 2 + 300, 0, null);
+        canvasCombine.drawBitmap(bitmapRBack, width * 3 + margin, height_back, null);
+        canvasCombine.drawBitmap(bitmapDB, width * 2 + margin, 0, null);
 
         //drawText
         canvasCombine.drawRect(750, 1840, 750 + 300, 1840 + 170, rectPaint);
@@ -206,15 +207,19 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawText(orderItems.get(currentID).sizeStr.contains("L") ? "大号袜子" : "中号袜子", 750, 1840 + 120, paint);
         canvasCombine.drawText(time, 750, 1840 + 160, paint);
 
-        canvasCombine.drawRect(2250, 1840, 2250 + 300, 1840 + 170, rectPaint);
-        canvasCombine.drawText(orderItems.get(currentID).newCode, 2250, 1840 + 40, paintRed);
-        canvasCombine.drawText(orderItems.get(currentID).order_number, 2250, 1840 + 80, paint);
-        canvasCombine.drawText(orderItems.get(currentID).sizeStr.contains("L") ? "大号袜子" : "中号袜子", 2250, 1840 + 120, paint);
-        canvasCombine.drawText(time, 2250, 1840 + 160, paint);
+        canvasCombine.drawRect(width * 2 + margin + 750, 1840, 2250 + 300, 1840 + 170, rectPaint);
+        canvasCombine.drawText(orderItems.get(currentID).newCode, width * 2 + margin + 750, 1840 + 40, paintRed);
+        canvasCombine.drawText(orderItems.get(currentID).order_number, width * 2 + margin + 750, 1840 + 80, paint);
+        canvasCombine.drawText(orderItems.get(currentID).sizeStr.contains("L") ? "大号袜子" : "中号袜子", width * 2 + margin + 750, 1840 + 120, paint);
+        canvasCombine.drawText(time, width * 2 + margin + 750, 1840 + 160, paint);
 
 
         try {
             String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+
+            if (orderItems.get(currentID).platform.equals("zy")) {
+                nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr+ "(" + MainActivity.instance.orderDate_short + "-" + (currentID + 1) + ")_" + orderItems.get(currentID).order_number + strPlus + "_共" + orderItems.get(currentID).newCode + "个" + ".jpg";
+            }
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

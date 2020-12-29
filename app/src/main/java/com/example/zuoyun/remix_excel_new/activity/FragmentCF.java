@@ -169,13 +169,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawTextXiuziR(Canvas canvas) {
-        canvas.drawRect(1060, 13, 1060 + 90, 13 + 23, rectPaint);
-        canvas.drawText("右" + orderItems.get(currentID).sizeStr, 1060, 13 + 21, paint);
+        canvas.drawRect(1060, 11, 1060 + 90, 11 + 23, rectPaint);
+        canvas.drawText(" 右" + orderItems.get(currentID).sizeStr, 1060, 11 + 21, paint);
     }
 
     void drawTextXiuziL(Canvas canvas) {
-        canvas.drawRect(1060, 13, 1060 + 90, 13 + 23, rectPaint);
-        canvas.drawText("左" + orderItems.get(currentID).sizeStr, 1060, 13 + 21, paint);
+        canvas.drawRect(1060, 11, 1060 + 90, 11 + 23, rectPaint);
+        canvas.drawText(" 左" + orderItems.get(currentID).sizeStr, 1060, 11 + 21, paint);
     }
 
     public void remixx(){
@@ -230,8 +230,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 996, 184, 2204, 1862);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextXiuziR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiuzi, height_xiuzi, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front + width_back + margin * 2, height_xiuzi + margin * 2, null);
+
             bitmapDB.recycle();
             bitmapTemp.recycle();
         } else if (orderItems.get(currentID).imgs.size() == 1 && orderItems.get(currentID).platform.equals("4u2")) {
@@ -274,8 +276,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 652, 2204, 1862);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextXiuziR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiuzi, height_xiuzi, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front + width_back + margin * 2, height_xiuzi + margin * 2, null);
+
             bitmapDB.recycle();
             bitmapTemp.recycle();
         } else if (orderItems.get(currentID).imgs.size() == 5 && orderItems.get(currentID).platform.equals("4u2")) {
@@ -318,8 +322,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp = MainActivity.instance.bitmaps.get(3).copy(Bitmap.Config.ARGB_8888, true);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextXiuziR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiuzi, height_xiuzi, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front + width_back + margin * 2, height_xiuzi + margin * 2, null);
+
             bitmapDB.recycle();
             bitmapTemp.recycle();
         }

@@ -1235,6 +1235,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("MA " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentMA());
                 break;
+            case "MD":
+                tv_title.setText("MD " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentMD());
+                break;
             case "ME":
                 tv_title.setText("ME " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentME());
@@ -1458,8 +1462,10 @@ public class MainActivity extends FragmentActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                tv_finishRemixx.setText("加载完成");
-                                messageListener.listen(LOADED_IMGS, "");
+                                if (!checkDDDE()) {//纠正jj的John订单高低帮sku写反问题
+                                    tv_finishRemixx.setText("加载完成");
+                                    messageListener.listen(LOADED_IMGS, "");
+                                }
                             }
                         });
                     }
@@ -1749,6 +1755,8 @@ public class MainActivity extends FragmentActivity {
                         orderItem.sku = "HV";
                     else if (SKU.equalsIgnoreCase("D31"))
                         orderItem.sku = "DT";
+                    else if (SKU.equalsIgnoreCase("D33"))
+                        orderItem.sku = "CN";
                     else if (SKU.equalsIgnoreCase("D35"))
                         orderItem.sku = "HD";
                     else if (SKU.equalsIgnoreCase("D36"))
@@ -1876,11 +1884,23 @@ public class MainActivity extends FragmentActivity {
 
     String getImageName(String str){
         str = URLDecoder.decode(str);
-        return str.substring(str.lastIndexOf("/") + 1, str.length());
+        int endIndex = str.length();
+
+        if (!(str.endsWith(".png") || str.endsWith(".jpg") || str.endsWith(".jpeg") || str.endsWith(".JPG") || str.endsWith(".PNG") || str.endsWith(".JPEG"))) {
+            if (str.lastIndexOf(".png") > -1) {
+                endIndex = str.lastIndexOf(".png") + 4;
+                str = str.substring(0, endIndex);
+            } else if (str.lastIndexOf(".jpg") > -1) {
+                endIndex = str.lastIndexOf(".jpg") + 4;
+                str = str.substring(0, endIndex);
+            }
+        }
+
+        return str.substring(str.lastIndexOf("/") + 1, endIndex);
     }
 
     public static String getLastNewCode(String str){
-        return str.substring(str.lastIndexOf("-") + 1, str.length());
+        return str.substring(str.lastIndexOf("-") + 1);
     }
 
     public void writeWrong(){
@@ -2159,6 +2179,7 @@ public class MainActivity extends FragmentActivity {
     public static void recycleExcelImages(){
         MainActivity.instance.bitmaps.clear();
     }
+
     // 获取版本号
     public String getVersionCode() {
         try {
@@ -2171,6 +2192,31 @@ public class MainActivity extends FragmentActivity {
             return "wrong";
         }
 
+    }
+
+    boolean checkDDDE(){
+        //DE:3075x1092;2839x1018;
+        //DD:3066x1554;2836x1448;
+        if (orderItems.get(currentID).platform.endsWith("jj")) {
+            if (orderItems.get(currentID).sku.equals("DD") || orderItems.get(currentID).sku.equals("FW")) {
+                if (bitmaps.get(0).getWidth() == 3075 || bitmaps.get(0).getWidth() == 2839) {
+                    orderItems.get(currentID).sku = "FX";
+                    orderItems.get(currentID).newCode = orderItems.get(currentID).newCode.replace("DD", "FX");
+                    orderItems.get(currentID).newCode = orderItems.get(currentID).newCode.replace("FW", "FX");
+                    setfg();
+                    return true;
+                }
+            } else if (orderItems.get(currentID).sku.equals("DE") || orderItems.get(currentID).sku.equals("FX")) {
+                if (bitmaps.get(0).getWidth() == 3066 || bitmaps.get(0).getWidth() == 2836) {
+                    orderItems.get(currentID).sku = "FW";
+                    orderItems.get(currentID).newCode = orderItems.get(currentID).newCode.replace("DE", "FW");
+                    orderItems.get(currentID).newCode = orderItems.get(currentID).newCode.replace("FX", "FW");
+                    setfg();
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override

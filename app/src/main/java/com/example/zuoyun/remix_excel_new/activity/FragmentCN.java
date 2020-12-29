@@ -135,7 +135,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        Bitmap bitmapCombine = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 3720, 2539, true);
+        Bitmap bitmapCombine = null;
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight() && MainActivity.instance.bitmaps.get(0).getWidth() == 3809) {
+            bitmapCombine = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 95, 658, 3619, 2492);
+            bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, 3720, 2539, true);
+        } else {
+            bitmapCombine = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 3720, 2539, true);
+        }
+
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
 
