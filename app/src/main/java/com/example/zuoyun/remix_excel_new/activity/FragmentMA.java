@@ -136,7 +136,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasTemp.drawRect(2, 2, width - 2, height - 2, rectBorderPaint);
         drawText(canvasTemp);
 
-        String nameCombine = "门布" + orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode_short + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+        String nameCombine = "门布" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
         String pathSave;
         if(MainActivity.instance.cb_classify.isChecked()){

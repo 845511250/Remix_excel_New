@@ -229,8 +229,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if (!file.exists())
                 file.mkdirs();
 
-            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku + "_" : "";
-            String nameCombine = noNewCode + orderItems.get(currentID).newCode + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if (MainActivity.instance.cb_classify.isChecked()) {
@@ -267,8 +266,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if (!file.exists())
                 file.mkdirs();
 
-            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku + "_" : "";
-            String nameCombine = noNewCode + "_" + orderItems.get(currentID).newCode + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if (MainActivity.instance.cb_classify.isChecked()) {
@@ -302,8 +300,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             matrix.postRotate(180, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
             bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
 
-            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku + "_" : "";
-            String nameCombine = noNewCode + "_" + orderItems.get(currentID).newCode + "_左_" + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + "左" + strPlus + ".jpg";
 
             String pathSave;
             if (MainActivity.instance.cb_classify.isChecked()) {
@@ -325,7 +322,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
 
-            nameCombine = noNewCode + "_" + orderItems.get(currentID).newCode + "_右_" + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            nameCombine = orderItems.get(currentID).nameStr + "右" + strPlus + ".jpg";
 
             if (MainActivity.instance.cb_classify.isChecked()) {
                 pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";

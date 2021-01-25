@@ -198,7 +198,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(orderItems.get(currentID).platform.equals("zy")){
                 nameCombine = orderItems.get(currentID).sku + "(" + MainActivity.instance.orderDate_short + "-" + (currentID + 1) + ")_" + orderItems.get(currentID).order_number + "_共" + orderItems.get(currentID).newCode + "个" + (orderItems.get(currentID).color.equals("黑") ? "_需黑色缝线" : "") + strPlus + ".jpg";
             } else{
-                nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+                nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
             }
 
 

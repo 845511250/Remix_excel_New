@@ -6,7 +6,6 @@ import android.util.Log;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.Date;
 
 /**
  * Created by zuoyun on 2017/4/17.
@@ -15,8 +14,6 @@ import java.util.Date;
 public class BitmapToJpg {
     public static void save(Bitmap bitmap, File file, int dpi) {
         try {
-            long timeStart = new Date().getTime();
-
             ByteArrayOutputStream imageByteArray = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, imageByteArray);
             byte[] imageData = imageByteArray.toByteArray();
@@ -43,9 +40,8 @@ public class BitmapToJpg {
 //            fileOutputStream.flush();
 //            fileOutputStream.close();
 
-            Log.e("aaa", "耗时：" + (new Date().getTime() - timeStart));
         }catch (Exception e){
-            Log.e("BitmapToJpg", "Wrong in Class 'BitmapToJpg'");
+            Log.e("BitmapToJpg", "Wrong in Class 'BitmapToJpg'\n" + e.getMessage());
         }
     }
 

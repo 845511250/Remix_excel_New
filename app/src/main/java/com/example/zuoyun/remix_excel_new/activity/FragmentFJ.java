@@ -138,7 +138,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             @Override
             public void run() {
                 super.run();
-                setScale(orderItems.get(currentID).sizeStr);
+                setSize(orderItems.get(currentID).sizeStr);
                 if (sizeOK) {
                     for(num=orderItems.get(currentID).num;num>=1;num--) {
                     intPlus = orderItems.get(currentID).num - num + 1;
@@ -1215,8 +1215,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
         try {
-            String fluo = orderItems.get(currentID).sku.equals("FJF") ? "荧光-" : "";
-            String nameCombine = fluo + "灯衣夹克" + orderItems.get(currentID).sizeStr + getColor(orderItems.get(currentID).colorStr) + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String fluo = orderItems.get(currentID).sku.equals("FJF") ? "荧光" : "";
+            String nameCombine = fluo + "灯衣夹克" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -1295,7 +1295,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
     }
 
-    void setScale(String size) {
+    void setSize(String size) {
         switch (size) {
             case "XS":
                 width_front = 1832-60;

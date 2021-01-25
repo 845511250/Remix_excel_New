@@ -157,12 +157,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 8632, 8632, true));
                 }
 
-                Matrix matrix = new Matrix();
-                matrix.postScale(width / 6284f, height / 8291f);
-                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1178, 175, 6284, 8291, matrix, true);
+                bitmapTemp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
                 Canvas canvasTemp = new Canvas(bitmapTemp);
                 canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+                canvasTemp.drawColor(0xffffffff);
 
+                Matrix matrix = new Matrix();
+                matrix.postScale(width / 6284f, height / 8291f);
+                canvasTemp.drawBitmap(Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1178, 175, 6284, 8291, matrix, true), 0, 0, null);
                 rectBorderPaint.setColor(0xffffffff);
                 canvasTemp.drawRect(strokeWidth, strokeWidth, width - strokeWidth, height - strokeWidth, rectBorderPaint);
                 canvasTemp.drawRect(strokeWidth + strokeWidth / 2, strokeWidth + strokeWidth / 2, width - strokeWidth- strokeWidth / 2, height - strokeWidth- strokeWidth / 2, rectBorderPaint);
@@ -212,7 +214,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 break;
         }
 
-        String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+        String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
         String pathSave;
         if(MainActivity.instance.cb_classify.isChecked()){

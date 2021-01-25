@@ -138,7 +138,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             @Override
             public void run() {
                 super.run();
-                setScale(orderItems.get(currentID).sizeStr);
+                setSize(orderItems.get(currentID).sizeStr);
 
                 if (sizeOK) {
                     for(num=orderItems.get(currentID).num;num>=1;num--) {
@@ -219,7 +219,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
 
         try {
-            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -300,7 +300,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
 
-    void setScale(String size) {
+    void setSize(String size) {
         switch (size) {
             case "XS":
                 width = 2821;

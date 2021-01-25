@@ -172,7 +172,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 canvasremix.drawRect(850+2100, 1974, 1270+2100, 2000, rectPaint);
                 canvasremix.drawText(time+"    "+orderItems.get(currentID).order_number+"    购物袋", 852+2100, 1997, paint);
             }
-            String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

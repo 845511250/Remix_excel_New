@@ -190,7 +190,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawRect(1, 1, width - 1, height - 1, rectBorderPaint);
         drawText(canvasCombine, 1);
 
-        String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode_short + "_" + "订单号" + orderItems.get(currentID).order_number + "(3-1)" + strPlus + ".jpg";
+        String nameCombine = orderItems.get(currentID).nameStr + "(3-1)" + strPlus + ".jpg";
         String pathSave;
         if(MainActivity.instance.cb_classify.isChecked()){
             pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
@@ -223,7 +223,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawRect(1, 1, width - 1, height - 1, rectBorderPaint);
         drawText(canvasCombine, 2);
 
-        nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode_short + "_" + "订单号" + orderItems.get(currentID).order_number + "(3-2)" + strPlus + ".jpg";
+        nameCombine = orderItems.get(currentID).nameStr + "(3-2)" + strPlus + ".jpg";
         if(MainActivity.instance.cb_classify.isChecked()){
             pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
         } else
@@ -255,7 +255,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawRect(1, 1, width - 1, height - 1, rectBorderPaint);
         drawText(canvasCombine, 3);
 
-        nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode_short + "_" + "订单号" + orderItems.get(currentID).order_number + "(3-3)" + strPlus + ".jpg";
+        nameCombine = orderItems.get(currentID).nameStr + "(3-3)" + strPlus + ".jpg";
         if(MainActivity.instance.cb_classify.isChecked()){
             pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
         } else

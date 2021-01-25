@@ -77,7 +77,7 @@ public class FragmentSF_F21 extends BaseFragment {
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(26);
+        paint.setTextSize(24);
         paint.setAntiAlias(true);
 
         paintSmall = new Paint();
@@ -141,33 +141,33 @@ public class FragmentSF_F21 extends BaseFragment {
     }
 
     void drawTextSide(Canvas canvas, String LR) {
-        canvas.drawRect(493, 703 - 26, 493 + 400, 703, rectPaint);
-        canvas.drawText(time + " " + orderItems.get(currentID).sku + orderItems.get(currentID).color + "-" + orderItems.get(currentID).size + "码 " + LR + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 493, 703 - 3, paint);
+        canvas.drawRect(516, 618 - 24, 516 + 400, 618, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + orderItems.get(currentID).color + "-" + orderItems.get(currentID).size + "码 " + LR + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short + " " + time, 516, 618 - 3, paint);
     }
     void drawTextFront(Canvas canvas, String LR) {
-        canvas.drawRect(478, 653 - 26, 478 + 90, 653, rectPaint);
-        canvas.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + LR, 478, 653 - 3, paint);
+        canvas.drawRect(400, 599 - 24, 400 + 90, 599, rectPaint);
+        canvas.drawText(orderItems.get(currentID).size + LR + orderItems.get(currentID).color, 400, 599 - 3, paint);
 
         canvas.save();
-        canvas.rotate(62.6f, 13, 218);
-        canvas.drawRect(13, 218 - 26, 13 + 250, 218, rectPaint);
-        canvas.drawText(time + " " + orderItems.get(currentID).order_number, 13, 218 - 3, paint);
+        canvas.rotate(64.4f, 10, 180);
+        canvas.drawRect(10, 180 - 24, 10 + 250, 180, rectPaint);
+        canvas.drawText(orderItems.get(currentID).order_number + " " + time, 10, 180 - 3, paint);
         canvas.restore();
     }
     void drawTextBack(Canvas canvas, String LR) {
         canvas.save();
-        canvas.rotate(11.4f, 57, 327);
-        canvas.drawRect(57, 327 - 26, 57 + 400, 327, rectPaint);
-        canvas.drawText(time + " " + orderItems.get(currentID).sku + orderItems.get(currentID).color + "-" + orderItems.get(currentID).size + "码 " + LR + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 57, 327 - 3, paint);
+        canvas.rotate(11.1f, 37, 325);
+        canvas.drawRect(37, 325 - 24, 37 + 400, 325, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + orderItems.get(currentID).color + "-" + orderItems.get(currentID).size + "码" + LR + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short + " " + time, 37, 325 - 3, paint);
         canvas.restore();
     }
     void drawTextTongue(Canvas canvas, String LR) {
-        canvas.drawRect(86, 705 - 26, 86 + 250, 705, rectPaint);
-        canvas.drawText(orderItems.get(currentID).size + orderItems.get(currentID).color + LR + " " + orderItems.get(currentID).order_number + " " + time, 86, 705 - 3, paint);
+        canvas.drawRect(176, 708 - 24, 176 + 70, 708, rectPaint);
+        canvas.drawText(orderItems.get(currentID).size + LR, 176, 708 - 3, paint);
     }
-    void drawTextSideLace(Canvas canvas, String LR) {
-        canvas.drawRect(315, 182 - 26, 315 + 80, 182, rectPaint);
-        canvas.drawText(orderItems.get(currentID).size + LR, 315, 182 - 2, paintSmall);
+    void drawTextLace(Canvas canvas, String LR) {
+        canvas.drawRect(52, 191 - 19, 52 + 60, 191, rectPaint);
+        canvas.drawText(orderItems.get(currentID).size + LR, 52, 191 - 2, paintSmall);
     }
 
 
@@ -182,18 +182,18 @@ public class FragmentSF_F21 extends BaseFragment {
 
         if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight() && MainActivity.instance.bitmaps.get(0).getWidth() == 3374) {
 
-            //side_left_r
-            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 486, 1134, 1397, 726);
+            //side_LR
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 148, 821, 1406, 659);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.d63_side_r);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.sf_f21_side_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide(canvasTemp, "左内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side, height_side, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
-            //side_right_r
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2117, 1134, 1397, 726);
+            //side_RR
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1779, 817, 1406, 659);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -201,18 +201,18 @@ public class FragmentSF_F21 extends BaseFragment {
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side, height_side, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, height_side + margin, null);
 
-            //side_left_l
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 486, 394, 1397, 726);
+            //side_LL
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 184, 83, 1406, 659);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, -1397, 726, true);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, -1406, 659, true);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide(canvasTemp, "左外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side, height_side, true);
             canvasCombine.drawBitmap(bitmapTemp, width_side + margin, 0, null);
 
-            //side_right_l
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2117, 394, 1397, 726);
+            //side_RL
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1824, 83, 1406, 659);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -221,17 +221,17 @@ public class FragmentSF_F21 extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, width_side + margin, height_side + margin, null);
 
             //front_left
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 486, 2000, 1017, 681);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 244, 1687, 871, 631);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.d63_front);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.sf_f21_front);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextFront(canvasTemp, "左");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
             canvasCombine.drawBitmap(bitmapTemp, width_side * 2 + margin * 2, 0, null);
 
             //front_right
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 486, 2903, 1017, 681);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 244, 2593, 871, 631);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -240,17 +240,17 @@ public class FragmentSF_F21 extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, width_side * 2 + margin * 2, height_front + margin, null);
 
             //back_left
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2366, 1917, 985, 417);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2027, 1599, 1036, 428);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.d63_back);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.sf_f21_back);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextBack(canvasTemp, "左");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
             canvasCombine.drawBitmap(bitmapTemp, width_side * 2 + width_front + margin * 3, 0, null);
 
             //back_right
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2366, 2390, 985, 417);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2027, 2070, 1036, 428);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -259,63 +259,63 @@ public class FragmentSF_F21 extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, width_side * 2 + width_front + margin * 3, height_back + margin, null);
 
             //tongue_left
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1713, 1967, 415, 713);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1398, 1640, 419, 724);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.d63_tongue);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.sf_f21_tongue);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextTongue(canvasTemp, "左");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_tongue, height_tongue, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_side * 2 + width_front + margin * 3, height_back * 2 + margin, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_side * 2 + width_front + margin * 3, height_side * 2 + height_side_lace + margin * 2 - height_tongue, null);
 
             //tongue_right
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1713, 2868, 415, 713);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1398, 2542, 419, 724);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextTongue(canvasTemp, "右");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_tongue, height_tongue, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_side * 2 + width_front + width_back + margin * 3 - width_tongue, height_back * 2 + margin, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_side * 2 + width_front + width_back + margin * 3 - width_tongue, height_side * 2 + height_side_lace + margin * 2 - height_tongue, null);
 
             //lace_lr
             Matrix matrix = new Matrix();
             matrix.postRotate(-90);
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3006, 2868, 185, 739, matrix, true);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2686, 2550, 193, 759, matrix, true);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.d63_side_lace_r);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.sf_f21_lace_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextSideLace(canvasTemp, "左内");
+            drawTextLace(canvasTemp, "左内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side_lace, height_side_lace, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, height_side * 2 + margin * 2, null);
 
             //lace_rr
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2350, 2868, 185, 739, matrix, true);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2032, 2550, 193, 759, matrix, true);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextSideLace(canvasTemp, "右外");
+            drawTextLace(canvasTemp, "右外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side_lace, height_side_lace, true);
             canvasCombine.drawBitmap(bitmapTemp, width_side_lace * 2 + margin * 2, height_side * 2 + margin * 2, null);
 
             //lace_ll
             matrix.reset();
             matrix.postRotate(90);
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3333, 2868, 185, 739, matrix, true);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3013, 2550, 193, 759, matrix, true);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, -739, 185, true);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, -759, 193, true);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextSideLace(canvasTemp, "左外");
+            drawTextLace(canvasTemp, "左外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side_lace, height_side_lace, true);
             canvasCombine.drawBitmap(bitmapTemp, width_side_lace + margin, height_side * 2 + margin * 2, null);
 
             //lace_rl
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2676, 2868, 185, 739, matrix, true);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2360, 2550, 193, 759, matrix, true);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextSideLace(canvasTemp, "右内");
+            drawTextLace(canvasTemp, "右内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side_lace, height_side_lace, true);
             canvasCombine.drawBitmap(bitmapTemp, width_side_lace * 3 + margin * 3, height_side * 2 + margin * 2, null);
 

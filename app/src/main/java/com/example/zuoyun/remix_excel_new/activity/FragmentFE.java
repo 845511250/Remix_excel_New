@@ -168,7 +168,7 @@ public class FragmentFE extends BaseFragment {
         canvas.drawText(time + "  " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).size + "码 " + LR + orderItems.get(currentID).color, 1000, 560, paint);
     }
     public void remixx(){
-        setScale(orderItems.get(currentID).size);
+        setSize(orderItems.get(currentID).size);
 
         Bitmap bitmapCombine;
         bitmapCombine = Bitmap.createBitmap(5556, 1525, Bitmap.Config.ARGB_8888);
@@ -493,7 +493,7 @@ public class FragmentFE extends BaseFragment {
         }
     }
 
-    void setScale(int size){
+    void setSize(int size){
         switch (size) {
             case 36:
                 mianWidth = 916;

@@ -190,7 +190,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawText(time + "  " + orderItems.get(currentID).order_number, 10, 996, paint);
             canvasCombine.restore();
 
-            setScale(gender + intSize);
+            setSize(gender + intSize);
             bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, (int) ((1241 + 59) * scaleX), (int) ((1603 + 59) * scaleY), true);
 
         } else if (!orderItems.get(currentID).platform.equals("4u2")) {
@@ -213,7 +213,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawText(time + "  " + orderItems.get(currentID).order_number, 10, 996, paint);
             canvasCombine.restore();
 
-            setScale(gender + intSize);
+            setSize(gender + intSize);
             bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, (int) ((1241 + 59) * scaleX), (int) ((1603 + 59) * scaleY), true);
 
         } else if (orderItems.get(currentID).imgs.size() == 2) {//分片定制
@@ -248,7 +248,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawText(time + "  " + orderItems.get(currentID).order_number, 10, 996, paint);
             canvasCombine.restore();
 
-            setScale(gender + intSize);
+            setSize(gender + intSize);
             bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, (int) ((1241 + 59) * scaleX), (int) ((1603 + 59) * scaleY), true);
 
         } else if (orderItems.get(currentID).imgs.size() == 1) {//批量定制
@@ -269,22 +269,17 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawText(time + "  " + orderItems.get(currentID).order_number, 10, 996, paint);
             canvasCombine.restore();
 
-            setScale(gender + intSize);
+            setSize(gender + intSize);
             bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, (int) ((1241 + 59) * scaleX), (int) ((1603 + 59) * scaleY), true);
         }
 
 
         try {
 
-            String printColor = "B";
-            String nameCombine;
-            if (orderItems.get(currentID).platform.equals("4u2")) {
-                String gender = (orderItems.get(currentID).skuStr.startsWith("ABW")||orderItems.get(currentID).skuStr.startsWith("W")) ? "女" : "男";
-                nameCombine = "AB" + gender + intSize + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
-            } else {
-                String gender = (orderItems.get(currentID).skuStr.startsWith("ABW")||orderItems.get(currentID).skuStr.startsWith("W")) ? "女" : "男";
-                nameCombine = "AB" + gender + intSize + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
-            }
+            String printColor = orderItems.get(currentID).color.equals("黑") ? "B" : "W";
+            String gender = (orderItems.get(currentID).skuStr.startsWith("ABW")||orderItems.get(currentID).skuStr.startsWith("W")) ? "女" : "男";
+            String nameCombine = gender + intSize + orderItems.get(currentID).nameStr + strPlus + ".jpg";
+
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -364,7 +359,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             remix();
         }
     }
-    void setScale(String size){
+    void setSize(String size){
         switch (size) {
             case "男7":
                 scaleX = 1.0541f;

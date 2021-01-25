@@ -222,7 +222,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapPrintPillow = Bitmap.createBitmap(bitmapPrintPillow, 0, 0, bitmapPrintPillow.getWidth(), bitmapPrintPillow.getHeight(), matrix90, true);
 
             //save pillow
-            String nameCombinePillow = "枕套" + orderItems.get(currentID).sizeStr + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombinePillow = "枕套" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
                 pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
@@ -233,7 +233,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             File fileSavePillow = new File(pathSave + nameCombinePillow);
             BitmapToJpg.save(bitmapPrintPillow, fileSavePillow, 110);
             bitmapPrintPillow.recycle();
-
 
 
             //bitmapPrintQuilt
@@ -269,7 +268,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             drawTextRotateQuilt(canvasPrintQuilt, 90, 0, drawWidth / 2 + 100);
 
             //saveQuilt
-            String nameCombine = "被套" + orderItems.get(currentID).sizeStr + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = "被套" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapPrintQuilt, fileSave, 110);
             bitmapPrintQuilt.recycle();
@@ -300,8 +299,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             matrix90.postTranslate(bitmapPrintPillow.getHeight(), 0);
             bitmapPrintPillow = Bitmap.createBitmap(bitmapPrintPillow, 0, 0, bitmapPrintPillow.getWidth(), bitmapPrintPillow.getHeight(), matrix90, true);
             //save pillow
-            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sizeStr : "";
-            String nameCombinePillow = orderItems.get(currentID).sku + "-" + orderItems.get(currentID).newCode + noNewCode + "枕套" + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombinePillow = "枕套" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -343,12 +341,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasPrintQuilt.restore();
             drawTextRotateQuilt(canvasPrintQuilt, 90, 0, drawWidth / 2 + 100);
 
-            String nameCombine = orderItems.get(currentID).sku + "-"  + orderItems.get(currentID).newCode + noNewCode + "被套" + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = "被套" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapPrintQuilt, fileSave, 110);
             bitmapPrintQuilt.recycle();
-        } else if (orderItems.get(currentID).imgs.size() == 1 && MainActivity.instance.bitmaps.get(0).getWidth() == 12600) {
+        } else if (orderItems.get(currentID).imgs.size() == 1 && MainActivity.instance.bitmaps.get(0).getWidth() == 12600) {//jj
             //bitmapPrintPillow
             Bitmap bitmapPrintPillow = Bitmap.createBitmap(pillowWidthPrint + 6, pillowHeightPrint * 2 + 6, Bitmap.Config.ARGB_8888);
             Canvas canvasPrintPillow = new Canvas(bitmapPrintPillow);
@@ -372,8 +370,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             matrix90.postTranslate(bitmapPrintPillow.getHeight(), 0);
             bitmapPrintPillow = Bitmap.createBitmap(bitmapPrintPillow, 0, 0, bitmapPrintPillow.getWidth(), bitmapPrintPillow.getHeight(), matrix90, true);
             //save pillow
-            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sizeStr : "";
-            String nameCombinePillow = orderItems.get(currentID).sku + "-" + orderItems.get(currentID).newCode + noNewCode + "枕套" + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombinePillow = "枕套(" + orderItems.get(currentID).sizeStr + ")" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if (MainActivity.instance.cb_classify.isChecked()) {
@@ -416,7 +413,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             drawTextRotateQuilt(canvasPrintQuilt, 90, 0, drawWidth / 2 + 100);
 
             //saveQuilt
-            String nameCombine = "被套" + orderItems.get(currentID).sizeStr + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = "被套(" + orderItems.get(currentID).sizeStr + ")" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapPrintQuilt, fileSave, 110);
             bitmapPrintQuilt.recycle();
@@ -444,8 +441,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             matrix90.postTranslate(bitmapPrintPillow.getHeight(), 0);
             bitmapPrintPillow = Bitmap.createBitmap(bitmapPrintPillow, 0, 0, bitmapPrintPillow.getWidth(), bitmapPrintPillow.getHeight(), matrix90, true);
             //save pillow
-            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sizeStr : "";
-            String nameCombinePillow = orderItems.get(currentID).sku + "-" + orderItems.get(currentID).newCode + noNewCode + "枕套" + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombinePillow = "枕套" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if (MainActivity.instance.cb_classify.isChecked()) {
@@ -488,7 +484,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             drawTextRotateQuilt(canvasPrintQuilt, 90, 0, drawWidth / 2 + 100);
 
             //saveQuilt
-            String nameCombine = "被套" + orderItems.get(currentID).sizeStr + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = "被套" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapPrintQuilt, fileSave, 110);
             bitmapPrintQuilt.recycle();

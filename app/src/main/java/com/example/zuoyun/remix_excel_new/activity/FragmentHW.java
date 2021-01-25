@@ -211,7 +211,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
         //save 1,2
-        String nameCombine = "(1+2)" + orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+        String nameCombine = "(1+2)" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
         String pathSave;
         if(MainActivity.instance.cb_classify.isChecked()){
             pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
@@ -263,7 +263,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
         //save 3,4,5
-        nameCombine = "(3+4+5)" + orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+        nameCombine = "(3+4+5)" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
         if(MainActivity.instance.cb_classify.isChecked()){
             pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
         } else

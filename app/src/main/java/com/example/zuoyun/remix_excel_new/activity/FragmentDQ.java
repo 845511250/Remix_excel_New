@@ -435,8 +435,7 @@ public class FragmentDQ extends BaseFragment {
 
         try {
             String printColor = orderItems.get(currentID).color.equals("黑") ? "B" : "W";
-            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku + "-" + orderItems.get(currentID).size + "-" : "";
-            String nameCombine = noNewCode + orderItems.get(currentID).newCode + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             if (orderItems.get(currentID).platform.equals("zy")) {
                 nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).size + orderItems.get(currentID).color + "(" + MainActivity.instance.orderDate_short + "-" + (currentID + 1) + ")_" + orderItems.get(currentID).order_number + strPlus + "_共" + orderItems.get(currentID).newCode + "个" + ".jpg";

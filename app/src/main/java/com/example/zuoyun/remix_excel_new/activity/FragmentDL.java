@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
-import android.graphics.Typeface;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -47,6 +46,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     String strPlus = "";
     int intPlus = 1;
 
+    Paint rectPaint, paint, paintRed;
+    String time = MainActivity.instance.orderDate_Print;
+
     @Override
     public int getLayout() {
         return R.layout.fragmentdg;
@@ -59,6 +61,20 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         orderItems=MainActivity.instance.orderItems;
         currentID = MainActivity.instance.currentID;
         childPath = MainActivity.instance.childPath;
+
+        rectPaint = new Paint();
+        rectPaint.setColor(0xffffffff);
+        rectPaint.setStyle(Paint.Style.FILL);
+
+        paint = new Paint();
+        paint.setColor(0xff000000);
+        paint.setTextSize(25);
+        paint.setAntiAlias(true);
+
+        paintRed = new Paint();
+        paintRed.setColor(0xffff0000);
+        paintRed.setTextSize(25);
+        paintRed.setAntiAlias(true);
 
         MainActivity.instance.setMessageListener(new MainActivity.MessageListener() {
             @Override
@@ -95,7 +111,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                            intPlus += orderItems.get(i).num;;
+                            intPlus += orderItems.get(i).num;
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -106,62 +122,71 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     }
 
+    void drawText(Canvas canvasremix) {
+        canvasremix.drawRect(1500, 1358, 1565, 1388, rectPaint);
+        canvasremix.drawText("DL", 1500, 1385, paint);
+        canvasremix.drawRect(0, 1358, 400, 1388, rectPaint);
+        canvasremix.drawText(time, 2, 1385, paint);
+        canvasremix.drawText(orderItems.get(currentID).order_number, 180, 1385, paint);
+        canvasremix.drawRect(500, 1358, 750, 1388, rectPaint);
+        canvasremix.drawText(orderItems.get(currentID).newCode, 501, 1385, paintRed);
+
+        canvasremix.drawRect(1500, 1358 + 1388, 1565, 1388 + 1388, rectPaint);
+        canvasremix.drawText("DL", 1500, 1385 + 1388, paint);
+        canvasremix.drawRect(0, 1358 + 1388, 400, 1388 + 1388, rectPaint);
+        canvasremix.drawText(time, 2, 1385 + 1388, paint);
+        canvasremix.drawText(orderItems.get(currentID).order_number, 200, 1385 + 1388, paint);
+        canvasremix.drawRect(500, 1358 + 1388, 750, 1388 + 1388, rectPaint);
+        canvasremix.drawText(orderItems.get(currentID).newCode, 501, 1385 + 1388, paintRed);
+    }
+
+
     public void remixx(){
-        Bitmap bitmapFront,bitmapBack;
-        Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dl);
-        if (orderItems.get(currentID).imgs.size() == 1) {
-            bitmapFront = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1565, 1388, true);
-            bitmapBack = bitmapFront;
+        Bitmap bitmapCombine = null;
+
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight() && MainActivity.instance.bitmaps.get(0).getWidth() == 2900) {//jj
+            bitmapCombine = Bitmap.createBitmap(1565, 1388 + 1388, Bitmap.Config.ARGB_8888);
+            Canvas canvasCombine= new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasCombine.drawColor(0xffffffff);
+
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 669, 55, 1565, 1388);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dl);
+            canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 669, 1460, 1565, 1388);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 1388, null);
+            canvasCombine.drawBitmap(bitmapDB, 0, 1388, null);
+
+            drawText(canvasCombine);
+            bitmapTemp.recycle();
+            bitmapDB.recycle();
+
         } else {
-            bitmapFront = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1565, 1388, true);
-            bitmapBack = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 1565, 1388, true);
+            bitmapCombine = Bitmap.createBitmap(1565, 1388 + 1388, Bitmap.Config.ARGB_8888);//26.5 23.5
+            Canvas canvasCombine = new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasCombine.drawColor(0xffffffff);
+
+            Bitmap bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1565, 1388, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dl);
+            canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
+
+            bitmapTemp = Bitmap.createScaledBitmap(orderItems.get(currentID).imgs.size() == 2 ? MainActivity.instance.bitmaps.get(1) : MainActivity.instance.bitmaps.get(0), 1565, 1388, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 1388, null);
+            canvasCombine.drawBitmap(bitmapDB, 0, 1388, null);
+
+            drawText(canvasCombine);
+            bitmapTemp.recycle();
+            bitmapDB.recycle();
+
         }
 
-        Paint rectPaint = new Paint();
-        rectPaint.setColor(0xffffffff);
-        rectPaint.setStyle(Paint.Style.FILL);
 
-        Paint paint = new Paint();
-        paint.setColor(0xff000000);
-        paint.setTextSize(30);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
-        paint.setAntiAlias(true);
-
-        Paint paintRed = new Paint();
-        paintRed.setColor(0xffff0000);
-        paintRed.setTextSize(30);
-        paintRed.setTypeface(Typeface.DEFAULT_BOLD);
-        paintRed.setAntiAlias(true);
-
-        String time = MainActivity.instance.orderDate_Print;
         try {
-            Bitmap bitmapremix = Bitmap.createBitmap(1565, 1388 + 1388, Bitmap.Config.ARGB_8888);//26.5 23.5
-            Canvas canvasremix = new Canvas(bitmapremix);
-            canvasremix.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-
-            canvasremix.drawBitmap(bitmapFront, 0, 0, null);
-            canvasremix.drawBitmap(bitmapDB, 0, 0, null);
-            canvasremix.drawBitmap(bitmapBack, 0, 1388, null);
-            canvasremix.drawBitmap(bitmapDB, 0, 1388, null);
-
-            canvasremix.drawRect(1500, 1358, 1565, 1388, rectPaint);
-            canvasremix.drawText("DL", 1500, 1385, paint);
-            canvasremix.drawRect(0, 1358, 400, 1388, rectPaint);
-            canvasremix.drawText(time, 2, 1385, paint);
-            canvasremix.drawText(orderItems.get(currentID).order_number, 180, 1385, paint);
-            canvasremix.drawRect(500, 1358, 750, 1388, rectPaint);
-            canvasremix.drawText(orderItems.get(currentID).newCode, 501, 1385, paintRed);
-
-            canvasremix.drawRect(1500, 1358+1388, 1565, 1388+1388, rectPaint);
-            canvasremix.drawText("DL", 1500, 1385+1388, paint);
-            canvasremix.drawRect(0, 1358 + 1388, 400, 1388 + 1388, rectPaint);
-            canvasremix.drawText(time, 2, 1385+1388, paint);
-            canvasremix.drawText(orderItems.get(currentID).order_number, 200, 1385 + 1388, paint);
-            canvasremix.drawRect(500, 1358 + 1388, 750, 1388 + 1388, rectPaint);
-            canvasremix.drawText(orderItems.get(currentID).newCode, 501, 1385 + 1388, paintRed);
-
-            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku : "";
-            String nameCombine = noNewCode + orderItems.get(currentID).newCode + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -171,13 +196,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapremix, fileSave, 150);
+            BitmapToJpg.save(bitmapCombine, fileSave, 150);
 
             //释放bitmap
-            bitmapFront.recycle();
-            bitmapBack.recycle();
-            bitmapDB.recycle();
-            bitmapremix.recycle();
+            bitmapCombine.recycle();
 
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";

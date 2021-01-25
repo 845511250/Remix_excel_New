@@ -188,7 +188,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasRight.restore();
 
         try {
-            setScale(orderItems.get(currentID).size);
+            setSize(orderItems.get(currentID).size);
 
             Bitmap bitmapCombine = Bitmap.createBitmap(836+30, 1356, Bitmap.Config.ARGB_8888);
             Canvas canvasCombine = new Canvas(bitmapCombine);
@@ -286,7 +286,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             remix();
         }
     }
-    void setScale(int size){
+    void setSize(int size){
         switch (size) {
             case 36:
                 scaleX = 0.856f;

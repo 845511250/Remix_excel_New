@@ -148,7 +148,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     public void remixx(){
         Bitmap bitmapCombine = null;
 
-        setScale4u2(orderItems.get(currentID).sizeStr);
+        setSize4u2(orderItems.get(currentID).sizeStr);
 
         bitmapCombine = Bitmap.createBitmap(height, width * 2 + 60, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
@@ -180,7 +180,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             matrix90.postTranslate(bitmapCombine.getHeight(), 0);
             bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix90, true);
 
-            String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).sizeStr + "-" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -260,7 +260,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
     }
 
-    void setScale4u2(String sizeStr) {
+    void setSize4u2(String sizeStr) {
         switch (sizeStr) {
             case "S":
                 width = 2287;

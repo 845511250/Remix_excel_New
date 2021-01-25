@@ -169,8 +169,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasremix.drawBitmap(bitmapDB_back, 0, 1388, null);
             canvasremix.drawText(time + "   " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).sku, 900, 1388 * 2 + 117, paint);
 
-            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku : "";
-            String nameCombine = noNewCode + orderItems.get(currentID).sku + orderItems.get(currentID).newCode + orderItems.get(currentID).order_number + strPlus + ".jpg";
+
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

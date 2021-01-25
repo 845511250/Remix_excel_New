@@ -125,7 +125,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         String time = MainActivity.instance.orderDate_Print;
         try {
-            setScale(orderItems.get(currentID).sizeStr);
+            setSize(orderItems.get(currentID).sizeStr);
 
             Bitmap bitmapCombine = Bitmap.createBitmap(1772, 2657+180, Bitmap.Config.ARGB_8888);
             Canvas canvasCombine = new Canvas(bitmapCombine);
@@ -135,7 +135,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawText(time + "   " + orderItems.get(currentID).order_number + "   " + orderItems.get(currentID).sku + " " + orderItems.get(currentID).sizeStr, 800, 2657 + 170, paint);
 
             bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, (int) (1772 * scaleX), (int) ((2657 + 180) * scaleY), true);
-            String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).sizeStr + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -215,7 +215,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
     }
 
-    void setScale(String size){
+    void setSize(String size){
         if(size.equals("XS")||size.equals("S")||size.equals("M")){
             scaleX = 0.933f;
             scaleY=0.889f;

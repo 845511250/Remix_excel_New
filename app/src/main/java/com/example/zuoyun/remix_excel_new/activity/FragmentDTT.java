@@ -188,7 +188,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
     public void remixx(){
-        setScale(orderItems.get(currentID).size);
+        setSize(orderItems.get(currentID).size);
         int margin = 60;
         Matrix matrixCombine = new Matrix();
 
@@ -285,7 +285,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         try {
             String printColor = orderItems.get(currentID).color.equals("黑") ? "B" : "W";
-            String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).size + printColor + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -365,7 +365,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             remix();
         }
     }
-    void setScale(int size){
+    void setSize(int size){
         switch (size) {
             case 36:
                 width_main = 1488;

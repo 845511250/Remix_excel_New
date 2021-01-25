@@ -111,18 +111,15 @@ public class FragmentDD extends BaseFragment {
                     iv_leftup.setImageDrawable(null);
                     iv_rightup.setImageDrawable(null);
                     Log.e("fragment1", "message0");
-                }
-                else if (message == MainActivity.LOADED_IMGS) {
+                } else if (message == MainActivity.LOADED_IMGS) {
                     bt_remix.setClickable(true);
                     if(!MainActivity.instance.cb_fastmode.isChecked()){
                         iv_leftup.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     }
                     checkremix();
-                }
-                else if (message==3){
+                } else if (message==3){
                     bt_remix.setClickable(false);
-                }
-                else if (message == 10) {
+                } else if (message == 10) {
                     remix();
                 }
             }
@@ -176,7 +173,7 @@ public class FragmentDD extends BaseFragment {
     }
 
     public void remixx(){
-        setScale(orderItems.get(currentID).size);
+        setSize(orderItems.get(currentID).size);
         Bitmap bitmapDBLeft = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dd41left);
         Bitmap bitmapDBRight = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dd41right);
 
@@ -565,8 +562,7 @@ public class FragmentDD extends BaseFragment {
 
         try {
             String printColor = orderItems.get(currentID).color.equals("黑") ? "B" : "W";
-            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku + orderItems.get(currentID).size : "";
-            String nameCombine = noNewCode + orderItems.get(currentID).newCode + orderItems.get(currentID).color + "-" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             if (orderItems.get(currentID).platform.equals("zy")) {
                 nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + orderItems.get(currentID).color + "(" + MainActivity.instance.orderDate_short + "-" + (currentID + 1) + ")_" + orderItems.get(currentID).order_number + strPlus + "_共" + orderItems.get(currentID).newCode + "个" + ".jpg";
@@ -650,7 +646,7 @@ public class FragmentDD extends BaseFragment {
             remix();
     }
 
-    void setScale(int size){
+    void setSize(int size){
         switch (size + 1 - 1) {
             case 35:
                 width = 1346;

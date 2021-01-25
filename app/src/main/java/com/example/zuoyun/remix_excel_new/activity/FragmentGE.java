@@ -107,7 +107,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         paintSmall.setAntiAlias(true);
 
         time = MainActivity.instance.orderDate_Print;
-        fluo = orderItems.get(currentID).sku.equals("GEF") ? "荧光-" : "";
+        fluo = orderItems.get(currentID).sku.equals("GEF") ? "荧光" : "";
 
         MainActivity.instance.setMessageListener(new MainActivity.MessageListener() {
             @Override
@@ -142,7 +142,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             @Override
             public void run() {
                 super.run();
-                setScale(orderItems.get(currentID).sizeStr);
+                setSize(orderItems.get(currentID).sizeStr);
                 if (sizeOK) {
                     for(num=orderItems.get(currentID).num;num>=1;num--) {
                     intPlus = orderItems.get(currentID).num - num + 1;
@@ -394,7 +394,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 //            matrix.postRotate(90, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
 //            bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
 
-            String nameCombine = fluo + "女连体衣 " + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = fluo + "女连体衣 " + orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -473,7 +473,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
     }
 
-    void setScale(String size) {
+    void setSize(String size) {
         switch (size) {
             case "S":
                 width_front = 2636;

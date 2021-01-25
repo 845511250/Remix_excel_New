@@ -133,36 +133,55 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        Bitmap bitmapCombine = Bitmap.createBitmap(2067, 1181 * 2, Bitmap.Config.ARGB_8888);
-        Canvas canvasCombine= new Canvas(bitmapCombine);
-        canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasCombine.drawColor(0xffffffff);
+        Bitmap bitmapCombine = null;
 
-        if (orderItems.get(currentID).imgs.size() == 1) {
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {//jj
+            if (MainActivity.instance.bitmaps.get(0).getWidth() != 2433) {
+                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2433, 2433, true));
+            }
+
+            bitmapCombine = Bitmap.createBitmap(2067, 1181 * 2, Bitmap.Config.ARGB_8888);
+            Canvas canvasCombine = new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasCombine.drawColor(0xffffffff);
+
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 183, 18, 2067, 1181);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 183, 1235, 2067, 1181);
+            Matrix matrix = new Matrix();
+            matrix.postRotate(180);
+            matrix.postTranslate(2067, 1181 * 2);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z9);
+            canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
+            drawText(canvasCombine);
+
+            bitmapTemp.recycle();
+            bitmapDB.recycle();
+        } else {
+            bitmapCombine = Bitmap.createBitmap(2067, 1181 * 2, Bitmap.Config.ARGB_8888);
+            Canvas canvasCombine = new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasCombine.drawColor(0xffffffff);
+
             canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
             Matrix matrix = new Matrix();
             matrix.postRotate(180);
             matrix.postTranslate(2067, 1181 * 2);
-            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
-        } else if (orderItems.get(currentID).imgs.size() == 1) {
-            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-            Matrix matrix = new Matrix();
-            matrix.postRotate(180);
-            matrix.postTranslate(2067, 1181 * 2);
-            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(1), matrix, null);
+            canvasCombine.drawBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), matrix, null);
+
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z9);
+            canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
+            drawText(canvasCombine);
+
+            bitmapDB.recycle();
         }
 
-        Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z9);
-        canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
-        drawText(canvasCombine);
-        bitmapDB.recycle();
 
         try {
-            File file=new File(sdCardPath+"/生产图/"+childPath+"/");
-            if(!file.exists())
-                file.mkdirs();
-
-            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

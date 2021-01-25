@@ -124,26 +124,44 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawText(Canvas canvas) {
-        canvas.drawRect(20, 3, 20 + 300, 4 + 18, rectPaint);
+        canvas.drawRect(20, 3, 20 + 300, 3 + 18, rectPaint);
         canvas.drawText(orderItems.get(currentID).sku + "   " + time + "  " + orderItems.get(currentID).order_number, 20, 3 + 16, paint);
     }
 
     public void remixx(){
-        Bitmap bitmapCombine = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
-        Canvas canvasCombine= new Canvas(bitmapCombine);
-        canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+        Bitmap bitmapCombine = null;
 
-        Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.n);
-        canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
-        drawText(canvasCombine);
-        bitmapDB.recycle();
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight() && MainActivity.instance.bitmaps.get(0).getWidth() == 2000) {//jj
+            bitmapCombine = Bitmap.createBitmap(1898, 1261, Bitmap.Config.ARGB_8888);
+            Canvas canvasCombine= new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasCombine.drawColor(0xffffffff);
+
+            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), -51, -369, null);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.n);
+            canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
+            drawText(canvasCombine);
+            bitmapDB.recycle();
+
+        } else {
+            bitmapCombine = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+            Canvas canvasCombine= new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.n);
+            canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
+            drawText(canvasCombine);
+            bitmapDB.recycle();
+        }
+
+
 
         try {
             File file=new File(sdCardPath+"/生产图/"+childPath+"/");
             if(!file.exists())
                 file.mkdirs();
 
-            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

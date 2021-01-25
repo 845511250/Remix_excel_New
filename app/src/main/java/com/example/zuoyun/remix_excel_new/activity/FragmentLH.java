@@ -51,6 +51,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     int width_back1,width_back2,width_front,width_side1,width_side2_up,width_side2_below,width_tongue_up,width_tongue_below;
     int height_back1,height_back2,height_front,height_side1,height_side2_up,height_side2_below,height_tongue_up,height_tongue_below;
+    int margin_side_below;
 
     int num;
     String strPlus = "";
@@ -215,230 +216,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        if (orderItems.get(currentID).imgs.size() == 14) {
-            //back1
-            //left
-            Bitmap bitmapTemp = Bitmap.createBitmap(1535, 453, Bitmap.Config.ARGB_8888);
-            Canvas canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(8), 0, 0, null);
-            Bitmap bitmapDB= BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_back1);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextBack1(canvasTemp, "左");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back1, height_back1, true);
-            canvasCombine.drawBitmap(bitmapTemp, 4353 - width_back1 / 2, 727, null);
-
-            //right
-            bitmapTemp = Bitmap.createBitmap(1535, 453, Bitmap.Config.ARGB_8888);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(11), 0, 0, null);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextBack1(canvasTemp, "右");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back1, height_back1, true);
-            canvasCombine.drawBitmap(bitmapTemp, 908 - width_back1 / 2, 727, null);
-
-            //back2
-            //left
-            bitmapTemp = Bitmap.createBitmap(1297, 369, Bitmap.Config.ARGB_8888);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-            bitmapDB= BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_back2);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextBack2(canvasTemp, "左");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back2, height_back2, true);
-            canvasCombine.drawBitmap(bitmapTemp, 4353 - width_back2 / 2, 1331, null);
-
-            //right
-            bitmapTemp = Bitmap.createBitmap(1297, 369, Bitmap.Config.ARGB_8888);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, null);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextBack2(canvasTemp, "右");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back2, height_back2, true);
-            canvasCombine.drawBitmap(bitmapTemp, 908 - width_back2 / 2, 1331, null);
-
-            //front
-            //left
-            bitmapTemp = Bitmap.createBitmap(1593, 666, Bitmap.Config.ARGB_8888);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(6), 0, 0, null);
-            bitmapDB= BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_front);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextfront(canvasTemp, "左");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
-            canvasCombine.drawBitmap(bitmapTemp, 4353 - width_front / 2, 1821, null);
-
-            //right
-            bitmapTemp = Bitmap.createBitmap(1593, 666, Bitmap.Config.ARGB_8888);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(7), 0, 0, null);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextfront(canvasTemp, "右");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
-            canvasCombine.drawBitmap(bitmapTemp, 908 - width_front / 2, 1821, null);
-
-            //side1
-            //LL
-            bitmapTemp = Bitmap.createBitmap(1215, 594, Bitmap.Config.ARGB_8888);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, null);
-            bitmapDB= BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side1_l);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextSide1(canvasTemp, "左外");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side1, height_side1, true);
-            canvasCombine.drawBitmap(bitmapTemp, 4858 - width_side1, 668 - height_side1, null);
-
-            //LR
-            bitmapTemp = Bitmap.createBitmap(1215, 594, Bitmap.Config.ARGB_8888);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, null);
-            bitmapDB= BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side1_r);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextSide1(canvasTemp, "左内");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side1, height_side1, true);
-            canvasCombine.drawBitmap(bitmapTemp, 4918, 668 - height_side1, null);
-
-            //RL
-            bitmapTemp = Bitmap.createBitmap(1215, 594, Bitmap.Config.ARGB_8888);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(4), 0, 0, null);
-            bitmapDB= BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side1_l);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextSide1(canvasTemp, "右内");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side1, height_side1, true);
-            canvasCombine.drawBitmap(bitmapTemp, 1413 - width_side1, 668 - height_side1, null);
-
-            //RR
-            bitmapTemp = Bitmap.createBitmap(1215, 594, Bitmap.Config.ARGB_8888);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(5), 0, 0, null);
-            bitmapDB= BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side1_r);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextSide1(canvasTemp, "右外");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side1, height_side1, true);
-            canvasCombine.drawBitmap(bitmapTemp, 1473, 668 - height_side1, null);
-
-            //side2_up
-            //LL
-            bitmapTemp = Bitmap.createBitmap(581, 530, Bitmap.Config.ARGB_8888);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(10), -212, 0, null);
-            bitmapDB= BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side2_up_l);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextSide2Up_L(canvasTemp,  "左外");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_up, 2613 - height_side2_up, null);
-
-            //LR
-            bitmapTemp = Bitmap.createBitmap(581, 530, Bitmap.Config.ARGB_8888);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(9), 0, 0, null);
-            bitmapDB= BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side2_up_r);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextSide2Up_R(canvasTemp, "左内");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6157, 1331 - height_side2_up, null);
-
-            //RL
-            bitmapTemp = Bitmap.createBitmap(581, 530, Bitmap.Config.ARGB_8888);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(12), -212, 0, null);
-            bitmapDB= BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side2_up_l);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextSide2Up_L(canvasTemp,"右外");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_up, 2613 - height_side2_up, null);
-
-            //RR
-            bitmapTemp = Bitmap.createBitmap(581, 530, Bitmap.Config.ARGB_8888);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(13), 0, 0, null);
-            bitmapDB= BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side2_up_r);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextSide2Up_R(canvasTemp, "右内");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 2712, 1331 - height_side2_up, null);
-
-            //side2_below
-            //LL
-            bitmapTemp = Bitmap.createBitmap(430, 485, Bitmap.Config.ARGB_8888);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(10), 0, -390, null);
-            bitmapDB= BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side2_below_l);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextSide2Below_L(canvasTemp, "左外");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6157, 1927 - height_side2_below, null);
-
-            //LR
-            bitmapTemp = Bitmap.createBitmap(430, 485, Bitmap.Config.ARGB_8888);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(9), -363, -390, null);
-            bitmapDB= BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side2_below_r);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextSide2Below_R(canvasTemp, "左内");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_below, 668 - height_side2_below, null);
-
-            //RL
-            bitmapTemp = Bitmap.createBitmap(430, 485, Bitmap.Config.ARGB_8888);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(12), 0, -390, null);
-            bitmapDB= BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side2_below_l);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextSide2Below_L(canvasTemp, "右内");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 2712, 1927 - height_side2_below, null);
-
-            //RR
-            bitmapTemp = Bitmap.createBitmap(430, 485, Bitmap.Config.ARGB_8888);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(13), -363, -390, null);
-            bitmapDB= BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side2_below_r);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextSide2Below_R(canvasTemp, "右外");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_below, 668 - height_side2_below, null);
-
-            bitmapTemp.recycle();
-            bitmapDB.recycle();
-
-        } else if (orderItems.get(currentID).imgs.size() == 16) {
+        if (orderItems.get(currentID).imgs.size() == 16) {
             //back1
             //left
             Bitmap bitmapTemp = Bitmap.createBitmap(1535, 453, Bitmap.Config.ARGB_8888);
@@ -571,7 +349,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Up_L(canvasTemp,  "左外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_up, 2613 - height_side2_up, null);
+            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_up, 2020, null);
 
             //LR
             bitmapTemp = Bitmap.createBitmap(581, 530, Bitmap.Config.ARGB_8888);
@@ -583,7 +361,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Up_R(canvasTemp, "左内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6157, 1331 - height_side2_up, null);
+            canvasCombine.drawBitmap(bitmapTemp, 6157, 727, null);
 
             //RL
             bitmapTemp = Bitmap.createBitmap(581, 530, Bitmap.Config.ARGB_8888);
@@ -595,7 +373,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Up_L(canvasTemp,"右内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_up, 2613 - height_side2_up, null);
+            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_up, 2020, null);
 
             //RR
             bitmapTemp = Bitmap.createBitmap(581, 530, Bitmap.Config.ARGB_8888);
@@ -607,7 +385,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Up_R(canvasTemp, "右外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 2712, 1331 - height_side2_up, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2712, 727, null);
 
             //side2_below
             //LL
@@ -620,7 +398,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Below_L(canvasTemp, "左外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6157, 1927 - height_side2_below, null);
+            canvasCombine.drawBitmap(bitmapTemp, 6157 + margin_side_below, 1927 - height_side2_below, null);
 
             //LR
             bitmapTemp = Bitmap.createBitmap(430, 485, Bitmap.Config.ARGB_8888);
@@ -632,7 +410,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Below_R(canvasTemp, "左内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_below, 668 - height_side2_below, null);
+            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_below - margin_side_below, 668 - height_side2_below, null);
 
             //RL
             bitmapTemp = Bitmap.createBitmap(430, 485, Bitmap.Config.ARGB_8888);
@@ -644,7 +422,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Below_L(canvasTemp, "右内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 2712, 1927 - height_side2_below, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2712 + margin_side_below, 1927 - height_side2_below, null);
 
             //RR
             bitmapTemp = Bitmap.createBitmap(430, 485, Bitmap.Config.ARGB_8888);
@@ -656,7 +434,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Below_R(canvasTemp, "右外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_below, 668 - height_side2_below, null);
+            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_below - margin_side_below, 668 - height_side2_below, null);
 
             if (orderItems.get(currentID).imgs.size() == 16) {
                 //tongue_left
@@ -844,7 +622,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Up_L(canvasTemp, "左外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_up, 2613 - height_side2_up, null);
+            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_up, 2020, null);
 
             //LR
             bitmapTemp = Bitmap.createBitmap(581, 530, Bitmap.Config.ARGB_8888);
@@ -856,19 +634,19 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Up_R(canvasTemp, "左内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6157, 1331 - height_side2_up, null);
+            canvasCombine.drawBitmap(bitmapTemp, 6157, 727, null);
 
             //RL
             bitmapTemp = Bitmap.createBitmap(581, 530, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawColor(0xffffffff);
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -2303, -2886, null);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -2304, -2886, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side2_up_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Up_L(canvasTemp, "右外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_up, 2613 - height_side2_up, null);
+            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_up, 2020, null);
 
             //RR
             bitmapTemp = Bitmap.createBitmap(581, 530, Bitmap.Config.ARGB_8888);
@@ -880,7 +658,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Up_R(canvasTemp, "右内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 2712, 1331 - height_side2_up, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2712, 727, null);
 
             //side2_below
             //LL
@@ -893,7 +671,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Below_L(canvasTemp, "左外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6157, 1927 - height_side2_below, null);
+            canvasCombine.drawBitmap(bitmapTemp, 6157 + margin_side_below, 1927 - height_side2_below, null);
 
             //LR
             bitmapTemp = Bitmap.createBitmap(430, 485, Bitmap.Config.ARGB_8888);
@@ -905,7 +683,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Below_R(canvasTemp, "左内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_below, 668 - height_side2_below, null);
+            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_below - margin_side_below, 668 - height_side2_below, null);
 
             //RL
             bitmapTemp = Bitmap.createBitmap(430, 485, Bitmap.Config.ARGB_8888);
@@ -917,7 +695,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Below_L(canvasTemp, "右内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 2712, 1927 - height_side2_below, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2712 + margin_side_below, 1927 - height_side2_below, null);
 
             //RR
             bitmapTemp = Bitmap.createBitmap(430, 485, Bitmap.Config.ARGB_8888);
@@ -929,7 +707,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Below_R(canvasTemp, "右外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_below, 668 - height_side2_below, null);
+            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_below - margin_side_below, 668 - height_side2_below, null);
 
             //tongue_left
             //up
@@ -982,7 +760,278 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp.recycle();
             bitmapDB.recycle();
 
-        } else if (orderItems.get(currentID).imgs.size() == 1 && MainActivity.instance.bitmaps.get(0).getWidth() == 4500) {
+        } else if (orderItems.get(currentID).imgs.size() == 1 && MainActivity.instance.bitmaps.get(0).getWidth() == 8200) {//adam
+            //back1
+            //left
+            Bitmap bitmapTemp = Bitmap.createBitmap(1535, 453, Bitmap.Config.ARGB_8888);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -5386, -51, null);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_back1);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBack1(canvasTemp, "左");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back1, height_back1, true);
+            canvasCombine.drawBitmap(bitmapTemp, 4353 - width_back1 / 2, 727, null);
+
+            //right
+            bitmapTemp = Bitmap.createBitmap(1535, 453, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -1286, -51, null);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBack1(canvasTemp, "右");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back1, height_back1, true);
+            canvasCombine.drawBitmap(bitmapTemp, 908 - width_back1 / 2, 727, null);
+
+            //back2
+            //left
+            bitmapTemp = Bitmap.createBitmap(1297, 369, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -5502, -504, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_back2);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBack2(canvasTemp, "左");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back2, height_back2, true);
+            canvasCombine.drawBitmap(bitmapTemp, 4353 - width_back2 / 2, 1331, null);
+
+            //right
+            bitmapTemp = Bitmap.createBitmap(1297, 369, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -1402, -504, null);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBack2(canvasTemp, "右");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back2, height_back2, true);
+            canvasCombine.drawBitmap(bitmapTemp, 908 - width_back2 / 2, 1331, null);
+
+            //front
+            //left
+            bitmapTemp = Bitmap.createBitmap(1593, 666, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -5353, -2182, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_front);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextfront(canvasTemp, "左");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            canvasCombine.drawBitmap(bitmapTemp, 4353 - width_front / 2, 1821, null);
+
+            //right
+            bitmapTemp = Bitmap.createBitmap(1593, 666, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -1253, -2182, null);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextfront(canvasTemp, "右");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            canvasCombine.drawBitmap(bitmapTemp, 908 - width_front / 2, 1821, null);
+
+            //side1
+            //LL
+            bitmapTemp = Bitmap.createBitmap(1215, 594, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -6921, -1342, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side1_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSide1(canvasTemp, "左外");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side1, height_side1, true);
+            canvasCombine.drawBitmap(bitmapTemp, 4858 - width_side1, 668 - height_side1, null);
+
+            //LR
+            bitmapTemp = Bitmap.createBitmap(1215, 594, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -4163, -1342, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side1_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSide1(canvasTemp, "左内");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side1, height_side1, true);
+            canvasCombine.drawBitmap(bitmapTemp, 4918, 668 - height_side1, null);
+
+            //RL
+            bitmapTemp = Bitmap.createBitmap(1215, 594, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -2821, -1342, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side1_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSide1(canvasTemp, "右内");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side1, height_side1, true);
+            canvasCombine.drawBitmap(bitmapTemp, 1413 - width_side1, 668 - height_side1, null);
+
+            //RR
+            bitmapTemp = Bitmap.createBitmap(1215, 594, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -63, -1342, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side1_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSide1(canvasTemp, "右外");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side1, height_side1, true);
+            canvasCombine.drawBitmap(bitmapTemp, 1473, 668 - height_side1, null);
+
+            //side2_up
+            //LL
+            bitmapTemp = Bitmap.createBitmap(581, 530, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -6703, -877, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side2_up_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSide2Up_L(canvasTemp, "左外");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
+            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_up, 2020, null);
+
+            //LR
+            bitmapTemp = Bitmap.createBitmap(581, 530, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -5015, -877, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side2_up_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSide2Up_R(canvasTemp, "左内");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
+            canvasCombine.drawBitmap(bitmapTemp, 6157, 727, null);
+
+            //RL
+            bitmapTemp = Bitmap.createBitmap(581, 530, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -2603, -877, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side2_up_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSide2Up_L(canvasTemp, "右外");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
+            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_up, 2020, null);
+
+            //RR
+            bitmapTemp = Bitmap.createBitmap(581, 530, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -915, -877, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side2_up_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSide2Up_R(canvasTemp, "右内");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
+            canvasCombine.drawBitmap(bitmapTemp, 2712, 727, null);
+
+            //side2_below
+            //LL
+            bitmapTemp = Bitmap.createBitmap(430, 485, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -6491, -1451, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side2_below_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSide2Below_L(canvasTemp, "左外");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
+            canvasCombine.drawBitmap(bitmapTemp, 6157 + margin_side_below, 1927 - height_side2_below, null);
+
+            //LR
+            bitmapTemp = Bitmap.createBitmap(430, 485, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -5378, -1451, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side2_below_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSide2Below_R(canvasTemp, "左内");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
+            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_below - margin_side_below, 668 - height_side2_below, null);
+
+            //RL
+            bitmapTemp = Bitmap.createBitmap(430, 485, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -2391, -1451, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side2_below_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSide2Below_L(canvasTemp, "右内");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
+            canvasCombine.drawBitmap(bitmapTemp, 2712 + margin_side_below, 1927 - height_side2_below, null);
+
+            //RR
+            bitmapTemp = Bitmap.createBitmap(430, 485, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -1278, -1451, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_side2_below_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSide2Below_R(canvasTemp, "右外");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
+            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_below - margin_side_below, 668 - height_side2_below, null);
+
+            //tongue_left
+            //up
+            bitmapTemp = Bitmap.createBitmap(683, 1058, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -5808, -878, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_tongue_up);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextTongueUp(canvasTemp, "左");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_tongue_up, height_tongue_up, true);
+            canvasCombine.drawBitmap(bitmapTemp, 5710 - width_tongue_up / 2, 727, null);
+            //below
+            bitmapTemp = Bitmap.createBitmap(649, 557, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -5825, -1958, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_tongue_below);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextTongueBelow(canvasTemp, "左");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_tongue_below, height_tongue_below, true);
+            canvasCombine.drawBitmap(bitmapTemp, 5710 - width_tongue_below / 2, 2020, null);
+
+            //tongue_right
+            //up
+            bitmapTemp = Bitmap.createBitmap(683, 1058, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -1708, -878, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_tongue_up);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextTongueUp(canvasTemp, "右");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_tongue_up, height_tongue_up, true);
+            canvasCombine.drawBitmap(bitmapTemp, 2265 - width_tongue_up / 2, 727, null);
+            //below
+            bitmapTemp = Bitmap.createBitmap(649, 557, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -1725, -1958, null);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lh_tongue_below);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextTongueBelow(canvasTemp, "右");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_tongue_below, height_tongue_below, true);
+            canvasCombine.drawBitmap(bitmapTemp, 2265 - width_tongue_below / 2, 2020, null);
+
+            bitmapTemp.recycle();
+            bitmapDB.recycle();
+
+        } else if (orderItems.get(currentID).imgs.size() == 1 && MainActivity.instance.bitmaps.get(0).getWidth() == 4500) {//jj
             //back1
             //left
             Bitmap bitmapTemp = Bitmap.createBitmap(1535, 453, Bitmap.Config.ARGB_8888);
@@ -1115,7 +1164,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Up_L(canvasTemp, "左外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_up, 2613 - height_side2_up, null);
+            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_up, 2020, null);
 
             //LR
             bitmapTemp = Bitmap.createBitmap(581, 530, Bitmap.Config.ARGB_8888);
@@ -1127,7 +1176,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Up_R(canvasTemp, "左内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6157, 1331 - height_side2_up, null);
+            canvasCombine.drawBitmap(bitmapTemp, 6157, 727, null);
 
             //RL
             bitmapTemp = Bitmap.createBitmap(581, 530, Bitmap.Config.ARGB_8888);
@@ -1139,7 +1188,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Up_L(canvasTemp, "右外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_up, 2613 - height_side2_up, null);
+            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_up, 2020, null);
 
             //RR
             bitmapTemp = Bitmap.createBitmap(581, 530, Bitmap.Config.ARGB_8888);
@@ -1151,7 +1200,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Up_R(canvasTemp, "右内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 2712, 1331 - height_side2_up, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2712, 727, null);
 
             //side2_below
             //LL
@@ -1164,7 +1213,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Below_L(canvasTemp, "左外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6157, 1927 - height_side2_below, null);
+            canvasCombine.drawBitmap(bitmapTemp, 6157 + margin_side_below, 1927 - height_side2_below, null);
 
             //LR
             bitmapTemp = Bitmap.createBitmap(430, 485, Bitmap.Config.ARGB_8888);
@@ -1176,7 +1225,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Below_R(canvasTemp, "左内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_below, 668 - height_side2_below, null);
+            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_below - margin_side_below, 668 - height_side2_below, null);
 
             //RL
             bitmapTemp = Bitmap.createBitmap(430, 485, Bitmap.Config.ARGB_8888);
@@ -1188,7 +1237,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Below_L(canvasTemp, "右内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 2712, 1927 - height_side2_below, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2712 + margin_side_below, 1927 - height_side2_below, null);
 
             //RR
             bitmapTemp = Bitmap.createBitmap(430, 485, Bitmap.Config.ARGB_8888);
@@ -1200,7 +1249,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Below_R(canvasTemp, "右外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_below, 668 - height_side2_below, null);
+            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_below - margin_side_below, 668 - height_side2_below, null);
 
             //tongue_left
             //up
@@ -1253,7 +1302,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp.recycle();
             bitmapDB.recycle();
 
-        } else if (orderItems.get(currentID).imgs.size() == 1 && MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {
+        } else if (orderItems.get(currentID).imgs.size() == 1 && MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {//jj
             if(MainActivity.instance.bitmaps.get(0).getWidth() == 4000){
                 MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 7017, 7017, true));
             }
@@ -1385,7 +1434,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Up_L(canvasTemp, "左外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_up, 2613 - height_side2_up, null);
+            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_up, 2020, null);
 
             //LR
             matrix.setRotate(-90);
@@ -1396,7 +1445,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Up_R(canvasTemp, "左内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6157, 1331 - height_side2_up, null);
+            canvasCombine.drawBitmap(bitmapTemp, 6157, 727, null);
 
             //RL
             matrix.setRotate(90);
@@ -1407,7 +1456,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Up_L(canvasTemp, "右外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_up, 2613 - height_side2_up, null);
+            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_up, 2020, null);
 
             //RR
             matrix.setRotate(-90);
@@ -1418,7 +1467,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Up_R(canvasTemp, "右内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_up, height_side2_up, true);
-            canvasCombine.drawBitmap(bitmapTemp, 2712, 1331 - height_side2_up, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2712, 727, null);
 
             //side2_below
             //LL
@@ -1430,7 +1479,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Below_L(canvasTemp, "左外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6157, 1927 - height_side2_below, null);
+            canvasCombine.drawBitmap(bitmapTemp, 6157 + margin_side_below, 1927 - height_side2_below, null);
 
             //LR
             matrix.setRotate(-90);
@@ -1441,7 +1490,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Below_R(canvasTemp, "左内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_below, 668 - height_side2_below, null);
+            canvasCombine.drawBitmap(bitmapTemp, 6827 - width_side2_below - margin_side_below, 668 - height_side2_below, null);
 
             //RL
             matrix.setRotate(90);
@@ -1452,7 +1501,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Below_L(canvasTemp, "右内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 2712, 1927 - height_side2_below, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2712 + margin_side_below, 1927 - height_side2_below, null);
 
             //RR
             matrix.setRotate(-90);
@@ -1463,7 +1512,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSide2Below_R(canvasTemp, "右外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2_below, height_side2_below, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_below, 668 - height_side2_below, null);
+            canvasCombine.drawBitmap(bitmapTemp, 3382 - width_side2_below - margin_side_below, 668 - height_side2_below, null);
 
             //tongue_left
             //up
@@ -1520,7 +1569,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         try {
             String printColor = orderItems.get(currentID).color.equals("黑") ? "B" : "W";
-            String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).size + "_" + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -1612,14 +1661,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 height_front = 597;
                 width_side1 = 1072;
                 height_side1 = 543;
-                width_side2_up = 504;
-                height_side2_up = 500;
-                width_side2_below = 378;
-                height_side2_below = 451;
+                width_side2_up = 517;
+                height_side2_up = 490;
+                width_side2_below = 381;
+                height_side2_below = 453;
                 width_tongue_up = 628;
                 height_tongue_up = 942;
                 width_tongue_below = 603;
                 height_tongue_below = 502;
+                margin_side_below = 58;
                 break;
             case 37:
                 width_back1 = 1391;
@@ -1630,14 +1680,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 height_front = 614;
                 width_side1 = 1100;
                 height_side1 = 554;
-                width_side2_up = 526;
-                height_side2_up = 500;
-                width_side2_below = 378;
-                height_side2_below = 451;
+                width_side2_up = 529;
+                height_side2_up = 498;
+                width_side2_below = 381;
+                height_side2_below = 453;
                 width_tongue_up = 640;
                 height_tongue_up = 966;
                 width_tongue_below = 612;
                 height_tongue_below = 512;
+                margin_side_below = 58;
                 break;
             case 38:
                 width_back1 = 1427;
@@ -1648,14 +1699,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 height_front = 629;
                 width_side1 = 1128;
                 height_side1 = 564;
-                width_side2_up = 537;
-                height_side2_up = 510;
+                width_side2_up = 543;
+                height_side2_up = 506;
                 width_side2_below = 405;
                 height_side2_below = 472;
                 width_tongue_up = 649;
                 height_tongue_up = 988;
                 width_tongue_below = 621;
                 height_tongue_below = 522;
+                margin_side_below = 45;
                 break;
             case 39:
                 width_back1 = 1463;
@@ -1666,7 +1718,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 height_front = 641;
                 width_side1 = 1155;
                 height_side1 = 574;
-                width_side2_up = 556;
+                width_side2_up = 558;
                 height_side2_up = 515;
                 width_side2_below = 405;
                 height_side2_below = 472;
@@ -1674,6 +1726,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 height_tongue_up = 1012;
                 width_tongue_below = 629;
                 height_tongue_below = 534;
+                margin_side_below = 45;
                 break;
             case 40:
                 width_back1 = 1498;
@@ -1684,7 +1737,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 height_front = 645;
                 width_side1 = 1183;
                 height_side1 = 585;
-                width_side2_up = 585;
+                width_side2_up = 569;
                 height_side2_up = 523;
                 width_side2_below = 420;
                 height_side2_below = 484;
@@ -1692,6 +1745,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 height_tongue_up = 1036;
                 width_tongue_below = 639;
                 height_tongue_below = 548;
+                margin_side_below = 38;
                 break;
             case 41:
                 width_back1 = 1535;
@@ -1710,6 +1764,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 height_tongue_up = 1058;
                 width_tongue_below = 649;
                 height_tongue_below = 557;
+                margin_side_below = 38;
                 break;
             case 42:
                 width_back1 = 1570;
@@ -1720,14 +1775,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 height_front = 682;
                 width_side1 = 1242;
                 height_side1 = 605;
-                width_side2_up = 610;
-                height_side2_up = 542;
-                width_side2_below = 446;
-                height_side2_below = 503;
+                width_side2_up = 600;
+                height_side2_up = 543;
+                width_side2_below = 441;
+                height_side2_below = 499;
                 width_tongue_up = 694;
                 height_tongue_up = 1083;
                 width_tongue_below = 657;
                 height_tongue_below = 569;
+                margin_side_below = 29;
                 break;
             case 43:
                 width_back1 = 1606;
@@ -1738,14 +1794,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 height_front = 695;
                 width_side1 = 1266;
                 height_side1 = 616;
-                width_side2_up = 624;
-                height_side2_up = 532;
-                width_side2_below = 446;
-                height_side2_below = 503;
+                width_side2_up = 610;
+                height_side2_up = 549;
+                width_side2_below = 441;
+                height_side2_below = 499;
                 width_tongue_up = 704;
                 height_tongue_up = 1107;
                 width_tongue_below = 667;
                 height_tongue_below = 580;
+                margin_side_below = 29;
                 break;
             case 44:
                 width_back1 = 1641;
@@ -1756,14 +1813,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 height_front = 710;
                 width_side1 = 1298;
                 height_side1 = 626;
-                width_side2_up = 615;
-                height_side2_up = 566;
+                width_side2_up = 623;
+                height_side2_up = 560;
                 width_side2_below = 464;
                 height_side2_below = 519;
                 width_tongue_up = 717;
                 height_tongue_up = 1129;
                 width_tongue_below = 676;
                 height_tongue_below = 593;
+                margin_side_below = 14;
                 break;
             case 45:
                 width_back1 = 1677;
@@ -1774,14 +1832,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 height_front = 722;
                 width_side1 = 1322;
                 height_side1 = 637;
-                width_side2_up = 640;
-                height_side2_up = 559;
+                width_side2_up = 636;
+                height_side2_up = 567;
                 width_side2_below = 464;
                 height_side2_below = 519;
                 width_tongue_up = 727;
                 height_tongue_up = 1154;
                 width_tongue_below = 685;
                 height_tongue_below = 605;
+                margin_side_below = 14;
                 break;
             case 46:
                 width_back1 = 1713;
@@ -1792,14 +1851,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 height_front = 737;
                 width_side1 = 1355;
                 height_side1 = 645;
-                width_side2_up = 646;
-                height_side2_up = 576;
+                width_side2_up = 650;
+                height_side2_up = 574;
                 width_side2_below = 475;
-                height_side2_below = 527;
+                height_side2_below = 528;
                 width_tongue_up = 738;
                 height_tongue_up = 1177;
                 width_tongue_below = 694;
                 height_tongue_below = 617;
+                margin_side_below = 9;
                 break;
             case 47:
                 width_back1 = 1747;
@@ -1810,14 +1870,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 height_front = 762;
                 width_side1 = 1385;
                 height_side1 = 656;
-                width_side2_up = 658;
-                height_side2_up = 585;
-                width_side2_below = 488;
-                height_side2_below = 538;
+                width_side2_up = 664;
+                height_side2_up = 584;
+                width_side2_below = 491;
+                height_side2_below = 542;
                 width_tongue_up = 748;
                 height_tongue_up = 1201;
                 width_tongue_below = 703;
                 height_tongue_below = 628;
+                margin_side_below = 0;
                 break;
             case 48:
                 width_back1 = 1780;
@@ -1828,14 +1889,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 height_front = 780;
                 width_side1 = 1411;
                 height_side1 = 666;
-                width_side2_up = 668;
-                height_side2_up = 595;
-                width_side2_below = 494;
-                height_side2_below = 539;
+                width_side2_up = 675;
+                height_side2_up = 593;
+                width_side2_below = 491;
+                height_side2_below = 542;
                 width_tongue_up = 759;
                 height_tongue_up = 1225;
                 width_tongue_below = 712;
                 height_tongue_below = 640;
+                margin_side_below = 0;
                 break;
         }
 

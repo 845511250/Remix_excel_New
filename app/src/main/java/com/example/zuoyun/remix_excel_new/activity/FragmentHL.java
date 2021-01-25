@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
@@ -229,6 +230,20 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
+        if (orderItems.get(currentID).sizeStr.toLowerCase().contains("king")) {
+            orderItems.get(currentID).sku = "HL5";
+        } else if (orderItems.get(currentID).sizeStr.toLowerCase().contains("queen")) {
+            orderItems.get(currentID).sku = "HL4";
+        } else if (orderItems.get(currentID).sizeStr.toLowerCase().contains("twin")) {
+            orderItems.get(currentID).sku = "HL3";
+        } else if (orderItems.get(currentID).sizeStr.toLowerCase().contains("throw")) {
+            orderItems.get(currentID).sku = "HL2";
+        } else if (orderItems.get(currentID).sizeStr.toLowerCase().contains("blanket")) {
+            orderItems.get(currentID).sku = "HL2";
+        } else if (orderItems.get(currentID).sizeStr.toLowerCase().contains("crib")) {
+            orderItems.get(currentID).sku = "HL1";
+        }
+
         setSize();
         Bitmap bitmapTemp = null;
 
@@ -285,6 +300,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 matrix.postScale(width / 13800f, height / 15300f);
             } else if (MainActivity.instance.bitmaps.get(0).getWidth() == 12000) {//4u2
                 matrix.postScale(width / 12000f, height / 13000f);
+            } else if (MainActivity.instance.bitmaps.get(0).getWidth() == 13500) {//jj
+                matrix.postScale(width / 12000f, height / 13000f);
             }
 
             if (orderItems.get(currentID).sku.equals("HL3") || orderItems.get(currentID).sku.equals("HL4")) {
@@ -295,6 +312,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 13800, 15300, matrix, true);
             } else if (MainActivity.instance.bitmaps.get(0).getWidth() == 12000) {
                 bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 12000, 13000, matrix, true);
+            } else if (MainActivity.instance.bitmaps.get(0).getWidth() == 13500) {
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 750, 250, 12000, 13000, matrix, true);
             }
 
             Canvas canvasTemp= new Canvas(bitmapTemp);
@@ -344,10 +363,20 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             drawText(canvasTemp);
         }
 
+        //填充透明背景为白色
+        if (orderItems.get(currentID).platform.endsWith("jj") && MainActivity.instance.bitmaps.get(0).getWidth() == 13500) {
+            for (int x = 0; x < bitmapTemp.getWidth(); x++) {
+                for (int y = 0; y < bitmapTemp.getHeight(); y++) {
+                    if (bitmapTemp.getPixel(x, y) == 0) {//透明点取值为0
+                        bitmapTemp.setPixel(x, y, Color.WHITE);
+                    }
+                }
+            }
+        }
 
 
         try {
-            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode_short + "_" + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
             if (orderItems.get(currentID).platform.equals("zy")) {
                 nameCombine = orderItems.get(currentID).sku+ "_" + orderItems.get(currentID).color + "_" + orderItems.get(currentID).newCode  + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
             }
@@ -461,7 +490,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void setSize(){
-        switch (orderItems.get(currentID).skuStr) {
+        switch (orderItems.get(currentID).sku) {
             case "HL1":
                 dpi = 200;
                 width = 9293;

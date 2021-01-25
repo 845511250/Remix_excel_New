@@ -202,7 +202,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         Bitmap bitmapTemp = null;
         Canvas canvasTemp;
 
-        if (orderItems.get(currentID).platform.endsWith("-jj") && MainActivity.instance.bitmaps.get(currentID).getWidth() == 14800) {
+        if (orderItems.get(currentID).platform.endsWith("-jj") && MainActivity.instance.bitmaps.get(0).getWidth() == 14800) {
             //空调毯
             Matrix matrix = new Matrix();
             matrix.postScale(width / 10926f, height / 12172f);
@@ -223,7 +223,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawRect(4, 4, width - 4, height - 4, rectBorderPaint);
             drawTextJJ(canvasTemp);
 
-            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode_short + "_" + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + "(HLL空调毯)" + strPlus + ".jpg";
+            String nameCombine = "(HLL空调毯)" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
             String pathSave;
             if (MainActivity.instance.cb_classify.isChecked()) {
                 pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
@@ -234,7 +234,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapTemp, fileSave, dpi);
             bitmapTemp.recycle();
-        } else if (orderItems.get(currentID).platform.endsWith("-jj") && MainActivity.instance.bitmaps.get(currentID).getWidth() == 12000) {
+        } else if (orderItems.get(currentID).platform.endsWith("-jj") && MainActivity.instance.bitmaps.get(0).getWidth() == 12000) {
             //空调毯
             Matrix matrix = new Matrix();
             matrix.postScale(width / 8850f, height / 9808f);
@@ -255,7 +255,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawRect(4, 4, width - 4, height - 4, rectBorderPaint);
             drawTextJJ(canvasTemp);
 
-            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode_short + "_" + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + "(HLL空调毯)" + strPlus + ".jpg";
+            String nameCombine = "(HLL空调毯)" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
             String pathSave;
             if (MainActivity.instance.cb_classify.isChecked()) {
                 pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
@@ -266,7 +266,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapTemp, fileSave, dpi);
             bitmapTemp.recycle();
-        } else if (orderItems.get(currentID).platform.endsWith("-jj") && MainActivity.instance.bitmaps.get(currentID).getWidth() == 11000 && MainActivity.instance.bitmaps.get(currentID).getHeight() == 14800) {
+        } else if (orderItems.get(currentID).platform.endsWith("-jj") && MainActivity.instance.bitmaps.get(0).getWidth() == 11000 && MainActivity.instance.bitmaps.get(0).getHeight() == 14800) {
             //空调毯
             Matrix matrix = new Matrix();
             matrix.postScale(width / 10926f, height / 12172f);
@@ -287,7 +287,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawRect(4, 4, width - 4, height - 4, rectBorderPaint);
             drawTextJJ(canvasTemp);
 
-            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode_short + "_" + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + "(HLL空调毯)" + strPlus + ".jpg";
+            String nameCombine = "(空调毯" + orderItems.get(currentID).sku + ")" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
             String pathSave;
             if (MainActivity.instance.cb_classify.isChecked()) {
                 pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
@@ -319,7 +319,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawRect(4, 4, width - 4, height - 4, rectBorderPaint);
             drawTextJJ(canvasTemp);
 
-            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode_short + "_" + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + "(HLL空调毯)" + strPlus + ".jpg";
+            String nameCombine = "(HLL空调毯)" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
             String pathSave;
             if (MainActivity.instance.cb_classify.isChecked()) {
                 pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
@@ -351,7 +351,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawRect(4, 4, width - 4, height - 4, rectBorderPaint);
             drawTextJJ(canvasTemp);
 
-            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode_short + "_" + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + "(HLL空调毯)" + strPlus + ".jpg";
+            String nameCombine = "(HLL空调毯)" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
             String pathSave;
             if (MainActivity.instance.cb_classify.isChecked()) {
                 pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
@@ -367,7 +367,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
         //空调毯枕套
-        if (orderItems.get(currentID).platform.endsWith("-jj") && MainActivity.instance.bitmaps.get(currentID).getWidth() == 14800) {
+        if (orderItems.get(currentID).platform.endsWith("-jj") && MainActivity.instance.bitmaps.get(0).getWidth() == 14800) {
             rectBorderPaint.setStrokeWidth(4);
 
             Bitmap bitmapCombine = Bitmap.createBitmap(3600, 4800 + 5, Bitmap.Config.ARGB_8888);
@@ -399,7 +399,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 MainActivity.recycleExcelImages();
             }
 
-            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode_short + "_" + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + "(HLL枕套)" + strPlus + ".jpg";
+            String nameCombine = "(HLL枕套)" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
                 pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
@@ -410,7 +410,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 116);
             bitmapCombine.recycle();
-        } else if (orderItems.get(currentID).platform.endsWith("-jj")  && MainActivity.instance.bitmaps.get(currentID).getWidth() == 11000 && MainActivity.instance.bitmaps.get(currentID).getHeight() == 14800) {
+        } else if (orderItems.get(currentID).platform.endsWith("-jj")  && MainActivity.instance.bitmaps.get(0).getWidth() == 11000 && MainActivity.instance.bitmaps.get(0).getHeight() == 14800) {
             rectBorderPaint.setStrokeWidth(4);
 
             Bitmap bitmapCombine = Bitmap.createBitmap(3600, 4800 + 5, Bitmap.Config.ARGB_8888);
@@ -442,7 +442,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             matrix90.postTranslate(bitmapCombine.getHeight(), 0);
             bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix90, true);
 
-            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode_short + "_" + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + "(HLL枕套)" + strPlus + ".jpg";
+            String nameCombine = "(空调毯枕套" + orderItems.get(currentID).sku + ")" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
                 pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
@@ -453,7 +453,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 116);
             bitmapCombine.recycle();
-        } else if (orderItems.get(currentID).platform.endsWith("-jj") && MainActivity.instance.bitmaps.get(currentID).getWidth() == 12000) {
+        } else if (orderItems.get(currentID).platform.endsWith("-jj") && MainActivity.instance.bitmaps.get(0).getWidth() == 12000) {
             rectBorderPaint.setStrokeWidth(4);
 
             Bitmap bitmapCombine = Bitmap.createBitmap(3600, 4800 + 5, Bitmap.Config.ARGB_8888);
@@ -487,7 +487,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             matrix90.postTranslate(bitmapCombine.getHeight(), 0);
             bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix90, true);
 
-            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode_short + "_" + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + "(HLL枕套)" + strPlus + ".jpg";
+            String nameCombine = "(HLL枕套)" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
                 pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
@@ -531,7 +531,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             matrix90.postTranslate(bitmapCombine.getHeight(), 0);
             bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix90, true);
 
-            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode_short + "_" + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + "(HLL枕套)" + strPlus + ".jpg";
+            String nameCombine = "(HLL枕套)" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
                 pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";

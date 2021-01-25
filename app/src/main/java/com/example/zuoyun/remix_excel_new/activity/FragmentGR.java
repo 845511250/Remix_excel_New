@@ -34,7 +34,7 @@ import jxl.write.WritableWorkbook;
  * Created by zuoyun on 2016/11/4.
  */
 
-public class FragmentGRW extends BaseFragment {
+public class FragmentGR extends BaseFragment {
     Context context;
     //    String sdCardPath = "/mnt/asec/share";
     String sdCardPath = "/storage/emulated/0/Pictures";
@@ -138,7 +138,11 @@ public class FragmentGRW extends BaseFragment {
             @Override
             public void run() {
                 super.run();
-                setScale(orderItems.get(currentID).sizeStr);
+                if (orderItems.get(currentID).sku.endsWith("W")) {
+                    setSizeGRW(orderItems.get(currentID).sizeStr);
+                } else {
+                    setSizeGRM(orderItems.get(currentID).sizeStr);
+                }
 
                 if (sizeOK) {
                     for(num=orderItems.get(currentID).num;num>=1;num--) {
@@ -160,17 +164,17 @@ public class FragmentGRW extends BaseFragment {
 
     void drawTextFrontR(Canvas canvas) {
         canvas.drawRect(1000, 4159, 1000 + 800, 4159 + 25, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "女拉链卫衣_" + orderItems.get(currentID).sizeStr + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 1000, 4159 + 23, paint);
+        canvas.drawText(orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 1000, 4159 + 23, paint);
         canvas.drawText(currentID + "", 1440, 4159 + 23, paintRed);
     }
     void drawTextFrontL(Canvas canvas) {
         canvas.drawRect(1000, 4159, 1000 + 800, 4159 + 25, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "女拉链卫衣_" + orderItems.get(currentID).sizeStr + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 1000, 4159 + 23, paint);
+        canvas.drawText(orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 1000, 4159 + 23, paint);
         canvas.drawText(currentID + "", 1440, 4159 + 23, paintRed);
     }
     void drawTextBack(Canvas canvas) {
         canvas.drawRect(1000, 4222, 1000 + 800, 4222 + 25, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "女拉链卫衣_" + orderItems.get(currentID).sizeStr + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 1000, 4222 + 23, paint);
+        canvas.drawText(orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 1000, 4222 + 23, paint);
         canvas.drawText(currentID + "", 1440, 4222 + 23, paintRed);
     }
     void drawTextXiuziL(Canvas canvas) {
@@ -233,14 +237,6 @@ public class FragmentGRW extends BaseFragment {
         canvas.drawText(orderItems.get(currentID).sku + "  " + time + "  " + orderItems.get(currentID).order_number, 1551, 30 + 23, paint);
         canvas.restore();
     }
-    void drawTextPocketR(Canvas canvas) {
-        canvas.drawRect(800, 90, 800 + 200, 90 + 25, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sizeStr, 800, 90 + 23, paint);
-        canvas.drawText(currentID + "", 900, 90 + 23, paintRed);
-
-        canvas.drawRect(1050, 90, 1050 + 300, 90 + 25, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "  " + time + "  " + orderItems.get(currentID).order_number, 1050, 90 + 23, paint);
-    }
     void drawTextPocketL(Canvas canvas) {
         canvas.drawRect(100, 90, 100 + 200, 90 + 25, rectPaint);
         canvas.drawText(orderItems.get(currentID).sizeStr, 100, 90 + 23, paint);
@@ -248,6 +244,14 @@ public class FragmentGRW extends BaseFragment {
 
         canvas.drawRect(350, 90, 350 + 300, 90 + 25, rectPaint);
         canvas.drawText(orderItems.get(currentID).sku + "  " + time + "  " + orderItems.get(currentID).order_number, 350, 90 + 23, paint);
+    }
+    void drawTextPocketR(Canvas canvas) {
+        canvas.drawRect(800, 90, 800 + 200, 90 + 25, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sizeStr, 800, 90 + 23, paint);
+        canvas.drawText(currentID + "", 900, 90 + 23, paintRed);
+
+        canvas.drawRect(1050, 90, 1050 + 300, 90 + 25, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + "  " + time + "  " + orderItems.get(currentID).order_number, 1050, 90 + 23, paint);
     }
     void drawTextXiabai(Canvas canvas) {
         canvas.drawRect(3900, 7, 3900 + 200, 7 + 25, rectPaint);
@@ -421,7 +425,7 @@ public class FragmentGRW extends BaseFragment {
             canvasArm.drawBitmap(bitmapTemp, 1947 + 3954, 0, null);
             bitmapTemp.recycle();
 
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_xiabai);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_bottom_7907);
             canvasArm.drawBitmap(bitmapDB, 0, 0, null);
             drawTextXiabai(canvasArm);
             bitmapArm = Bitmap.createScaledBitmap(bitmapArm, width_xiabai, height_xiabai, true);
@@ -474,7 +478,7 @@ public class FragmentGRW extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, width_front + margin, 0, null);
 
             //back
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 7717, 2504 + 3698, 4143, 4253);
+            bitmapTemp =  Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 7717, 2504 + 3698, 4143, 4253);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_back);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -509,7 +513,7 @@ public class FragmentGRW extends BaseFragment {
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket, height_pocket, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_arm * 2 + margin * 4, null);
 
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 5482 - 30, 5179 + 3698, 2794 / 2, 1576);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 5482 - 30, 5179 + 3698, 2794/2, 1576);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gr_pocket_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -555,19 +559,19 @@ public class FragmentGRW extends BaseFragment {
 
             //xiabai
             Bitmap bitmapArm = Bitmap.createBitmap(3954 * 2, 860, Bitmap.Config.ARGB_8888);
-            Canvas canvasArm = new Canvas(bitmapArm);
+            Canvas canvasArm= new Canvas(bitmapArm);
             canvasArm.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasArm.drawColor(0xffffffff);
 
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 5482 - 30, 10571, 3954 / 2, 860);
             canvasArm.drawBitmap(bitmapTemp, 0, 0, null);
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 7808, 10571, 3954, 860);
-            canvasArm.drawBitmap(bitmapTemp, 3954 / 2, 0, null);
+            canvasArm.drawBitmap(bitmapTemp, 3954/2, 0, null);
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3505 + 30, 10571, 3954 / 2, 860);
             canvasArm.drawBitmap(bitmapTemp, 3954 / 2 + 3954, 0, null);
             bitmapTemp.recycle();
 
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_xiabai);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_bottom_7907);
             canvasArm.drawBitmap(bitmapDB, 0, 0, null);
 
             drawTextXiabai(canvasArm);
@@ -580,7 +584,7 @@ public class FragmentGRW extends BaseFragment {
             bitmapArm.recycle();
 
             //xiukou_l
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 12667, 7286 + 3698, 1628, 619);
+            bitmapTemp =  Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 12667, 7286 + 3698, 1628, 619);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_xiukou);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -589,7 +593,7 @@ public class FragmentGRW extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_arm * 2 + height_pocket + margin * 5, null);
 
             //xiukou_r
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1032, 7286 + 3698, 1628, 619);
+            bitmapTemp =  Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1032, 7286 + 3698, 1628, 619);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_xiukou);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -617,7 +621,7 @@ public class FragmentGRW extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, width_front + margin, 0, null);
 
             //back
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2904, 2074, 4143, 4253);
+            bitmapTemp =  Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2904, 2074, 4143, 4253);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_back);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -645,7 +649,7 @@ public class FragmentGRW extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_arm + margin * 3, null);
 
             //pocket
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3574 + 30, 4751, 2794 / 2, 1576);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3574 + 30, 4751, 2794/2, 1576);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gr_pocket_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -653,7 +657,7 @@ public class FragmentGRW extends BaseFragment {
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket, height_pocket, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_arm * 2 + margin * 4, null);
 
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4975 - 30, 4751, 2794 / 2, 1576);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4975 - 30, 4751, 2794/2, 1576);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gr_pocket_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -699,17 +703,20 @@ public class FragmentGRW extends BaseFragment {
 
             //xiabai
             Bitmap bitmapArm = Bitmap.createBitmap(3864 * 2, 675, Bitmap.Config.ARGB_8888);
-            Canvas canvasArm = new Canvas(bitmapArm);
+            Canvas canvasArm= new Canvas(bitmapArm);
             canvasArm.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasArm.drawColor(0xffffffff);
 
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4975 - 30, 6202, 3864 / 2, 675);
             canvasArm.drawBitmap(bitmapTemp, 0, 0, null);
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3035, 6202, 3864, 675);
-            canvasArm.drawBitmap(bitmapTemp, 3864 / 2, 0, null);
+            canvasArm.drawBitmap(bitmapTemp, 3864/2, 0, null);
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3035 + 30, 6202, 3864 / 2, 675);
             canvasArm.drawBitmap(bitmapTemp, 3864 / 2 + 3864, 0, null);
             bitmapTemp.recycle();
+
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_bottom_7907);
+            canvasArm.drawBitmap(bitmapDB, 0, 0, null);
 
             drawTextXiabai(canvasArm);
             bitmapArm = Bitmap.createScaledBitmap(bitmapArm, width_xiabai, height_xiabai, true);
@@ -721,7 +728,7 @@ public class FragmentGRW extends BaseFragment {
             bitmapArm.recycle();
 
             //xiukou_l
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 7685, 6258, 1628, 619);
+            bitmapTemp =  Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 7685, 6258, 1628, 619);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_xiukou);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -730,7 +737,7 @@ public class FragmentGRW extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_arm * 2 + height_pocket + margin * 5, null);
 
             //xiukou_r
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 634, 6258, 1628, 619);
+            bitmapTemp =  Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 634, 6258, 1628, 619);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_xiukou);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -758,7 +765,7 @@ public class FragmentGRW extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, width_front + margin, 0, null);
 
             //back
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2904, 2074, 4143, 4253);
+            bitmapTemp =  Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2904, 2074, 4143, 4253);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_back);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -786,7 +793,7 @@ public class FragmentGRW extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_arm + margin * 3, null);
 
             //pocket
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 3574 + 30, 4751, 2794 / 2, 1576);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 3574 + 30, 4751, 2794/2, 1576);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gr_pocket_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -794,7 +801,7 @@ public class FragmentGRW extends BaseFragment {
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket, height_pocket, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_arm * 2 + margin * 4, null);
 
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 4975 - 30, 4751, 2794 / 2, 1576);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 4975 - 30, 4751, 2794/2, 1576);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gr_pocket_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -840,17 +847,20 @@ public class FragmentGRW extends BaseFragment {
 
             //xiabai
             Bitmap bitmapArm = Bitmap.createBitmap(3864 * 2, 675, Bitmap.Config.ARGB_8888);
-            Canvas canvasArm = new Canvas(bitmapArm);
+            Canvas canvasArm= new Canvas(bitmapArm);
             canvasArm.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasArm.drawColor(0xffffffff);
 
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 4975 - 30, 6202, 3864 / 2, 675);
             canvasArm.drawBitmap(bitmapTemp, 0, 0, null);
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3035, 6202, 3864, 675);
-            canvasArm.drawBitmap(bitmapTemp, 3864 / 2, 0, null);
+            canvasArm.drawBitmap(bitmapTemp, 3864/2, 0, null);
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 3035 + 30, 6202, 3864 / 2, 675);
             canvasArm.drawBitmap(bitmapTemp, 3864 / 2 + 3864, 0, null);
             bitmapTemp.recycle();
+
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_bottom_7907);
+            canvasArm.drawBitmap(bitmapDB, 0, 0, null);
 
             drawTextXiabai(canvasArm);
             bitmapArm = Bitmap.createScaledBitmap(bitmapArm, width_xiabai, height_xiabai, true);
@@ -862,7 +872,7 @@ public class FragmentGRW extends BaseFragment {
             bitmapArm.recycle();
 
             //xiukou_l
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 7685, 6258, 1628, 619);
+            bitmapTemp =  Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 7685, 6258, 1628, 619);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_xiukou);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -871,7 +881,7 @@ public class FragmentGRW extends BaseFragment {
             canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_arm * 2 + height_pocket + margin * 5, null);
 
             //xiukou_r
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 634, 6258, 1628, 619);
+            bitmapTemp =  Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 634, 6258, 1628, 619);
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_xiukou);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -884,7 +894,7 @@ public class FragmentGRW extends BaseFragment {
 
 
 
-        String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+        String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
         String pathSave;
         if(MainActivity.instance.cb_classify.isChecked()){
             pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
@@ -969,7 +979,159 @@ public class FragmentGRW extends BaseFragment {
         }
     }
 
-    void setScale(String size) {
+    void setSizeGRM(String size) {
+        switch (size) {
+            case "2XS":
+                width_front = 1610;
+                height_front = 3755;
+                width_back = 3175;
+                height_back = 3813;
+                width_arm = 2533;
+                height_arm = 3343;
+                width_maozi = 1593;
+                height_maozi = 2386;
+                width_xiabai = 5358;
+                height_xiabai = 835;
+                width_pocket = 1080;
+                height_pocket = 1408;
+                width_xiukou = 1233;
+                height_xiukou = 834;
+                break;
+            case "XS":
+                width_front = 3354 / 2;
+                height_front = 3872;
+                width_back = 3354;
+                height_back = 3932;
+                width_arm = 2664;
+                height_arm = 3462;
+                width_maozi = 1709;
+                height_maozi = 2429;
+                width_xiabai = 5764 - 40;
+                height_xiabai = 834;
+                width_pocket = 2255 / 2;
+                height_pocket = 1457;
+                width_xiukou = 1292;
+                height_xiukou = 834;
+                break;
+            case "S":
+                width_front = 3530 / 2;
+                height_front = 3990;
+                width_back = 3530;
+                height_back = 4050;
+                width_arm = 2794;
+                height_arm = 3580;
+                width_maozi = 1802;
+                height_maozi = 2499;
+                width_xiabai = 6118 - 40;
+                height_xiabai = 834;
+                width_pocket = 2376 / 2;
+                height_pocket = 1501;
+                width_xiukou = 1352;
+                height_xiukou = 834;
+                break;
+            case "M":
+                width_front = 3708 / 2;
+                height_front = 4106;
+                width_back = 3708;
+                height_back = 4167;
+                width_arm = 2926;
+                height_arm = 3699;
+                width_maozi = 1861;
+                height_maozi = 2558;
+                width_xiabai = 6473 - 40;
+                height_xiabai = 834;
+                width_pocket = 2498 / 2;
+                height_pocket = 1544;
+                width_xiukou = 1411;
+                height_xiukou = 834;
+                break;
+            case "L":
+                width_front = 3885 / 2;
+                height_front = 4225;
+                width_back = 3885;
+                height_back = 4285;
+                width_arm = 3056;
+                height_arm = 3818;
+                width_maozi = 1894;
+                height_maozi = 2607;
+                width_xiabai = 6827 - 40;
+                height_xiabai = 834;
+                width_pocket = 2619 / 2;
+                height_pocket = 1588;
+                width_xiukou = 1470;
+                height_xiukou = 834;
+                break;
+            case "XL":
+                width_front = 4061 / 2;
+                height_front = 4342;
+                width_back = 4061;
+                height_back = 4403;
+                width_arm = 3187;
+                height_arm = 3935;
+                width_maozi = 1956;
+                height_maozi = 2666;
+                width_xiabai = 7182 - 40;
+                height_xiabai = 834;
+                width_pocket = 2739 / 2;
+                height_pocket = 1631;
+                width_xiukou = 1529;
+                height_xiukou = 834;
+                break;
+            case "2XL":
+                width_front = 4238 / 2;
+                height_front = 4459;
+                width_back = 4238;
+                height_back = 4521;
+                width_arm = 3317;
+                height_arm = 4054;
+                width_maozi = 2038;
+                height_maozi = 2736;
+                width_xiabai = 7536 - 40;
+                height_xiabai = 834;
+                width_pocket = 2860 / 2;
+                height_pocket = 1675;
+                width_xiukou = 1588;
+                height_xiukou = 834;
+                break;
+            case "3XL":
+                width_front = 4415 / 2;
+                height_front = 4576;
+                width_back = 4415;
+                height_back = 4638;
+                width_arm = 3448;
+                height_arm = 4172;
+                width_maozi = 2098;
+                height_maozi = 2795;
+                width_xiabai = 7891 - 40;
+                height_xiabai = 834;
+                width_pocket = 2981 / 2;
+                height_pocket = 1719;
+                width_xiukou = 1647;
+                height_xiukou = 834;
+                break;
+            case "4XL":
+                width_front = 4591 / 2;
+                height_front = 4576;
+                width_back = 4591;
+                height_back = 4637;
+                width_arm = 3479;
+                height_arm = 4172;
+                width_maozi = 2165;
+                height_maozi = 2853;
+                width_xiabai = 8244 - 40;
+                height_xiabai = 834;
+                width_pocket = 3096 / 2;
+                height_pocket = 1721;
+                width_xiukou = 1705;
+                height_xiukou = 834;
+                break;
+            default:
+                showDialogSizeWrong(orderItems.get(currentID).order_number);
+                sizeOK = false;
+                break;
+        }
+    }
+    void setSizeGRW(String size) {
         switch (size) {
             case "XS":
                 width_front = 1610;

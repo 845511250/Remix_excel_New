@@ -171,6 +171,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
+        if (MainActivity.instance.bitmaps.get(0).getWidth() != 2700) {
+            MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2700, 2000, true));
+        }
+        if (MainActivity.instance.bitmaps.size() == 2 && MainActivity.instance.bitmaps.get(1).getWidth() != 2700) {
+            MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 2700, 2000, true));
+        }
+
         Bitmap bitmapCombine = Bitmap.createBitmap(2657, 1994 * 2, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
@@ -196,7 +203,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
         try {
-            String nameCombine = orderItems.get(currentID).skuStr + "_" + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

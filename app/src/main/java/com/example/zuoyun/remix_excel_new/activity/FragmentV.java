@@ -153,7 +153,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
         try {
-            String nameCombine = "V鼠标垫_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = "V鼠标垫_" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

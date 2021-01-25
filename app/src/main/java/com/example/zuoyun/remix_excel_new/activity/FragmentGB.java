@@ -137,7 +137,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             @Override
             public void run() {
                 super.run();
-                setScale(orderItems.get(currentID).sizeStr);
+                setSize(orderItems.get(currentID).sizeStr);
 
                 for(num=orderItems.get(currentID).num;num>=1;num--) {
                     intPlus = orderItems.get(currentID).num - num + 1;
@@ -542,7 +542,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 //            matrix.postRotate(-90, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
 //            bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
 
-            String nameCombine = "GB男浴袍_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = "男浴袍" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -622,7 +622,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
     }
 
-    void setScale(String size) {
+    void setSize(String size) {
         width_front = 2095;
         height_front = 6640;
         width_back = 3502;

@@ -134,7 +134,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        String fluo = orderItems.get(currentID).sku.equals("GIF") ? "荧光-" : "";
+        String fluo = orderItems.get(currentID).sku.equals("GIF") ? "荧光" : "";
         canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
         canvasCombine.drawRect(20, 0, 20 + 400, 17, rectPaint);
         canvasCombine.drawText(fluo + "GI挂毯 尺码:" + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 20, 17 - 2, paint);
@@ -144,7 +144,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!file.exists())
                 file.mkdirs();
 
-            String nameCombine = fluo + orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = fluo + orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

@@ -135,35 +135,51 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     public void remixx(){
         Bitmap bitmapTemp = null;
-        if (orderItems.get(currentID).sizeStr.equals("L")) {
-            if (MainActivity.instance.bitmaps.get(0).getHeight() == 5201) {
-                bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
-            } else {
-                bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 4315, 5201, true);
-            }
-            Canvas canvasTemp = new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
 
-            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.r_plus);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            bitmapDB.recycle();
-            drawTextL(canvasTemp);
-        } else {
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight() && MainActivity.instance.bitmaps.get(0).getWidth() == 4978) {//
             bitmapTemp = Bitmap.createBitmap(4315, 4729, Bitmap.Config.ARGB_8888);
-            Canvas canvasTemp = new Canvas(bitmapTemp);
+            Canvas canvasTemp= new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawColor(0xffffffff);
 
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -330, -128, null);
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             bitmapDB.recycle();
             drawText(canvasTemp);
+
+        } else {
+            if (orderItems.get(currentID).sizeStr.equals("L")) {
+                if (MainActivity.instance.bitmaps.get(0).getHeight() == 5201) {
+                    bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+                } else {
+                    bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 4315, 5201, true);
+                }
+                Canvas canvasTemp = new Canvas(bitmapTemp);
+                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+
+                Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.r_plus);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                bitmapDB.recycle();
+                drawTextL(canvasTemp);
+            } else {
+                bitmapTemp = Bitmap.createBitmap(4315, 4729, Bitmap.Config.ARGB_8888);
+                Canvas canvasTemp = new Canvas(bitmapTemp);
+                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+                canvasTemp.drawColor(0xffffffff);
+
+                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
+                Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.r);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                bitmapDB.recycle();
+                drawText(canvasTemp);
+            }
+
         }
 
 
         try {
-            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

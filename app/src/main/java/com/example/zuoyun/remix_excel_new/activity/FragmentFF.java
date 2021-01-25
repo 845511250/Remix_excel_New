@@ -188,7 +188,7 @@ public class FragmentFF extends BaseFragment {
         canvas.restore();
     }
     public void remixx(){
-        setScale(orderItems.get(currentID).size);
+        setSize(orderItems.get(currentID).size);
 
         Bitmap bitmapDB1 = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ff_part1);
         Bitmap bitmapDB2 = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ff_part2);
@@ -265,7 +265,7 @@ public class FragmentFF extends BaseFragment {
             canvasCombine.drawBitmap(bitmapRight3, part3RX, part3RY, null);
 
             String printColor = orderItems.get(currentID).color.equals("黑") ? "B" : "W";
-            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).size + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -356,7 +356,7 @@ public class FragmentFF extends BaseFragment {
         }
     }
 
-    void setScale(int size){
+    void setSize(int size){
         switch (size) {
             case 36:
                 part1Width = 2042;

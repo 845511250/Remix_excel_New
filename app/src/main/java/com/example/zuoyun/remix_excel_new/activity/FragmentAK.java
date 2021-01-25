@@ -188,7 +188,7 @@ public class FragmentAK extends BaseFragment {
     }
 
     public void remixx(){
-        setScale(orderItems.get(currentID).size);
+        setSize(orderItems.get(currentID).size);
         int margin = 60;
 
         //bitmapCombine
@@ -516,7 +516,7 @@ public class FragmentAK extends BaseFragment {
             remix();
     }
 
-    void setScale(int size){
+    void setSize(int size){
         switch (size) {
             case 35:
                 width_main = 1404;

@@ -146,7 +146,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!file.exists())
                 file.mkdirs();
 
-            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

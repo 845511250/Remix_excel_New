@@ -76,7 +76,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(26);
+        paint.setTextSize(25);
         paint.setAntiAlias(true);
 
         paintRed = new Paint();
@@ -174,24 +174,24 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasPart4L.save();
         canvasPart4L.rotate(-10.7f, 144, 1080);
         canvasPart4L.drawRect(144, 1054, 384, 1080, rectPaint);
-        canvasPart4L.drawText(time + " " + orderItems.get(currentID).order_number, 144, 1078, paint);
+        canvasPart4L.drawText(orderItems.get(currentID).order_number, 144, 1080 - 3, paint);
         canvasPart4L.restore();
         canvasPart4L.save();
         canvasPart4L.rotate(10, 366, 1045);
         canvasPart4L.drawRect(376, 1019, 566, 1045, rectPaint);
-        canvasPart4L.drawText("左" + orderItems.get(currentID).size + "码", 376, 1043, paint);
+        canvasPart4L.drawText(" 左" + orderItems.get(currentID).size + "码", 376, 1045 - 3, paint);
         canvasPart4L.restore();
     }
     void drawTextTongueR(Canvas canvasPart4R){
         canvasPart4R.save();
         canvasPart4R.rotate(-10.7f, 144, 1080);
         canvasPart4R.drawRect(144, 1054, 384, 1080, rectPaint);
-        canvasPart4R.drawText(time + " " + orderItems.get(currentID).order_number, 144, 1078, paint);
+        canvasPart4R.drawText(orderItems.get(currentID).order_number, 144, 1080 - 3, paint);
         canvasPart4R.restore();
         canvasPart4R.save();
         canvasPart4R.rotate(10, 366, 1045);
         canvasPart4R.drawRect(376, 1019, 566, 1045, rectPaint);
-        canvasPart4R.drawText("右" + orderItems.get(currentID).size + "码", 376, 1043, paint);
+        canvasPart4R.drawText(" 右" + orderItems.get(currentID).size + "码", 376, 1045 - 3, paint);
         canvasPart4R.restore();
     }
     void drawTextSideR(Canvas canvas, int degree, int left, int bottom, String LR) {
@@ -221,7 +221,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
     public void remixx(){
-        setScale(orderItems.get(currentID).size);
+        setSize(orderItems.get(currentID).size);
 
         Bitmap bitmapCombine = Bitmap.createBitmap(5364, 2748, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine = new Canvas(bitmapCombine);
@@ -664,7 +664,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
 
         try {
-            String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).size + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             if(orderItems.get(currentID).platform.equals("zy")){
                 nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).size + "_"  + "(" + MainActivity.instance.orderDate_short + "-" + (currentID + 1) + ")_" + orderItems.get(currentID).order_number + "_共" + orderItems.get(currentID).newCode + "个" + strPlus + ".jpg";
@@ -749,7 +749,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             remix();
     }
 
-    void setScale(int size){
+    void setSize(int size){
         switch (size) {
             case 35:
                 width_side = 1057;

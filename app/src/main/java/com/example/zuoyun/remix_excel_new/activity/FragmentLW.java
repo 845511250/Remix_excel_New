@@ -142,7 +142,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!file.exists())
                 file.mkdirs();
 
-            String nameCombine = orderItems.get(currentID).sku + "墙插开关板_" + orderItems.get(currentID).newCode_short + "_" + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = "墙插开关板_" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

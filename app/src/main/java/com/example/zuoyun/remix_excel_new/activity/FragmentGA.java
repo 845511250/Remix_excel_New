@@ -613,7 +613,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 //            matrix.postRotate(-90, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
 //            bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
 
-            String nameCombine = "GA女浴袍_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = "GA女浴袍" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -693,7 +693,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
     }
 
-    void setScale(String size) {
+    void setSize(String size) {
         width_front = 1957;
         height_front = 4573;
         width_back = 3353;

@@ -189,7 +189,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
     public void remixx(){
-        setScale(orderItems.get(currentID).size);
+        setSize(orderItems.get(currentID).size);
         int margin = 60;
 
         Bitmap bitmapCombine = Bitmap.createBitmap(width_side + height_main * 2 + margin, width_main + 100, Bitmap.Config.ARGB_8888);
@@ -515,8 +515,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         try {
             String printColor = orderItems.get(currentID).color.equals("黑") ? "B" : "W";
-            String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).size + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
-
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
                 pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
@@ -595,7 +594,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         if (MainActivity.instance.tb_auto.isChecked())
             remix();
     }
-    void setScale(int size){
+    void setSize(int size){
         switch (size) {
             case 36:
                 width_main = 1488;

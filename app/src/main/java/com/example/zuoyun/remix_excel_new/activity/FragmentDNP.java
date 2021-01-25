@@ -211,8 +211,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 canvasremix.drawRect(800, 1570+1594, 1050, 1594+1594, rectPaint);
                 canvasremix.drawText(orderItems.get(currentID).newCode, 801, 1590 + 1594, paintRed);
             }
-            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku : "";
-            String nameCombine = noNewCode + orderItems.get(currentID).newCode + orderItems.get(currentID).order_number + strPlus + ".jpg";
+
+
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             if (orderItems.get(currentID).platform.equals("zy")) {
                 nameCombine = orderItems.get(currentID).sku + "(" + MainActivity.instance.orderDate_short + "-" + (currentID + 1) + ")_" + orderItems.get(currentID).order_number + strPlus + "_共" + orderItems.get(currentID).newCode + "个" + ".jpg";

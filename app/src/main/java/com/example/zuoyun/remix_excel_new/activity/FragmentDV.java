@@ -405,9 +405,7 @@ public class FragmentDV extends BaseFragment {
 
 
         try {
-            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).size + orderItems.get(currentID).color : "";
-
-            String nameCombine = orderItems.get(currentID).sku + "_" + noNewCode + orderItems.get(currentID).newCode + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

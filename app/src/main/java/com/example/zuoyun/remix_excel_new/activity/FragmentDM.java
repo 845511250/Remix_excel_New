@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
-import android.graphics.Typeface;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -48,6 +47,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     String strPlus = "";
     int intPlus = 1;
 
+    Paint rectPaint, paint, paintRed;
+    String time = MainActivity.instance.orderDate_Print;
+
     @Override
     public int getLayout() {
         return R.layout.fragmentdg;
@@ -60,6 +62,21 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         orderItems=MainActivity.instance.orderItems;
         currentID = MainActivity.instance.currentID;
         childPath = MainActivity.instance.childPath;
+
+        paint = new Paint();
+        paint.setColor(0xff000000);
+        paint.setTextSize(25);
+        paint.setAntiAlias(true);
+
+        paintRed = new Paint();
+        paintRed.setColor(0xffff0000);
+        paintRed.setTextSize(25);
+        paintRed.setAntiAlias(true);
+
+        rectPaint = new Paint();
+        rectPaint.setColor(0xffffffff);
+        rectPaint.setStyle(Paint.Style.FILL);
+
 
         MainActivity.instance.setMessageListener(new MainActivity.MessageListener() {
             @Override
@@ -107,46 +124,45 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     }
 
+
+    void drawText(Canvas canvasremix) {
+        canvasremix.drawRect(1120, 2, 1170, 27, rectPaint);
+        canvasremix.drawText("DM", 1121, 24, paint);
+        canvasremix.drawRect(200, 2, 200 + 400, 27, rectPaint);
+        canvasremix.drawText(time + "  " + orderItems.get(currentID).order_number, 201, 24, paint);
+    }
+
+
     public void remixx(){
-        MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1378, 1628, true));
-        Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dm);
-        Paint rectPaint = new Paint();
-        rectPaint.setColor(0xffffffff);
-        rectPaint.setStyle(Paint.Style.FILL);
+        Bitmap bitmapTemp = null;
 
-        Paint paint = new Paint();
-        paint.setColor(0xff000000);
-        paint.setTextSize(38);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
-        paint.setAntiAlias(true);
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight() && MainActivity.instance.bitmaps.get(0).getWidth() == 2000) {//jj
+            bitmapTemp = Bitmap.createBitmap(1378, 1628, Bitmap.Config.ARGB_8888);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
 
-        Paint paintRed = new Paint();
-        paintRed.setColor(0xffff0000);
-        paintRed.setTextSize(38);
-        paintRed.setTypeface(Typeface.DEFAULT_BOLD);
-        paintRed.setAntiAlias(true);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -311, -187, null);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dm);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
 
-        String time = MainActivity.instance.orderDate_Print;
+            drawText(canvasTemp);
+        } else {
+            bitmapTemp = Bitmap.createBitmap(1378, 1628, Bitmap.Config.ARGB_8888);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1378, 1628, true), 0, 0, null);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dm);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+
+            drawText(canvasTemp);
+
+        }
+
+
         try {
-            File file=new File(sdCardPath+"/生产图/"+childPath+"/");
-            if(!file.exists())
-                file.mkdirs();
-            Bitmap bitmapremix = Bitmap.createBitmap(1378, 1628, Bitmap.Config.ARGB_8888);
-            Canvas canvasremix = new Canvas(bitmapremix);
-            canvasremix.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasremix.drawColor(0xffffffff);
-            canvasremix.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-            canvasremix.drawBitmap(bitmapDB, 0, 0, null);
-
-            canvasremix.drawRect(1120, 2, 1180, 38, rectPaint);
-            canvasremix.drawText("DM", 1121, 33, paint);
-            canvasremix.drawRect(200, 2, 600, 38, rectPaint);
-            canvasremix.drawText(time, 201, 33, paint);
-            canvasremix.drawText(orderItems.get(currentID).order_number, 400, 33, paint);
-            canvasremix.drawRect(800, 2, 1050, 38, rectPaint);
-            canvasremix.drawText("流水号:" + (currentID + 1), 801, 33, paintRed);
-
-            String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -155,12 +171,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 pathSave = sdCardPath + "/生产图/" + childPath + "/";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
+
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapremix, fileSave, 149);
+            BitmapToJpg.save(bitmapTemp, fileSave, 149);
 
             //释放bitmap
-            bitmapDB.recycle();
-            bitmapremix.recycle();
+            bitmapTemp.recycle();
 
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";

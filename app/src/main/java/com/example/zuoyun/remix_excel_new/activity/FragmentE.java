@@ -136,7 +136,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             canvasremix.drawText("E " + time + " " + orderItems.get(currentID).order_number, 500, 1504, paint);
 
-            String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

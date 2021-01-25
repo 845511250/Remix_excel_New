@@ -138,7 +138,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             @Override
             public void run() {
                 super.run();
-                setScale(orderItems.get(currentID).sizeStr);
+                setSize(orderItems.get(currentID).sizeStr);
 
                 if (sizeOK) {
                     for(num=orderItems.get(currentID).num;num>=1;num--) {
@@ -461,7 +461,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         matrix.postRotate(-90, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
         bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
 
-        String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+        String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
         String pathSave;
         if(MainActivity.instance.cb_classify.isChecked()){
             pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";
@@ -541,7 +541,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             remix();
     }
 
-    void setScale(String size) {
+    void setSize(String size) {
         switch (size) {
             case "S":
                 width_front = 1736;

@@ -187,7 +187,7 @@ public class FragmentD82 extends BaseFragment {
     }
 
     public void remixx(){
-        setScale(orderItems.get(currentID).size);
+        setSize(orderItems.get(currentID).size);
         Bitmap bitmapDBLeft = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.de41left);
         Bitmap bitmapDBRight = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.de41right);
         Bitmap bitmapDBTongue = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.d82_tongue);
@@ -352,7 +352,7 @@ public class FragmentD82 extends BaseFragment {
             remix();
     }
 
-    void setScale(int size){
+    void setSize(int size){
         switch (size - 1) {
             case 34:
                 width = 1310;

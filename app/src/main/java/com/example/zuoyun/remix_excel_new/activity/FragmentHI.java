@@ -156,7 +156,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvas.rotate(degree, (float) left, (float) bottom);
         canvas.drawRect(left, bottom - 26, left + 500, bottom, rectPaint);
         canvas.drawText(time + " " + orderItems.get(currentID).sku + orderItems.get(currentID).size + "码" + orderItems.get(currentID).color + " " + LR, left + 20, bottom - 2, paint);
-        canvas.drawText(orderItems.get(currentID).newCode + "", left + 250, bottom - 2, paintRed);
+        canvas.drawText(orderItems.get(currentID).newCode + "", left + 300, bottom - 2, paintRed);
 
         canvas.drawRect(left, bottom + 1, left + 250, bottom + 33, rectPaint);
         canvas.drawText(orderItems.get(currentID).order_number, left + 20, bottom + 31, paintBlue);
@@ -562,7 +562,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
         try {
-            String nameCombine = orderItems.get(currentID).sku + orderItems.get(currentID).size + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             if(orderItems.get(currentID).platform.equals("zy")){
                 nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + "_"  + "(" + MainActivity.instance.orderDate_short + "-" + (currentID + 1) + ")_" + orderItems.get(currentID).order_number + "_共" + orderItems.get(currentID).newCode + "个" + strPlus + ".jpg";

@@ -76,7 +76,7 @@ public class FragmentD14 extends BaseFragment {
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(30);
+        paint.setTextSize(24);
         paint.setAntiAlias(true);
 
         paintSmall = new Paint();
@@ -129,7 +129,6 @@ public class FragmentD14 extends BaseFragment {
                     for (int i = 0; i < currentID; i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
                             intPlus += orderItems.get(i).num;
-                            ;
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -141,20 +140,20 @@ public class FragmentD14 extends BaseFragment {
     }
 
     void drawTextLL(Canvas canvas, String LR) {
-        canvas.drawRect(1311, 816 - 30, 1311 + 400, 816, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "_" + orderItems.get(currentID).size + "码" + orderItems.get(currentID).color + LR + " " + orderItems.get(currentID).order_number, 1311, 816 - 3, paint);
+        canvas.drawRect(1311, 816 - 26, 1311 + 400, 816, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + "_" + orderItems.get(currentID).size + "码" + orderItems.get(currentID).color + LR + " " + orderItems.get(currentID).newCode_short + " " + orderItems.get(currentID).order_number, 1311, 816 - 3, paint);
     }
     void drawTextLR(Canvas canvas, String LR) {
-        canvas.drawRect(114, 819 - 30, 114 + 400, 819, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "_" + orderItems.get(currentID).size + "码" + orderItems.get(currentID).color + LR + " " + orderItems.get(currentID).order_number, 114, 819 - 3, paint);
+        canvas.drawRect(114, 819 - 26, 114 + 400, 819, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + "_" + orderItems.get(currentID).size + "码" + orderItems.get(currentID).color + LR + " " + orderItems.get(currentID).newCode_short, 114, 819 - 3, paint);
     }
     void drawTextRL(Canvas canvas, String LR) {
-        canvas.drawRect(1262, 819 - 30, 1262 + 400, 819, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "_" + orderItems.get(currentID).size + "码" + orderItems.get(currentID).color + LR + " " + orderItems.get(currentID).order_number, 1262, 819 - 3, paint);
+        canvas.drawRect(1262, 819 - 26, 1262 + 400, 819, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + "_" + orderItems.get(currentID).size + "码" + orderItems.get(currentID).color + LR + " " + orderItems.get(currentID).newCode_short + " " + orderItems.get(currentID).order_number, 1262, 819 - 3, paint);
     }
     void drawTextRR(Canvas canvas, String LR) {
-        canvas.drawRect(96, 816 - 30, 96 + 400, 816, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "_" + orderItems.get(currentID).size + "码" + orderItems.get(currentID).color + LR + " " + orderItems.get(currentID).order_number, 96, 816 - 3, paint);
+        canvas.drawRect(96, 816 - 26, 96 + 400, 816, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + "_" + orderItems.get(currentID).size + "码" + orderItems.get(currentID).color + LR + " " + orderItems.get(currentID).newCode_short + " " + orderItems.get(currentID).order_number, 96, 816 - 3, paint);
     }
 
     public void remixx() {
@@ -178,9 +177,9 @@ public class FragmentD14 extends BaseFragment {
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.d14_ll);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextLL(canvasTemp, "左");
+            drawTextLL(canvasTemp, "左外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_outside, height_outside, true);
-            canvasCombine.drawBitmap(bitmapTemp, 2106 - width_outside, 1004 - height_outside, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2106 - width_outside, 1004 - height_outside - 7 * (45 - orderItems.get(currentID).size) / 9f, null);
 
             //LR
             matrix = new Matrix();
@@ -190,9 +189,9 @@ public class FragmentD14 extends BaseFragment {
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.d14_lr);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextLR(canvasTemp, "左");
+            drawTextLR(canvasTemp, "左内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_inside, height_inside, true);
-            canvasCombine.drawBitmap(bitmapTemp, 2225, 2076 - height_inside, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2225, 2076 - height_inside - 11 * (45 - orderItems.get(currentID).size) / 9f, null);
 
             //RL
             matrix = new Matrix();
@@ -202,9 +201,9 @@ public class FragmentD14 extends BaseFragment {
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.d14_rl);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextRL(canvasTemp, "右");
+            drawTextRL(canvasTemp, "右内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_inside, height_inside, true);
-            canvasCombine.drawBitmap(bitmapTemp, 2106 - width_inside, 2076 - height_inside, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2106 - width_inside, 2076 - height_inside - 11 * (45 - orderItems.get(currentID).size) / 9f, null);
 
             //RR
             matrix = new Matrix();
@@ -214,9 +213,9 @@ public class FragmentD14 extends BaseFragment {
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.d14_rr);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextRR(canvasTemp, "右");
+            drawTextRR(canvasTemp, "右外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_outside, height_outside, true);
-            canvasCombine.drawBitmap(bitmapTemp, 2225, 1004 - height_outside, null);
+            canvasCombine.drawBitmap(bitmapTemp, 2225, 1004 - height_outside - 7 * (45 - orderItems.get(currentID).size) / 9f, null);
 
             bitmapTemp.recycle();
             bitmapDB.recycle();
@@ -225,7 +224,7 @@ public class FragmentD14 extends BaseFragment {
 
 
         try {
-            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).size + "_" + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if (MainActivity.instance.cb_classify.isChecked()) {

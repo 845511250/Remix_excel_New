@@ -210,7 +210,7 @@ public class FragmentFH extends BaseFragment {
             canvasTemp.drawBitmap(bitmapCut, matrix, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fh_side_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextL(canvasTemp, "左");
+            drawTextL(canvasTemp, "左外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
             canvasCombine.drawBitmap(bitmapTemp, mianWidth + margin, 0, null);
 
@@ -227,7 +227,7 @@ public class FragmentFH extends BaseFragment {
             canvasTemp.drawBitmap(bitmapCut, matrix, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fh_side_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextR(canvasTemp, "左");
+            drawTextR(canvasTemp, "左内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
             canvasCombine.drawBitmap(bitmapTemp, mianWidth + margin, sideHeight, null);
 
@@ -255,7 +255,7 @@ public class FragmentFH extends BaseFragment {
             canvasTemp.drawBitmap(bitmapCut, matrix, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fh_side_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextL(canvasTemp, "右");
+            drawTextL(canvasTemp, "右内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
             canvasCombine.drawBitmap(bitmapTemp, mianWidth + margin, mainHeight + margin, null);
 
@@ -272,7 +272,7 @@ public class FragmentFH extends BaseFragment {
             canvasTemp.drawBitmap(bitmapCut, matrix, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fh_side_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextR(canvasTemp, "右");
+            drawTextR(canvasTemp, "右外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
             canvasCombine.drawBitmap(bitmapTemp, mianWidth + margin, mainHeight + margin + sideHeight, null);
 
@@ -296,7 +296,7 @@ public class FragmentFH extends BaseFragment {
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fh_side_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextL(canvasTemp, "左");
+            drawTextL(canvasTemp, "左外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
             canvasCombine.drawBitmap(bitmapTemp, mianWidth + margin, 0, null);
 
@@ -306,7 +306,7 @@ public class FragmentFH extends BaseFragment {
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fh_side_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextR(canvasTemp, "左");
+            drawTextR(canvasTemp, "左内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
             canvasCombine.drawBitmap(bitmapTemp, mianWidth + margin, sideHeight, null);
 
@@ -326,7 +326,7 @@ public class FragmentFH extends BaseFragment {
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fh_side_l);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextL(canvasTemp, "右");
+            drawTextL(canvasTemp, "右内");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
             canvasCombine.drawBitmap(bitmapTemp, mianWidth + margin, mainHeight + margin, null);
 
@@ -336,8 +336,77 @@ public class FragmentFH extends BaseFragment {
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fh_side_r);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextR(canvasTemp, "右外");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
-            drawTextR(canvasTemp, "右");
+            canvasCombine.drawBitmap(bitmapTemp, mianWidth + margin, mainHeight + margin + sideHeight, null);
+
+            bitmapTemp.recycle();
+            bitmapDB.recycle();
+        } else if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight() && MainActivity.instance.bitmaps.get(0).getWidth() == 4211) {
+            //left main
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1455, 575, 1299, 1472);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1235, 1401, true);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fh_main);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextMain(canvasTemp, "左");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mianWidth, mainHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            //LL
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2754, 574, 1327, 700);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1289, 690, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fh_side_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextL(canvasTemp, "左外");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, mianWidth + margin, 0, null);
+
+            //LR
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 128, 574, 1327, 700);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1289, 690, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fh_side_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextR(canvasTemp, "左内");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, mianWidth + margin, sideHeight, null);
+
+            //right main
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1455, 2164, 1299, 1472);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1235, 1401, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fh_main);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextMain(canvasTemp, "右");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mianWidth, mainHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, mainHeight + margin, null);
+
+            //RL
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2754, 2163, 1327, 700);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1289, 690, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fh_side_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextL(canvasTemp, "右内");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, mianWidth + margin, mainHeight + margin, null);
+
+            //RR
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 128, 2163, 1327, 700);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1289, 690, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fh_side_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextR(canvasTemp, "右外");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, sideWidth, sideHeight, true);
             canvasCombine.drawBitmap(bitmapTemp, mianWidth + margin, mainHeight + margin + sideHeight, null);
 
             bitmapTemp.recycle();
@@ -348,8 +417,7 @@ public class FragmentFH extends BaseFragment {
 
         try {
             String printColor = orderItems.get(currentID).color.equals("黑") ? "B" : "W";
-            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku + orderItems.get(currentID).size + "_" : "";
-            String nameCombine = noNewCode + orderItems.get(currentID).sku + "_" + orderItems.get(currentID).newCode + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

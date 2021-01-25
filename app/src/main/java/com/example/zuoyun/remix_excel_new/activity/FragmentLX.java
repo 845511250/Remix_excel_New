@@ -160,7 +160,7 @@ public class FragmentLX extends BaseFragment {
     }
     void drawTextInsideBelow(Canvas canvas, String LR) {
         canvas.drawRect(417, 388 - 25, 417 + 500, 388, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + orderItems.get(currentID).size + "码-" + orderItems.get(currentID).color + "-" + LR + " " + time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 417, 388 - 3, paint);
+        canvas.drawText(orderItems.get(currentID).sku + orderItems.get(currentID).size + "码-" + orderItems.get(currentID).color + "-" + LR + " " + time + " " + orderItems.get(currentID).newCode_short + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 417, 388 - 3, paint);
     }
     void drawTextInsideAboveL(Canvas canvas, String LR) {
         canvas.save();
@@ -178,11 +178,11 @@ public class FragmentLX extends BaseFragment {
     }
     void drawTextOutsideBelowL(Canvas canvas, String LR) {
         canvas.drawRect(437, 925 - 23, 437 + 500, 925, rectPaint);
-        canvas.drawText(orderItems.get(currentID).size + "码-" + orderItems.get(currentID).color + "-" + LR + " " + time + orderItems.get(currentID).order_number, 437, 925 - 3, paint);
+        canvas.drawText(orderItems.get(currentID).size + "码-" + orderItems.get(currentID).color + "-" + LR + " " + orderItems.get(currentID).newCode_short + " " + orderItems.get(currentID).order_number, 437, 925 - 3, paint);
     }
     void drawTextOutsideBelowR(Canvas canvas, String LR) {
         canvas.drawRect(961, 925 - 23, 961 + 500, 925, rectPaint);
-        canvas.drawText(orderItems.get(currentID).size + "码-" + orderItems.get(currentID).color + "-" + LR + " " + orderItems.get(currentID).order_number, 961, 925 - 3, paint);
+        canvas.drawText(orderItems.get(currentID).size + "码-" + orderItems.get(currentID).color + "-" + LR + " " + orderItems.get(currentID).newCode_short + " " + orderItems.get(currentID).order_number, 961, 925 - 3, paint);
     }
 
     public void remixx(){
@@ -710,7 +710,7 @@ public class FragmentLX extends BaseFragment {
 
 
         try {
-            String nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).size + "_" + orderItems.get(currentID).color + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

@@ -188,7 +188,7 @@ public class FragmentAP extends BaseFragment {
     }
 
     public void remixx(){
-        setScale(orderItems.get(currentID).size);
+        setSize(orderItems.get(currentID).size);
         int margin = 60;
 
         //bitmapCombine
@@ -273,8 +273,7 @@ public class FragmentAP extends BaseFragment {
 
         try {
             String printColor = orderItems.get(currentID).color.equals("黑") ? "B" : "W";
-            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku + orderItems.get(currentID).size + "-" + orderItems.get(currentID).color + "-" : "";
-            String nameCombine = noNewCode + orderItems.get(currentID).newCode + "-" + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -316,9 +315,9 @@ public class FragmentAP extends BaseFragment {
             Workbook book = Workbook.getWorkbook(fileWrite);
             WritableWorkbook workbook = Workbook.createWorkbook(fileWrite,book);
             WritableSheet sheet = workbook.getSheet(0);
-            Label label0 = new Label(0, currentID + 1, orderItems.get(currentID).order_number + orderItems.get(currentID).sku + orderItems.get(currentID).size);
+            Label label0 = new Label(0, currentID + 1, orderItems.get(currentID).order_number + orderItems.get(currentID).sku + orderItems.get(currentID).size+printColor);
             sheet.addCell(label0);
-            Label label1 = new Label(1, currentID + 1, orderItems.get(currentID).sku + orderItems.get(currentID).size);
+            Label label1 = new Label(1, currentID + 1, orderItems.get(currentID).sku + orderItems.get(currentID).size+printColor);
             sheet.addCell(label1);
             Number number2 = new Number(2, currentID+1, orderItems.get(currentID).num);
             sheet.addCell(number2);
@@ -354,7 +353,7 @@ public class FragmentAP extends BaseFragment {
             remix();
     }
 
-    void setScale(int size){
+    void setSize(int size){
         switch (size) {
             case 35:
                 width_main = 1386;
