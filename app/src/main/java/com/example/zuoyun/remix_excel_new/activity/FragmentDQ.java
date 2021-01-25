@@ -188,7 +188,6 @@ public class FragmentDQ extends BaseFragment {
     }
 
     public void remixx(){
-        int a;
         setSize(orderItems.get(currentID).size);
 
         Bitmap bitmapCombine = null, bitmapDB_tongue = null, bitmapDB_main = null;
