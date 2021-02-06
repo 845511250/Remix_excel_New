@@ -300,7 +300,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 //            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, null);
 //            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fv2);
 //            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextFront(canvasTemp, "右");
+//            drawTextLeft(canvasTemp, "右");
 //            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
 //            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 //
@@ -310,7 +310,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 //            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
 //            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, null);
 //            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextFront(canvasTemp, "左");
+//            drawTextLeft(canvasTemp, "左");
 //            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
 //            canvasCombine.drawBitmap(bitmapTemp, width_front + margin, 0, null);
 //
@@ -321,7 +321,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 //            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, null);
 //            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.f9_back_back);
 //            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp, "靠背面");
+//            drawTextRight(canvasTemp, "靠背面");
 //            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back_back, height_back_back, true);
 //
 //            Matrix matrix = new Matrix();
@@ -336,7 +336,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 //            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
 //            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.f9_back_below);
 //            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp, "底座面");
+//            drawTextRight(canvasTemp, "底座面");
 //            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back_below, height_back_below, true);
 //
 //            matrix = new Matrix();
@@ -354,7 +354,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 //            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -198, -5074, null);
 //            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fv2);
 //            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextFront(canvasTemp, "右");
+//            drawTextLeft(canvasTemp, "右");
 //            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
 //            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 //
@@ -364,7 +364,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 //            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
 //            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -2342, -5074, null);
 //            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextFront(canvasTemp, "左");
+//            drawTextLeft(canvasTemp, "左");
 //            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
 //            canvasCombine.drawBitmap(bitmapTemp, width_front + margin, 0, null);
 //
@@ -375,7 +375,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 //            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -5, -25, null);
 //            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.f9_back_back);
 //            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp, "靠背面");
+//            drawTextRight(canvasTemp, "靠背面");
 //            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back_back, height_back_back, true);
 //
 //            Matrix matrix = new Matrix();
@@ -390,7 +390,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 //            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -5, -2851, null);
 //            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.f9_back_below);
 //            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp, "底座面");
+//            drawTextRight(canvasTemp, "底座面");
 //            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back_below, height_back_below, true);
 //
 //            matrix = new Matrix();

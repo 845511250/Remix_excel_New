@@ -228,7 +228,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        if (orderItems.get(currentID).imgs.size() == 8) {
+        if (orderItems.get(currentID).imgs.size() == 8) {//4u2
             //sideLR
             Bitmap bitmapTemp = Bitmap.createBitmap(1242, 1231, Bitmap.Config.ARGB_8888);
             Canvas canvasTemp = new Canvas(bitmapTemp);

@@ -158,14 +158,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     }
 
-    void drawTextFront(Canvas canvas) {
+    void drawTextLeft(Canvas canvas) {
         canvas.save();
         canvas.rotate(76.2f, 14, 146);
         canvas.drawRect(14, 146 - 22, 14 + 400, 146, rectPaint);
         canvas.drawText(orderItems.get(currentID).sku + "-" + orderItems.get(currentID).sizeStr + "码左  " + orderItems.get(currentID).order_number + "  " + time, 14, 146 - 2, paint);
         canvas.restore();
     }
-    void drawTextBack(Canvas canvas) {
+    void drawTextRight(Canvas canvas) {
         canvas.save();
         canvas.rotate(76.2f, 14, 146);
         canvas.drawRect(14, 146 - 22, 14 + 400, 146, rectPaint);
@@ -179,32 +179,59 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        //左
-        Bitmap bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
-        Canvas canvasTemp = new Canvas(bitmapTemp);
-        canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.aa);
-        canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-        drawTextFront(canvasTemp);
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
-        canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {//jj
+            if (MainActivity.instance.bitmaps.get(0).getWidth() != 3300) {
+                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 3300, 3300, true));
+            }
+            //左
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1662, 767, 1576, 1766);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.aa);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextLeft(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
-        //右
-        if (MainActivity.instance.bitmaps.size() == 2) {
-            bitmapTemp = MainActivity.instance.bitmaps.get(1).copy(Bitmap.Config.ARGB_8888, true);
-        } else if (MainActivity.instance.bitmaps.size() == 1) {
-            Matrix matrix = new Matrix();
-            matrix.postScale(-1, 1);
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 1575, 1765, matrix, true);
+            //右
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 65, 767, 1576, 1766);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapDB.recycle();
+            drawTextRight(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+            canvasCombine.drawBitmap(bitmapTemp, width + 100, 0, null);
+            bitmapTemp.recycle();
+        } else {
+            //左
+            Bitmap bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.aa);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextLeft(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            //右
+            if (MainActivity.instance.bitmaps.size() == 2) {
+                bitmapTemp = MainActivity.instance.bitmaps.get(1).copy(Bitmap.Config.ARGB_8888, true);
+            } else if (MainActivity.instance.bitmaps.size() == 1) {
+                Matrix matrix = new Matrix();
+                matrix.postScale(-1, 1);
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 1575, 1765, matrix, true);
+            }
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapDB.recycle();
+            drawTextRight(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
+            canvasCombine.drawBitmap(bitmapTemp, width + 100, 0, null);
+            bitmapTemp.recycle();
+
         }
-        canvasTemp = new Canvas(bitmapTemp);
-        canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-        bitmapDB.recycle();
-        drawTextBack(canvasTemp);
-        bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
-        canvasCombine.drawBitmap(bitmapTemp, width + 100, 0, null);
-        bitmapTemp.recycle();
 
         try {
 //            Matrix matrix = new Matrix();
@@ -222,7 +249,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             Log.e("aaa", pathSave + nameCombine);
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 150);
+            BitmapToJpg.save(bitmapCombine, fileSave, 149);
             bitmapCombine.recycle();
 
             //写入excel

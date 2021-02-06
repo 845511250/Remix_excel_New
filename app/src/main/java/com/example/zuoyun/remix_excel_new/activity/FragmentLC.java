@@ -129,12 +129,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        int margin = 200;
+        int margin = 100;
         int width = 2362, height = 3862;
-        if(orderItems.get(currentID).sizeStr.equalsIgnoreCase("L")){
+        if (orderItems.get(currentID).sizeStr.equalsIgnoreCase("L")) {
             width = 2362;
             height = 3862;
-        }else{
+        } else {
             width = 2197;
             height = 3425;
         }

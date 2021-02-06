@@ -328,7 +328,7 @@ public class FragmentLT extends BaseFragment {
 //            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -60, -367, null);
 //            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lt_front);
 //            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextFront(canvasTemp);
+//            drawTextLeft(canvasTemp);
 //            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
 //            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 //
@@ -339,7 +339,7 @@ public class FragmentLT extends BaseFragment {
 //            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -3869, -51, null);
 //            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lt_back);
 //            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
 //            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
 //            matrix.postTranslate(width_front + margin, 0);
 //            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
@@ -385,7 +385,7 @@ public class FragmentLT extends BaseFragment {
 //            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, null);
 //            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lt_front);
 //            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextFront(canvasTemp);
+//            drawTextLeft(canvasTemp);
 //            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
 //            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 //
@@ -396,7 +396,7 @@ public class FragmentLT extends BaseFragment {
 //            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
 //            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lt_back);
 //            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
 //            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
 //            matrix.postTranslate(width_front + margin, 0);
 //            canvasCombine.drawBitmap(bitmapTemp, matrix, null);

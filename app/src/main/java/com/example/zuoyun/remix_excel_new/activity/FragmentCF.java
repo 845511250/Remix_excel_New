@@ -284,8 +284,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp.recycle();
         } else if (orderItems.get(currentID).imgs.size() == 5 && orderItems.get(currentID).platform.equals("4u2")) {
             //前
-            Bitmap bitmapTemp = MainActivity.instance.bitmaps.get(1).copy(Bitmap.Config.ARGB_8888, true);
+            Bitmap bitmapTemp = Bitmap.createBitmap(3116, 4341, Bitmap.Config.ARGB_8888);
             Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, null);
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.cf_front);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextFront(canvasTemp);
@@ -293,8 +296,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
             //后面
-            bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapTemp = Bitmap.createBitmap(3114, 4501, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.cf_back);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextBack(canvasTemp);
@@ -302,16 +308,22 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, width_front + margin, 0, null);
 
             //领口
-            bitmapTemp = MainActivity.instance.bitmaps.get(4).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapTemp = Bitmap.createBitmap(2986, 273, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(4), 0, 0, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.cf_border);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_lingkou, height_lingkou, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, height_front + margin, null);
 
             //左袖子
-            bitmapTemp = MainActivity.instance.bitmaps.get(2).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapTemp = Bitmap.createBitmap(2204, 1862, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.cf_sleeve);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextXiuziL(canvasTemp);
@@ -319,8 +331,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, width_front + width_back + margin * 2, 0, null);
 
             //右袖子
-            bitmapTemp = MainActivity.instance.bitmaps.get(3).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapTemp = Bitmap.createBitmap(2204, 1862, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawColor(0xffffffff);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, null);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextXiuziR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiuzi, height_xiuzi, true);

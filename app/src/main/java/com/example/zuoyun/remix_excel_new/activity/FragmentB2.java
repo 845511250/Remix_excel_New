@@ -249,7 +249,7 @@ public class FragmentB2 extends BaseFragment {
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(1), -861, -46, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.b2_collar);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_collar, height_collar, true);
 
@@ -332,7 +332,7 @@ public class FragmentB2 extends BaseFragment {
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -942, -118, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.b2_collar);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_collar, height_collar, true);
 

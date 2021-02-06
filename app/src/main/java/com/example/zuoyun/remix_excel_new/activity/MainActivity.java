@@ -599,6 +599,18 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("F9 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentF9());
                 break;
+            case "F21":
+                tv_title.setText("F21 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentF21());
+                break;
+            case "F21W":
+                tv_title.setText("F21 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentF21());
+                break;
+            case "F21B":
+                tv_title.setText("F21 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentF21());
+                break;
             case "FA":
                 tv_title.setText("被套 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentFA());
@@ -1695,6 +1707,7 @@ public class MainActivity extends FragmentActivity {
                     } else if (orderItem.platform.equals("zy")) {
                         orderItem.newCode = orderItem.num + "";
                         orderItem.num = 1;
+                        orderItem.order_number = "本厂" + orderItem.order_number;
                     } else if (orderItem.platform.endsWith("jj")) {
                         orderItem.order_number = "本厂" + orderItem.order_number;
                     }
@@ -1911,6 +1924,8 @@ public class MainActivity extends FragmentActivity {
                         orderItem.sku = "HA";
                     else if (SKU.equalsIgnoreCase("SF_F2"))
                         orderItem.sku = "Z21";
+                    else if (SKU.equalsIgnoreCase("SF_F6"))
+                        orderItem.sku = "AA";
                     else if (SKU.equalsIgnoreCase("SF_F7"))
                         orderItem.sku = "FA";
                     else
@@ -1950,15 +1965,20 @@ public class MainActivity extends FragmentActivity {
                         orderItem.imgs.add(getImageName(str));
                     }
                     if (orderItem.sku.startsWith("FA") && orderItem.imgs.size() == 5) {
-                        if (orderItem.sizeStr.equals("S") || orderItem.sku.equals("FAS")) {
-                            orderItem.imgs.remove(1);
-                            orderItem.imgs.remove(1);
-                        } else if (orderItem.sizeStr.equals("M") || orderItem.sku.equals("FAM")) {
-                            orderItem.imgs.remove(1);
-                            orderItem.imgs.remove(2);
-                        } else if (orderItem.sizeStr.equals("L") || orderItem.sku.equals("FAL")) {
-                            orderItem.imgs.remove(2);
-                            orderItem.imgs.remove(2);
+                        if (orderItem.imgs.get(4).startsWith("FA-quilt")) {
+                            orderItem.imgs.remove(3);
+                            orderItem.imgs.remove(3);
+                        } else {
+                            if (orderItem.sizeStr.equals("S") || orderItem.sku.equals("FAS")) {
+                                orderItem.imgs.remove(1);
+                                orderItem.imgs.remove(1);
+                            } else if (orderItem.sizeStr.equals("M") || orderItem.sku.equals("FAM")) {
+                                orderItem.imgs.remove(1);
+                                orderItem.imgs.remove(2);
+                            } else if (orderItem.sizeStr.equals("L") || orderItem.sku.equals("FAL")) {
+                                orderItem.imgs.remove(2);
+                                orderItem.imgs.remove(2);
+                            }
                         }
                     }
                     if (orderItem.imgs.size() == 2) {

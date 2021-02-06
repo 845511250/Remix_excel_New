@@ -241,7 +241,7 @@ public class FragmentLX extends BaseFragment {
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lx_left_outside_above);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp, "左");
+//            drawTextRight(canvasTemp, "左");
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_outside_above, height_outside_above, true);
             canvasCombine.drawBitmap(bitmapTemp, 3013, 1738 - height_outside_above, null);
@@ -320,7 +320,7 @@ public class FragmentLX extends BaseFragment {
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(9), 0, 0, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lx_right_outside_above);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp, "右");
+//            drawTextRight(canvasTemp, "右");
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_outside_above, height_outside_above, true);
             canvasCombine.drawBitmap(bitmapTemp, 2932 - width_outside_above, 1738 - height_outside_above, null);
@@ -402,7 +402,7 @@ public class FragmentLX extends BaseFragment {
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -2746, -29, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lx_left_outside_above);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp, "左");
+//            drawTextRight(canvasTemp, "左");
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_outside_above, height_outside_above, true);
             canvasCombine.drawBitmap(bitmapTemp, 3013, 1738 - height_outside_above, null);
@@ -481,7 +481,7 @@ public class FragmentLX extends BaseFragment {
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -580, -2010, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lx_right_outside_above);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp, "右");
+//            drawTextRight(canvasTemp, "右");
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_outside_above, height_outside_above, true);
             canvasCombine.drawBitmap(bitmapTemp, 2932 - width_outside_above, 1738 - height_outside_above, null);
@@ -571,7 +571,7 @@ public class FragmentLX extends BaseFragment {
             canvasTemp.drawBitmap(bitmapCut, 0, 0, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lx_left_outside_above);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp, "左");
+//            drawTextRight(canvasTemp, "左");
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_outside_above, height_outside_above, true);
             canvasCombine.drawBitmap(bitmapTemp, 3013, 1738 - height_outside_above, null);
@@ -663,7 +663,7 @@ public class FragmentLX extends BaseFragment {
             canvasTemp.drawBitmap(bitmapCut, 0, 0, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lx_right_outside_above);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp, "右");
+//            drawTextRight(canvasTemp, "右");
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_outside_above, height_outside_above, true);
             canvasCombine.drawBitmap(bitmapTemp, 2932 - width_outside_above, 1738 - height_outside_above, null);

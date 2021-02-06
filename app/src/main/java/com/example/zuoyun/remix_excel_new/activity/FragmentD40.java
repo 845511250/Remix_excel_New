@@ -249,7 +249,7 @@ public class FragmentD40 extends BaseFragment {
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, null);
             bitmapDB = BitmapFactory.decodeResource(getResources(), R.drawable.d40_collar);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_collar, height_collar, true);
             canvasCombine.drawBitmap(bitmapTemp, x_collar, y_collar, null);
 
@@ -326,7 +326,7 @@ public class FragmentD40 extends BaseFragment {
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -1852, -79, null);
             bitmapDB = BitmapFactory.decodeResource(getResources(), R.drawable.d40_collar);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_collar, height_collar, true);
             canvasCombine.drawBitmap(bitmapTemp, x_collar, y_collar, null);
 

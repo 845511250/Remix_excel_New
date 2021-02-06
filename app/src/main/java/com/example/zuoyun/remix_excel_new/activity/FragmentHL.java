@@ -238,8 +238,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             orderItems.get(currentID).sku = "HL3";
         } else if (orderItems.get(currentID).sizeStr.toLowerCase().contains("throw")) {
             orderItems.get(currentID).sku = "HL2";
-        } else if (orderItems.get(currentID).sizeStr.toLowerCase().contains("blanket")) {
-            orderItems.get(currentID).sku = "HL2";
         } else if (orderItems.get(currentID).sizeStr.toLowerCase().contains("crib")) {
             orderItems.get(currentID).sku = "HL1";
         }

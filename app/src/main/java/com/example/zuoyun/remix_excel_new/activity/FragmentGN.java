@@ -163,7 +163,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             Canvas canvasTemp = new Canvas(bitmapTemp);
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gn_qiankoudai);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
             //上口袋
@@ -171,13 +171,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gn_shangkoudai);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 0, 1100, null);
 
             //bottom
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 305, 2321, 2663, 1430);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 0, 2910, null);
 
             //前面布
@@ -185,7 +185,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gn_front);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 0, 4873, null);
 
             //side
@@ -193,14 +193,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gn_side);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 475, 4436, null);
             canvasCombine.drawBitmap(bitmapTemp, 2850, 6550, null);
 
             //前袋上接布
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 558, 2327, 2168, 307);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             matrix.reset();
             matrix.postRotate(90);
             matrix.postTranslate(307 + 2350, 0);
@@ -210,28 +210,28 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 222, 2660);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 239, 2723, true);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 2820, 0, null);
 
             //侧链布2
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 194, 0, 222, 2660);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 239, 2723, true);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 3190, 0, null);
 
             //侧链布3
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2870, 0, 222, 2660);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 239, 2723, true);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 3560, 0, null);
 
             //侧链布4
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3063, 0, 222, 2660);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 239, 2723, true);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 3906, 0, null);
 
             //侧袋围1
@@ -246,7 +246,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             matrix.postTranslate(420, 3930);
             canvasTemp.drawBitmap(bitmapCut, matrix, null);
             bitmapCut.recycle();
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 4347, 0, null);
 
             //侧袋围2
@@ -261,14 +261,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             matrix.postTranslate(420, 3930);
             canvasTemp.drawBitmap(bitmapCut, matrix, null);
             bitmapCut.recycle();
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 4955, 0, null);
 
             //前袋围
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 3381, 3285, 268);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 4442, 268, true);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             matrix.reset();
             matrix.postRotate(90);
             matrix.postTranslate(268 + 5500, 0);
@@ -277,13 +277,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             //手提布
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1070, 778, 1161, 660);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 2980, 3180, null);
 
             //后片
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 316, 2003, 2670, 1748);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 2850, 4678, null);
 
             bitmapTemp.recycle();
@@ -295,7 +295,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             Canvas canvasTemp = new Canvas(bitmapTemp);
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gn_qiankoudai);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
             //上口袋
@@ -303,13 +303,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gn_shangkoudai);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 0, 1100, null);
 
             //bottom
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, 2662, 1430);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 0, 2910, null);
 
             //前面布
@@ -317,7 +317,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gn_front);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 0, 4873, null);
 
             //side
@@ -335,7 +335,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             //前袋上接布
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 558, 2327, 2168, 307);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             matrix.reset();
             matrix.postRotate(90);
             matrix.postTranslate(307 + 2350, 0);
@@ -345,28 +345,28 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, 222, 2660);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 239, 2723, true);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 2820, 0, null);
 
             //侧链布2
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 194, 0, 222, 2660);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 239, 2723, true);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 3190, 0, null);
 
             //侧链布3
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 2870, 0, 222, 2660);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 239, 2723, true);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 3560, 0, null);
 
             //侧链布4
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 3062, 0, 222, 2660);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 239, 2723, true);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 3906, 0, null);
 
             //侧袋围1
@@ -381,7 +381,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             matrix.postTranslate(420, 3930);
             canvasTemp.drawBitmap(bitmapCut, matrix, null);
             bitmapCut.recycle();
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 4347, 0, null);
 
             //侧袋围2
@@ -396,14 +396,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             matrix.postTranslate(420, 3930);
             canvasTemp.drawBitmap(bitmapCut, matrix, null);
             bitmapCut.recycle();
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 4955, 0, null);
 
             //前袋围
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(2), 0, 3381, 3284, 268);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 4442, 268, true);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             matrix.reset();
             matrix.postRotate(90);
             matrix.postTranslate(268 + 5500, 0);
@@ -412,13 +412,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             //手提布
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(5), 440, 537, 1161, 660);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 2980, 3180, null);
 
             //后片
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, 2670, 1748);
             canvasTemp = new Canvas(bitmapTemp);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             canvasCombine.drawBitmap(bitmapTemp, 2850, 4678, null);
 
             bitmapTemp.recycle();

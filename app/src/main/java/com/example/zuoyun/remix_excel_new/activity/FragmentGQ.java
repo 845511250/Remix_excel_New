@@ -456,7 +456,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
                 drawTextMaoziOutR(canvasTemp);
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
-                canvasCombine.drawBitmap(bitmapTemp, x_Z72_hood_right, y_Z72_hood_left, null);
+                canvasCombine.drawBitmap(bitmapTemp, x_Z72_hood_right, y_Z72_hood_right, null);
 
                 //xiabai
                 bitmapTemp = Bitmap.createBitmap(3863 * 2, 675, Bitmap.Config.ARGB_8888);

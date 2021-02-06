@@ -306,7 +306,7 @@ public class FragmentB3 extends BaseFragment {
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(3), -762, 0, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.b3_collar);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextBack(canvasTemp);
+//            drawTextRight(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_collar, height_collar, true);
 
             matrix.reset();
