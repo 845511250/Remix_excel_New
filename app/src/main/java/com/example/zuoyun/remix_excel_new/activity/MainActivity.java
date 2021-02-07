@@ -1467,6 +1467,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("Z79(正丁DK) " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentDK());
                 break;
+            case "Z88":
+                tv_title.setText("Z88 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentZ88());
+                break;
             case "Z97":
                 tv_title.setText("Z97(内裤) " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentZ97());
