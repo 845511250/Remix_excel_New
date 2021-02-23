@@ -471,6 +471,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("D69 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentD69());
                 break;
+            case "D69JJ":
+                tv_title.setText("D69JJ " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentD69JJ());
+                break;
             case "D70":
                 tv_title.setText("D70 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentD70());
@@ -598,6 +602,10 @@ public class MainActivity extends FragmentActivity {
             case "F9":
                 tv_title.setText("F9 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentF9());
+                break;
+            case "F16":
+                tv_title.setText("F16 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentLO());
                 break;
             case "F21":
                 tv_title.setText("F21 " + orderItems.get(currentID).order_number);
@@ -1471,6 +1479,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("Z88 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentZ88());
                 break;
+            case "Z90":
+                tv_title.setText("Z90 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentFY());
+                break;
             case "Z97":
                 tv_title.setText("Z97(内裤) " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentZ97());
@@ -1888,6 +1900,8 @@ public class MainActivity extends FragmentActivity {
                         orderItem.sku = "CF";
                     else if (SKU.equalsIgnoreCase("D68"))
                         orderItem.sku = "CA";
+                    else if (SKU.equalsIgnoreCase("D69") && orderItem.platform.endsWith("jj"))
+                        orderItem.sku = "D69JJ";
                     else if (SKU.equalsIgnoreCase("GIFT"))
                         orderItem.sku = "HA";
                     else if (SKU.equalsIgnoreCase("SF_D65"))

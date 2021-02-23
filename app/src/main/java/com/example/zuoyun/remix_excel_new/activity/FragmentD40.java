@@ -617,6 +617,87 @@ public class FragmentD40 extends BaseFragment {
                 id_back = R.drawable.d40_back_3xl;
                 id_sleeve_left = R.drawable.d40_sleeve_left_3xl;
                 break;
+            case "5XL":
+                width_front = 2869;
+                height_front = 5964;
+                width_back = 2869;
+                height_back = 6044;
+                width_sleeve = 2075;
+                height_sleeve = 3194;
+                width_collar = 2585;
+                height_collar = 251;
+
+                width_combine = 7033;
+                height_combine = 8997;
+                x_front = 0;
+                y_front = 3033;
+                x_back = 7033;
+                y_back = 8997;
+                x_sleeve_left = 2355;
+                y_sleeve_left = 0;
+                x_sleeve_right = 2472;
+                y_sleeve_right = 3194;
+                x_collar = 4306;
+                y_collar = 2615;
+
+                id_front = R.drawable.d40_front_6xl;
+                id_back = R.drawable.d40_back_6xl;
+                id_sleeve_left = R.drawable.d40_sleeve_left_6xl;
+                break;
+            case "6XL":
+                width_front = 2963;
+                height_front = 6010;
+                width_back = 2963;
+                height_back = 6090;
+                width_sleeve = 2169;
+                height_sleeve = 3242;
+                width_collar = 2650;
+                height_collar = 250;
+
+                width_combine = 7179;
+                height_combine = 9116;
+                x_front = 0;
+                y_front = 3106;
+                x_back = 7179;
+                y_back = 9116;
+                x_sleeve_left = 2398;
+                y_sleeve_left = 0;
+                x_sleeve_right = 2566;
+                y_sleeve_right = 3242;
+                x_collar = 4372;
+                y_collar = 2682;
+
+                id_front = R.drawable.d40_front_6xl;
+                id_back = R.drawable.d40_back_6xl;
+                id_sleeve_left = R.drawable.d40_sleeve_left_6xl;
+                break;
+            case "7XL":
+                width_front = 3058;
+                height_front = 6057;
+                width_back = 3058;
+                height_back = 6139;
+                width_sleeve = 2265;
+                height_sleeve = 3289;
+                width_collar = 2717;
+                height_collar = 250;
+
+                width_combine = 6283;
+                height_combine = 9568;
+                x_front = 0;
+                y_front = 3113;
+                x_back = 6283;
+                y_back = 9568;
+                x_sleeve_left = 2509;
+                y_sleeve_left = 0;
+                x_sleeve_right = 2649;
+                y_sleeve_right = 3289;
+                x_collar = 158;
+                y_collar = 9279;
+
+                id_front = R.drawable.d40_front_6xl;
+                id_back = R.drawable.d40_back_6xl;
+                id_sleeve_left = R.drawable.d40_sleeve_left_6xl;
+                break;
 
             default:
                 showDialogSizeWrong(orderItems.get(currentID).order_number);

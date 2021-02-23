@@ -157,7 +157,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     void drawText(Canvas canvas) {
         canvas.drawRect(2700, 5, 2700 + 350, 24, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sizeStr + "  " + time + "   " + orderItems.get(currentID).order_number + "    " + orderItems.get(currentID).newCode, 2700, 20, paintSmall);
+        canvas.drawText(orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode_short, 2700, 20, paintSmall);
     }
 
     public void remixx(){
@@ -242,9 +242,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
 
-            if (orderItems.get(currentID).sizeStr.equals("S")) {
+            if (orderItems.get(currentID).sizeStr.equals("S") || orderItems.get(currentID).sizeStr.equals("M")) {
                 BitmapToJpg.save(bitmapCombine, fileSave, 120);
-            }else if (orderItems.get(currentID).sizeStr.equals("L")) {
+            } else if (orderItems.get(currentID).sizeStr.equals("L")) {
                 BitmapToJpg.save(bitmapCombine, fileSave, 90);
             }
 

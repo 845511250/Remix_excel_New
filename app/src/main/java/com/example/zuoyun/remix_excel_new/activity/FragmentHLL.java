@@ -463,14 +463,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             Matrix matrix = new Matrix();
             matrix.setScale(3600f / 2932, 2400f / 1955);
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2348, 98, 2932, 1955, matrix, true);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2348, 102, 2932, 1955, matrix, true);
             canvasTemp= new Canvas(bitmapTemp);
             drawTextPillow(canvasTemp);
             canvasTemp.drawRect(0, 0, 3600, 2400, rectBorderPaint);
             canvasTemp.drawRect(2, 2, 3600 - 2, 2400 - 2, rectBorderPaint);
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 6720, 98, 2932, 1955);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 6720, 102, 2932, 1955, matrix, true);
             canvasTemp= new Canvas(bitmapTemp);
             drawTextPillow(canvasTemp);
             canvasTemp.drawRect(0, 0, 3600, 2400, rectBorderPaint);

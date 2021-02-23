@@ -217,7 +217,7 @@ public class FragmentX5 extends BaseFragment {
         Bitmap bitmapCombine = null;
 
         if (orderItems.get(currentID).imgs.size() == 6) {
-            if (orderItems.get(currentID).sizeStr.equals("3XL") || orderItems.get(currentID).sizeStr.equals("4XL")) {//激光电雕152内
+            if (true) {//激光电雕152内
                 bitmapCombine = Bitmap.createBitmap(width_combine, height_combine, Bitmap.Config.ARGB_8888);
                 Canvas canvasCombine = new Canvas(bitmapCombine);
                 canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));

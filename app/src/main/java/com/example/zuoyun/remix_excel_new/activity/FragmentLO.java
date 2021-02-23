@@ -179,10 +179,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
     public void remixx(){
-        if(orderItems.get(currentID).sku.equals("LOW")){
+        if (orderItems.get(currentID).sku.equals("LOW")) {
             setSizeLOW(orderItems.get(currentID).sizeStr);
             gender = "Z77女款（用小一码材料）";
-        }else {
+        } else if (orderItems.get(currentID).sku.equals("F16")) {
+            setSizeF16(orderItems.get(currentID).sizeStr);
+            gender = "F16 ";
+        } else {
             setSizeLO(orderItems.get(currentID).sizeStr);
             gender = "Z77 ";
         }
@@ -516,6 +519,36 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 width_collar = 2151;
                 height_collar = 409;
                 break;
+            case "5XL":
+                width_front = 2268;
+                height_front = 3450;
+                width_back = 3135;
+                height_back = 3614;
+                width_sleeve = 2277;
+                height_sleeve = 1227;
+                width_collar = 2151;
+                height_collar = 409;
+                break;
+            case "6XL":
+                width_front = 2340;
+                height_front = 3511;
+                width_back = 3254;
+                height_back = 3674;
+                width_sleeve = 2436;
+                height_sleeve = 1305;
+                width_collar = 2315;
+                height_collar = 413;
+                break;
+            case "7XL":
+                width_front = 2413;
+                height_front = 3570;
+                width_back = 3370;
+                height_back = 3731;
+                width_sleeve = 2514;
+                height_sleeve = 1343;
+                width_collar = 2394;
+                height_collar = 413;
+                break;
             default:
                 showDialogSizeWrong(orderItems.get(currentID).order_number);
                 sizeOK = false;
@@ -613,6 +646,144 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 height_sleeve = 1226;
                 width_collar = 2151;
                 height_collar = 409;
+                break;
+            case "6XL":
+                width_front = 2268;
+                height_front = 3450;
+                width_back = 3135;
+                height_back = 3614;
+                width_sleeve = 2277;
+                height_sleeve = 1227;
+                width_collar = 2151;
+                height_collar = 409;
+                break;
+            case "7XL":
+                width_front = 2340;
+                height_front = 3511;
+                width_back = 3254;
+                height_back = 3674;
+                width_sleeve = 2436;
+                height_sleeve = 1305;
+                width_collar = 2315;
+                height_collar = 413;
+                break;
+            case "8XL":
+                width_front = 2413;
+                height_front = 3570;
+                width_back = 3370;
+                height_back = 3731;
+                width_sleeve = 2514;
+                height_sleeve = 1343;
+                width_collar = 2394;
+                height_collar = 413;
+                break;
+            default:
+                showDialogSizeWrong(orderItems.get(currentID).order_number);
+                sizeOK = false;
+                break;
+        }
+    }
+    void setSizeF16(String size) {//比Z77大两码 例如Z77的3XL=F16的XL
+        switch (size) {
+            case "2XS":
+                width_front = 1787;
+                height_front = 2911;
+                width_back = 2351;
+                height_back = 3084;
+                width_sleeve = 1772;
+                height_sleeve = 989;
+                width_collar = 1710;
+                height_collar = 398;
+                break;
+            case "XS":
+                width_front = 1846;
+                height_front = 2990;
+                width_back = 2449;
+                height_back = 3163;
+                width_sleeve = 1851;
+                height_sleeve = 1030;
+                width_collar = 1766;
+                height_collar = 400;
+                break;
+            case "S":
+                width_front = 1902;
+                height_front = 3068;
+                width_back = 2547;
+                height_back = 3241;
+                width_sleeve = 1931;
+                height_sleeve = 1069;
+                width_collar = 1822;
+                height_collar = 401;
+                break;
+            case "M":
+                width_front = 1977;
+                height_front = 3149;
+                width_back = 2665;
+                height_back = 3320;
+                width_sleeve = 2017;
+                height_sleeve = 1109;
+                width_collar = 1905;
+                height_collar = 403;
+                break;
+            case "L":
+                width_front = 2050;
+                height_front = 3229;
+                width_back = 2783;
+                height_back = 3398;
+                width_sleeve = 2104;
+                height_sleeve = 1147;
+                width_collar = 1987;
+                height_collar = 405;
+                break;
+            case "XL":
+                width_front = 2122;
+                height_front = 3309;
+                width_back = 2900;
+                height_back = 3477;
+                width_sleeve = 2190;
+                height_sleeve = 1187;
+                width_collar = 2069;
+                height_collar = 407;
+                break;
+            case "2XL":
+                width_front = 2196;
+                height_front = 3389;
+                width_back = 3018;
+                height_back = 3555;
+                width_sleeve = 2278;
+                height_sleeve = 1226;
+                width_collar = 2151;
+                height_collar = 409;
+                break;
+            case "3XL":
+                width_front = 2268;
+                height_front = 3450;
+                width_back = 3135;
+                height_back = 3614;
+                width_sleeve = 2277;
+                height_sleeve = 1227;
+                width_collar = 2151;
+                height_collar = 409;
+                break;
+            case "4XL":
+                width_front = 2340;
+                height_front = 3511;
+                width_back = 3254;
+                height_back = 3674;
+                width_sleeve = 2436;
+                height_sleeve = 1305;
+                width_collar = 2315;
+                height_collar = 413;
+                break;
+            case "5XL":
+                width_front = 2413;
+                height_front = 3570;
+                width_back = 3370;
+                height_back = 3731;
+                width_sleeve = 2514;
+                height_sleeve = 1343;
+                width_collar = 2394;
+                height_collar = 413;
                 break;
             default:
                 showDialogSizeWrong(orderItems.get(currentID).order_number);
