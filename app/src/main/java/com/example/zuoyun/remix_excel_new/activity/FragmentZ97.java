@@ -343,10 +343,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 width = 3054 + 50;
                 height = 2194 + 50;
                 break;
-            case "4XL":
-                width = 3054 + 120 + 50;
-                height = 2194 + 80 + 50;
-                break;
+//            case "4XL":
+//                width = 3054 + 120 + 50;
+//                height = 2194 + 80 + 50;
+//                break;
             default:
                 sizeOK = false;
                 showDialogSizeWrong(orderItems.get(currentID).order_number);

@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
-import android.graphics.Typeface;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -46,6 +45,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     String strPlus = "";
     int intPlus = 1;
 
+    Paint rectPaint, paint, rectBorderPaint;
 
     @Override
     public int getLayout() {
@@ -59,6 +59,21 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         orderItems=MainActivity.instance.orderItems;
         currentID = MainActivity.instance.currentID;
         childPath = MainActivity.instance.childPath;
+
+        rectPaint = new Paint();
+        rectPaint.setColor(0xffffffff);
+        rectPaint.setStyle(Paint.Style.FILL);
+
+        paint = new Paint();
+        paint.setColor(0xff000000);
+        paint.setTextSize(18);
+        paint.setAntiAlias(true);
+
+        rectBorderPaint = new Paint();
+        rectBorderPaint.setColor(0xff000000);
+        rectBorderPaint.setStyle(Paint.Style.STROKE);
+        rectBorderPaint.setStrokeWidth(2);
+
 
         MainActivity.instance.setMessageListener(new MainActivity.MessageListener() {
             @Override
@@ -104,21 +119,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        Paint rectPaint = new Paint();
-        rectPaint.setColor(0xffffffff);
-        rectPaint.setStyle(Paint.Style.FILL);
-
-        Paint paint = new Paint();
-        paint.setColor(0xff000000);
-        paint.setTextSize(18);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
-        paint.setAntiAlias(true);
-
-        Paint paintRed = new Paint();
-        paintRed.setColor(0xffff0000);
-        paintRed.setTextSize(18);
-        paintRed.setTypeface(Typeface.DEFAULT_BOLD);
-        paintRed.setAntiAlias(true);
 
         String time = MainActivity.instance.orderDate_Print;
 
@@ -136,8 +136,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         String fluo = orderItems.get(currentID).sku.equals("GIF") ? "荧光" : "";
         canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-        canvasCombine.drawRect(20, 0, 20 + 400, 17, rectPaint);
-        canvasCombine.drawText(fluo + "GI挂毯 尺码:" + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 20, 17 - 2, paint);
+        canvasCombine.drawRect(20, 19 - 17, 20 + 400, 19, rectPaint);
+        canvasCombine.drawText(fluo + "GI挂毯 尺码:" + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 20, 19 - 2, paint);
+        canvasCombine.drawRect(0, 0, 7650, 6426, rectBorderPaint);
+        canvasCombine.drawRect(0, 0, 7650 - 1, 6426 - 1, rectBorderPaint);
+
 
         try {
             File file=new File(sdCardPath+"/生产图/"+childPath+"/");

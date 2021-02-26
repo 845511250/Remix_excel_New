@@ -484,6 +484,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         height_pocket = 1989;
 
         switch (size) {
+            case "XS":
+                width_front = 1905 - 88;
+                height_front = 3884 - 60;
+                width_back = 2547 - 78;
+                height_back = 4135 - 60;
+                id_frontR = R.drawable.hgm_front_m;
+                id_backL = R.drawable.hgm_back_m;
+                break;
             case "S":
                 width_front = 1905;
                 height_front = 3884;

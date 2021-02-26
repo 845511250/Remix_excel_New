@@ -159,6 +159,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvas.drawRect(799, 114 - 25, 799 + 500, 114, rectPaint);
         canvas.drawText(orderItems.get(currentID).sku + "侧片 " + time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 799, 114 - 3, paint);
         canvas.restore();
+
+        Bitmap bitmapDirection = BitmapFactory.decodeResource(getResources(), R.drawable.kx_direction);
+        canvas.drawBitmap(bitmapDirection, 800, 1375, null);
+        bitmapDirection.recycle();
     }
     void drawTextSide1Right(Canvas canvas) {
         canvas.save();
@@ -166,6 +170,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvas.drawRect(28, 623 - 25, 28 + 500, 623, rectPaint);
         canvas.drawText(orderItems.get(currentID).sku + "侧片 " + time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 28, 623 - 3, paint);
         canvas.restore();
+
+        Bitmap bitmapDirection = BitmapFactory.decodeResource(getResources(), R.drawable.kx_direction);
+        canvas.drawBitmap(bitmapDirection, 2, 1375, null);
+        bitmapDirection.recycle();
     }
     void drawTextSide2Left(Canvas canvas) {
         canvas.save();
@@ -173,6 +181,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvas.drawRect(917, 226 - 25, 917 + 500, 226, rectPaint);
         canvas.drawText(orderItems.get(currentID).sku + "侧片 " + time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 917, 226 - 3, paint);
         canvas.restore();
+
+        Bitmap bitmapDirection = BitmapFactory.decodeResource(getResources(), R.drawable.kx_direction);
+        canvas.drawBitmap(bitmapDirection, 918, 1025, null);
+        bitmapDirection.recycle();
     }
     void drawTextSide2Right(Canvas canvas) {
         canvas.save();
@@ -180,6 +192,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvas.drawRect(28, 725 - 25, 28 + 500, 725, rectPaint);
         canvas.drawText(orderItems.get(currentID).sku + "侧片 " + time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 28, 725 - 3, paint);
         canvas.restore();
+
+        Bitmap bitmapDirection = BitmapFactory.decodeResource(getResources(), R.drawable.kx_direction);
+        canvas.drawBitmap(bitmapDirection, 2, 1025, null);
+        bitmapDirection.recycle();
     }
 
     public void remixx(){
