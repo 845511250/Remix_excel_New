@@ -415,7 +415,7 @@ public class FragmentFI extends BaseFragment {
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasCombine.drawColor(0xffffffff);
 
-            if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {
+            if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {//jj
                 if (MainActivity.instance.bitmaps.get(0).getWidth() != 9700) {
                     MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 9700, 9700, true));
                 }
@@ -521,9 +521,14 @@ public class FragmentFI extends BaseFragment {
 
                 bitmapDB.recycle();
                 bitmapTemp.recycle();
-            } else if (orderItems.get(currentID).imgs.size() == 1) {
+            } else if (orderItems.get(currentID).imgs.size() == 1 || orderItems.get(currentID).imgs.size() == 2) {
                 if (MainActivity.instance.bitmaps.get(0).getWidth() != 9193) {
                     MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 9193, 4772, true));
+                }
+                if (orderItems.get(currentID).imgs.size() == 2) {
+                    if (MainActivity.instance.bitmaps.get(1).getWidth() != 9193) {
+                        MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 9193, 4772, true));
+                    }
                 }
                 //右袖子
                 Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 291, 2804, 3575);
@@ -556,8 +561,7 @@ public class FragmentFI extends BaseFragment {
                 canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
                 //后面
-                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2804, 0, 3585, 3864);
-                canvasTemp = new Canvas(bitmapTemp);
+                bitmapTemp = Bitmap.createBitmap(orderItems.get(currentID).imgs.size() == 2 ? MainActivity.instance.bitmaps.get(1) : MainActivity.instance.bitmaps.get(0), 2804, 0, 3585, 3864);
                 canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
                 bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fi_back);
                 canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -571,8 +575,10 @@ public class FragmentFI extends BaseFragment {
                 canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
                 canvasTemp.drawColor(0xffffffff);
 
-                Bitmap bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2804, 3866, 3585, 906);
+                canvasTemp = new Canvas(bitmapTemp);
+                Bitmap bitmapCut = Bitmap.createBitmap(orderItems.get(currentID).imgs.size() == 2 ? MainActivity.instance.bitmaps.get(1) : MainActivity.instance.bitmaps.get(0), 2804, 3866, 3585, 906);
                 canvasTemp.drawBitmap(bitmapCut, 0, 0, null);
+                bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2804, 3866, 3585, 906);
                 canvasTemp.drawBitmap(bitmapCut, 3585, 0, null);
                 bitmapCut.recycle();
 

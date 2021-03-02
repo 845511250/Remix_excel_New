@@ -490,6 +490,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void setSize(String size) {
+        if (orderItems.get(currentID).sizeStr.startsWith("CHILD")) {
+            orderItems.get(currentID).sizeStr = "S";
+        }
+
         switch (size) {
             case "S":
                 width_part1 = 2716;

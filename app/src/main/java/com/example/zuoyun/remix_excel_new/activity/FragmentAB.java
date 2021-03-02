@@ -158,7 +158,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             }
         }
 
-        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {//jj
             if (MainActivity.instance.bitmaps.get(0).getWidth() != 2000) {
                 MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2000, 2000, true));
             }
@@ -193,17 +193,16 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             setSize(gender + intSize);
             bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, (int) ((1241 + 59) * scaleX), (int) ((1603 + 59) * scaleY), true);
 
-        } else if (!orderItems.get(currentID).platform.equals("4u2")) {
-            MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1241, 1603, true));
-            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ds);
-
-            bitmapCombine = Bitmap.createBitmap(1241+59, 1603+59, Bitmap.Config.ARGB_8888);
+        } else if (orderItems.get(currentID).isPPSL) {
+            bitmapCombine = Bitmap.createBitmap(1241 + 59, 1603 + 59, Bitmap.Config.ARGB_8888);
             Canvas canvasCombine = new Canvas(bitmapCombine);
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasCombine.drawColor(0xffffffff);
-            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
+
+            canvasCombine.drawBitmap(Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 620, 1603, true), 0, 0, null);
+            canvasCombine.drawBitmap(Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 620, 1603, true), 620, 0, null);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ds);
             canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
-            bitmapDB.recycle();
 
             String gender = (orderItems.get(currentID).skuStr.startsWith("ABW")||orderItems.get(currentID).skuStr.startsWith("W")) ? "女" : "男";
 

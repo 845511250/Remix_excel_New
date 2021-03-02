@@ -354,7 +354,7 @@ public class FragmentDV extends BaseFragment {
 
             bitmapTemp.recycle();
             bitmapDB.recycle();
-        } else if (orderItems.get(currentID).imgs.size() == 2) {//adam
+        } else if (orderItems.get(currentID).isPPSL) {//adam
             //main:1000*1058
             //tongue:370*484
             MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1060, 1042, true));

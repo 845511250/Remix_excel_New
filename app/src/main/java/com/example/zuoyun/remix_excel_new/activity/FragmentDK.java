@@ -163,6 +163,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         orderItems.get(currentID).sizeStr = orderItems.get(currentID).sizeStr.replace("/", "-");
         orderItems.get(currentID).newCode = orderItems.get(currentID).newCode.replace("/", "-");
 
+
         int width, height_front, height_back;
         int id_DB;
         if (orderItems.get(currentID).sizeStr.contains("L")) {
@@ -177,6 +178,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             id_DB = R.drawable.dk_s_m;
         }
 
+        //----------------------如果是亚当袜子 后面back无需缩放
+        boolean isPPSL = orderItems.get(currentID).platform.startsWith("pillow") || orderItems.get(currentID).platform.startsWith("shoe");
+        if (isPPSL) {
+            height_back = height_front;
+        }
+        //-----------------------
+
         int margin = 70;
         Bitmap bitmapComnine = Bitmap.createBitmap(width * 4 + margin, height_front, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine = new Canvas(bitmapComnine);
@@ -187,8 +195,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawBitmap(bitmapLFront, 0, 0, null);
         bitmapLBack = Bitmap.createScaledBitmap(bitmapLBack, width, height_back, true);
         canvasCombine.drawBitmap(bitmapLBack, width, 0, null);
-        bitmapLBack = Bitmap.createScaledBitmap(bitmapLBack, width, -height_back, true);
-        canvasCombine.drawBitmap(bitmapLBack, width, height_back, null);
+        if (!isPPSL) {
+            bitmapLBack = Bitmap.createScaledBitmap(bitmapLBack, width, -height_back, true);
+            canvasCombine.drawBitmap(bitmapLBack, width, height_back, null);
+        }
         Bitmap bitmapDB = BitmapFactory.decodeResource(getResources(), id_DB);
         canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
 
@@ -196,8 +206,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawBitmap(bitmapRFront, width * 2 + margin, 0, null);
         bitmapRBack = Bitmap.createScaledBitmap(bitmapRBack, width, height_back, true);
         canvasCombine.drawBitmap(bitmapRBack, width * 3 + margin, 0, null);
-        bitmapRBack = Bitmap.createScaledBitmap(bitmapRBack, width, -height_back, true);
-        canvasCombine.drawBitmap(bitmapRBack, width * 3 + margin, height_back, null);
+        if (!isPPSL) {
+            bitmapRBack = Bitmap.createScaledBitmap(bitmapRBack, width, -height_back, true);
+            canvasCombine.drawBitmap(bitmapRBack, width * 3 + margin, height_back, null);
+        }
         canvasCombine.drawBitmap(bitmapDB, width * 2 + margin, 0, null);
 
         //drawText

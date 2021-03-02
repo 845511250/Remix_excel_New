@@ -110,6 +110,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remix(){
+        Config.FV_type = 1;//需要选择排版方式的话 此行注释掉
         if (Config.FV_type == 0) {
             showDialogChoose();
         } else {
@@ -118,6 +119,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 public void run() {
                     super.run();
                     for(num=orderItems.get(currentID).num;num>=1;num--) {
+                        intPlus = orderItems.get(currentID).num - num + 1;
                         for(int i=0;i<currentID;i++) {
                             if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
                                 intPlus += orderItems.get(i).num;
@@ -186,7 +188,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        if (orderItems.get(currentID).platform.contains("testaprint")) {//adam
+        if (orderItems.get(currentID).platform.endsWith("jj")) {//adam
             int width = 1789 + 35;//90dpi,35=1cm
             int height = 4803 + 35;
 

@@ -146,7 +146,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight() && MainActivity.instance.bitmaps.get(0).getWidth() == 2900) {//jj
             bitmapCombine = Bitmap.createBitmap(1565, 1388 + 1388, Bitmap.Config.ARGB_8888);
-            Canvas canvasCombine= new Canvas(bitmapCombine);
+            Canvas canvasCombine = new Canvas(bitmapCombine);
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasCombine.drawColor(0xffffffff);
 
@@ -156,6 +156,25 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
 
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 669, 1460, 1565, 1388);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 1388, null);
+            canvasCombine.drawBitmap(bitmapDB, 0, 1388, null);
+
+            drawText(canvasCombine);
+            bitmapTemp.recycle();
+            bitmapDB.recycle();
+
+        } else if (MainActivity.instance.bitmaps.size() == 1 && MainActivity.instance.bitmaps.get(0).getHeight() > 1600) {//adam
+            bitmapCombine = Bitmap.createBitmap(1565, 1388 + 1388, Bitmap.Config.ARGB_8888);
+            Canvas canvasCombine = new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasCombine.drawColor(0xffffffff);
+
+            Bitmap bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1605, 1408, true);
+            bitmapTemp = Bitmap.createBitmap(bitmapTemp, 20, 10, 1565, 1388);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.dl);
+            canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
+
             canvasCombine.drawBitmap(bitmapTemp, 0, 1388, null);
             canvasCombine.drawBitmap(bitmapDB, 0, 1388, null);
 

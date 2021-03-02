@@ -3,6 +3,7 @@ package com.example.zuoyun.remix_excel_new.activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
@@ -46,6 +47,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     String strPlus = "";
     int intPlus = 1;
 
+    Paint rectPaint, paint, rectBorderPaint;
+    String time = MainActivity.instance.orderDate_Print;
+
     @Override
     public int getLayout() {
         return R.layout.fragmentdg;
@@ -58,6 +62,22 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         orderItems=MainActivity.instance.orderItems;
         currentID = MainActivity.instance.currentID;
         childPath = MainActivity.instance.childPath;
+
+        rectPaint = new Paint();
+        rectPaint.setColor(0xffffffff);
+        rectPaint.setStyle(Paint.Style.FILL);
+
+        rectBorderPaint = new Paint();
+        rectBorderPaint.setColor(0xff000000);
+        rectBorderPaint.setStyle(Paint.Style.STROKE);
+        rectBorderPaint.setStrokeWidth(4);
+
+        paint = new Paint();
+        paint.setColor(0xff000000);
+        paint.setTextSize(20);
+        paint.setTypeface(Typeface.DEFAULT_BOLD);
+        paint.setAntiAlias(true);
+
 
         MainActivity.instance.setMessageListener(new MainActivity.MessageListener() {
             @Override
@@ -102,33 +122,32 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     }
 
+    void drawText(Canvas canvas) {
+        canvas.drawRect(200, 3, 200 + 400, 3 + 20, rectPaint);
+        canvas.drawText(time + "  " + orderItems.get(currentID).sku + "浴帘 上边 " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode, 200, 3 + 18, paint);
+    }
+
     public void remixx(){
-        Paint rectPaint = new Paint();
-        rectPaint.setColor(0xffffffff);
-        rectPaint.setStyle(Paint.Style.FILL);
+        int width = 7550;
+        int height = 7362;
 
-        Paint paint = new Paint();
-        paint.setColor(0xff000000);
-        paint.setTextSize(18);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
-        paint.setAntiAlias(true);
-
-        Paint paintRed = new Paint();
-        paintRed.setColor(0xffff0000);
-        paintRed.setTextSize(18);
-        paintRed.setTypeface(Typeface.DEFAULT_BOLD);
-        paintRed.setAntiAlias(true);
-
-        String time = MainActivity.instance.orderDate_Print;
-
-        Bitmap bitmapCombine = Bitmap.createBitmap(7028, 6772, Bitmap.Config.ARGB_8888);
+        Bitmap bitmapCombine = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-        canvasCombine.drawRect(20, 0, 20 + 300, 17, rectPaint);
-        canvasCombine.drawText("GL浴帘 " + time + "  " + orderItems.get(currentID).order_number, 20, 17 - 2, paint);
+        Bitmap bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true);
+        canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+        drawText(canvasCombine);
+        canvasCombine.drawRect(0, 0, width, height, rectBorderPaint);
+        canvasCombine.drawRect(2, 2, width - 2, height - 2, rectBorderPaint);
+
+        bitmapTemp.recycle();
+
+        Matrix matrix = new Matrix();
+        matrix.postRotate(90);
+        bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
 
         try {
             File file=new File(sdCardPath+"/生产图/"+childPath+"/");

@@ -145,6 +145,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 super.run();
                 if (orderItems.get(currentID).sku.endsWith("W")) {
                     setSizeGQW(orderItems.get(currentID).sizeStr);
+                } else if (orderItems.get(currentID).sku.equals("GQY")) {
+                    setSizeGQY(orderItems.get(currentID).sizeStr);
                 } else {
                     setSizeGQM(orderItems.get(currentID).sizeStr);
                 }
@@ -760,6 +762,253 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_cuff, height_cuff, true);
                 canvasCombine.drawBitmap(bitmapTemp, width_cuff + margin, height_back + height_front + height_sleeve * 2 + height_pocket + margin * 5, null);
                 bitmapTemp.recycle();
+                
+            } else if (orderItems.get(currentID).isPPSL) {
+                //front
+                Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 1428, 2257, 4144, 4193);
+                Canvas canvasTemp = new Canvas(bitmapTemp);
+                Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), orderItems.get(currentID).sku.equals("GQY") ? R.drawable.gqy_front : R.drawable.gq_front);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                bitmapDB.recycle();
+                drawTextFront(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+                canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+                bitmapTemp.recycle();
+
+                //back
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1429, 2197, 4143, 4253);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), orderItems.get(currentID).sku.equals("GQY") ? R.drawable.gqy_back : R.drawable.gq_back);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                bitmapDB.recycle();
+                drawTextBack(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
+                canvasCombine.drawBitmap(bitmapTemp, 0, height_front + margin, null);
+                bitmapTemp.recycle();
+
+                //arm_l
+                Bitmap bitmapArm = Bitmap.createBitmap(2903, 3784, Bitmap.Config.ARGB_8888);
+                Canvas canvasArm= new Canvas(bitmapArm);
+                canvasArm.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+                canvasArm.drawColor(0xffffffff);
+
+                Bitmap bitmapHalf = Bitmap.createBitmap(1452, 3784, Bitmap.Config.ARGB_8888);
+                Canvas canvasHalf= new Canvas(bitmapHalf);
+                canvasHalf.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+                canvasHalf.drawColor(0xffffffff);
+
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 4857, 2561, 1615, 3729);
+                matrix.reset();
+                matrix.postRotate(-11.4f);
+                matrix.postTranslate(-136, 298);
+                canvasArm.drawBitmap(bitmapTemp, matrix, null);
+                bitmapTemp.recycle();
+
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 529, 2561, 1615, 3729);
+                matrix.reset();
+                matrix.postRotate(11.4f);
+                matrix.postTranslate(2, -19);
+                canvasHalf.drawBitmap(bitmapTemp, matrix, null);
+                bitmapTemp.recycle();
+                canvasArm.drawBitmap(bitmapHalf, 1451, 0, null);
+                bitmapHalf.recycle();
+
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), orderItems.get(currentID).sku.equals("GQY") ? R.drawable.gqy_arm_l : R.drawable.gq_arm_l);
+                canvasArm.drawBitmap(bitmapDB, 0, 0, null);
+                bitmapDB.recycle();
+                drawTextXiuziL(canvasArm);
+                bitmapArm = Bitmap.createScaledBitmap(bitmapArm, width_sleeve, height_sleeve, true);
+                canvasCombine.drawBitmap(bitmapArm, 0, height_back + height_front + margin * 2, null);
+                bitmapArm.recycle();
+
+                //arm_r
+                bitmapArm = Bitmap.createBitmap(2903, 3784, Bitmap.Config.ARGB_8888);
+                canvasArm= new Canvas(bitmapArm);
+                canvasArm.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+                canvasArm.drawColor(0xffffffff);
+
+                bitmapHalf = Bitmap.createBitmap(1452, 3784, Bitmap.Config.ARGB_8888);
+                canvasHalf= new Canvas(bitmapHalf);
+                canvasHalf.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+                canvasHalf.drawColor(0xffffffff);
+
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4857, 2561, 1615, 3729);
+                matrix.reset();
+                matrix.postRotate(-11.4f);
+                matrix.postTranslate(-136, 298);
+                canvasArm.drawBitmap(bitmapTemp, matrix, null);
+                bitmapTemp.recycle();
+
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 529, 2561, 1615, 3729);
+                matrix.reset();
+                matrix.postRotate(11.4f);
+                matrix.postTranslate(2, -19);
+                canvasHalf.drawBitmap(bitmapTemp, matrix, null);
+                bitmapTemp.recycle();
+                canvasArm.drawBitmap(bitmapHalf, 1451, 0, null);
+                bitmapHalf.recycle();
+
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), orderItems.get(currentID).sku.equals("GQY") ? R.drawable.gqy_arm_r : R.drawable.gq_arm_r);
+                canvasArm.drawBitmap(bitmapDB, 0, 0, null);
+                bitmapDB.recycle();
+                drawTextXiuziR(canvasArm);
+                bitmapArm = Bitmap.createScaledBitmap(bitmapArm, width_sleeve, height_sleeve, true);
+                canvasCombine.drawBitmap(bitmapArm, 0, height_back + height_front + width_sleeve + margin * 3, null);
+                bitmapArm.recycle();
+
+                //pocket
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 2099, 4874, 2794, 1576);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), orderItems.get(currentID).sku.equals("GQY") ? R.drawable.gqy_pocket : R.drawable.gq_pocket);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                bitmapDB.recycle();
+                drawTextPocket(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket, height_pocket, true);
+                canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_sleeve * 2 + margin * 4, null);
+                bitmapTemp.recycle();
+
+                //maozi_out_l
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 1572, 123, 1928, 2368);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), orderItems.get(currentID).sku.equals("GQY") ? R.drawable.gqy_maozi_in_r : R.drawable.gq_maozi_out_l);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                bitmapDB.recycle();
+                drawTextMaoziOutL(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
+                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + margin * 2, null);
+                bitmapTemp.recycle();
+
+                //maozi_out_r
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 3507, 123, 1928, 2368);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), orderItems.get(currentID).sku.equals("GQY") ? R.drawable.gqy_maozi_in_l : R.drawable.gq_maozi_out_r);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                bitmapDB.recycle();
+                drawTextMaoziOutR(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
+                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + height_hood + margin * 3, null);
+                bitmapTemp.recycle();
+
+                //maozi_in_r
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 1572, 123, 1928, 2368);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), orderItems.get(currentID).sku.equals("GQY") ? R.drawable.gqy_maozi_in_r : R.drawable.gq_maozi_in_r);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                bitmapDB.recycle();
+                drawTextMaoziInR(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
+                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + height_hood * 2 + margin * 3, null);
+                bitmapTemp.recycle();
+
+                //maozi_in_l
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 3507, 123, 1928, 2368);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), orderItems.get(currentID).sku.equals("GQY") ? R.drawable.gqy_maozi_in_l : R.drawable.gq_maozi_in_l);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                bitmapDB.recycle();
+                drawTextMaoziInL(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
+                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + height_hood * 3 + margin * 3, null);
+                bitmapTemp.recycle();
+
+                //xiabai
+                bitmapArm = Bitmap.createBitmap(7725, 860, Bitmap.Config.ARGB_8888);
+                canvasArm= new Canvas(bitmapArm);
+                canvasArm.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+                canvasArm.drawColor(0xffffffff);
+
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 1560, 6326, 3863, 430);
+                canvasArm.drawBitmap(bitmapTemp, 0, 0, null);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 3863, -430, true);
+                canvasArm.drawBitmap(bitmapTemp, 0, 430, null);
+
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1604, 6326, 3863, 430);
+                canvasArm.drawBitmap(bitmapTemp, 3862, 0, null);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 3863, -430, true);
+                canvasArm.drawBitmap(bitmapTemp, 3862, 430, null);
+                bitmapTemp.recycle();
+
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_bottom_7725);
+                canvasArm.drawBitmap(bitmapDB, 0, 0, null);
+                bitmapDB.recycle();
+                drawTextXiabai(canvasArm);
+                bitmapArm = Bitmap.createScaledBitmap(bitmapArm, width_bottom, height_bottom, true);
+
+                matrix.reset();
+                matrix.postRotate(-90);
+                matrix.postTranslate(width_front + margin, width_bottom);
+                canvasCombine.drawBitmap(bitmapArm, matrix, null);
+                bitmapArm.recycle();
+
+                //xiukou_l
+                bitmapArm = Bitmap.createBitmap(1628, 619, Bitmap.Config.ARGB_8888);
+                canvasArm= new Canvas(bitmapArm);
+                canvasArm.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+                canvasArm.drawColor(0xffffffff);
+
+                bitmapHalf = Bitmap.createBitmap(814, 619, Bitmap.Config.ARGB_8888);
+                canvasHalf= new Canvas(bitmapHalf);
+                canvasHalf.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+                canvasHalf.drawColor(0xffffffff);
+
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 4828, 6018, 920, 768);
+                matrix.reset();
+                matrix.postRotate(-11.5f);
+                matrix.postTranslate(-120, 25);
+                canvasArm.drawBitmap(bitmapTemp, matrix, null);
+                bitmapTemp.recycle();
+
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1254, 6018, 920, 768);
+                matrix.reset();
+                matrix.postRotate(11.5f);
+                matrix.postTranslate(32, -159);
+                canvasHalf.drawBitmap(bitmapTemp, matrix, null);
+                bitmapTemp.recycle();
+                canvasArm.drawBitmap(bitmapHalf, 813, 0, null);
+                bitmapHalf.recycle();
+
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), orderItems.get(currentID).sku.equals("GQY") ? R.drawable.gqy_xiukou : R.drawable.gq_xiukou);
+                canvasArm.drawBitmap(bitmapDB, 0, 0, null);
+                bitmapDB.recycle();
+                drawTextXiukouL(canvasArm);
+                bitmapArm = Bitmap.createScaledBitmap(bitmapArm, width_cuff, height_cuff, true);
+                canvasCombine.drawBitmap(bitmapArm, 0, height_back + height_front + height_sleeve * 2 + height_pocket + margin * 5, null);
+                bitmapArm.recycle();
+
+                //xiukou_r
+                bitmapArm = Bitmap.createBitmap(1628, 619, Bitmap.Config.ARGB_8888);
+                canvasArm= new Canvas(bitmapArm);
+                canvasArm.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+                canvasArm.drawColor(0xffffffff);
+
+                bitmapHalf = Bitmap.createBitmap(814, 619, Bitmap.Config.ARGB_8888);
+                canvasHalf= new Canvas(bitmapHalf);
+                canvasHalf.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+                canvasHalf.drawColor(0xffffffff);
+
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4828, 6018, 920, 768);
+                matrix.reset();
+                matrix.postRotate(-11.5f);
+                matrix.postTranslate(-120, 25);
+                canvasArm.drawBitmap(bitmapTemp, matrix, null);
+                bitmapTemp.recycle();
+
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 1254, 6018, 920, 768);
+                matrix.reset();
+                matrix.postRotate(11.5f);
+                matrix.postTranslate(32, -159);
+                canvasHalf.drawBitmap(bitmapTemp, matrix, null);
+                bitmapTemp.recycle();
+                canvasArm.drawBitmap(bitmapHalf, 813, 0, null);
+                bitmapHalf.recycle();
+
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), orderItems.get(currentID).sku.equals("GQY") ? R.drawable.gqy_xiukou : R.drawable.gq_xiukou);
+                canvasArm.drawBitmap(bitmapDB, 0, 0, null);
+                bitmapDB.recycle();
+                drawTextXiukouR(canvasArm);
+                bitmapArm = Bitmap.createScaledBitmap(bitmapArm, width_cuff, height_cuff, true);
+                canvasCombine.drawBitmap(bitmapArm, width_cuff + margin, height_back + height_front + height_sleeve * 2 + height_pocket + margin * 5, null);
+                bitmapArm.recycle();
             } else if (orderItems.get(currentID).imgs.size() == 1 || orderItems.get(currentID).imgs.size() == 2) {
                 //front
                 Bitmap bitmapTemp = Bitmap.createBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), 2903, 2134, 4144, 4193);
@@ -1411,8 +1660,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
 
-
-
     void setSizeGQW(String size) {
         switch (size) {
             case "XS":
@@ -1811,6 +2058,113 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 break;
         }
     }
+
+    void setSizeGQY(String size) {
+        switch (size) {
+            case "3XS":
+                width_front = 2616;
+                height_front = 3225;
+                width_back = 2616;
+                height_back = 3283;
+                width_sleeve = 2142;
+                height_sleeve = 2748;
+                width_hood = 1555;
+                height_hood = 2262;
+                width_bottom = 4583;
+                height_bottom = 833;
+                width_pocket = 1891;
+                height_pocket = 1325;
+                width_cuff = 1115;
+                height_cuff = 833;
+                break;
+            case "2XS":
+                width_front = 2763;
+                height_front = 3401;
+                width_back = 2763;
+                height_back = 3460;
+                width_sleeve = 2272;
+                height_sleeve = 2927;
+                width_hood = 1555;
+                height_hood = 2262;
+                width_bottom = 4819;
+                height_bottom = 833;
+                width_pocket = 2012;
+                height_pocket = 1369;
+                width_cuff = 1174;
+                height_cuff = 833;
+                break;
+            case "XS":
+                width_front = 2940;
+                height_front = 3578;
+                width_back = 2940;
+                height_back = 3638;
+                width_sleeve = 2402;
+                height_sleeve = 3105;
+                width_hood = 1612;
+                height_hood = 2321;
+                width_bottom = 5173;
+                height_bottom = 833;
+                width_pocket = 2133;
+                height_pocket = 1413;
+                width_cuff = 1233;
+                height_cuff = 833;
+                break;
+            case "S":
+                width_front = 3176;
+                height_front = 3754;
+                width_back = 3176;
+                height_back = 3814;
+                width_sleeve = 2532;
+                height_sleeve = 3343;
+                width_hood = 1669;
+                height_hood = 2381;
+                width_bottom = 5587;
+                height_bottom = 833;
+                width_pocket = 2254;
+                height_pocket = 1456;
+                width_cuff = 1233;
+                height_cuff = 833;
+                break;
+            case "M":
+                width_front = 3472;
+                height_front = 3901;
+                width_back = 3472;
+                height_back = 3961;
+                width_sleeve = 2663;
+                height_sleeve = 3461;
+                width_hood = 1730;
+                height_hood = 2440;
+                width_bottom = 6118;
+                height_bottom = 833;
+                width_pocket = 2375;
+                height_pocket = 1500;
+                width_cuff = 1292;
+                height_cuff = 833;
+                break;
+            case "L":
+                width_front = 3769;
+                height_front = 4048;
+                width_back = 3768;
+                height_back = 4108;
+                width_sleeve = 2793;
+                height_sleeve = 3639;
+                width_hood = 1792;
+                height_hood = 2499;
+                width_bottom = 6591;
+                height_bottom = 833;
+                width_pocket = 2496;
+                height_pocket = 1544;
+                width_cuff = 1351;
+                height_cuff = 833;
+                break;
+
+            default:
+                showDialogSizeWrong(orderItems.get(currentID).order_number);
+                sizeOK = false;
+                break;
+        }
+    }
+    
 
     public void showDialogSizeWrong(final String order_number){
         getActivity().runOnUiThread(new Runnable() {

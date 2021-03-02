@@ -47,7 +47,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     String strPlus = "";
     int intPlus = 1;
 
-    Paint rectPaint, paint;
+    int width_DH;
+
+    Paint rectPaint, paint, paintSmall;
     String time;
 
     @Override
@@ -71,8 +73,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(25);
+        paint.setTextSize(23);
         paint.setAntiAlias(true);
+
+        paintSmall = new Paint();
+        paintSmall.setColor(0xff000000);
+        paintSmall.setTextSize(20);
+        paintSmall.setAntiAlias(true);
+
 
         MainActivity.instance.setMessageListener(new MainActivity.MessageListener() {
             @Override
@@ -121,16 +129,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawTextDG(Canvas canvasCombine) {
-        canvasCombine.drawRect(600, 2274, 770, 2300, rectPaint);
-        canvasCombine.drawRect(850, 2274, 1270, 2300, rectPaint);
-        canvasCombine.drawText(time+"    "+orderItems.get(currentID).order_number+"    抱枕套", 852, 2297, paint);
+        canvasCombine.drawRect(1000, 23, 1000 + 400, 23 - 19, rectPaint);
+        canvasCombine.drawText(orderItems.get(currentID).sku + "抱枕套 " + time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 1000, 23 - 2, paint);
     }
     void drawTextDH(Canvas canvasCombine) {
-        canvasCombine.drawRect(1000, 2535 - 25, 1000 + 500, 2535, rectPaint);
-        canvasCombine.drawText(orderItems.get(currentID).sku + "购物袋 " + time + " " + orderItems.get(currentID).order_number, 1000, 2535 - 3, paint);
+        canvasCombine.drawRect(1000, width_DH - 4 - 23, 1000 + 500, width_DH - 4, rectPaint);
+        canvasCombine.drawText(orderItems.get(currentID).sku + "购物袋 " + time + " " + orderItems.get(currentID).order_number, 1000, width_DH - 4 - 2, paint);
 
-        canvasCombine.drawRect(3600, 2535 - 25, 3600 + 500, 2535, rectPaint);
-        canvasCombine.drawText(orderItems.get(currentID).sku + "购物袋 " + time + " " + orderItems.get(currentID).order_number, 3600, 2535 - 3, paint);
+        canvasCombine.drawRect(3600, width_DH - 4 - 23, 3600 + 500, width_DH - 4, rectPaint);
+        canvasCombine.drawText(orderItems.get(currentID).sku + "购物袋 " + time + " " + orderItems.get(currentID).order_number, 3600, width_DH - 4 - 2, paint);
     }
 
     public void remixx(){
@@ -140,8 +147,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         Bitmap bitmapBorderDH = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.border_dh);
 
         if (orderItems.get(currentID).sku.equals("DG")) {
-            MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2300, 2300, true));
-            bitmapCombine = Bitmap.createBitmap(2300 + 93, 2300 + 93, Bitmap.Config.ARGB_8888);//43*43cm
+            MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2924, 2924, true));
+            bitmapCombine = Bitmap.createBitmap(2924, 2924, Bitmap.Config.ARGB_8888);//49.5
             canvasCombine = new Canvas(bitmapCombine);
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasCombine.drawColor(0xffffffff);
@@ -162,30 +169,33 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 118);
+            BitmapToJpg.save(bitmapCombine, fileSave, 150);
             bitmapCombine.recycle();
 
         } else if (orderItems.get(currentID).sku.equals("DH")) {
+            width_DH = 2540 + 90;//43+1.5cm
+            bitmapBorderDH = Bitmap.createScaledBitmap(bitmapBorderDH, width_DH, width_DH, true);
+
             if (MainActivity.instance.bitmaps.get(0).getWidth() == 3158) {
                 MainActivity.instance.bitmaps.set(0, Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 79, 79, 3000, 3000));
             }
 
-            if (MainActivity.instance.bitmaps.get(0).getWidth() != 2540) {
-                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2540, 2540, true));
+            if (MainActivity.instance.bitmaps.get(0).getWidth() != width_DH) {
+                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width_DH, width_DH, true));
             }
-            if (orderItems.get(currentID).imgs.size() == 2 && MainActivity.instance.bitmaps.get(1).getWidth() != 2540) {
-                MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 2540, 2540, true));
+            if (orderItems.get(currentID).imgs.size() == 2 && MainActivity.instance.bitmaps.get(1).getWidth() != width_DH) {
+                MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), width_DH, width_DH, true));
             }
 
-            bitmapCombine = Bitmap.createBitmap(2540 * 2 + 60, 2540, Bitmap.Config.ARGB_8888);//43*43cm
+            bitmapCombine = Bitmap.createBitmap(width_DH * 2 + 60, width_DH, Bitmap.Config.ARGB_8888);
             canvasCombine = new Canvas(bitmapCombine);
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasCombine.drawColor(0xffffffff);
 
             canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
             canvasCombine.drawBitmap(bitmapBorderDH, 0, 0, null);
-            canvasCombine.drawBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), 2540 + 60, 0, null);
-            canvasCombine.drawBitmap(bitmapBorderDH, 2540 + 60, 0, null);
+            canvasCombine.drawBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), width_DH + 60, 0, null);
+            canvasCombine.drawBitmap(bitmapBorderDH, width_DH + 60, 0, null);
             bitmapBorderDH.recycle();
             drawTextDH(canvasCombine);
 

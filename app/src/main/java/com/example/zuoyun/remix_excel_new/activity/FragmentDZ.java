@@ -177,7 +177,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         try {
             Matrix matrix90 = new Matrix();
             matrix90.postRotate(90);
-            matrix90.postTranslate(bitmapCombine.getHeight(), 0);
             bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix90, true);
 
             String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";

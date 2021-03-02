@@ -304,7 +304,7 @@ public class FragmentDD extends BaseFragment {
             bitmapDBLeft.recycle();
             bitmapDBRight.recycle();
 
-        } else if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {
+        } else if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {//jj
             if (MainActivity.instance.bitmaps.get(0).getWidth() == 4000) {
                 MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 3316, 3316, true));
             }

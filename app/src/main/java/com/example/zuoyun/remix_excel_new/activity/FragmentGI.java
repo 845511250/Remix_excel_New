@@ -45,6 +45,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     String strPlus = "";
     int intPlus = 1;
 
+    String time = MainActivity.instance.orderDate_Print;
+
     Paint rectPaint, paint, rectBorderPaint;
 
     @Override
@@ -118,10 +120,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     }
 
+    void drawText(Canvas canvasCombine) {
+        String fluo = orderItems.get(currentID).sku.equals("GIF") ? "荧光" : "";
+        canvasCombine.drawRect(20, 19 - 17, 20 + 400, 19, rectPaint);
+        canvasCombine.drawText(fluo + "GI挂毯 尺码:" + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 20, 19 - 2, paint);
+    }
+
     public void remixx(){
-
-        String time = MainActivity.instance.orderDate_Print;
-
         int dpi = 126;
         if (orderItems.get(currentID).sizeStr.equalsIgnoreCase("M")) {
             dpi = 94;
@@ -134,12 +139,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        String fluo = orderItems.get(currentID).sku.equals("GIF") ? "荧光" : "";
-        canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-        canvasCombine.drawRect(20, 19 - 17, 20 + 400, 19, rectPaint);
-        canvasCombine.drawText(fluo + "GI挂毯 尺码:" + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 20, 19 - 2, paint);
+        canvasCombine.drawBitmap(Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 7560, 6426, true), 0, 0, null);
+        drawText(canvasCombine);
+
         canvasCombine.drawRect(0, 0, 7650, 6426, rectBorderPaint);
-        canvasCombine.drawRect(0, 0, 7650 - 1, 6426 - 1, rectBorderPaint);
+        canvasCombine.drawRect(1, 1, 7650 - 1, 6426 - 1, rectBorderPaint);
 
 
         try {
@@ -147,6 +151,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!file.exists())
                 file.mkdirs();
 
+            String fluo = orderItems.get(currentID).sku.equals("GIF") ? "荧光" : "";
             String nameCombine = fluo + orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;

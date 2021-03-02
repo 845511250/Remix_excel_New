@@ -174,7 +174,7 @@ public class FragmentHV extends BaseFragment {
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {//jj
             if (MainActivity.instance.bitmaps.get(0).getWidth() != 2526) {
                 MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 2526, 2526, true));
             }
@@ -201,7 +201,7 @@ public class FragmentHV extends BaseFragment {
             matrix.postTranslate(1380, 0);
             canvasCombine.drawBitmap(bitmapTemp, matrix, null);
             bitmapTemp.recycle();
-        }else {
+        } else {
             Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 38, 0, 1123, 499);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));

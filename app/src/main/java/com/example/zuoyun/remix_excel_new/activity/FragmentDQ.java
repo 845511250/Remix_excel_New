@@ -170,9 +170,9 @@ public class FragmentDQ extends BaseFragment {
         canvas.restore();
 
         canvas.save();
-        canvas.rotate(-76.8f, 846, 641);
-        canvas.drawRect(846, 641 - 25, 846 + 500, 641, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "-" + orderItems.get(currentID).size + "码" + orderItems.get(currentID).color + LR + "   " + orderItems.get(currentID).order_number, 846, 641 - 3, paint);
+        canvas.rotate(-76.8f, 830, 641);
+        canvas.drawRect(830, 641 - 25, 830 + 500, 641, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + "-" + orderItems.get(currentID).size + "码" + orderItems.get(currentID).color + LR + "   " + orderItems.get(currentID).order_number, 830, 641 - 3, paint);
         canvas.restore();
     }
     void drawTextTongue(Canvas canvas, String LR) {
@@ -332,10 +332,10 @@ public class FragmentDQ extends BaseFragment {
                 canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
                 //left main
-                bitmapTemp = Bitmap.createBitmap(990, 1128, Bitmap.Config.ARGB_8888);
+                bitmapTemp = Bitmap.createBitmap(970, 1128, Bitmap.Config.ARGB_8888);
                 canvasTemp = new Canvas(bitmapTemp);
                 canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 20, -35, null);
+                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 10, -35, null);
                 canvasTemp.drawBitmap(bitmapDB_main, 0, 0, null);
                 drawTextMainAdam(canvasTemp, "左");
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_main, height_main, true);
@@ -352,10 +352,10 @@ public class FragmentDQ extends BaseFragment {
                 canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
                 //right main
-                bitmapTemp = Bitmap.createBitmap(990, 1128, Bitmap.Config.ARGB_8888);
+                bitmapTemp = Bitmap.createBitmap(970, 1128, Bitmap.Config.ARGB_8888);
                 canvasTemp = new Canvas(bitmapTemp);
                 canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(1), 20, -35, null);
+                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(1), 10, -35, null);
                 canvasTemp.drawBitmap(bitmapDB_main, 0, 0, null);
                 drawTextMainAdam(canvasTemp, "右");
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_main, height_main, true);
