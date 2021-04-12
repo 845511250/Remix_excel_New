@@ -414,7 +414,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 rectDrawFrontSideL = new Rect(6183, 3197, 6183 + 877, 3197 + 3154);
                 rectDrawFrontSideR = new Rect(6183, 0, 6183 + 877, 0 + 3154);
 
-                widthCombine = 7146;
+                widthCombine = 7146;;
                 heightCombine = 16561;
                 break;
             case "HU5":
