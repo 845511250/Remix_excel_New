@@ -175,6 +175,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 canvasremix.drawRect(800 + 1683, 2929+59, 1050 + 1683, 2953+59, rectPaint);
                 canvasremix.drawText(orderItems.get(currentID).newCode, 801 + 1683, 2949 + 59, paintRed);
 
+                bitmapFront.recycle();
+                if (bitmapBack != null) {
+                    bitmapBack.recycle();
+                }
+                bitmapDB.recycle();
+
             } else{
                 bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.border_dp);
                 if (orderItems.get(currentID).imgs.size() == 1) {
@@ -210,6 +216,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 canvasremix.drawText(orderItems.get(currentID).order_number,250,1590+1594,paint);
                 canvasremix.drawRect(800, 1570+1594, 1050, 1594+1594, rectPaint);
                 canvasremix.drawText(orderItems.get(currentID).newCode, 801, 1590 + 1594, paintRed);
+
+                bitmapFront.recycle();
+                if (bitmapBack != null) {
+                    bitmapBack.recycle();
+                }
+                bitmapDB.recycle();
             }
 
 
@@ -230,9 +242,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             BitmapToJpg.save(bitmapremix, fileSave, 150);
 
             //释放bitmap
-            bitmapFront.recycle();
-            bitmapBack.recycle();
-            bitmapDB.recycle();
             bitmapremix.recycle();
 
             //写入excel

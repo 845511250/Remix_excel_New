@@ -496,10 +496,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             }
 
         } else {//GQ
-            int margin = 130;
+            int margin = 120;
             Matrix matrix = new Matrix();
-
-            bitmapCombine = Bitmap.createBitmap(width_sleeve + width_hood + margin, height_front + height_back + height_hood * 4 + margin * 3, Bitmap.Config.ARGB_8888);
+            int x_hood = Math.max(width_sleeve + margin, width_cuff * 2 + margin * 2);
+            bitmapCombine = Bitmap.createBitmap(x_hood + width_hood, height_front + height_back + height_hood * 4 + margin * 3, Bitmap.Config.ARGB_8888);
             Canvas canvasCombine= new Canvas(bitmapCombine);
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasCombine.drawColor(0xffffffff);
@@ -569,7 +569,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
                 drawTextMaoziOutL(canvasTemp);
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + margin * 2, null);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + margin * 2, null);
 
                 //maozi_out_r
                 bitmapTemp = Bitmap.createBitmap(1928, 2368, Bitmap.Config.ARGB_8888);
@@ -580,7 +580,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
                 drawTextMaoziOutR(canvasTemp);
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + height_hood + margin * 3, null);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + height_hood + margin * 3, null);
 
                 //maozi_in_r
                 bitmapTemp = Bitmap.createBitmap(1928, 2368, Bitmap.Config.ARGB_8888);
@@ -591,7 +591,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
                 drawTextMaoziInR(canvasTemp);
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + height_hood * 2 + margin * 3, null);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + height_hood * 2 + margin * 3, null);
 
                 //maozi_in_l
                 bitmapTemp = Bitmap.createBitmap(1928, 2368, Bitmap.Config.ARGB_8888);
@@ -602,7 +602,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
                 drawTextMaoziInL(canvasTemp);
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + height_hood * 3 + margin * 3, null);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + height_hood * 3 + margin * 3, null);
 
                 //xiabai
                 bitmapTemp = Bitmap.createBitmap(7907, 860, Bitmap.Config.ARGB_8888);
@@ -696,7 +696,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
                 drawTextMaoziOutL(canvasTemp);
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + margin * 2, null);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + margin * 2, null);
 
                 //maozi_out_r
                 bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 9784, 0 + 3698, 1928, 2368);
@@ -705,7 +705,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
                 drawTextMaoziOutR(canvasTemp);
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + height_hood + margin * 3, null);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + height_hood + margin * 3, null);
 
                 //maozi_in_r
                 bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3557, 0 + 3698, 1928, 2368);
@@ -714,7 +714,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
                 drawTextMaoziInR(canvasTemp);
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + height_hood * 2 + margin * 3, null);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + height_hood * 2 + margin * 3, null);
 
                 //maozi_in_l
                 bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 5485, 0 + 3698, 1928, 2368);
@@ -723,7 +723,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
                 drawTextMaoziInL(canvasTemp);
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + height_hood * 3 + margin * 3, null);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + height_hood * 3 + margin * 3, null);
 
                 //xiabai
                 bitmapTemp = Bitmap.createBitmap(3954 * 2, 860, Bitmap.Config.ARGB_8888);
@@ -762,7 +762,143 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_cuff, height_cuff, true);
                 canvasCombine.drawBitmap(bitmapTemp, width_cuff + margin, height_back + height_front + height_sleeve * 2 + height_pocket + margin * 5, null);
                 bitmapTemp.recycle();
-                
+
+            } else if (orderItems.get(currentID).imgs.size() == 1 && MainActivity.instance.bitmaps.get(0).getHeight() == 9400) {//jj-GQY
+                //front
+                Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3243, 74, 2936, 3572);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 4144, 4193, true);
+                Canvas canvasTemp = new Canvas(bitmapTemp);
+                Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gqy_front);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                drawTextFront(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+                canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+                bitmapTemp.recycle();
+
+                //back
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1121, 4613, 2938, 3634);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 4144, 4253, true);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gqy_back);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                bitmapDB.recycle();
+                drawTextBack(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
+                canvasCombine.drawBitmap(bitmapTemp, 0, height_front + margin, null);
+                bitmapTemp.recycle();
+
+                //arm_l
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 6343, 540, 2397, 3106);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 2903, 3784, true);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gqy_arm_l);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                drawTextXiuziL(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_sleeve, height_sleeve, true);
+                canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + margin * 2, null);
+
+                //arm_r
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 666, 540, 2397, 3106);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 2903, 3784, true);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gqy_arm_r);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                drawTextXiuziR(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_sleeve, height_sleeve, true);
+                canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_sleeve + margin * 3, null);
+
+                //pocket
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3654, 2325, 2122, 1408);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 2794, 1576, true);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gqy_pocket);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                drawTextPocket(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket, height_pocket, true);
+                canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_sleeve * 2 + margin * 4, null);
+
+                //maozi_out_l
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4706, 6970, 1605, 2324);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1928, 2368, true);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gqy_maozi_in_r);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                drawTextMaoziOutL(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + margin * 2, null);
+
+                //maozi_out_r
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 6402, 6970, 1605, 2324);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1928, 2368, true);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gqy_maozi_in_l);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                drawTextMaoziOutR(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + height_hood + margin * 3, null);
+
+                //maozi_in_r
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4730, 4648, 1585, 2324);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1928, 2368, true);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gqy_maozi_in_r);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                drawTextMaoziInR(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + height_hood * 2 + margin * 3, null);
+
+                //maozi_in_l
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 6402, 4648, 1585, 2324);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1928, 2368, true);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gqy_maozi_in_l);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                drawTextMaoziInL(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + height_hood * 3 + margin * 3, null);
+
+                //xiabai
+                Bitmap bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3417, 3774, 2593, 841);
+                bitmapCut = Bitmap.createScaledBitmap(bitmapCut, 3863, 860, true);
+                bitmapTemp = Bitmap.createBitmap(3863 * 2, 860, Bitmap.Config.ARGB_8888);
+                canvasTemp = new Canvas(bitmapTemp);
+                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+                canvasTemp.drawBitmap(bitmapCut, 0, 0, null);
+
+                bitmapCut = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1296, 8287, 2593, 841);
+                bitmapCut = Bitmap.createScaledBitmap(bitmapCut, 3863, 860, true);
+                canvasTemp.drawBitmap(bitmapCut, 3862, 0, null);
+                bitmapCut.recycle();
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_bottom_7725);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                drawTextXiabai(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_bottom, height_bottom, true);
+                matrix.reset();
+                matrix.postRotate(-90);
+                matrix.postTranslate(width_front + margin, width_bottom);
+                canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+                //xiukou_l
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 6923, 3686, 1233, 841);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1628, 619, true);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gqy_xiukou);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                drawTextXiukouL(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_cuff, height_cuff, true);
+                canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_sleeve * 2 + height_pocket + margin * 5, null);
+
+                //xiukou_r
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1246, 3686, 1233, 841);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1628, 619, true);
+                canvasTemp = new Canvas(bitmapTemp);
+                bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gqy_xiukou);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                bitmapDB.recycle();
+                drawTextXiukouR(canvasTemp);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_cuff, height_cuff, true);
+                canvasCombine.drawBitmap(bitmapTemp, width_cuff + margin, height_back + height_front + height_sleeve * 2 + height_pocket + margin * 5, null);
+                bitmapTemp.recycle();
             } else if (orderItems.get(currentID).isPPSL) {
                 //front
                 Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 1428, 2257, 4144, 4193);
@@ -788,12 +924,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
                 //arm_l
                 Bitmap bitmapArm = Bitmap.createBitmap(2903, 3784, Bitmap.Config.ARGB_8888);
-                Canvas canvasArm= new Canvas(bitmapArm);
+                Canvas canvasArm = new Canvas(bitmapArm);
                 canvasArm.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
                 canvasArm.drawColor(0xffffffff);
 
                 Bitmap bitmapHalf = Bitmap.createBitmap(1452, 3784, Bitmap.Config.ARGB_8888);
-                Canvas canvasHalf= new Canvas(bitmapHalf);
+                Canvas canvasHalf = new Canvas(bitmapHalf);
                 canvasHalf.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
                 canvasHalf.drawColor(0xffffffff);
 
@@ -823,12 +959,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
                 //arm_r
                 bitmapArm = Bitmap.createBitmap(2903, 3784, Bitmap.Config.ARGB_8888);
-                canvasArm= new Canvas(bitmapArm);
+                canvasArm = new Canvas(bitmapArm);
                 canvasArm.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
                 canvasArm.drawColor(0xffffffff);
 
                 bitmapHalf = Bitmap.createBitmap(1452, 3784, Bitmap.Config.ARGB_8888);
-                canvasHalf= new Canvas(bitmapHalf);
+                canvasHalf = new Canvas(bitmapHalf);
                 canvasHalf.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
                 canvasHalf.drawColor(0xffffffff);
 
@@ -853,7 +989,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 bitmapDB.recycle();
                 drawTextXiuziR(canvasArm);
                 bitmapArm = Bitmap.createScaledBitmap(bitmapArm, width_sleeve, height_sleeve, true);
-                canvasCombine.drawBitmap(bitmapArm, 0, height_back + height_front + width_sleeve + margin * 3, null);
+                canvasCombine.drawBitmap(bitmapArm, 0, height_back + height_front + height_sleeve + margin * 3, null);
                 bitmapArm.recycle();
 
                 //pocket
@@ -875,7 +1011,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 bitmapDB.recycle();
                 drawTextMaoziOutL(canvasTemp);
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + margin * 2, null);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + margin * 2, null);
                 bitmapTemp.recycle();
 
                 //maozi_out_r
@@ -886,7 +1022,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 bitmapDB.recycle();
                 drawTextMaoziOutR(canvasTemp);
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + height_hood + margin * 3, null);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + height_hood + margin * 3, null);
                 bitmapTemp.recycle();
 
                 //maozi_in_r
@@ -897,7 +1033,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 bitmapDB.recycle();
                 drawTextMaoziInR(canvasTemp);
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + height_hood * 2 + margin * 3, null);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + height_hood * 2 + margin * 3, null);
                 bitmapTemp.recycle();
 
                 //maozi_in_l
@@ -908,12 +1044,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 bitmapDB.recycle();
                 drawTextMaoziInL(canvasTemp);
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + height_hood * 3 + margin * 3, null);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + height_hood * 3 + margin * 3, null);
                 bitmapTemp.recycle();
 
                 //xiabai
                 bitmapArm = Bitmap.createBitmap(7725, 860, Bitmap.Config.ARGB_8888);
-                canvasArm= new Canvas(bitmapArm);
+                canvasArm = new Canvas(bitmapArm);
                 canvasArm.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
                 canvasArm.drawColor(0xffffffff);
 
@@ -942,12 +1078,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
                 //xiukou_l
                 bitmapArm = Bitmap.createBitmap(1628, 619, Bitmap.Config.ARGB_8888);
-                canvasArm= new Canvas(bitmapArm);
+                canvasArm = new Canvas(bitmapArm);
                 canvasArm.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
                 canvasArm.drawColor(0xffffffff);
 
                 bitmapHalf = Bitmap.createBitmap(814, 619, Bitmap.Config.ARGB_8888);
-                canvasHalf= new Canvas(bitmapHalf);
+                canvasHalf = new Canvas(bitmapHalf);
                 canvasHalf.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
                 canvasHalf.drawColor(0xffffffff);
 
@@ -977,12 +1113,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
                 //xiukou_r
                 bitmapArm = Bitmap.createBitmap(1628, 619, Bitmap.Config.ARGB_8888);
-                canvasArm= new Canvas(bitmapArm);
+                canvasArm = new Canvas(bitmapArm);
                 canvasArm.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
                 canvasArm.drawColor(0xffffffff);
 
                 bitmapHalf = Bitmap.createBitmap(814, 619, Bitmap.Config.ARGB_8888);
-                canvasHalf= new Canvas(bitmapHalf);
+                canvasHalf = new Canvas(bitmapHalf);
                 canvasHalf.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
                 canvasHalf.drawColor(0xffffffff);
 
@@ -1063,7 +1199,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
                 drawTextMaoziOutL(canvasTemp);
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + margin * 2, null);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + margin * 2, null);
 
                 //maozi_out_r
                 bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4982, 0, 1928, 2368);
@@ -1072,7 +1208,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
                 drawTextMaoziOutR(canvasTemp);
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + height_hood + margin * 3, null);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + height_hood + margin * 3, null);
 
                 //maozi_in_r
                 bitmapTemp = Bitmap.createBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), 3047, 0, 1928, 2368);
@@ -1081,7 +1217,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
                 drawTextMaoziInR(canvasTemp);
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + height_hood * 2 + margin * 3, null);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + height_hood * 2 + margin * 3, null);
 
                 //maozi_in_l
                 bitmapTemp = Bitmap.createBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), 4982, 0, 1928, 2368);
@@ -1090,7 +1226,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
                 drawTextMaoziInL(canvasTemp);
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_hood, height_hood, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_sleeve + margin, height_front + height_back + height_hood * 3 + margin * 3, null);
+                canvasCombine.drawBitmap(bitmapTemp, x_hood, height_front + height_back + height_hood * 3 + margin * 3, null);
 
                 //xiabai
                 bitmapTemp = Bitmap.createBitmap(3863 * 2, 675, Bitmap.Config.ARGB_8888);
@@ -1142,7 +1278,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         if(!new File(pathSave).exists())
             new File(pathSave).mkdirs();
         File fileSave = new File(pathSave + nameCombine);
-        BitmapToJpg.save(bitmapCombine, fileSave, 150);
+        BitmapToJpg.save(bitmapCombine, fileSave, 148);
         bitmapCombine.recycle();
 
 

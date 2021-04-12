@@ -141,7 +141,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     intPlus = orderItems.get(currentID).num - num + 1;
                         for(int i=0;i<currentID;i++) {
                             if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                                intPlus += orderItems.get(i).num;;
+                                intPlus += orderItems.get(i).num;
                             }
                         }
                         strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -169,10 +169,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         drawText(canvasCombine);
         bitmapDB.recycle();
 
-        bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, 7137, 3420, true);
+//        bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, 7137, 3420, true);
 
         Matrix matrix = new Matrix();
-        matrix.postRotate(-90, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
+        matrix.postRotate(-90);
         bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
 
         String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";

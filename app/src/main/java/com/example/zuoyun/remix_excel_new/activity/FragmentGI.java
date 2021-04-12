@@ -3,6 +3,7 @@ package com.example.zuoyun.remix_excel_new.activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.view.View;
@@ -139,11 +140,24 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        canvasCombine.drawBitmap(Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 7560, 6426, true), 0, 0, null);
-        drawText(canvasCombine);
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == 7958) {
+            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), -199, -766, null);
+            drawText(canvasCombine);
+        } else {
+            Bitmap bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 7560, 6426, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+            drawText(canvasCombine);
+            bitmapTemp.recycle();
+        }
 
-        canvasCombine.drawRect(0, 0, 7650, 6426, rectBorderPaint);
-        canvasCombine.drawRect(1, 1, 7650 - 1, 6426 - 1, rectBorderPaint);
+        canvasCombine.drawRect(0, 0, 7560, 6426, rectBorderPaint);
+        canvasCombine.drawRect(1, 1, 7560 - 1, 6426 - 1, rectBorderPaint);
+
+        if (orderItems.get(currentID).sizeStr.equalsIgnoreCase("L")) {
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90);
+            bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, 7560, 6426, matrix, true);
+        }
 
 
         try {

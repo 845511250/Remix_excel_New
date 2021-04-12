@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DropShipping平台"/>
+            android:text="众鑫刀版系统"/>
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
@@ -160,7 +160,7 @@
             android:layout_width="match_parent"
             android:layout_height="28dp"
             android:background="#ddd"
-            android:text="福 建 正 域 自 动 化 生 产 系 统(4u2)"
+            android:text="众 鑫 刀 版 处 理 系 统"
             android:gravity="center"
             android:textSize="18sp"
             android:fontFamily=""/>
@@ -190,10 +190,10 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/icon_main"/>
+<!--                <ImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:background="@drawable/icon_main"/>-->
                 <TextView
                     android:id="@+id/tv_version"
                     android:layout_width="wrap_content"

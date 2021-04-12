@@ -110,15 +110,17 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        Bitmap bitmapLeft = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 688, 540, true);
-        Bitmap bitmapRight = null;
-        if (MainActivity.instance.bitmaps.get(1) == null) {
+        Bitmap bitmapLeft = null, bitmapRight = null;
+
+        bitmapLeft = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 688, 540, true);
+        if (MainActivity.instance.bitmaps.size() == 1) {
             Matrix matrix = new Matrix();
             matrix.postScale(-1, 1);
             bitmapRight = Bitmap.createBitmap(bitmapLeft, 0, 0, 688, 540, matrix, true);
         } else {
             bitmapRight = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 688, 540, true);
         }
+
         Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.lazy46);
 
         //1044*800--->688*540
@@ -200,8 +202,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             Bitmap bitmapPrint = Bitmap.createScaledBitmap(bitmapCombine, (int) ((836 + 36) * scaleX), (int) (1356 * scaleY), true);
             String printColor = orderItems.get(currentID).color.equals("黑") ? "B" : "W";
-            String noNewCode = orderItems.get(currentID).newCode.equals("") ? orderItems.get(currentID).sku + orderItems.get(currentID).size : "";
-            String nameCombine = noNewCode + orderItems.get(currentID).sku + orderItems.get(currentID).newCode + orderItems.get(currentID).color + orderItems.get(currentID).order_number + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

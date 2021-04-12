@@ -194,7 +194,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fv_blackborder);
 
-            Bitmap bitmapCombine = Bitmap.createBitmap(height, width * 2 + 70, Bitmap.Config.ARGB_8888);
+            Bitmap bitmapCombine = Bitmap.createBitmap(width * 2 + 70, height, Bitmap.Config.ARGB_8888);
             Canvas canvasCombine = new Canvas(bitmapCombine);
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasCombine.drawColor(0xffffffff);
@@ -206,11 +206,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawText_jinjiang(canvasTemp, "左");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
-
-            Matrix matrix = new Matrix();
-            matrix.postRotate(-90);
-            matrix.postTranslate(0, width);
-            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
             //right
             bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 1789, 4803, true);
@@ -219,12 +215,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawText_jinjiang(canvasTemp, "右");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width, height, true);
-
-            matrix.postTranslate(0, width + 70);
-            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+            canvasCombine.drawBitmap(bitmapTemp, width + 70, 0, null);
 
             bitmapTemp.recycle();
             bitmapDB.recycle();
+
+            Matrix matrix = new Matrix();
+            matrix.postRotate(-90);
+            bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
 
             //save
             File file = new File(sdCardPath + "/生产图/" + childPath + "/");
@@ -263,6 +261,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             drawText(canvasCombine);
 
             bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, 3720, 4940, true);
+
+            Matrix matrix = new Matrix();
+            matrix.postRotate(-90);
+            bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
 
             File file = new File(sdCardPath + "/生产图/" + childPath + "/");
             if (!file.exists())

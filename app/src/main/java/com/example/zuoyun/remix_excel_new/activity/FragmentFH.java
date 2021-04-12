@@ -411,6 +411,8 @@ public class FragmentFH extends BaseFragment {
 
             bitmapTemp.recycle();
             bitmapDB.recycle();
+        } else if (MainActivity.instance.bitmaps.size() == 1) {
+
         }
 
 

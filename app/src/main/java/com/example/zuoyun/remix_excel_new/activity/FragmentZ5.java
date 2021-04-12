@@ -70,8 +70,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(20);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
+        paint.setTextSize(18);
         paint.setAntiAlias(true);
 
         paintRed = new Paint();
@@ -124,12 +123,17 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawText(Canvas canvas) {
-        canvas.drawRect(20, 4, 20 + 300, 4 + 18, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "   " + time + "  " + orderItems.get(currentID).order_number, 20, 4 + 16, paint);
+        canvas.drawRect(90, 4, 90 + 300, 4 + 17, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + "(SF_F3) " + time + " " + orderItems.get(currentID).order_number, 90, 4 + 15, paint);
     }
 
     public void remixx(){
-        Bitmap bitmapCombine = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+        Bitmap bitmapCombine = null;
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == 2000) {
+            bitmapCombine = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 445, 613, 1110, 774);
+        } else {
+            bitmapCombine = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+        }
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
 
@@ -153,7 +157,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 150);
+            BitmapToJpg.save(bitmapCombine, fileSave, 149);
 
             //释放bitmap
             bitmapCombine.recycle();

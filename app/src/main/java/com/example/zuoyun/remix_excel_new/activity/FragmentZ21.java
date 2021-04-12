@@ -141,7 +141,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 379, 300, 1241, 689);
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 379, 1011, 1241, 689);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 379, 1005, 1241, 689);
             Matrix matrix = new Matrix();
             matrix.postRotate(180);
             matrix.postTranslate(1241, 689 * 2);

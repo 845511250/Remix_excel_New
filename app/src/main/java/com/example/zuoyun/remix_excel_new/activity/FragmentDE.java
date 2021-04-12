@@ -477,8 +477,14 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp.recycle();
             bitmapDBLeft.recycle();
         } else if (orderItems.get(currentID).imgs.size() == 2 && MainActivity.instance.bitmaps.get(0).getWidth() >= 2839) {//adam
-            Bitmap bitmapLeft = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1491, 476, true);
-            Bitmap bitmapRight = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 1491, 476, true);
+//            Bitmap bitmapLeft = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1491, 476, true);
+//            Bitmap bitmapRight = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 1491, 476, true);
+//            bitmapLeft = Bitmap.createBitmap(bitmapLeft, 0, 0, 1491, 472);
+//            bitmapRight = Bitmap.createBitmap(bitmapRight, 0, 0, 1491, 472);
+            Bitmap bitmapLeft = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1491, 510, true);
+            Bitmap bitmapRight = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 1491, 510, true);
+            bitmapLeft = Bitmap.createBitmap(bitmapLeft, 0, 0, 1491, 506);
+            bitmapRight = Bitmap.createBitmap(bitmapRight, 0, 0, 1491, 506);
 
             //RR
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.de41right);
@@ -489,7 +495,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             matrix = new Matrix();
             matrix.postScale(1, -1);
-            matrix.postTranslate(34, 476 * 2);
+            matrix.postTranslate(34, 506 * 2);
             canvasTemp.drawBitmap(bitmapRight, matrix, null);
 
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -506,7 +512,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             matrix = new Matrix();
             matrix.postScale(1, -1);
-            matrix.postTranslate(0, 476 * 2);
+            matrix.postTranslate(0, 506 * 2);
             canvasTemp.drawBitmap(bitmapLeft, matrix, null);
 
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -527,7 +533,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             matrix = new Matrix();
             matrix.postScale(1, -1);
-            matrix.postTranslate(34, 476 * 2);
+            matrix.postTranslate(34, 506 * 2);
             canvasTemp.drawBitmap(bitmapRight, matrix, null);
 
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -547,7 +553,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             matrix = new Matrix();
             matrix.postScale(1, -1);
-            matrix.postTranslate(0, 476 * 2);
+            matrix.postTranslate(0, 506 * 2);
             canvasTemp.drawBitmap(bitmapLeft, matrix, null);
 
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);

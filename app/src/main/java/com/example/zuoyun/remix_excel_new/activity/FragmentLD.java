@@ -125,13 +125,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        int margin = 80;
+        int margin = 90;
         int width = 3650;
         int height = 3060;
         Bitmap bitmapCombine = null;
 
         if (orderItems.get(currentID).platform.endsWith("jj")) {
-            bitmapCombine = Bitmap.createBitmap(width, height * 2 + margin, Bitmap.Config.ARGB_8888);
+            bitmapCombine = Bitmap.createBitmap(width * 2 + margin, height, Bitmap.Config.ARGB_8888);
             Canvas canvasCombine= new Canvas(bitmapCombine);
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasCombine.drawColor(0xffffffff);
@@ -152,7 +152,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             drawText(canvasTemp);
             canvasTemp.drawRect(0, 0, width, height, rectBorderPaint);
             canvasTemp.drawRect(1, 1, width - 1, height - 1, rectBorderPaint);
-            canvasCombine.drawBitmap(bitmapTemp, 0, height + margin, null);
+            canvasCombine.drawBitmap(bitmapTemp, width + margin, 0, null);
 
             bitmapTemp.recycle();
 

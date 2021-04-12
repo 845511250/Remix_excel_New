@@ -3,10 +3,8 @@ package com.example.zuoyun.remix_excel_new.activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
-import android.graphics.Typeface;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -74,8 +72,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(20);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
+        paint.setTextSize(16);
         paint.setAntiAlias(true);
 
 
@@ -123,13 +120,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawText(Canvas canvas) {
-        canvas.drawRect(200, 3, 200 + 400, 3 + 20, rectPaint);
-        canvas.drawText(time + "  " + orderItems.get(currentID).sku + "浴帘 上边 " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode, 200, 3 + 18, paint);
+        canvas.drawRect(200, 3, 200 + 400, 3 + 16, rectPaint);
+        canvas.drawText(time + "  " + orderItems.get(currentID).sku + "浴帘 上边 " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode, 200, 3 + 14, paint);
     }
 
     public void remixx(){
-        int width = 7550;
-        int height = 7362;
+//        int width = 7550;
+//        int height = 7362;
+        int width = 7020;
+        int height = 6824;
 
         Bitmap bitmapCombine = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
@@ -145,9 +144,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         bitmapTemp.recycle();
 
-        Matrix matrix = new Matrix();
-        matrix.postRotate(90);
-        bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
+//        Matrix matrix = new Matrix();
+//        matrix.postRotate(90);
+//        bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
 
         try {
             File file=new File(sdCardPath+"/生产图/"+childPath+"/");

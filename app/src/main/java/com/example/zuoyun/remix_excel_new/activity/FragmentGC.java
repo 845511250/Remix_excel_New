@@ -174,16 +174,22 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        Bitmap bitmapF = checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(0);
-        Bitmap bitmapB;
-        if (orderItems.get(currentID).imgs.size() == 1) {
-            bitmapB = bitmapF.copy(Bitmap.Config.ARGB_8888, true);
-        } else {
-            bitmapB = checkContains("back") ? getBitmapWith("back") : MainActivity.instance.bitmaps.get(1);
-        }
+        Bitmap bitmapF = null, bitmapB = null;
 
-        bitmapF = Bitmap.createScaledBitmap(bitmapF, 3416, 4780, true);
-        bitmapB = Bitmap.createScaledBitmap(bitmapB, 3452, 4806, true);
+        if (orderItems.get(currentID).isPPSL) {
+            bitmapF = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 78, 97, 3416, 4780);
+            bitmapB = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 74, 97, 3448, 4806);
+        } else {
+            bitmapF = (checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(0)).copy(Bitmap.Config.ARGB_8888, true);
+            if (orderItems.get(currentID).imgs.size() == 1) {
+                bitmapB = bitmapF.copy(Bitmap.Config.ARGB_8888, true);
+            } else {
+                bitmapB = (checkContains("back") ? getBitmapWith("back") : MainActivity.instance.bitmaps.get(1)).copy(Bitmap.Config.ARGB_8888, true);
+            }
+
+            bitmapF = Bitmap.createScaledBitmap(bitmapF, 3416, 4780, true);
+            bitmapB = Bitmap.createScaledBitmap(bitmapB, 3448, 4806, true);
+        }
 
         //前
         Canvas canvasTemp = new Canvas(bitmapF);
@@ -348,6 +354,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 sizeOK = false;
                 break;
         }
+        width_front += 60;
+        height_front += 60;
+        width_back += 60;
+        height_back += 60;
     }
 
     public void showDialogSizeWrong(final String order_number){
@@ -380,7 +390,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     boolean checkContains(String nameContains){
         for (int i = 0; i < orderItems.get(currentID).imgs.size(); i++) {
-            if (orderItems.get(currentID).imgs.get(i).contains(nameContains)) {
+            if (orderItems.get(currentID).imgs.get(i).toLowerCase().contains(nameContains)) {
                 return true;
             }
         }
@@ -388,7 +398,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
     Bitmap getBitmapWith(String nameContains){
         for (int i = 0; i < orderItems.get(currentID).imgs.size(); i++) {
-            if (orderItems.get(currentID).imgs.get(i).contains(nameContains)) {
+            if (orderItems.get(currentID).imgs.get(i).toLowerCase().contains(nameContains)) {
                 return MainActivity.instance.bitmaps.get(i);
             }
         }

@@ -173,7 +173,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             id_DB = R.drawable.dk_l_xl;
         } else {
             width = 1196 / 2;
-            height_front = 2284;
+//            height_front = 2284;
+            height_front = 2284 - 230;
             height_back = (int) (height_front * 0.794);
             id_DB = R.drawable.dk_s_m;
         }

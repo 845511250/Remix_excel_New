@@ -370,6 +370,18 @@ public class FragmentD14 extends BaseFragment {
                 width_inside = 1983;
                 height_inside = 977;
                 break;
+            case 46:
+                width_outside = 1983 + 45;
+                height_outside = 955 + 17;
+                width_inside = 1983 + 45;
+                height_inside = 977 + 17;
+                break;
+            case 47:
+                width_outside = 1983 + 45 * 2;
+                height_outside = 955 + 17 * 2;
+                width_inside = 1983 + 45 * 2;
+                height_inside = 977 + 17 * 2;
+                break;
 
         }
         width_outside += 10;

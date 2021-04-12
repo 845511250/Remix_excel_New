@@ -156,8 +156,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawText(Canvas canvas) {
-        canvas.drawRect(2700, 5, 2700 + 350, 24, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode_short, 2700, 20, paintSmall);
+        canvas.drawRect(2700, 5, 2700 + 350, 5 + 19, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode_short, 2700, 5 + 17, paintSmall);
     }
 
     public void remixx(){

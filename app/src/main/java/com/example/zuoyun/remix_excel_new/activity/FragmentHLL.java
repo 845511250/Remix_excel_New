@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
@@ -202,7 +203,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         Bitmap bitmapTemp = null;
         Canvas canvasTemp;
 
-        if (orderItems.get(currentID).platform.endsWith("-jj") && MainActivity.instance.bitmaps.get(0).getWidth() == 14800) {
+        if (orderItems.get(currentID).platform.endsWith("jj") && MainActivity.instance.bitmaps.get(0).getWidth() == 14800) {
             //空调毯
             Matrix matrix = new Matrix();
             matrix.postScale(width / 10926f, height / 12172f);
@@ -223,6 +224,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawRect(4, 4, width - 4, height - 4, rectBorderPaint);
             drawTextJJ(canvasTemp);
 
+            //填充透明背景为白色
+            for (int x = 0; x < bitmapTemp.getWidth(); x++) {
+                for (int y = 0; y < bitmapTemp.getHeight(); y++) {
+                    if (bitmapTemp.getPixel(x, y) == 0) {//透明点取值为0
+                        bitmapTemp.setPixel(x, y, Color.WHITE);
+                    }
+                }
+            }
+
             String nameCombine = "(HLL空调毯)" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
             String pathSave;
             if (MainActivity.instance.cb_classify.isChecked()) {
@@ -234,7 +244,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapTemp, fileSave, dpi);
             bitmapTemp.recycle();
-        } else if (orderItems.get(currentID).platform.endsWith("-jj") && MainActivity.instance.bitmaps.get(0).getWidth() == 12000) {
+        } else if (orderItems.get(currentID).platform.endsWith("jj") && MainActivity.instance.bitmaps.get(0).getWidth() == 12000) {
             //空调毯
             Matrix matrix = new Matrix();
             matrix.postScale(width / 8850f, height / 9808f);
@@ -255,6 +265,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawRect(4, 4, width - 4, height - 4, rectBorderPaint);
             drawTextJJ(canvasTemp);
 
+            //填充透明背景为白色
+            for (int x = 0; x < bitmapTemp.getWidth(); x++) {
+                for (int y = 0; y < bitmapTemp.getHeight(); y++) {
+                    if (bitmapTemp.getPixel(x, y) == 0) {//透明点取值为0
+                        bitmapTemp.setPixel(x, y, Color.WHITE);
+                    }
+                }
+            }
+
             String nameCombine = "(HLL空调毯)" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
             String pathSave;
             if (MainActivity.instance.cb_classify.isChecked()) {
@@ -266,7 +285,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapTemp, fileSave, dpi);
             bitmapTemp.recycle();
-        } else if (orderItems.get(currentID).platform.endsWith("-jj") && MainActivity.instance.bitmaps.get(0).getWidth() == 11000 && MainActivity.instance.bitmaps.get(0).getHeight() == 14800) {
+        } else if (orderItems.get(currentID).platform.endsWith("jj") && MainActivity.instance.bitmaps.get(0).getWidth() == 11000 && MainActivity.instance.bitmaps.get(0).getHeight() == 14800) {//super平台
             //空调毯
             Matrix matrix = new Matrix();
             matrix.postScale(width / 10926f, height / 12172f);
@@ -287,6 +306,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawRect(4, 4, width - 4, height - 4, rectBorderPaint);
             drawTextJJ(canvasTemp);
 
+            //填充透明背景为白色
+            for (int x = 0; x < bitmapTemp.getWidth(); x++) {
+                for (int y = 0; y < bitmapTemp.getHeight(); y++) {
+                    if (bitmapTemp.getPixel(x, y) == 0) {//透明点取值为0
+                        bitmapTemp.setPixel(x, y, Color.WHITE);
+                    }
+                }
+            }
+
             String nameCombine = "(空调毯" + orderItems.get(currentID).sku + ")" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
             String pathSave;
             if (MainActivity.instance.cb_classify.isChecked()) {
@@ -298,7 +326,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapTemp, fileSave, dpi);
             bitmapTemp.recycle();
-        } else if (orderItems.get(currentID).platform.endsWith("-jj")) {
+        } else if (orderItems.get(currentID).platform.endsWith("jj")) {
             //空调毯
             Matrix matrix = new Matrix();
             matrix.postScale(width / 10926f, height / 12172f);
@@ -367,7 +395,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
         //空调毯枕套
-        if (orderItems.get(currentID).platform.endsWith("-jj") && MainActivity.instance.bitmaps.get(0).getWidth() == 14800) {
+        if (orderItems.get(currentID).platform.endsWith("jj") && MainActivity.instance.bitmaps.get(0).getWidth() == 14800) {
             rectBorderPaint.setStrokeWidth(4);
 
             Bitmap bitmapCombine = Bitmap.createBitmap(3600, 4800 + 5, Bitmap.Config.ARGB_8888);
@@ -410,7 +438,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 116);
             bitmapCombine.recycle();
-        } else if (orderItems.get(currentID).platform.endsWith("-jj")  && MainActivity.instance.bitmaps.get(0).getWidth() == 11000 && MainActivity.instance.bitmaps.get(0).getHeight() == 14800) {
+        } else if (orderItems.get(currentID).platform.endsWith("jj")  && MainActivity.instance.bitmaps.get(0).getWidth() == 11000 && MainActivity.instance.bitmaps.get(0).getHeight() == 14800) {
             rectBorderPaint.setStrokeWidth(4);
 
             Bitmap bitmapCombine = Bitmap.createBitmap(3600, 4800 + 5, Bitmap.Config.ARGB_8888);
@@ -514,7 +542,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 6393, 14, 3600, 2400);
-            MainActivity.instance.bitmaps.clear();
+//            MainActivity.instance.bitmaps.clear();
             canvasTemp= new Canvas(bitmapTemp);
             drawTextPillow(canvasTemp);
             canvasTemp.drawRect(0, 0, 3600, 2400, rectBorderPaint);

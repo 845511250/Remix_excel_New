@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
-import android.graphics.Typeface;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -110,8 +109,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         Paint paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(18);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
+        paint.setTextSize(20);
         paint.setAntiAlias(true);
 
         Paint rectBorderPaint = new Paint();
@@ -121,15 +119,19 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         String time = MainActivity.instance.orderDate_Print;
 
-        Bitmap bitmapCombine = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+        Bitmap bitmapCombine = Bitmap.createBitmap(3602, 2421 + 21, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+        canvasCombine.drawColor(0xffffffff);
 
-        canvasCombine.drawRect(0, 0, bitmapCombine.getWidth() - 1, bitmapCombine.getHeight() - 1, rectBorderPaint);
-        canvasCombine.drawRect(1, 1, bitmapCombine.getWidth() - 1, bitmapCombine.getHeight() - 1, rectBorderPaint);
+        Bitmap bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 3602, 2421, true);
+        canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
-//        canvasCombine.drawRect(20, 2, 20 + 300, 2 + 17, rectPaint);
-//        canvasCombine.drawText("U地垫 " + time + "  " + orderItems.get(currentID).order_number, 20, 2 + 15, paint);
+        canvasCombine.drawRect(0, 0, 3602, 2421, rectBorderPaint);
+        canvasCombine.drawRect(1, 1, 3602 - 1, 2421 - 1, rectBorderPaint);
+
+        canvasCombine.drawRect(1500, 2422, 1500 + 300, 2422 + 20, rectPaint);
+        canvasCombine.drawText("U地垫 " + time + "  " + orderItems.get(currentID).order_number, 1500, 2422 + 18, paint);
 
         Matrix matrix2 = new Matrix();
         matrix2.postRotate(90, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);

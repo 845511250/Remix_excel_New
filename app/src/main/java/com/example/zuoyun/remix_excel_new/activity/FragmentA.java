@@ -61,7 +61,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     @Override
-    public void initData(View view) {
+    public void initData(View view) {//测试
         context = getContext();
         ButterKnife.bind(this, view);
         orderItems=MainActivity.instance.orderItems;

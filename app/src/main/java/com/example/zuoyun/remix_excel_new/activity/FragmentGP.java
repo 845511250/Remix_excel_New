@@ -70,8 +70,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(20);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
+        paint.setTextSize(19);
         paint.setAntiAlias(true);
 
         paintRed = new Paint();
@@ -112,7 +111,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     intPlus = orderItems.get(currentID).num - num + 1;
                     for(int i=0;i<currentID;i++) {
                         if (orderItems.get(currentID).order_number.equals(orderItems.get(i).order_number)) {
-                            intPlus += orderItems.get(i).num;;
+                            intPlus += orderItems.get(i).num;
                         }
                     }
                     strPlus = intPlus == 1 ? "" : "(" + intPlus + ")";
@@ -124,19 +123,56 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawText(Canvas canvas, String LR) {
-        canvas.drawRect(900, 5, 1300, 35, rectPaint);
-        canvas.drawText(time + "   " + orderItems.get(currentID).newCode + "   " + LR, 900, 35 - 2, paint);
+        canvas.drawRect(900, 4, 900 + 300, 4 + 18, rectPaint);
+        canvas.drawText(time + " " + orderItems.get(currentID).order_number, 900, 4 + 17, paint);
     }
 
     public void remixx(){
-        int frontWidth=2120, frontHeight=3294, backWidth=2145, backHeight=1637;
+        int frontWidth = 2120, frontHeight = 3294, backWidth = 2145, backHeight = 1637;
 
         Bitmap bitmapCombine = Bitmap.createBitmap(backWidth * 2 + 50, frontHeight + backHeight + 150, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        if (orderItems.get(currentID).imgs.size() == 4) {
+        if (orderItems.get(currentID).isPPSL) {
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 17, 20, 2065, 3224);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gp_front);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawText(canvasTemp, "左");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, frontWidth, frontHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+            bitmapTemp.recycle();
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 17, 3302, 2065, 1557);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gp_back);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawText(canvasTemp, "左");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, backWidth, backHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, frontHeight + 100, null);
+            bitmapTemp.recycle();
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 17, 20, 2065, 3224);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gp_front);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawText(canvasTemp, "右");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, frontWidth, frontHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, backWidth + 50, 0, null);
+            bitmapTemp.recycle();
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 17, 3302, 2065, 1557);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gp_back);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawText(canvasTemp, "右");
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, backWidth, backHeight, true);
+            canvasCombine.drawBitmap(bitmapTemp, backWidth + 50, frontHeight + 100, null);
+            bitmapTemp.recycle();
+            bitmapDB.recycle();
+        } else if (orderItems.get(currentID).imgs.size() == 4) {
             if (orderItems.get(currentID).sizeStr.equals("4PCS")) {
                 //左前
                 Bitmap bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(2), 2085, 3250, true);

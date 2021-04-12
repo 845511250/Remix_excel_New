@@ -247,6 +247,7 @@ public class FragmentBV extends BaseFragment {
 
             //左袖子
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3462 + 57, 150 + 21, 1841, 1719);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1925, 1743, true);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), id_sleeve_l);
@@ -257,6 +258,7 @@ public class FragmentBV extends BaseFragment {
 
             //右袖子
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 583 + 27, 150 + 21, 1841, 1719);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1925, 1743, true);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), id_sleeve_r);

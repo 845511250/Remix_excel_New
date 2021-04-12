@@ -402,7 +402,7 @@ public class FragmentME extends BaseFragment {
             bitmapTemp = Bitmap.createBitmap(1289, 553, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, null);
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.me_left_inside1);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextInside1_left(canvasTemp);

@@ -562,6 +562,7 @@ public class FragmentFI extends BaseFragment {
 
                 //后面
                 bitmapTemp = Bitmap.createBitmap(orderItems.get(currentID).imgs.size() == 2 ? MainActivity.instance.bitmaps.get(1) : MainActivity.instance.bitmaps.get(0), 2804, 0, 3585, 3864);
+                canvasTemp = new Canvas(bitmapTemp);
                 canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
                 bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fi_back);
                 canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -851,7 +852,7 @@ public class FragmentFI extends BaseFragment {
             if (!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 150);
+            BitmapToJpg.save(bitmapCombine, fileSave, 148);
             bitmapCombine.recycle();
 
             //写入excel

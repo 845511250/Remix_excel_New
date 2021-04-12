@@ -189,6 +189,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
     public void remixx(){
+
+        /*
         int margin = 120;
         Matrix matrix = new Matrix();
         int width_combine = Math.max(width_front + width_back + margin, width_pocket * 4 + margin * 3);
@@ -388,7 +390,229 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp.recycle();
         }
 
+         */
 
+
+        int margin = 90;
+        Matrix matrix = new Matrix();
+        int width_combine = 0, height_combine = 0;
+
+        width_combine = width_front * 2 + width_back + margin;
+        height_combine = height_back * 2 + margin;
+
+        Bitmap bitmapCombine = Bitmap.createBitmap(width_combine, height_combine, Bitmap.Config.ARGB_8888);
+        Canvas canvasCombine= new Canvas(bitmapCombine);
+        canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+        canvasCombine.drawColor(0xffffffff);
+
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {//jj
+            if (MainActivity.instance.bitmaps.get(0).getWidth() != 8900) {
+                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 8900, 8900, true));
+            }
+
+            //back
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1785, 4361, 2671, 4420);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), id_backL);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBackL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4456, 4361, 2671, 4420);
+            canvasTemp = new Canvas(bitmapTemp);
+            matrix.reset();
+            matrix.postScale(-1, 1);
+            bitmapDB = Bitmap.createBitmap(bitmapDB, 0, 0, 2671, 4420, matrix, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBackR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_back + margin, null);
+
+            //front
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2371, 120, 2077, 4186);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), id_frontR);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextFrontR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(width_front + width_back, height_front);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4448, 120, 2077, 4186);
+            canvasTemp = new Canvas(bitmapTemp);
+            matrix.reset();
+            matrix.postScale(-1, 1);
+            bitmapDB = Bitmap.createBitmap(bitmapDB, 0, 0, 2077, 4186, matrix, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextFrontL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(width_front * 2 + width_back + margin, height_front);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //pocketR
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2371, 576, 1212, 2055);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hgm_pocket_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextPocketR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket, height_pocket, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_back + width_pocket + margin * 2, height_back + margin, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_back + width_pocket + margin * 2, height_back + height_pocket + margin * 2, null);
+
+            //pocketL
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 5313, 576, 1212, 2055);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hgm_pocket_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextPocketL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket, height_pocket, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_back + margin, height_back + margin, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_back + margin, height_back + height_pocket + margin * 2, null);
+
+            bitmapDB.recycle();
+            bitmapTemp.recycle();
+        } else if (orderItems.get(currentID).imgs.size() == 1) {
+            //back
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4248, 40, 2671, 4420);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), id_backL);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBackL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 6919, 40, 2671, 4420);
+            canvasTemp = new Canvas(bitmapTemp);
+            matrix.reset();
+            matrix.postScale(-1, 1);
+            bitmapDB = Bitmap.createBitmap(bitmapDB, 0, 0, 2671, 4420, matrix, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBackR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_back + margin, null);
+
+            //front
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 9, 157, 2077, 4186);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), id_frontR);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextFrontR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(width_front + width_back, height_front);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2086, 157, 2077, 4186);
+            canvasTemp = new Canvas(bitmapTemp);
+            matrix.reset();
+            matrix.postScale(-1, 1);
+            bitmapDB = Bitmap.createBitmap(bitmapDB, 0, 0, 2077, 4186, matrix, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextFrontL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(width_front * 2 + width_back + margin, height_front);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //pocketR
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 9, 613, 1212, 2055);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hgm_pocket_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextPocketR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket, height_pocket, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_back + width_pocket + margin * 2, height_back + margin, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_back + width_pocket + margin * 2, height_back + height_pocket + margin * 2, null);
+
+            //pocketL
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2951, 613, 1212, 2055);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hgm_pocket_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextPocketL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket, height_pocket, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_back + margin, height_back + margin, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_back + margin, height_back + height_pocket + margin * 2, null);
+
+            bitmapDB.recycle();
+            bitmapTemp.recycle();
+        } else if (orderItems.get(currentID).imgs.size() == 2) {
+            //frontR
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 623, 157, 2077, 4186);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), id_frontR);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextFrontR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(width_front + width_back, height_front);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //frontL
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 2700, 157, 2077, 4186);
+            canvasTemp = new Canvas(bitmapTemp);
+            matrix.reset();
+            matrix.postScale(-1, 1);
+            bitmapDB = Bitmap.createBitmap(bitmapDB, 0, 0, bitmapDB.getWidth(), bitmapDB.getHeight(), matrix, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextFrontL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            matrix.reset();
+            matrix.postRotate(180);
+            matrix.postTranslate(width_front * 2 + width_back + margin, height_front);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            //backL
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 29, 40, 2671, 4420);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), id_backL);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBackL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            //backR
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2700, 40, 2671, 4420);
+            canvasTemp = new Canvas(bitmapTemp);
+            matrix.reset();
+            matrix.postScale(-1, 1);
+            bitmapDB = Bitmap.createBitmap(bitmapDB, 0, 0, bitmapDB.getWidth(), bitmapDB.getHeight(), matrix, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBackR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_back + margin, null);
+
+            //pocketR
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 623, 613, 1212, 2055);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hgm_pocket_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextPocketR(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket, height_pocket, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_back + width_pocket + margin * 2, height_back + margin, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_back + width_pocket + margin * 2, height_back + height_pocket + margin * 2, null);
+
+            //pocketL
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 3565, 613, 1212, 2055);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hgm_pocket_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextPocketL(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket, height_pocket, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_back + margin, height_back + margin, null);
+            canvasCombine.drawBitmap(bitmapTemp, width_back + margin, height_back + height_pocket + margin * 2, null);
+
+            bitmapDB.recycle();
+            bitmapTemp.recycle();
+        }
 
 
 
@@ -401,7 +625,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         if(!new File(pathSave).exists())
             new File(pathSave).mkdirs();
         File fileSave = new File(pathSave + nameCombine);
-        BitmapToJpg.save(bitmapCombine, fileSave, 149);
+        BitmapToJpg.save(bitmapCombine, fileSave, 148);
         bitmapCombine.recycle();
 
 

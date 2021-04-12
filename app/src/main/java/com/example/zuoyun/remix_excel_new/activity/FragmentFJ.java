@@ -1570,13 +1570,13 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     String getColor(String color){
-        if (color.equals("White")) {
+        if (color.equalsIgnoreCase("White")) {
             return "白灯";
-        } else if (color.equals("Green")) {
+        } else if (color.equalsIgnoreCase("Green")) {
             return "绿灯";
-        } else if (color.equals("Blue")) {
+        } else if (color.equalsIgnoreCase("Blue")) {
             return "蓝灯";
-        } else if (color.equals("Red")) {
+        } else if (color.equalsIgnoreCase("Red")) {
             return "红灯";
         } else {
             return "无灯";
