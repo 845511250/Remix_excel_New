@@ -33,8 +33,8 @@ import jxl.write.WritableWorkbook;
 
 public class FragmentHU extends BaseFragment {
     Context context;
-//    String sdCardPath = "/mnt/asec/share";
-String sdCardPath = "/storage/emulated/0/Pictures";
+    //    String sdCardPath = "/mnt/asec/share";
+    String sdCardPath = "/storage/emulated/0/Pictures";
     ArrayList<OrderItem> orderItems;
     int currentID;
     String childPath;
@@ -52,6 +52,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     Paint rectPaint, paint, paintRed, paintBlue, rectBorderPaint, paintSmall, rectBorderPaintRed,rectBorderPaintGreen;
     String time;
 
+    int margin = 24;
     int widthCombine, heightCombine;
     int dpi;
     Rect rectCutMain,rectCutSideL,rectCutSideR,rectCutFrontSideL,rectCutFrontSideR,rectCutBackSideL, rectCutBackSideR;
@@ -192,35 +193,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hu2_main);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            canvasCombine.drawBitmap(bitmapTemp, 0, 9830, null);
-            //back
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4916, 141, 3256, 9446);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hu2_back);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            canvasCombine.drawBitmap(bitmapTemp, 4128, 141, null);
-            //smallSideL
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 10522, 2670, 1366, 2554);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hu2_smallside_l);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            canvasCombine.drawBitmap(bitmapTemp, 6105, 9830, null);
-            //smallSideR
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 8750, 2670, 1366, 2554);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hu2_smallside_r);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            canvasCombine.drawBitmap(bitmapTemp, 4677, 9830, null);
-            //pocket
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 9566, 7456, 1108, 1160);
-            canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hu2_pocket);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            canvasCombine.drawBitmap(bitmapTemp, 4928, 12603, null);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 4793 * 2 + margin * 2, null);
             //sideL
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 8281, 5631, 4793, 3956);
             canvasTemp= new Canvas(bitmapTemp);
@@ -229,7 +202,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             Matrix matrix = new Matrix();
             matrix.postRotate(90);
-            matrix.postTranslate(3956 + 76, 0);
+            matrix.postTranslate(3956, 0);
             canvasCombine.drawBitmap(bitmapTemp, matrix, null);
             //sideR
             bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 18, 5631, 4793, 3956);
@@ -240,8 +213,37 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapDB.recycle();
             matrix.reset();
             matrix.postRotate(90);
-            matrix.postTranslate(3956 + 85, 5000 - 80);
+            matrix.postTranslate(3956, 4793 + margin);
             canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+            //back
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4916, 141, 3256, 9446);
+            canvasTemp= new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hu2_back);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, 3956 + margin, 0, null);
+            //smallSideL
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 10522, 2670, 1366, 2554);
+            canvasTemp= new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hu2_smallside_l);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, 4675 + margin, 9446 + margin, null);
+            //smallSideR
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 8750, 2670, 1366, 2554);
+            canvasTemp= new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hu2_smallside_r);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, 4675 + 1366 + margin * 2, 9446 + margin, null);
+            //pocket
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 9566, 7456, 1108, 1160);
+            canvasTemp= new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.hu2_pocket);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, 4675 + margin, 9446 + 2554 + margin * 2, null);
+
             bitmapTemp.recycle();
 
         } else {
@@ -361,21 +363,22 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         switch (orderItems.get(currentID).sku) {
             case "HU1":
                 dpi = 150;
+                margin = 30;
 
                 rectCutMain = new Rect(925, 43, 925 + 2439, 43 + 9606);
                 rectCutSideL = new Rect(3457, 5866, 3457 + 835, 5866 + 2365);
                 rectCutSideR = new Rect(0, 5866, 0 + 835, 5866 + 2365);
 
                 rectDrawMain = new Rect(0, 0, 0 + 2380, 0 + 9606);
-                rectDrawSideL = new Rect(1328, 9733, 1328 + 835, 9733 + 2365);
-                rectDrawSideR = new Rect(270, 9733, 270 + 835, 9733 + 2365);
+                rectDrawSideR = new Rect(270, 9606 + margin, 270 + 835, 9606 + margin + 2365);
+                rectDrawSideL = new Rect(270 + 835 + margin, 9606 + margin, 270 + 835 + margin + 835, 9606 + margin + 2365);
 
                 widthCombine = 2380;
-                heightCombine = 12120;
+                heightCombine = 9606 + margin + 2365;
                 break;
             case "HU2":
-                widthCombine = 7527;
-                heightCombine = 15362;
+                widthCombine = 4675 + 1366 * 2 + margin * 2;
+                heightCombine = 4793 * 2 + 5525 + margin * 2;
                 break;
             case "HU3":
                 rectCutMain = new Rect(25, 13, 25 + 3475, 13 + 11768);
@@ -386,16 +389,16 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 rectCutFrontSideL = new Rect(7292, 3771, 7292 + 877, 3771 + 3154);
                 rectCutFrontSideR = new Rect(6297, 3771, 6297 + 877, 3771 + 3154);
 
-                rectDrawMain = new Rect(25, 0, 25 + 3475, 0 + 11768);
-                rectDrawSideL = new Rect(3610, 13, 3610 + 2577, 13 + 4643);
-                rectDrawSideR = new Rect(3610, 4704, 3610 + 2577, 4704 + 4643);
-                rectDrawBackSideL = new Rect(6277, 13, 6277 + 876, 13 + 4099);
-                rectDrawBackSideR = new Rect(6277, 4347, 6277 + 876, 4347 + 4099);
-                rectDrawFrontSideL = new Rect(4607, 9407, 4607 + 877, 9407 + 3154);
-                rectDrawFrontSideR = new Rect(3612, 9407, 3612 + 877, 9407 + 3154);
+                rectDrawMain = new Rect(0, 0, 0 + 3475, 0 + 11768);
+                rectDrawSideL = new Rect(3475 + margin, 0, 3475 + margin + 2577, 0 + 4643);
+                rectDrawSideR = new Rect(3475 + margin, 4643 + margin, 3475 + margin + 2577, 4643 + margin + 4643);
+                rectDrawBackSideL = new Rect(3475 + 2577 + margin * 2, 0, 3475 + 2577 + margin * 2 + 876, 0 + 4099);
+                rectDrawBackSideR = new Rect(3475 + 2577 + margin * 2, 4099 + margin, 3475 + 2577 + margin * 2 + 876, 4099 + margin + 4099);
+                rectDrawFrontSideL = new Rect(3475 + margin, 4643 * 2 + margin * 2, 3475 + margin + 877, 4643 * 2 + margin * 2 + 3154);
+                rectDrawFrontSideR = new Rect(3475 + 877 + margin * 2, 4643 * 2 + margin * 2, 3475 + 877 + margin * 2 + 877, 4643 * 2 + margin * 2 + 3154);
 
-                widthCombine = 7225;
-                heightCombine = 12567;
+                widthCombine = 3475 + 2577 + margin * 2 + 876;
+                heightCombine = 4643 * 2 + margin * 2 + 3154;
                 break;
             case "HU4":
                 rectCutMain = new Rect(0, 0, 0 + 6127, 0 + 11768);
@@ -407,15 +410,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 rectCutFrontSideR = new Rect(8898, 3839, 8898 + 877, 3839 + 3154);
 
                 rectDrawMain = new Rect(0, 0, 0 + 6127, 0 + 11768);
-                rectDrawSideL = new Rect(0, 11819, 0 + 2577, 11819 + 4643);
-                rectDrawSideR = new Rect(2646, 11819, 2646 + 2577, 11819 + 4643);
-                rectDrawBackSideL = new Rect(6184, 10559, 6184 + 876, 10559 + 4099);
-                rectDrawBackSideR = new Rect(6184, 6405, 6184 + 876, 6405 + 4099);
-                rectDrawFrontSideL = new Rect(6183, 3197, 6183 + 877, 3197 + 3154);
-                rectDrawFrontSideR = new Rect(6183, 0, 6183 + 877, 0 + 3154);
+                rectDrawSideL = new Rect(0, 11768 + margin, 0 + 2577, 11768 + margin + 4643);
+                rectDrawSideR = new Rect(2577 + margin, 11768 + margin, 2577 + margin + 2577, 11768 + margin + 4643);
+                rectDrawFrontSideR = new Rect(6127 + margin, 0, 6127 + margin + 877, 0 + 3154);
+                rectDrawFrontSideL = new Rect(6127 + margin, 3154 + margin, 6127 + margin + 877, 3154 + margin + 3154);
+                rectDrawBackSideR = new Rect(6127 + margin, 3154 * 2 + margin * 2, 6127 + margin + 876, 3154 * 2 + margin * 2 + 4099);
+                rectDrawBackSideL = new Rect(6127 + margin, 3154 * 2 + 4099 + margin * 3, 6127 + margin + 876, 3154 * 2 + 4099 + margin * 3 + 4099);
 
-                widthCombine = 7146;;
-                heightCombine = 16561;
+                widthCombine = 6127 + margin + 877;
+                heightCombine = 11768 + margin + 4643;
                 break;
             case "HU5":
                 rectCutMain = new Rect(0, 0, 0 + 7733, 0 + 11768);
@@ -427,15 +430,15 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 rectCutFrontSideR = new Rect(10484, 3623, 10484 + 877, 3623 + 3154);
 
                 rectDrawMain = new Rect(0, 0, 0 + 7733, 0 + 11768);
-                rectDrawSideL = new Rect(0, 11834, 0 + 2577, 11834 + 4643);
-                rectDrawSideR = new Rect(2677, 11834, 2677 + 2577, 11834 + 4643);
-                rectDrawBackSideL = new Rect(6230, 11834, 6230 + 876, 11834 + 4099);
-                rectDrawBackSideR = new Rect(5304, 11834, 5304 + 876, 11834 + 4099);
-                rectDrawFrontSideL = new Rect(6242, 15996, 6242 + 877, 15996 + 3154);
-                rectDrawFrontSideR = new Rect(5304, 15996, 5304 + 877, 15996 + 3154);
+                rectDrawSideL = new Rect(0, 11768 + margin, 0 + 2577, 11768 + margin + 4643);
+                rectDrawSideR = new Rect(2577 + margin, 11768 + margin, 2577 + margin + 2577, 11768 + margin + 4643);
+                rectDrawBackSideR = new Rect(2577 * 2 + margin * 2, 11768 + margin, 2577 * 2 + margin * 2 + 876, 11768 + margin + 4099);
+                rectDrawBackSideL = new Rect(2577 * 2 + 876 + margin * 3, 11768 + margin, 2577 * 2 + 876 + margin * 3 + 876, 11768 + margin + 4099);
+                rectDrawFrontSideR = new Rect(2577 * 2 + margin * 2, 11768 + 4099 + margin * 2, 2577 * 2 + margin * 2 + 877, 11768 + 4099 + margin * 2 + 3154);
+                rectDrawFrontSideL = new Rect(2577 * 2 + 877 + margin * 3, 11768 + 4099 + margin * 2, 2577 * 2 + 877 + margin * 3 + 877, 11768 + 4099 + margin * 2 + 3154);
 
                 widthCombine = 7733;
-                heightCombine = 19233;
+                heightCombine = 11768 + 4099 + margin * 2 + 3154;
                 break;
             default:
                 sizeOK = false;

@@ -150,7 +150,7 @@ public class FragmentDQ extends BaseFragment {
         canvas.save();
         canvas.rotate(77.8f, 47, 254);
         canvas.drawRect(47, 254 - 25, 47 + 350, 254, rectPaint);
-        canvas.drawText(time + "     " + orderItems.get(currentID).newCode, 47, 254 - 2, paintRed);
+        canvas.drawText(time + " " + orderItems.get(currentID).newCode, 47, 254 - 2, paintRed);
         canvas.restore();
 
         canvas.save();
@@ -613,6 +613,9 @@ public class FragmentDQ extends BaseFragment {
         }
         width_tongue += 10;
         height_tongue += 10;
+        if (orderItems.get(currentID).sku.equals("AS")) {
+            width_main -= 25;
+        }
     }
 
 }

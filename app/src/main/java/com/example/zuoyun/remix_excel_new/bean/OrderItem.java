@@ -18,6 +18,7 @@ public class OrderItem {
     public String customer;
     public String order_id;
     public String barcode_str;
+    public String remark;
     public String nameStr;
     public boolean isPPSL;
 }

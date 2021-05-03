@@ -114,18 +114,11 @@ public class FragmentGD extends BaseFragment {
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
                     bt_remix.setClickable(false);
-                } else if (message == 1) {
-                    Log.e("fragment2", "message1");
-                    bt_remix.setClickable(true);
+                } else if (message == MainActivity.LOADED_IMGS) {
+                    if(!MainActivity.instance.cb_fastmode.isChecked())
+                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
                     checkremix();
-                } else if (message == 2) {
-                    Log.e("fragment2", "message2");
                     bt_remix.setClickable(true);
-                    checkremix();
-                } else if (message == 4) {
-                    Log.e("fy", "message4");
-                    bt_remix.setClickable(true);
-                    checkremix();
                 } else if (message == 3) {
                     bt_remix.setClickable(false);
                 } else if (message == 10) {

@@ -399,12 +399,97 @@ public class FragmentX4 extends BaseFragment {
                 bitmapDB.recycle();
             }
 
-            if (num == 1) {
-                MainActivity.recycleExcelImages();
-            }
-
         } else if (orderItems.get(currentID).imgs.size() == 1 && MainActivity.instance.bitmaps.get(0).getWidth() == 14900) {
+            bitmapCombine = Bitmap.createBitmap(width_combine, height_combine, Bitmap.Config.ARGB_8888);
+            Canvas canvasCombine = new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasCombine.drawColor(0xffffffff);
 
+            //back
+            Bitmap bitmapTemp = Bitmap.createBitmap(3136, 2519, Bitmap.Config.ARGB_8888);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -9694, -298, null);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getResources(), id_back);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBack(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_back, y_back, null);
+
+            //front
+            bitmapTemp = Bitmap.createBitmap(3124, 2413, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -2458, -405, null);
+            bitmapDB = BitmapFactory.decodeResource(getResources(), id_front);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextFront(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_front, y_front, null);
+
+            //sleeve_left
+            bitmapTemp = Bitmap.createBitmap(2108, 3859, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -5883, -42, null);
+            bitmapDB = BitmapFactory.decodeResource(getResources(), id_sleeve_left);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSleeveLeft(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_sleeve, height_sleeve, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_sleeve_left, y_sleeve_left, null);
+
+            //sleeve_right
+            bitmapTemp = Bitmap.createBitmap(2108, 3859, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -44, -42, null);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, -2108, 3859, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSleeveRight(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_sleeve, height_sleeve, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_sleeve_right, y_sleeve_right, null);
+
+            //down_front
+            bitmapTemp = Bitmap.createBitmap(7110, 4152, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -465, -2811, null);
+            bitmapDB = BitmapFactory.decodeResource(getResources(), id_down_front);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextDownFront(canvasTemp);
+            bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_down_front, height_down_front, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_down_front, y_down_front, null);
+
+            //down_back
+            bitmapTemp = Bitmap.createBitmap(3605, 4153, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -7658, -2811, null);
+            bitmapDB = BitmapFactory.decodeResource(getResources(), id_down_back_left);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBackLeft(canvasTemp);
+            bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_down_back, height_down_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_down_back_left, y_down_back_left, null);
+
+            bitmapTemp = Bitmap.createBitmap(3605, 4153, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -11257, -2811, null);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, -3605, 4153, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBackRight(canvasTemp);
+            bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_down_back, height_down_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, x_down_back_right, y_down_back_right, null);
+
+            bitmapTemp.recycle();
+            bitmapDB.recycle();
+        }
+
+        if (num == 1) {
+            MainActivity.recycleExcelImages();
         }
 
 

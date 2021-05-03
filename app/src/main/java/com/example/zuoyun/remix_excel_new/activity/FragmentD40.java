@@ -291,9 +291,7 @@ public class FragmentD40 extends BaseFragment {
             bitmapDB = BitmapFactory.decodeResource(getResources(), id_sleeve_left);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSleeve(canvasTemp, "左袖");
-            if (orderItems.get(currentID).sizeStr.equals("3XL") || orderItems.get(currentID).sizeStr.equals("4XL")) {
-                bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
-            }
+            bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_sleeve, height_sleeve, true);
             canvasCombine.drawBitmap(bitmapTemp, x_sleeve_left, y_sleeve_left, null);
 
@@ -305,9 +303,7 @@ public class FragmentD40 extends BaseFragment {
             bitmapDB = Bitmap.createScaledBitmap(bitmapDB, -1695, 3007, true);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextSleeve(canvasTemp, "右袖");
-            if (orderItems.get(currentID).sizeStr.equals("3XL") || orderItems.get(currentID).sizeStr.equals("4XL")) {
-                bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
-            }
+            bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_sleeve, height_sleeve, true);
 
             matrix = new Matrix();

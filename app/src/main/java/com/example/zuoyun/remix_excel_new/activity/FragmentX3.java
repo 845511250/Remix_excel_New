@@ -403,190 +403,100 @@ public class FragmentX3 extends BaseFragment {
             }
 
         } else if (orderItems.get(currentID).imgs.size() == 1 && MainActivity.instance.bitmaps.get(0).getWidth() == 14669) {
-            if (orderItems.get(currentID).sizeStr.equals("2XL") || orderItems.get(currentID).sizeStr.equals("3XL") || orderItems.get(currentID).sizeStr.equals("4XL")) {//激光电雕152内
-                int margin = 80;
-                bitmapCombine = Bitmap.createBitmap(Math.max(width_back_down * 2 + margin, (int) (width_front_down * 0.696) + width_sleeve), height_back + margin + (int) (height_sleeve * 0.368) + height_front_down + height_back_down, Bitmap.Config.ARGB_8888);
-                Canvas canvasCombine = new Canvas(bitmapCombine);
-                canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasCombine.drawColor(0xffffffff);
+            //激光电雕152内
+            int margin = 80;
+            bitmapCombine = Bitmap.createBitmap(Math.max(width_back_down * 2 + margin, (int) (width_front_down * 0.696) + width_sleeve), height_back + margin + (int) (height_sleeve * 0.368) + height_front_down + height_back_down, Bitmap.Config.ARGB_8888);
+            Canvas canvasCombine = new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasCombine.drawColor(0xffffffff);
 
-                //front_down
-                Bitmap bitmapTemp = Bitmap.createBitmap(7110, 4152, Bitmap.Config.ARGB_8888);
-                Canvas canvasTemp = new Canvas(bitmapTemp);
-                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -259, -2519, null);
-                Bitmap bitmapDB = BitmapFactory.decodeResource(getResources(), id_front_down);
-                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-                drawTextFrontDown(canvasTemp);
-                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front_down, height_front_down, true);
-                canvasCombine.drawBitmap(bitmapTemp, 0, height_back + margin + (int) (height_sleeve * 0.368), null);
+            //front_down
+            Bitmap bitmapTemp = Bitmap.createBitmap(7110, 4152, Bitmap.Config.ARGB_8888);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -259, -2519, null);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getResources(), id_front_down);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextFrontDown(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front_down, height_front_down, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_back + margin + (int) (height_sleeve * 0.368), null);
 
-                //back left_down
-                bitmapTemp = Bitmap.createBitmap(3605, 4153, Bitmap.Config.ARGB_8888);
-                canvasTemp = new Canvas(bitmapTemp);
-                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -7455, -2517, null);
-                bitmapDB = BitmapFactory.decodeResource(getResources(), id_back_down_left);
-                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-                drawTextBackLeft(canvasTemp);
-                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back_down, height_back_down, true);
-                canvasCombine.drawBitmap(bitmapTemp, 0, height_back + margin + (int) (height_sleeve * 0.368) + height_front_down, null);
+            //back left_down
+            bitmapTemp = Bitmap.createBitmap(3605, 4153, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -7455, -2517, null);
+            bitmapDB = BitmapFactory.decodeResource(getResources(), id_back_down_left);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBackLeft(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back_down, height_back_down, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_back + margin + (int) (height_sleeve * 0.368) + height_front_down, null);
 
-                //back right_down
-                bitmapTemp = Bitmap.createBitmap(3605, 4153, Bitmap.Config.ARGB_8888);
-                canvasTemp = new Canvas(bitmapTemp);
-                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -11062, -2517, null);
-                bitmapDB = Bitmap.createScaledBitmap(bitmapDB, -3605, 4153, true);
-                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-                drawTextBackRight(canvasTemp);
-                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back_down, height_back_down, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_back_down + margin, height_back + margin + (int) (height_sleeve * 0.368) + height_front_down, null);
+            //back right_down
+            bitmapTemp = Bitmap.createBitmap(3605, 4153, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -11062, -2517, null);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, -3605, 4153, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBackRight(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back_down, height_back_down, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_back_down + margin, height_back + margin + (int) (height_sleeve * 0.368) + height_front_down, null);
 
-                //front
-                bitmapTemp = Bitmap.createBitmap(3124, 2413, Bitmap.Config.ARGB_8888);
-                canvasTemp = new Canvas(bitmapTemp);
-                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -2253, -106, null);
-                bitmapDB = BitmapFactory.decodeResource(getResources(), id_front);
-                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-                drawTextFront(canvasTemp);
-                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
-                canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+            //front
+            bitmapTemp = Bitmap.createBitmap(3124, 2413, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -2253, -106, null);
+            bitmapDB = BitmapFactory.decodeResource(getResources(), id_front);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextFront(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
-                //back
-                bitmapTemp = Bitmap.createBitmap(3136, 2519, Bitmap.Config.ARGB_8888);
-                canvasTemp = new Canvas(bitmapTemp);
-                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -9494, 0, null);
-                bitmapDB = BitmapFactory.decodeResource(getResources(), id_back);
-                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-                drawTextBack(canvasTemp);
-                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_front + margin, 0, null);
+            //back
+            bitmapTemp = Bitmap.createBitmap(3136, 2519, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -9494, 0, null);
+            bitmapDB = BitmapFactory.decodeResource(getResources(), id_back);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextBack(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front + margin, 0, null);
 
-                //sleeveLeft
-                bitmapTemp = Bitmap.createBitmap(2253, 1271, Bitmap.Config.ARGB_8888);
-                canvasTemp = new Canvas(bitmapTemp);
-                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -5377, -656, null);
-                bitmapDB = BitmapFactory.decodeResource(getResources(), id_sleeve_left);
-                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-                drawTextSleeveLeft(canvasTemp);
-                bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
-                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_sleeve, height_sleeve, true);
-                Matrix matrix = new Matrix();
-                matrix.postRotate(180);
-                matrix.postTranslate(width_sleeve, height_sleeve + height_front + margin);
-                canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+            //sleeveLeft
+            bitmapTemp = Bitmap.createBitmap(2253, 1271, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -5377, -656, null);
+            bitmapDB = BitmapFactory.decodeResource(getResources(), id_sleeve_left);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSleeveLeft(canvasTemp);
+            bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_sleeve, height_sleeve, true);
+            Matrix matrix = new Matrix();
+            matrix.postRotate(180);
+            matrix.postTranslate(width_sleeve, height_sleeve + height_front + margin);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
-                //sleeveRight
-                bitmapTemp = Bitmap.createBitmap(2253, 1271, Bitmap.Config.ARGB_8888);
-                canvasTemp = new Canvas(bitmapTemp);
-                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, -656, null);
-                bitmapDB = Bitmap.createScaledBitmap(bitmapDB, -2253, 1271, true);
-                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-                drawTextSleeveRight(canvasTemp);
-                bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
-                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_sleeve, height_sleeve, true);
-                matrix = new Matrix();
-                matrix.postRotate(180);
-                matrix.postTranslate(width_sleeve + (int) (width_front_down * 0.696), height_sleeve + height_back + margin);
-                canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+            //sleeveRight
+            bitmapTemp = Bitmap.createBitmap(2253, 1271, Bitmap.Config.ARGB_8888);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, -656, null);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, -2253, 1271, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawTextSleeveRight(canvasTemp);
+            bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_sleeve, height_sleeve, true);
+            matrix = new Matrix();
+            matrix.postRotate(180);
+            matrix.postTranslate(width_sleeve + (int) (width_front_down * 0.696), height_sleeve + height_back + margin);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
-                bitmapTemp.recycle();
-                bitmapDB.recycle();
-            } else {//裁片印108内
-                int margin = 60;
-                bitmapCombine = Bitmap.createBitmap(width_front / 2 + width_front_down + width_back_down * 2 + margin * 4, height_sleeve + 150 + height_back_down, Bitmap.Config.ARGB_8888);
-                Canvas canvasCombine = new Canvas(bitmapCombine);
-                canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasCombine.drawColor(0xffffffff);
-
-                //front_down
-                Bitmap bitmapTemp = Bitmap.createBitmap(7110, 4152, Bitmap.Config.ARGB_8888);
-                Canvas canvasTemp = new Canvas(bitmapTemp);
-                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -259, -2519, null);
-                Bitmap bitmapDB = BitmapFactory.decodeResource(getResources(), id_front_down);
-                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-                drawTextFrontDown(canvasTemp);
-                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front_down, height_front_down, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_front / 2, height_sleeve + 150, null);
-
-                //back left_down
-                bitmapTemp = Bitmap.createBitmap(3605, 4153, Bitmap.Config.ARGB_8888);
-                canvasTemp = new Canvas(bitmapTemp);
-                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -7455, -2517, null);
-                bitmapDB = BitmapFactory.decodeResource(getResources(), id_back_down_left);
-                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-                drawTextBackLeft(canvasTemp);
-                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back_down, height_back_down, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_front / 2 + width_front_down + margin * 2, height_sleeve + 150, null);
-
-                //back right_down
-                bitmapTemp = Bitmap.createBitmap(3605, 4153, Bitmap.Config.ARGB_8888);
-                canvasTemp = new Canvas(bitmapTemp);
-                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -11062, -2517, null);
-                bitmapDB = Bitmap.createScaledBitmap(bitmapDB, -3605, 4153, true);
-                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-                drawTextBackRight(canvasTemp);
-                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back_down, height_back_down, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_front / 2 + width_front_down + width_back_down + margin * 4, height_sleeve + 150, null);
-
-                //front
-                bitmapTemp = Bitmap.createBitmap(3124, 2413, Bitmap.Config.ARGB_8888);
-                canvasTemp = new Canvas(bitmapTemp);
-                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -2253, -106, null);
-                bitmapDB = BitmapFactory.decodeResource(getResources(), id_front);
-                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-                drawTextFront(canvasTemp);
-                bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
-                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
-                canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
-
-                //back
-                bitmapTemp = Bitmap.createBitmap(3136, 2519, Bitmap.Config.ARGB_8888);
-                canvasTemp = new Canvas(bitmapTemp);
-                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -9494, 0, null);
-                bitmapDB = BitmapFactory.decodeResource(getResources(), id_back);
-                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-                drawTextBack(canvasTemp);
-                bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
-                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_front / 2 + width_front_down + margin - width_back / 2, 0, null);
-
-                //sleeveLeft
-                bitmapTemp = Bitmap.createBitmap(2253, 1271, Bitmap.Config.ARGB_8888);
-                canvasTemp = new Canvas(bitmapTemp);
-                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -5377, -656, null);
-                bitmapDB = BitmapFactory.decodeResource(getResources(), id_sleeve_left);
-                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-                drawTextSleeveLeft(canvasTemp);
-                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_sleeve, height_sleeve, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_front + margin, 0, null);
-
-                //sleeveRight
-                bitmapTemp = Bitmap.createBitmap(2253, 1271, Bitmap.Config.ARGB_8888);
-                canvasTemp = new Canvas(bitmapTemp);
-                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, -656, null);
-                bitmapDB = Bitmap.createScaledBitmap(bitmapDB, -2253, 1271, true);
-                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-                drawTextSleeveRight(canvasTemp);
-                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_sleeve, height_sleeve, true);
-                canvasCombine.drawBitmap(bitmapTemp, width_front / 2 + width_front_down + margin + width_back / 2 + margin * 2, 0, null);
-
-                bitmapTemp.recycle();
-                bitmapDB.recycle();
-
-            }
+            bitmapTemp.recycle();
+            bitmapDB.recycle();
 
             if (num == 1) {
                 MainActivity.recycleExcelImages();
@@ -595,12 +505,6 @@ public class FragmentX3 extends BaseFragment {
 
 
         try {
-            if (!(orderItems.get(currentID).sizeStr.equals("3XL") || orderItems.get(currentID).sizeStr.equals("4XL"))) {//裁片108内
-                Matrix matrix = new Matrix();
-                matrix.postRotate(90);
-                bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
-            }
-
             String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;

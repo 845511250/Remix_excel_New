@@ -1183,7 +1183,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         height_xiukou += 30;
 
         width_combine += 40;
-        height_combine += 40;
+        height_combine += 50;
     }
 
     public void showDialogSizeWrong(final String order_number){

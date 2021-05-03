@@ -591,6 +591,30 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 drawWidth = 11613 + (int) (43 * 4);//11613:268
                 drawHeight = 9853 + (int) (43 * 1.5);
                 break;
+            case "US TWIN":
+                cutWidth_quilt = 7653;
+                cutHeight_quilt = 9853;
+                quiltX = 1979;
+                quiltY = 0;
+                drawWidth = 7653 + (int) (43 * 0.5);//7653:176.7
+                drawHeight = 9853 + (int) (43 * 4.5);
+                break;
+            case "US QUEEN.FULL":
+                cutWidth_quilt = 9853;
+                cutHeight_quilt = 9853;
+                quiltX = 868;
+                quiltY = 0;
+                drawWidth = 9853 + (int) (43 * 4.5);//9853:227.5
+                drawHeight = 9853 + (int) (43 * 1.5);
+                break;
+            case "US KING":
+                cutWidth_quilt = 11613;
+                cutHeight_quilt = 9853;
+                quiltX = 0;
+                quiltY = 0;
+                drawWidth = 11613 + (int) (43 * 4);//11613:268
+                drawHeight = 9853 + (int) (43 * 1.5);
+                break;
             default:
                 showDialogSizeWrong(orderItems.get(currentID).order_number);
                 sizeOK = false;
@@ -610,6 +634,18 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     quiltY = 2598;
                     break;
                 case "L":
+                    quiltX = 0;
+                    quiltY = 2598;
+                    break;
+                case "US TWIN":
+                    quiltX = 1979;
+                    quiltY = 2598;
+                    break;
+                case "US QUEEN.FULL":
+                    quiltX = 880;
+                    quiltY = 2598;
+                    break;
+                case "US KING":
                     quiltX = 0;
                     quiltY = 2598;
                     break;
@@ -643,6 +679,31 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 drawHeight = 9853 + (int) (43 * 1.5);
                 break;
             case "L":
+                cutWidth_quilt = 11613;
+                cutHeight_quilt = 9853;
+                quiltX = 493;
+                quiltY = 2672;
+                drawWidth = 11613 + (int) (43 * 4);//11613:268
+                drawHeight = 9853 + (int) (43 * 1.5);
+                break;
+
+            case "US TWIN":
+                cutWidth_quilt = 7653;
+                cutHeight_quilt = 9853;
+                quiltX = 2473;
+                quiltY = 2672;
+                drawWidth = 7653 + (int) (43 * 0.5);//7653:176.7
+                drawHeight = 9853 + (int) (43 * 4.5);
+                break;
+            case "US QUEEN.FULL":
+                cutWidth_quilt = 9853;
+                cutHeight_quilt = 9853;
+                quiltX = 1373;
+                quiltY = 2672;
+                drawWidth = 9853 + (int) (43 * 4.5);//9853:227.5
+                drawHeight = 9853 + (int) (43 * 1.5);
+                break;
+            case "US KING":
                 cutWidth_quilt = 11613;
                 cutHeight_quilt = 9853;
                 quiltX = 493;
@@ -794,6 +855,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 sizeOK = false;
                 break;
         }
+        quiltX = 1326;
+        quiltY = 2911;
+        cutWidth_quilt = 9320;
+        cutHeight_quilt = 9744;
     }
 
     public void showDialogSizeWrong(final String order_number){

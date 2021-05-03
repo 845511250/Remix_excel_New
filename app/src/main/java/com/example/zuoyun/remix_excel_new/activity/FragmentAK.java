@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
@@ -192,10 +193,12 @@ public class FragmentAK extends BaseFragment {
         int margin = 60;
 
         //bitmapCombine
-        Bitmap bitmapCombine = Bitmap.createBitmap(width_main * 2 + width_tongue * 2 + margin * 3, Math.max(height_main * 2, height_tongue), Bitmap.Config.ARGB_8888);
+        Bitmap bitmapCombine = Bitmap.createBitmap(width_main * 2 + margin, height_main * 2 + width_tongue + margin, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine = new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
+
+        Matrix matrix = new Matrix();
 
         if (orderItems.get(currentID).imgs.size() == 6) {
             //LL
@@ -229,7 +232,10 @@ public class FragmentAK extends BaseFragment {
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextTongue(canvasTemp, "左");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_tongue, height_tongue, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_main * 2 + margin * 2, 0, null);
+            matrix = new Matrix();
+            matrix.postRotate(-90);
+            matrix.postTranslate(0, width_tongue + height_main * 2 + margin);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
             //RL
             bitmapTemp = Bitmap.createBitmap(1543, 820, Bitmap.Config.ARGB_8888);
@@ -262,7 +268,10 @@ public class FragmentAK extends BaseFragment {
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextTongue(canvasTemp, "右");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_tongue, height_tongue, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_main * 2 + width_tongue + margin * 3, 0, null);
+            matrix = new Matrix();
+            matrix.postRotate(-90);
+            matrix.postTranslate(height_tongue + margin, width_tongue + height_main * 2 + margin);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
             bitmapDB.recycle();
             bitmapTemp.recycle();
@@ -305,7 +314,10 @@ public class FragmentAK extends BaseFragment {
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextTongue(canvasTemp, "左");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_tongue, height_tongue, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_main * 2 + margin * 2, 0, null);
+            matrix = new Matrix();
+            matrix.postRotate(-90);
+            matrix.postTranslate(0, width_tongue + height_main * 2 + margin);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
             //RL
             bitmapTemp = Bitmap.createBitmap(1543, 820, Bitmap.Config.ARGB_8888);
@@ -344,7 +356,10 @@ public class FragmentAK extends BaseFragment {
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextTongue(canvasTemp, "右");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_tongue, height_tongue, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_main * 2 + width_tongue + margin * 3, 0, null);
+            matrix = new Matrix();
+            matrix.postRotate(-90);
+            matrix.postTranslate(height_tongue + margin, width_tongue + height_main * 2 + margin);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
             bitmapCut.recycle();
             bitmapDB.recycle();
@@ -387,7 +402,10 @@ public class FragmentAK extends BaseFragment {
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextTongue(canvasTemp, "左");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_tongue, height_tongue, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_main * 2 + margin * 2, 0, null);
+            matrix = new Matrix();
+            matrix.postRotate(-90);
+            matrix.postTranslate(0, width_tongue + height_main * 2 + margin);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
             //RL
             bitmapTemp = Bitmap.createBitmap(1543, 820, Bitmap.Config.ARGB_8888);
@@ -426,7 +444,10 @@ public class FragmentAK extends BaseFragment {
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextTongue(canvasTemp, "右");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_tongue, height_tongue, true);
-            canvasCombine.drawBitmap(bitmapTemp, width_main * 2 + width_tongue + margin * 3, 0, null);
+            matrix = new Matrix();
+            matrix.postRotate(-90);
+            matrix.postTranslate(height_tongue + margin, width_tongue + height_main * 2 + margin);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
             bitmapCut.recycle();
             bitmapDB.recycle();

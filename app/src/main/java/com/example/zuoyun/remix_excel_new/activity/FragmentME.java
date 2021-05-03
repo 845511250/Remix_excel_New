@@ -118,6 +118,7 @@ public class FragmentME extends BaseFragment {
                 remix();
             }
         });
+        Log.e("aaa","fragment init finish");
     }
 
     public void remix() {

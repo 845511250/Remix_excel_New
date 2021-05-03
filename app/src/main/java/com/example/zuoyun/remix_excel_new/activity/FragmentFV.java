@@ -200,7 +200,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawColor(0xffffffff);
 
             //left
-            Bitmap bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), 1789, 4803, true);
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 33, 28, 1747, 4635);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1789, 4803, true);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
@@ -209,7 +210,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
             //right
-            bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), 1789, 4803, true);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 33, 28, 1747, 4635);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1789, 4803, true);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
