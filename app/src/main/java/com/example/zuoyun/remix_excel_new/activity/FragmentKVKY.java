@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -213,7 +212,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             isJinJiang = true;
         }
 
-        Log.e("aaa",orderItems.get(currentID).sku);
         if (orderItems.get(currentID).sku.equals("KY") || orderItems.get(currentID).sku.equals("KYL")) {
             orderItems.get(currentID).sku = "KYL";
             bitmapCombine = Bitmap.createBitmap(1410, 1050, Bitmap.Config.ARGB_8888);
@@ -227,6 +225,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
             } else if (MainActivity.instance.bitmaps.get(0).getWidth() == 1500) {
                 bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 45, 25, 1410, 1050);
+            } else if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight() && MainActivity.instance.bitmaps.get(0).getWidth() == 2000) {//jj
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 295, 475, 1410, 1050);
             }
 
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
@@ -250,7 +250,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             } else if(MainActivity.instance.bitmaps.get(0).getWidth() == 1800){
                 bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 188, 0, 1424, 1098);
                 bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 1300, 890, true);
-            } else {
+            } else if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight() && MainActivity.instance.bitmaps.get(0).getWidth() == 2000) {//jj
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 350, 555, 1300, 890);
+            } else if (MainActivity.instance.bitmaps.get(0).getWidth() == 1300) {
                 bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
             }
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);

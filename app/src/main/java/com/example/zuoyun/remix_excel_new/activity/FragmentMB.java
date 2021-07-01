@@ -2,11 +2,11 @@ package com.example.zuoyun.remix_excel_new.activity;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
+import android.graphics.Typeface;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -30,7 +30,7 @@ import jxl.write.WritableWorkbook;
  * Created by zuoyun on 2016/11/4.
  */
 
-public class FragmentDNP extends BaseFragment {
+public class FragmentMB extends BaseFragment {
     Context context;
 //    String sdCardPath = "/mnt/asec/share";
 String sdCardPath = "/storage/emulated/0/Pictures";
@@ -47,9 +47,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     String strPlus = "";
     int intPlus = 1;
 
-    Paint rectPaint, paint, paintRed;
     String time = MainActivity.instance.orderDate_Print;
-    int width, height;
+    Paint rectPaint,paint, paintRed, rectBorderPaint;
 
 
     @Override
@@ -71,8 +70,20 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(22);
+        paint.setTextSize(20);
         paint.setAntiAlias(true);
+
+        paintRed = new Paint();
+        paintRed.setColor(0xffff0000);
+        paintRed.setTextSize(18);
+        paintRed.setTypeface(Typeface.DEFAULT_BOLD);
+        paintRed.setAntiAlias(true);
+
+        rectBorderPaint = new Paint();
+        rectBorderPaint.setColor(0xff000000);
+        rectBorderPaint.setStyle(Paint.Style.STROKE);
+        rectBorderPaint.setStrokeWidth(2);
+
 
         MainActivity.instance.setMessageListener(new MainActivity.MessageListener() {
             @Override
@@ -80,9 +91,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 if (message == 0) {
                     iv_pillow.setImageDrawable(null);
                 } else if (message == MainActivity.LOADED_IMGS) {
-                    if(!MainActivity.instance.cb_fastmode.isChecked()){
-                        iv_pillow.setImageBitmap(MainActivity.instance.bitmaps.get(0));
-                    }
                     checkremix();
                 } else if (message == 3) {
                     bt_remix.setClickable(false);
@@ -120,114 +128,43 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
     }
 
-    void drawtextDN(Canvas canvasremix) {
-        canvasremix.drawRect(2, 2, 2 + 400, 2 + 22, rectPaint);
-        canvasremix.drawText("DN正面 " + time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 20, 2 + 20, paint);
-        canvasremix.drawRect(height + 2, 2, height + 2 + 400, 2 + 22, rectPaint);
-        canvasremix.drawText("DN背面 " + time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, height + 20, 2 + 20, paint);
-    }
-    void drawtextDP(Canvas canvasremix) {
-        canvasremix.save();
-        canvasremix.rotate(-90, 2, height - 2);
-        canvasremix.drawRect(2, height - 2, 2 + 400, height - 2 + 22, rectPaint);
-        canvasremix.drawText("DP正面 " + time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 20, height - 2 + 20, paint);
-        canvasremix.restore();
-
-        canvasremix.save();
-        canvasremix.rotate(-90, 2, height * 2 - 2);
-        canvasremix.drawRect(2, height * 2 - 2, 2 + 400, height * 2 - 2 + 22, rectPaint);
-        canvasremix.drawText("DP背面 " + time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 20, height * 2 - 2 + 20, paint);
-        canvasremix.restore();
+    void drawText(Canvas canvas) {
+        canvas.drawRect(100, 3, 100 + 300, 3 + 19, rectPaint);
+        canvas.drawText(orderItems.get(currentID).nameStr + strPlus, 100, 3 + 17, paint);
     }
 
     public void remixx(){
-        Bitmap bitmapFront, bitmapBack;
-        Bitmap bitmapDB;
+        int width = 1813 + 60;
+        int height = 4116 + 60;
+        int margin = 60;
 
-        Bitmap bitmapremix;
-        Canvas canvasremix;
-        if (orderItems.get(currentID).sku.equals("DN") && orderItems.get(currentID).sizeStr.equals("M")) {
-            orderItems.get(currentID).sku = "DP";
-        }
+        Bitmap bitmapCombine = Bitmap.createBitmap(width * 2 + margin, height, Bitmap.Config.ARGB_8888);
+        Canvas canvasCombine= new Canvas(bitmapCombine);
+        canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+        canvasCombine.drawColor(0xffffffff);
 
-        if (orderItems.get(currentID).sku.equals("DN")) {
-            width = 2953 + 59;//51x28.5
-            height = 1683;
+        Bitmap bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true);
+        Canvas canvasTemp = new Canvas(bitmapTemp);
+        canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+        drawText(canvasTemp);
+        canvasTemp.drawRect(0, 0, width, height, rectBorderPaint);
+        canvasTemp.drawRect(1, 1, width - 1, height - 1, rectBorderPaint);
 
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.border_dn);
+        canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+        canvasCombine.drawBitmap(bitmapTemp, width + margin, 0, null);
 
-            if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {
-                bitmapFront = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 71, 658, 2859, 1683);
-                bitmapFront = Bitmap.createScaledBitmap(bitmapFront, width, height, true);
-                bitmapBack = bitmapFront;
-            } else if (orderItems.get(currentID).imgs.size() == 1) {
-                bitmapFront = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true);
-                bitmapBack = bitmapFront;
-            } else {
-                bitmapFront = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), width, height, true);
-                bitmapBack = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true);
-            }
+        Matrix matrix = new Matrix();
+        matrix.postRotate(90);
+        bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix, true);
 
-            bitmapremix = Bitmap.createBitmap(height * 2, width, Bitmap.Config.ARGB_8888);
-            canvasremix = new Canvas(bitmapremix);
-            canvasremix.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasremix.drawColor(0xffffffff);
-
-            Matrix matrix = new Matrix();
-            matrix.postRotate(90);
-            matrix.postTranslate(height, 0);
-            canvasremix.drawBitmap(bitmapFront, matrix, null);
-            canvasremix.drawBitmap(bitmapDB, 0, 0, null);
-
-            matrix.postTranslate(height, 0);
-            canvasremix.drawBitmap(bitmapBack, matrix, null);
-            canvasremix.drawBitmap(bitmapDB, height, 0, null);
-            drawtextDN(canvasremix);
-
-            bitmapFront.recycle();
-            if (bitmapBack != null) {
-                bitmapBack.recycle();
-            }
-            bitmapDB.recycle();
-
-        } else {
-            width = 2598;////44*54
-            height = 1594;
-
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.border_dp);
-
-            if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {
-                bitmapFront = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 71, 658, 2859, 1683);
-                bitmapFront = Bitmap.createScaledBitmap(bitmapFront, width, height, true);
-                bitmapBack = bitmapFront;
-            } else if (orderItems.get(currentID).imgs.size() == 1) {
-                bitmapFront = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true);
-                bitmapBack = bitmapFront;
-            } else {
-                bitmapFront = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), width, height, true);
-                bitmapBack = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true);
-            }
-
-            bitmapremix = Bitmap.createBitmap(width, height * 2, Bitmap.Config.ARGB_8888);//44*54
-            canvasremix = new Canvas(bitmapremix);
-            canvasremix.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasremix.drawColor(0xffffffff);
-
-            canvasremix.drawBitmap(bitmapFront, 0, 0, null);
-            canvasremix.drawBitmap(bitmapDB, 0, 0, null);
-            canvasremix.drawBitmap(bitmapBack, 0, height, null);
-            canvasremix.drawBitmap(bitmapDB, 0, height, null);
-            drawtextDP(canvasremix);
-
-            bitmapFront.recycle();
-            if (bitmapBack != null) {
-                bitmapBack.recycle();
-            }
-            bitmapDB.recycle();
-        }
+        bitmapTemp.recycle();
 
 
         try {
+            File file=new File(sdCardPath+"/生产图/"+childPath+"/");
+            if(!file.exists())
+                file.mkdirs();
+
             String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
@@ -238,10 +175,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapremix, fileSave, 150);
+            BitmapToJpg.save(bitmapCombine, fileSave, 150);
 
             //释放bitmap
-            bitmapremix.recycle();
+            bitmapCombine.recycle();
 
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";
@@ -307,5 +244,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             remix();
         }
     }
+
 
 }

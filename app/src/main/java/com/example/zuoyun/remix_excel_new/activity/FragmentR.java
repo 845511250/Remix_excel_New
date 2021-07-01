@@ -69,7 +69,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(30);
+        paint.setTextSize(25);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setAntiAlias(true);
 
@@ -125,27 +125,45 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawText(Canvas canvas) {
-        canvas.drawRect(1500, 4715-30, 1500 + 400, 4715, rectPaint);
+        canvas.drawRect(1500, 4715 - 25, 1500 + 600, 4715, rectPaint);
         canvas.drawText(time + " " + orderItems.get(currentID).order_number + strPlus, 1500, 4715 - 3, paint);
     }
     void drawTextL(Canvas canvas) {
-        canvas.drawRect(1500, 5185-30, 1500 + 400, 5185, rectPaint);
-        canvas.drawText(time + " " + orderItems.get(currentID).order_number + strPlus, 1500, 5185 - 3, paint);
+        canvas.drawRect(1500, 5188 - 25, 1500 + 600, 5188, rectPaint);
+        canvas.drawText("R围裙 加长版 " + time + " " + orderItems.get(currentID).order_number + strPlus, 1500, 5188 - 3, paint);
     }
 
     public void remixx(){
         Bitmap bitmapTemp = null;
 
         if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight() && MainActivity.instance.bitmaps.get(0).getWidth() == 4978) {//jj            bitmapTemp = Bitmap.createBitmap(4315, 4729, Bitmap.Config.ARGB_8888);
-            Canvas canvasTemp= new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawColor(0xffffffff);
+            if (orderItems.get(currentID).sizeStr.equals("L") || orderItems.get(currentID).order_number.contains("210701744781")) {
+                bitmapTemp = Bitmap.createBitmap(4315, 4729, Bitmap.Config.ARGB_8888);
+                Canvas canvasTemp = new Canvas(bitmapTemp);
+                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+                canvasTemp.drawColor(0xffffffff);
 
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -330, -128, null);
-            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.r);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            bitmapDB.recycle();
-            drawText(canvasTemp);
+                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -330, -128, null);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 4315, 5201, true);
+                canvasTemp = new Canvas(bitmapTemp);
+                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+
+                Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.r_plus);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                bitmapDB.recycle();
+                drawTextL(canvasTemp);
+            } else {
+                bitmapTemp = Bitmap.createBitmap(4315, 4729, Bitmap.Config.ARGB_8888);
+                Canvas canvasTemp = new Canvas(bitmapTemp);
+                canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+                canvasTemp.drawColor(0xffffffff);
+
+                canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -330, -128, null);
+                Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.r);
+                canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+                bitmapDB.recycle();
+                drawText(canvasTemp);
+            }
 
         } else {
             if (orderItems.get(currentID).sizeStr.equals("L")) {
@@ -178,7 +196,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
         try {
-            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
+            String nameCombine = "围裙加长版_" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

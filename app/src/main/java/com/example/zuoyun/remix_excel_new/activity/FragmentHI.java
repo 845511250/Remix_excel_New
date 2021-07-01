@@ -564,10 +564,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         try {
             String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
-            if(orderItems.get(currentID).platform.equals("zy")){
-                nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + "_"  + "(" + MainActivity.instance.orderDate_short + "-" + (currentID + 1) + ")_" + orderItems.get(currentID).order_number + "_共" + orderItems.get(currentID).newCode + "个" + strPlus + ".jpg";
-            }
-
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
                 pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";

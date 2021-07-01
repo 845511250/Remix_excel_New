@@ -168,13 +168,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         int id_DB;
         if (orderItems.get(currentID).sizeStr.contains("L")) {
             width = 1196 / 2;
-            height_front = 2412;
+            height_front = 2067 + 150;
             height_back = (int) (height_front * 0.794);
             id_DB = R.drawable.dk_l_xl;
         } else {
             width = 1196 / 2;
-//            height_front = 2284;
-            height_front = 2284 - 230;
+            height_front = 1890 + 150;
             height_back = (int) (height_front * 0.794);
             id_DB = R.drawable.dk_s_m;
         }
@@ -229,10 +228,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         try {
             String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
-
-            if (orderItems.get(currentID).platform.equals("zy")) {
-                nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr+ "(" + MainActivity.instance.orderDate_short + "-" + (currentID + 1) + ")_" + orderItems.get(currentID).order_number + strPlus + "_共" + orderItems.get(currentID).newCode + "个" + ".jpg";
-            }
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

@@ -82,7 +82,7 @@ public class FragmentME extends BaseFragment {
 
         paintRed = new Paint();
         paintRed.setColor(0xffff0000);
-        paintRed.setTextSize(26);
+        paintRed.setTextSize(20);
         paintRed.setAntiAlias(true);
 
         paintBlue = new Paint();
@@ -278,6 +278,14 @@ public class FragmentME extends BaseFragment {
         canvas.drawRect(130, 488 - 22, 130 + 25, 488, rectPaint);
         canvas.drawText("右" , 130, 488 - 2, paint);
     }
+    void drawTextBack4Left(Canvas canvas) {
+        canvas.drawRect(15, 245 - 20, 15 + 80, 245, rectPaint);
+        canvas.drawText("左", 15, 245 - 2, paintRed);
+    }
+    void drawTextBack4Right(Canvas canvas) {
+        canvas.drawRect(15, 245 - 20, 15 + 80, 245, rectPaint);
+        canvas.drawText("右", 15, 245 - 2, paintRed);
+    }
 
 
 
@@ -358,7 +366,7 @@ public class FragmentME extends BaseFragment {
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(22), 0, 0, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.me_left_back4);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextFrontL(canvasTemp, "左");
+            drawTextBack4Left(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back4, height_back4, true);
             canvasCombine.drawBitmap(bitmapTemp, 4935, 1976, null);
@@ -506,7 +514,7 @@ public class FragmentME extends BaseFragment {
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(23), 0, 0, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.me_left_back4);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextFrontL(canvasTemp, "左");
+            drawTextBack4Right(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back4, height_back4, true);
             canvasCombine.drawBitmap(bitmapTemp, 718, 1976, null);
@@ -593,8 +601,8 @@ public class FragmentME extends BaseFragment {
             //
             bitmapTemp.recycle();
             bitmapDB.recycle();
-        } else if (MainActivity.instance.bitmaps.size() == 1 && MainActivity.instance.bitmaps.get(0).getWidth() == 5000) {
 
+        } else if (MainActivity.instance.bitmaps.size() == 1 && MainActivity.instance.bitmaps.get(0).getWidth() == 5000) {
             //left_front1
             Bitmap bitmapTemp = Bitmap.createBitmap(676, 542, Bitmap.Config.ARGB_8888);
             Canvas canvasTemp = new Canvas(bitmapTemp);
@@ -662,7 +670,7 @@ public class FragmentME extends BaseFragment {
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -4075, -1449, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.me_left_back4);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextFrontL(canvasTemp, "左");
+            drawTextBack4Left(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back4, height_back4, true);
             canvasCombine.drawBitmap(bitmapTemp, 4935, 1976, null);
@@ -810,7 +818,7 @@ public class FragmentME extends BaseFragment {
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -4075, -3245, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.me_left_back4);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextFrontL(canvasTemp, "左");
+            drawTextBack4Right(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back4, height_back4, true);
             canvasCombine.drawBitmap(bitmapTemp, 718, 1976, null);
@@ -893,10 +901,10 @@ public class FragmentME extends BaseFragment {
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_inside3, height_inside3, true);
             canvasCombine.drawBitmap(bitmapTemp, 1944 + 48 * (45 - orderItems.get(currentID).size) / 9f, 1633 - height_inside3, null);
 
-
             //
             bitmapTemp.recycle();
             bitmapDB.recycle();
+
         } else if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight() && MainActivity.instance.bitmaps.get(0).getWidth() == 4550) {
             //left_front1
             Bitmap bitmapTemp = Bitmap.createBitmap(676, 542, Bitmap.Config.ARGB_8888);
@@ -999,7 +1007,7 @@ public class FragmentME extends BaseFragment {
 
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.me_left_back4);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextFrontL(canvasTemp, "左");
+            drawTextBack4Left(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back4, height_back4, true);
             canvasCombine.drawBitmap(bitmapTemp, 4935, 1976, null);
@@ -1117,7 +1125,6 @@ public class FragmentME extends BaseFragment {
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_inside3, height_inside3, true);
             canvasCombine.drawBitmap(bitmapTemp, 3819 - width_inside3 - 48 * (45 - orderItems.get(currentID).size) / 9f, 1633 - height_inside3, null);
 
-
             //right
             //right_front1
             bitmapTemp = Bitmap.createBitmap(676, 542, Bitmap.Config.ARGB_8888);
@@ -1222,7 +1229,7 @@ public class FragmentME extends BaseFragment {
 
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.me_left_back4);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-//            drawTextFrontL(canvasTemp, "左");
+            drawTextBack4Right(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back4, height_back4, true);
             canvasCombine.drawBitmap(bitmapTemp, 718, 1976, null);
@@ -1346,11 +1353,11 @@ public class FragmentME extends BaseFragment {
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_inside3, height_inside3, true);
             canvasCombine.drawBitmap(bitmapTemp, 1944 + 48 * (45 - orderItems.get(currentID).size) / 9f, 1633 - height_inside3, null);
 
-
             //
             bitmapCut.recycle();
             bitmapTemp.recycle();
             bitmapDB.recycle();
+
         }
 
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.util.Log;
@@ -31,7 +32,7 @@ import jxl.write.WritableWorkbook;
  * Created by zuoyun on 2016/11/4.
  */
 
-public class FragmentSF_F8 extends BaseFragment {
+public class FragmentSF_F8_137 extends BaseFragment {
     Context context;
     //    String sdCardPath = "/mnt/asec/share";
     String sdCardPath = "/storage/emulated/0/Pictures";
@@ -46,6 +47,10 @@ public class FragmentSF_F8 extends BaseFragment {
 
     int width_front1, width_front2, width_back, width_lace, width_outside1, width_inside1, width_side2;
     int height_front1, height_front2, height_back, height_lace, height_outside1, height_inside1, height_side2;
+    int width_combine, height_combine;
+    int x_front1_left, x_front1_right, x_front2_left, x_front2_right, x_back_left, x_back_right, x_lace_left, x_lace_right, x_ll1, x_ll2, x_lr1, x_lr2, x_rl1, x_rl2, x_rr1, x_rr2;
+    int y_front1_left, y_front1_right, y_front2_left, y_front2_right, y_back_left, y_back_right, y_lace_left, y_lace_right, y_ll1, y_ll2, y_lr1, y_lr2, y_rl1, y_rl2, y_rr1, y_rr2;
+
     int num;
     String strPlus = "";
     int intPlus = 1;
@@ -156,6 +161,7 @@ public class FragmentSF_F8 extends BaseFragment {
         canvas.drawText(time, 89, 37 - 2, paint);
         canvas.restore();
     }
+
     void drawTextFront2_left(Canvas canvas) {
         canvas.save();
         canvas.rotate(-18.6f, 1073, 616);
@@ -175,6 +181,7 @@ public class FragmentSF_F8 extends BaseFragment {
         canvas.drawText(time, 792, 628 - 2, paint);
         canvas.restore();
     }
+
     void drawTextFront2_right(Canvas canvas) {
         canvas.save();
         canvas.rotate(10.2f, 723, 617);
@@ -194,38 +201,47 @@ public class FragmentSF_F8 extends BaseFragment {
         canvas.drawText(time, 902, 643 - 2, paint);
         canvas.restore();
     }
+
     void drawTextLR2(Canvas canvas) {
         canvas.drawRect(33, 588 - 22, 33 + 450, 588, rectPaint);
         canvas.drawText(orderItems.get(currentID).size + "左内" + orderItems.get(currentID).color + " " + orderItems.get(currentID).sku + " " + orderItems.get(currentID).order_number + " " + time, 33, 588 - 2, paint);
     }
+
     void drawTextRR2(Canvas canvas) {
         canvas.drawRect(33, 588 - 22, 33 + 450, 588, rectPaint);
         canvas.drawText(orderItems.get(currentID).size + "右外" + orderItems.get(currentID).color + " " + orderItems.get(currentID).sku + " " + orderItems.get(currentID).order_number + " " + time, 33, 588 - 2, paint);
     }
+
     void drawTextLL2(Canvas canvas) {
         canvas.drawRect(299, 588 - 22, 299 + 450, 588, rectPaint);
         canvas.drawText(orderItems.get(currentID).size + "左外" + orderItems.get(currentID).color + " " + orderItems.get(currentID).sku + " " + orderItems.get(currentID).order_number + " " + time, 299, 588 - 2, paint);
     }
+
     void drawTextRL2(Canvas canvas) {
         canvas.drawRect(299, 588 - 22, 299 + 450, 588, rectPaint);
         canvas.drawText(orderItems.get(currentID).size + "右内" + orderItems.get(currentID).color + " " + orderItems.get(currentID).sku + " " + orderItems.get(currentID).order_number + " " + time, 299, 588 - 2, paint);
     }
+
     void drawTextLR1(Canvas canvas) {
-        canvas.drawRect(19, 548 - 22, 19 + 434, 548, rectPaint);
-        canvas.drawText(orderItems.get(currentID).size + "左内" + orderItems.get(currentID).color + " " + orderItems.get(currentID).sku + " " + orderItems.get(currentID).order_number + " " + time, 19, 548 - 2, paint);
+        canvas.drawRect(19, 517 - 22, 19 + 434, 517, rectPaint);
+        canvas.drawText(orderItems.get(currentID).size + "左内" + orderItems.get(currentID).color + " " + orderItems.get(currentID).sku + " " + orderItems.get(currentID).order_number + " " + time, 19, 517 - 2, paint);
     }
+
     void drawTextRL1(Canvas canvas) {
-        canvas.drawRect(209, 548 - 22, 209 + 434, 548, rectPaint);
-        canvas.drawText(orderItems.get(currentID).size + "右内" + orderItems.get(currentID).color + " " + orderItems.get(currentID).sku + " " + orderItems.get(currentID).order_number + " " + time, 209, 548 - 2, paint);
+        canvas.drawRect(209, 517 - 22, 209 + 434, 517, rectPaint);
+        canvas.drawText(orderItems.get(currentID).size + "右内" + orderItems.get(currentID).color + " " + orderItems.get(currentID).sku + " " + orderItems.get(currentID).order_number + " " + time, 209, 517 - 2, paint);
     }
+
     void drawTextLL1(Canvas canvas) {
-        canvas.drawRect(224, 530 - 22, 224 + 434, 530, rectPaint);
-        canvas.drawText(orderItems.get(currentID).size + "左外" + orderItems.get(currentID).color + " " + orderItems.get(currentID).sku + " " + orderItems.get(currentID).order_number + " " + time, 224, 530 - 2, paint);
+        canvas.drawRect(224, 499 - 22, 224 + 434, 499, rectPaint);
+        canvas.drawText(orderItems.get(currentID).size + "左外" + orderItems.get(currentID).color + " " + orderItems.get(currentID).sku + " " + orderItems.get(currentID).order_number + " " + time, 224, 499 - 2, paint);
     }
+
     void drawTextRR1(Canvas canvas) {
-        canvas.drawRect(23, 530 - 22, 23 + 434, 530, rectPaint);
-        canvas.drawText(orderItems.get(currentID).size + "右外" + orderItems.get(currentID).color + " " + orderItems.get(currentID).sku + " " + orderItems.get(currentID).order_number + " " + time, 23, 530 - 2, paint);
+        canvas.drawRect(23, 499 - 22, 23 + 434, 499, rectPaint);
+        canvas.drawText(orderItems.get(currentID).size + "右外" + orderItems.get(currentID).color + " " + orderItems.get(currentID).sku + " " + orderItems.get(currentID).order_number + " " + time, 23, 499 - 2, paint);
     }
+
     void drawTextBack(Canvas canvas, String LR) {
         canvas.drawRect(189, 13 - 10, 189 + 35, 13, rectPaint);
         canvas.drawText(LR, 190, 13 - 2, paint);
@@ -235,7 +251,7 @@ public class FragmentSF_F8 extends BaseFragment {
     public void remixx() {
         setSize(orderItems.get(currentID).size);
 
-        Bitmap bitmapCombine = Bitmap.createBitmap(4580, 2254, Bitmap.Config.ARGB_8888);
+        Bitmap bitmapCombine = Bitmap.createBitmap(width_combine, height_combine, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine = new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
@@ -252,7 +268,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextFront1(canvasTemp, "左");
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front1, height_front1, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3408 - width_front1 / 2, 1557, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_front1_left, y_front1_left, null);
 
             //right_front1
             bitmapTemp = Bitmap.createBitmap(641, 603, Bitmap.Config.ARGB_8888);
@@ -264,7 +280,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextFront1(canvasTemp, "右");
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front1, height_front1, true);
-            canvasCombine.drawBitmap(bitmapTemp, 4187 - width_front1 / 2, 1557, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_front1_right, y_front1_right, null);
 
             //left_front2
             bitmapTemp = Bitmap.createBitmap(1786, 672, Bitmap.Config.ARGB_8888);
@@ -276,7 +292,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextFront2_left(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front2, height_front2, true);
-            canvasCombine.drawBitmap(bitmapTemp, 1048 - width_front2 / 2, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_front2_left, y_front2_left, null);
 
             //right_front2
             bitmapTemp = Bitmap.createBitmap(1786, 672, Bitmap.Config.ARGB_8888);
@@ -288,7 +304,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextFront2_right(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front2, height_front2, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3123 - width_front2 / 2, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_front2_right, y_front2_right, null);
 
             //LR2
             bitmapTemp = Bitmap.createBitmap(792, 600, Bitmap.Config.ARGB_8888);
@@ -300,7 +316,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextLR2(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2, height_side2, true);
-            canvasCombine.drawBitmap(bitmapTemp, 24, 2204 - height_side2, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_lr2, y_lr2, null);
 
             //RR2
             bitmapTemp = Bitmap.createBitmap(792, 600, Bitmap.Config.ARGB_8888);
@@ -312,7 +328,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextRR2(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2, height_side2, true);
-            canvasCombine.drawBitmap(bitmapTemp, 1555, 1482 - height_side2, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_rr2, y_rr2, null);
 
             //LL2
             bitmapTemp = Bitmap.createBitmap(792, 600, Bitmap.Config.ARGB_8888);
@@ -324,7 +340,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextLL2(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2, height_side2, true);
-            canvasCombine.drawBitmap(bitmapTemp, 1479 - width_side2, 1482 - height_side2, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_ll2, y_ll2, null);
 
             //RL2
             bitmapTemp = Bitmap.createBitmap(792, 600, Bitmap.Config.ARGB_8888);
@@ -335,7 +351,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextRL2(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2, height_side2, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3014 - width_side2, 2204 - height_side2, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_rl2, y_rl2, null);
 
             //LR1
             bitmapTemp = Bitmap.createBitmap(664, 566, Bitmap.Config.ARGB_8888);
@@ -347,7 +363,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextLR1(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_inside1, height_inside1, true);
-            canvasCombine.drawBitmap(bitmapTemp, 717, 2204 - height_inside1, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_lr1, y_lr1, null);
 
             //RL1
             bitmapTemp = Bitmap.createBitmap(664, 566, Bitmap.Config.ARGB_8888);
@@ -359,7 +375,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextRL1(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_inside1, height_inside1, true);
-            canvasCombine.drawBitmap(bitmapTemp, 2325 - width_inside1, 2204 - height_inside1, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_rl1, y_rl1, null);
 
             //LL1
             bitmapTemp = Bitmap.createBitmap(682, 550, Bitmap.Config.ARGB_8888);
@@ -371,7 +387,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextLL1(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_outside1, height_outside1, true);
-            canvasCombine.drawBitmap(bitmapTemp, 793 - width_outside1, 1482 - height_outside1, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_ll1, y_ll1, null);
 
             //RR1
             bitmapTemp = Bitmap.createBitmap(682, 550, Bitmap.Config.ARGB_8888);
@@ -383,7 +399,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextRR1(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_outside1, height_outside1, true);
-            canvasCombine.drawBitmap(bitmapTemp, 2242, 1482 - height_outside1, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_rr1, y_rr1, null);
 
             //lace_left
             bitmapTemp = Bitmap.createBitmap(363, 790, Bitmap.Config.ARGB_8888);
@@ -392,8 +408,12 @@ public class FragmentSF_F8 extends BaseFragment {
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -599, -400, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.sf_f8_lace);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_lace, height_lace, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3874 - width_lace / 2, 1482 - height_lace, null);
+            Matrix matrix = new Matrix();
+            matrix.postRotate(-90);
+            matrix.postTranslate(x_lace_left, y_lace_left + width_lace);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
             //lace_right
             bitmapTemp = Bitmap.createBitmap(363, 790, Bitmap.Config.ARGB_8888);
@@ -402,8 +422,12 @@ public class FragmentSF_F8 extends BaseFragment {
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -1468, -400, null);
 //            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.sf_f8_lace);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_lace, height_lace, true);
-            canvasCombine.drawBitmap(bitmapTemp, 4332 - width_lace / 2, 1482 - height_lace, null);
+            matrix = new Matrix();
+            matrix.postRotate(90);
+            matrix.postTranslate(x_lace_right + height_lace, y_lace_right);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
             //back_left
             bitmapTemp = Bitmap.createBitmap(553, 290, Bitmap.Config.ARGB_8888);
@@ -413,8 +437,9 @@ public class FragmentSF_F8 extends BaseFragment {
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.sf_f8_back);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextBack(canvasTemp, "zuo");
+            bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3305 - width_back / 2, 793, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_back_left, y_back_left, null);
 
             //back_right
             bitmapTemp = Bitmap.createBitmap(553, 290, Bitmap.Config.ARGB_8888);
@@ -424,8 +449,9 @@ public class FragmentSF_F8 extends BaseFragment {
 //            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.sf_f8_back);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextBack(canvasTemp, "you");
+            bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3305 - width_back / 2, 1170, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_back_right, y_back_right, null);
 
 
             //
@@ -443,7 +469,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextFront1(canvasTemp, "左");
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front1, height_front1, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3408 - width_front1 / 2, 1557, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_front1_left, y_front1_left, null);
 
             //right_front1
             bitmapTemp = Bitmap.createBitmap(641, 603, Bitmap.Config.ARGB_8888);
@@ -455,7 +481,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextFront1(canvasTemp, "右");
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front1, height_front1, true);
-            canvasCombine.drawBitmap(bitmapTemp, 4187 - width_front1 / 2, 1557, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_front1_right, y_front1_right, null);
 
             //left_front2
             bitmapTemp = Bitmap.createBitmap(1786, 672, Bitmap.Config.ARGB_8888);
@@ -467,7 +493,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextFront2_left(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front2, height_front2, true);
-            canvasCombine.drawBitmap(bitmapTemp, 1048 - width_front2 / 2, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_front2_left, y_front2_left, null);
 
             //right_front2
             bitmapTemp = Bitmap.createBitmap(1786, 672, Bitmap.Config.ARGB_8888);
@@ -479,7 +505,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextFront2_right(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front2, height_front2, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3123 - width_front2 / 2, 0, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_front2_right, y_front2_right, null);
 
             //LR2
             bitmapTemp = Bitmap.createBitmap(792, 600, Bitmap.Config.ARGB_8888);
@@ -491,7 +517,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextLR2(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2, height_side2, true);
-            canvasCombine.drawBitmap(bitmapTemp, 24, 2204 - height_side2, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_lr2, y_lr2, null);
 
             //RR2
             bitmapTemp = Bitmap.createBitmap(792, 600, Bitmap.Config.ARGB_8888);
@@ -503,7 +529,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextRR2(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2, height_side2, true);
-            canvasCombine.drawBitmap(bitmapTemp, 1555, 1482 - height_side2, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_rr2, y_rr2, null);
 
             //LL2
             bitmapTemp = Bitmap.createBitmap(792, 600, Bitmap.Config.ARGB_8888);
@@ -515,7 +541,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextLL2(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2, height_side2, true);
-            canvasCombine.drawBitmap(bitmapTemp, 1479 - width_side2, 1482 - height_side2, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_ll2, y_ll2, null);
 
             //RL2
             bitmapTemp = Bitmap.createBitmap(792, 600, Bitmap.Config.ARGB_8888);
@@ -526,7 +552,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextRL2(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_side2, height_side2, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3014 - width_side2, 2204 - height_side2, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_rl2, y_rl2, null);
 
             //LR1
             bitmapTemp = Bitmap.createBitmap(664, 566, Bitmap.Config.ARGB_8888);
@@ -538,7 +564,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextLR1(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_inside1, height_inside1, true);
-            canvasCombine.drawBitmap(bitmapTemp, 717, 2204 - height_inside1, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_lr1, y_lr1, null);
 
             //RL1
             bitmapTemp = Bitmap.createBitmap(664, 566, Bitmap.Config.ARGB_8888);
@@ -550,7 +576,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextRL1(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_inside1, height_inside1, true);
-            canvasCombine.drawBitmap(bitmapTemp, 2325 - width_inside1, 2204 - height_inside1, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_rl1, y_rl1, null);
 
             //LL1
             bitmapTemp = Bitmap.createBitmap(682, 550, Bitmap.Config.ARGB_8888);
@@ -562,7 +588,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextLL1(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_outside1, height_outside1, true);
-            canvasCombine.drawBitmap(bitmapTemp, 793 - width_outside1, 1482 - height_outside1, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_ll1, y_ll1, null);
 
             //RR1
             bitmapTemp = Bitmap.createBitmap(682, 550, Bitmap.Config.ARGB_8888);
@@ -574,7 +600,7 @@ public class FragmentSF_F8 extends BaseFragment {
             drawTextRR1(canvasTemp);
             bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_outside1, height_outside1, true);
-            canvasCombine.drawBitmap(bitmapTemp, 2242, 1482 - height_outside1, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_rr1, y_rr1, null);
 
             //lace_left
             bitmapTemp = Bitmap.createBitmap(363, 790, Bitmap.Config.ARGB_8888);
@@ -583,8 +609,12 @@ public class FragmentSF_F8 extends BaseFragment {
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -599, -400, null);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.sf_f8_lace);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_lace, height_lace, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3874 - width_lace / 2, 1482 - height_lace, null);
+            Matrix matrix = new Matrix();
+            matrix.postRotate(-90);
+            matrix.postTranslate(x_lace_left, y_lace_left + width_lace);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
             //lace_right
             bitmapTemp = Bitmap.createBitmap(363, 790, Bitmap.Config.ARGB_8888);
@@ -593,8 +623,12 @@ public class FragmentSF_F8 extends BaseFragment {
             canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -1468, -400, null);
 //            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.sf_f8_lace);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_lace, height_lace, true);
-            canvasCombine.drawBitmap(bitmapTemp, 4332 - width_lace / 2, 1482 - height_lace, null);
+            matrix = new Matrix();
+            matrix.postRotate(90);
+            matrix.postTranslate(x_lace_right + height_lace, y_lace_right);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
 
             //back_left
             bitmapTemp = Bitmap.createBitmap(553, 290, Bitmap.Config.ARGB_8888);
@@ -604,8 +638,9 @@ public class FragmentSF_F8 extends BaseFragment {
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.sf_f8_back);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextBack(canvasTemp, "zuo");
+            bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3305 - width_back / 2, 793, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_back_left, y_back_left, null);
 
             //back_right
             bitmapTemp = Bitmap.createBitmap(553, 290, Bitmap.Config.ARGB_8888);
@@ -615,8 +650,9 @@ public class FragmentSF_F8 extends BaseFragment {
 //            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.sf_f8_back);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
             drawTextBack(canvasTemp, "you");
+            bitmapTemp = BitmapToPng.cut(bitmapTemp, bitmapDB);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
-            canvasCombine.drawBitmap(bitmapTemp, 3305 - width_back / 2, 1170, null);
+            canvasCombine.drawBitmap(bitmapTemp, x_back_right, y_back_right, null);
 
 
             //
@@ -727,6 +763,43 @@ public class FragmentSF_F8 extends BaseFragment {
                 height_inside1 = 516;
                 width_side2 = 699;
                 height_side2 = 542;
+
+                width_combine = 7702;
+                height_combine = 733;
+
+                x_front1_left = 1495;
+                y_front1_left = 0;
+                x_front2_left = 979;
+                y_front2_left = 129;
+                x_ll1 = 0;
+                y_ll1 = 231;
+                x_ll2 = 382;
+                y_ll2 = 191;
+                x_lr1 = 3252;
+                y_lr1 = 217;
+                x_lr2 = 2761;
+                y_lr2 = 191;
+                x_lace_left = 2569;
+                y_lace_left = 0;
+                x_back_left = 593;
+                y_back_left = 0;
+
+                x_front1_right = 5624;
+                y_front1_right = 0;
+                x_front2_right = 5133;
+                y_front2_right = 129;
+                x_rr1 = 7088;
+                y_rr1 = 231;
+                x_rr2 = 6621;
+                y_rr2 = 191;
+                x_rl1 = 3853;
+                y_rl1 = 217;
+                x_rl2 = 4242;
+                y_rl2 = 191;
+                x_lace_right = 4437;
+                y_lace_right = 0;
+                x_back_right = 6621;
+                y_back_right = 0;
                 break;
             case 37:
                 width_front1 = 598;
@@ -743,6 +816,43 @@ public class FragmentSF_F8 extends BaseFragment {
                 height_inside1 = 528;
                 width_side2 = 722;
                 height_side2 = 556;
+
+                width_combine = 7937;
+                height_combine = 752;
+
+                x_front1_left = 1546;
+                y_front1_left = 0;
+                x_front2_left = 1011;
+                y_front2_left = 131;
+                x_ll1 = 0;
+                y_ll1 = 238;
+                x_ll2 = 390;
+                y_ll2 = 196;
+                x_lr1 = 3354;
+                y_lr1 = 224;
+                x_lr2 = 2849;
+                y_lr2 = 196;
+                x_lace_left = 2650;
+                y_lace_left = 0;
+                x_back_left = 558;
+                y_back_left = 0;
+
+                x_front1_right = 5793;
+                y_front1_right = 0;
+                x_front2_right = 5287;
+                y_front2_right = 131;
+                x_rr1 = 7308;
+                y_rr1 = 238;
+                x_rr2 = 6825;
+                y_rr2 = 196;
+                x_rl1 = 3970;
+                y_rl1 = 224;
+                x_rl2 = 4366;
+                y_rl2 = 196;
+                x_lace_right = 4567;
+                y_lace_right = 0;
+                x_back_right = 6874;
+                y_back_right = 0;
                 break;
             case 38:
                 width_front1 = 605;
@@ -759,6 +869,43 @@ public class FragmentSF_F8 extends BaseFragment {
                 height_inside1 = 533;
                 width_side2 = 733;
                 height_side2 = 563;
+
+                width_combine = 8052;
+                height_combine = 761;
+
+                x_front1_left = 1572;
+                y_front1_left = 0;
+                x_front2_left = 1024;
+                y_front2_left = 131;
+                x_ll1 = 0;
+                y_ll1 = 237;
+                x_ll2 = 396;
+                y_ll2 = 194;
+                x_lr1 = 3402;
+                y_lr1 = 224;
+                x_lr2 = 2891;
+                y_lr2 = 194;
+                x_lace_left = 2688;
+                y_lace_left = 0;
+                x_back_left = 561;
+                y_back_left = 0;
+
+                x_front1_right = 5875;
+                y_front1_right = 0;
+                x_front2_right = 5364;
+                y_front2_right = 131;
+                x_rr1 = 7413;
+                y_rr1 = 237;
+                x_rr2 = 6923;
+                y_rr2 = 194;
+                x_rl1 = 4028;
+                y_rl1 = 224;
+                x_rl2 = 4428;
+                y_rl2 = 194;
+                x_lace_right = 4633;
+                y_lace_right = 0;
+                x_back_right = 6978;
+                y_back_right = 0;
                 break;
             case 39:
                 width_front1 = 618;
@@ -775,6 +922,43 @@ public class FragmentSF_F8 extends BaseFragment {
                 height_inside1 = 547;
                 width_side2 = 758;
                 height_side2 = 579;
+
+                width_combine = 8094;
+                height_combine = 810;
+
+                x_front1_left = 1561;
+                y_front1_left = 7;
+                x_front2_left = 1001;
+                y_front2_left = 140;
+                x_ll1 = 0;
+                y_ll1 = 278;
+                x_ll2 = 402;
+                y_ll2 = 231;
+                x_lr1 = 3407;
+                y_lr1 = 263;
+                x_lr2 = 2878;
+                y_lr2 = 231;
+                x_lace_left = 2705;
+                y_lace_left = 0;
+                x_back_left = 517;
+                y_back_left = 0;
+
+                x_front1_right = 5915;
+                y_front1_right = 7;
+                x_front2_right = 5379;
+                y_front2_right = 140;
+                x_rr1 = 7439;
+                y_rr1 = 278;
+                x_rr2 = 6933;
+                y_rr2 = 231;
+                x_rl1 = 4049;
+                y_rl1 = 263;
+                x_rl2 = 4458;
+                y_rl2 = 231;
+                x_lace_right = 4630;
+                y_lace_right = 0;
+                x_back_right = 7047;
+                y_back_right = 0;
                 break;
             case 40:
                 width_front1 = 626;
@@ -791,6 +975,43 @@ public class FragmentSF_F8 extends BaseFragment {
                 height_inside1 = 552;
                 width_side2 = 770;
                 height_side2 = 586;
+
+                width_combine = 8083;
+                height_combine = 835;
+
+                x_front1_left = 1544;
+                y_front1_left = 0;
+                x_front2_left = 976;
+                y_front2_left = 132;
+                x_ll1 = 0;
+                y_ll1 = 298;
+                x_ll2 = 407;
+                y_ll2 = 249;
+                x_lr1 = 3392;
+                y_lr1 = 283;
+                x_lr2 = 2855;
+                y_lr2 = 249;
+                x_lace_left = 2705;
+                y_lace_left = 0;
+                x_back_left = 0;
+                y_back_left = 0;
+
+                x_front1_right = 5913;
+                y_front1_right = 0;
+                x_front2_right = 5368;
+                y_front2_right = 132;
+                x_rr1 = 7419;
+                y_rr1 = 298;
+                x_rr2 = 6906;
+                y_rr2 = 249;
+                x_rl1 = 4045;
+                y_rl1 = 283;
+                x_rl2 = 4458;
+                y_rl2 = 249;
+                x_lace_right = 4612;
+                y_lace_right = 0;
+                x_back_right = 7546;
+                y_back_right = 0;
                 break;
             case 41:
                 width_front1 = 640;
@@ -807,6 +1028,43 @@ public class FragmentSF_F8 extends BaseFragment {
                 height_inside1 = 566;
                 width_side2 = 792;
                 height_side2 = 600;
+
+                width_combine = 7390;
+                height_combine = 915;
+
+                x_front1_left = 1529;
+                y_front1_left = 0;
+                x_front2_left = 936;
+                y_front2_left = 133;
+                x_ll1 = 0;
+                y_ll1 = 365;
+                x_ll2 = 416;
+                y_ll2 = 315;
+                x_lr1 = 3035;
+                y_lr1 = 349;
+                x_lr2 = 2482;
+                y_lr2 = 315;
+                x_lace_left = 2901;
+                y_lace_left = 0;
+                x_back_left = 0;
+                y_back_left = 0;
+
+                x_front1_right = 5225;
+                y_front1_right = 0;
+                x_front2_right = 4668;
+                y_front2_right = 133;
+                x_rr1 = 6709;
+                y_rr1 = 365;
+                x_rr2 = 6185;
+                y_rr2 = 315;
+                x_rl1 = 3699;
+                y_rl1 = 349;
+                x_rl2 = 4123;
+                y_rl2 = 315;
+                x_lace_right = 3707;
+                y_lace_right = 0;
+                x_back_right = 6838;
+                y_back_right = 0;
                 break;
             case 42:
                 width_front1 = 647;
@@ -823,6 +1081,43 @@ public class FragmentSF_F8 extends BaseFragment {
                 height_inside1 = 572;
                 width_side2 = 804;
                 height_side2 = 608;
+
+                width_combine = 7422;
+                height_combine = 929;
+
+                x_front1_left = 1530;
+                y_front1_left = 0;
+                x_front2_left = 932;
+                y_front2_left = 134;
+                x_ll1 = 0;
+                y_ll1 = 373;
+                x_ll2 = 420;
+                y_ll2 = 321;
+                x_lr1 = 3044;
+                y_lr1 = 357;
+                x_lr2 = 2483;
+                y_lr2 = 321;
+                x_lace_left = 2905;
+                y_lace_left = 0;
+                x_back_left = 0;
+                y_back_left = 0;
+
+                x_front1_right = 5250;
+                y_front1_right = 0;
+                x_front2_right = 4680;
+                y_front2_right = 134;
+                x_rr1 = 6734;
+                y_rr1 = 373;
+                x_rr2 = 6201;
+                y_rr2 = 321;
+                x_rl1 = 3715;
+                y_rl1 = 357;
+                x_rl2 = 4142;
+                y_rl2 = 321;
+                x_lace_right = 3723;
+                y_lace_right = 0;
+                x_back_right = 6861;
+                y_back_right = 0;
                 break;
             case 43:
                 width_front1 = 661;
@@ -839,6 +1134,43 @@ public class FragmentSF_F8 extends BaseFragment {
                 height_inside1 = 586;
                 width_side2 = 828;
                 height_side2 = 622;
+
+                width_combine = 7585;
+                height_combine = 955;
+
+                x_front1_left = 1541;
+                y_front1_left = 0;
+                x_front2_left = 938;
+                y_front2_left = 140;
+                x_ll1 = 0;
+                y_ll1 = 386;
+                x_ll2 = 429;
+                y_ll2 = 332;
+                x_lr1 = 3106;
+                y_lr1 = 371;
+                x_lr2 = 2530;
+                y_lr2 = 332;
+                x_lace_left = 2965;
+                y_lace_left = 0;
+                x_back_left = 0;
+                y_back_left = 0;
+
+                x_front1_right = 5385;
+                y_front1_right = 0;
+                x_front2_right = 4783;
+                y_front2_right = 140;
+                x_rr1 = 6880;
+                y_rr1 = 386;
+                x_rr2 = 6330;
+                y_rr2 = 332;
+                x_rl1 = 3794;
+                y_rl1 = 371;
+                x_rl2 = 4231;
+                y_rl2 = 332;
+                x_lace_right = 3797;
+                y_lace_right = 0;
+                x_back_right = 7008;
+                y_back_right = 0;
                 break;
             case 44:
                 width_front1 = 668;
@@ -855,6 +1187,43 @@ public class FragmentSF_F8 extends BaseFragment {
                 height_inside1 = 592;
                 width_side2 = 840;
                 height_side2 = 629;
+
+                width_combine = 7685;
+                height_combine = 967;
+
+                x_front1_left = 1577;
+                y_front1_left = 0;
+                x_front2_left = 953;
+                y_front2_left = 133;
+                x_ll1 = 0;
+                y_ll1 = 390;
+                x_ll2 = 432;
+                y_ll2 = 336;
+                x_lr1 = 3143;
+                y_lr1 = 376;
+                x_lr2 = 2562;
+                y_lr2 = 336;
+                x_lace_left = 3003;
+                y_lace_left = 0;
+                x_back_left = 0;
+                y_back_left = 0;
+
+                x_front1_right = 5442;
+                y_front1_right = 0;
+                x_front2_right = 4843;
+                y_front2_right = 132;
+                x_rr1 = 6972;
+                y_rr1 = 390;
+                x_rr2 = 6415;
+                y_rr2 = 336;
+                x_rl1 = 3845;
+                y_rl1 = 376;
+                x_rl2 = 4285;
+                y_rl2 = 336;
+                x_lace_right = 3848;
+                y_lace_right = 0;
+                x_back_right = 7100;
+                y_back_right = 0;
                 break;
             case 45:
                 width_front1 = 682;
@@ -871,22 +1240,45 @@ public class FragmentSF_F8 extends BaseFragment {
                 height_inside1 = 604;
                 width_side2 = 862;
                 height_side2 = 642;
+
+                width_combine = 7851;
+                height_combine = 990;
+
+                x_front1_left = 1624;
+                y_front1_left = 0;
+                x_front2_left = 972;
+                y_front2_left = 138;
+                x_ll1 = 0;
+                y_ll1 = 404;
+                x_ll2 = 444;
+                y_ll2 = 348;
+                x_lr1 = 3214;
+                y_lr1 = 386;
+                x_lr2 = 2612;
+                y_lr2 = 348;
+                x_lace_left = 3065;
+                y_lace_left = 0;
+                x_back_left = 0;
+                y_back_left = 0;
+
+                x_front1_right = 5544;
+                y_front1_right = 0;
+                x_front2_right = 4937;
+                y_front2_right = 138;
+                x_rr1 = 7119;
+                y_rr1 = 404;
+                x_rr2 = 6545;
+                y_rr2 = 348;
+                x_rl1 = 3926;
+                y_rl1 = 386;
+                x_rl2 = 4377;
+                y_rl2 = 348;
+                x_lace_right = 3926;
+                y_lace_right = 0;
+                x_back_right = 7249;
+                y_back_right = 0;
                 break;
         }
-        width_front1 += 4;
-        height_front1 += 4;
-        width_front2 += 4;
-        height_front2 += 4;
-        width_back += 4;
-        height_back += 4;
-        width_lace += 4;
-        height_lace += 4;
-        width_outside1 += 4;
-        height_outside1 += 4;
-        width_inside1 += 4;
-        height_inside1 += 4;
-        width_side2 += 4;
-        height_side2 += 4;
     }
 
 }

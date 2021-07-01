@@ -141,7 +141,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             @Override
             public void run() {
                 super.run();
-                getSize(orderItems.get(currentID).sizeStr);
+                getSizeJJ(orderItems.get(currentID).sizeStr);
 
                 if (sizeOK) {
                     for(num=orderItems.get(currentID).num;num>=1;num--) {
@@ -163,44 +163,58 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     void drawText(Canvas canvas) {
 //        canvas.drawText(orderItems.get(currentID).sizeStr, 2300, 3300, paint);
 //        canvas.drawRect(1000, 3684 - 21, 1000 + 400, 3684, rectPaint);
-        canvas.drawText(time + "  " + orderItems.get(currentID).sizeStr + "  " + orderItems.get(currentID).order_number, 10, 100, paintSmall);
+        canvas.drawText(orderItems.get(currentID).sku + " " + time + " " + orderItems.get(currentID).sizeStr + "码 " + orderItems.get(currentID).order_number, 1400, 100, paintSmall);
     }
 
     public void remixx(){
-        Bitmap bitmapCombine = Bitmap.createBitmap(width, height * 2, Bitmap.Config.ARGB_8888);
+//        Bitmap bitmapCombine = Bitmap.createBitmap(width, height * 2, Bitmap.Config.ARGB_8888);
+//        Canvas canvasCombine= new Canvas(bitmapCombine);
+//        canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+//        canvasCombine.drawColor(0xffffffff);
+//
+//        Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), dbID);
+//        bitmapDB = Bitmap.createScaledBitmap(bitmapDB, width, height * 2, true);
+//        MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true));
+//        if (orderItems.get(currentID).imgs.size() == 2) {
+//            MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), width, height, true));
+//        }
+//
+//        Matrix matrix = new Matrix();
+//        matrix.postTranslate(0, height);
+//        canvasCombine.drawBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), matrix, null);
+//
+//        matrix.reset();
+//        matrix.postRotate(180);
+//        matrix.postTranslate(width, height);
+//        canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
+//        canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
+//        drawText(canvasCombine);
+//        bitmapDB.recycle();
+
+        Bitmap bitmapCombine = Bitmap.createBitmap(2138, 2746, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        if (orderItems.get(currentID).platform.endsWith("jj")) {
+        Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ay_jj);
 
-        } else {
-            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), dbID);
-            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, width, height * 2, true);
-            MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width, height, true));
-            if (orderItems.get(currentID).imgs.size() == 2) {
-                MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), width, height, true));
-            }
+        Matrix matrix = new Matrix();
+        matrix.postTranslate(0, 1373);
+        canvasCombine.drawBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), matrix, null);
 
-            Matrix matrix = new Matrix();
-            matrix.postTranslate(0, height);
-            canvasCombine.drawBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), matrix, null);
+        matrix.reset();
+        matrix.postRotate(180);
+        matrix.postTranslate(2138, 1373);
+        canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
+        canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
+        drawText(canvasCombine);
 
-            matrix.reset();
-            matrix.postRotate(180);
-            matrix.postTranslate(width, height);
-            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), matrix, null);
-            canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
-            drawText(canvasCombine);
-            bitmapDB.recycle();
-        }
+        bitmapCombine = Bitmap.createScaledBitmap(bitmapCombine, width, height, true);
+        bitmapDB.recycle();
 
 
         try {
             String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
-            if(orderItems.get(currentID).platform.equals("zy")){
-                nameCombine = orderItems.get(currentID).sku+ "(" + MainActivity.instance.orderDate_short + "-" + (currentID + 1) + ")_" + orderItems.get(currentID).sizeStr + "_" + orderItems.get(currentID).order_number + "_共" + orderItems.get(currentID).newCode + "个" + strPlus + ".jpg";
-            }
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
@@ -210,7 +224,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 147);
+            BitmapToJpg.save(bitmapCombine, fileSave, 150);
             bitmapCombine.recycle();
 
             //写入excel
@@ -318,23 +332,22 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     void getSizeJJ(String sizeStr) {
         switch (sizeStr) {
             case "S":
-                width = 1992;
-                height = 1466;
+                width = 2051;
+                height = 3050;
                 break;
             case "M":
-                width = 2246;
-                height = 1537;
+                width = 2318;
+                height = 3188;
                 break;
             case "L":
-                width = 2259;
-                height = 1535;
+                width = 2318;
+                height = 3188;
                 break;
             case "XL":
-                width = 2470;
-                height = 1705;
+                width = 2529;
+                height = 3528;
                 break;
         }
-        height += 40;
     }
 
     public void showDialogSizeWrong(final String order_number){

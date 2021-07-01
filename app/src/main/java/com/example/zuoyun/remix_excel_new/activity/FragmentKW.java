@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
-import android.graphics.Point;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -131,13 +130,56 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     public void remixx(){
-        Point point = new Point(1, 1);
         Bitmap bitmapCombine = Bitmap.createBitmap(3660, 2400, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        if(orderItems.get(currentID).imgs.size()==2){
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {
+            //top
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 304, 751, 443, 679);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getResources(), R.drawable.kw_top_left);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 503, 739, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 507, null);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 786, 751, 2421, 797);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getResources(), R.drawable.kw_front1);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawText1(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 2481, 857, true);
+            canvasCombine.drawBitmap(bitmapTemp, 584, 506, null);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3251, 751, 443, 679);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getResources(), R.drawable.kw_top_right);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 503, 739, true);
+            canvasCombine.drawBitmap(bitmapTemp, 3157, 507, null);
+
+            //front
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 596, 2246, 2805, 354);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getResources(), R.drawable.kw_front2);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 2865, 414, true);
+            canvasCombine.drawBitmap(bitmapTemp, 392, 0, null);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 564, 2359, 2868, 886);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            bitmapDB = BitmapFactory.decodeResource(getResources(), R.drawable.kw_front3);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawText3(canvasTemp);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 2928, 935, true);
+            canvasCombine.drawBitmap(bitmapTemp, 360, 1464, null);
+        } else if (orderItems.get(currentID).imgs.size() == 2) {
             //top
             Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 3, 0, 443, 679);
             Canvas canvasTemp = new Canvas(bitmapTemp);

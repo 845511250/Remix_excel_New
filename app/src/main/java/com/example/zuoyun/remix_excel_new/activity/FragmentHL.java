@@ -375,9 +375,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         try {
             String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
-            if (orderItems.get(currentID).platform.equals("zy")) {
-                nameCombine = orderItems.get(currentID).sku+ "_" + orderItems.get(currentID).color + "_" + orderItems.get(currentID).newCode  + "_" + orderItems.get(currentID).order_number + strPlus + ".jpg";
-            }
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){

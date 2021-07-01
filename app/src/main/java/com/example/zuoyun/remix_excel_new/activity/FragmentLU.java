@@ -3,6 +3,7 @@ package com.example.zuoyun.remix_excel_new.activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
@@ -131,11 +132,33 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     public void remixx(){
         Bitmap bitmapCombine = null;
 
-        if (MainActivity.instance.bitmaps.get(0).getWidth() == 4900) {
+        if (orderItems.get(currentID).sku.equals("LU3") && MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {
+            bitmapCombine = Bitmap.createBitmap(5556, 2168, Bitmap.Config.ARGB_8888);
+            Canvas canvasCombine = new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasCombine.drawColor(0xffffffff);
+
+            //left
+            Matrix matrix = new Matrix();
+            matrix.postRotate(-90);
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 70, 762, 808, 1681, matrix, true);
+            canvasCombine.drawBitmap(bitmapTemp, 180, 134, null);
+
+            //top
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1772, 27, 1356, 1745);
+            canvasCombine.drawBitmap(bitmapTemp, 2099, 134, null);
+
+            //right
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2321, 762, 808, 1681, matrix, true);
+            canvasCombine.drawBitmap(bitmapTemp, 3694, 134, null);
+
+            bitmapTemp.recycle();
+
+        } else if (MainActivity.instance.bitmaps.get(0).getWidth() == 4900) {
             orderItems.get(currentID).sku = "LU3";
 
             bitmapCombine = Bitmap.createBitmap(5556, 2168, Bitmap.Config.ARGB_8888);
-            Canvas canvasCombine= new Canvas(bitmapCombine);
+            Canvas canvasCombine = new Canvas(bitmapCombine);
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasCombine.drawColor(0xffffffff);
 
@@ -157,7 +180,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             orderItems.get(currentID).sku = "LU4";
 
             bitmapCombine = Bitmap.createBitmap(7072, 1566, Bitmap.Config.ARGB_8888);
-            Canvas canvasCombine= new Canvas(bitmapCombine);
+            Canvas canvasCombine = new Canvas(bitmapCombine);
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasCombine.drawColor(0xffffffff);
 

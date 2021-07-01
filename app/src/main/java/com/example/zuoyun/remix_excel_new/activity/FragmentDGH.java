@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.util.Log;
@@ -210,33 +211,88 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
 
         } else if (orderItems.get(currentID).sku.equals("DH")) {
-            width_DH = 2540 + 90;//43+1.5cm
+            width_DH = 2540 + 91;//43+1.5cm
             int margin = 24;
-
-            bitmapBorderDH = Bitmap.createScaledBitmap(bitmapBorderDH, width_DH, width_DH, true);
-
-            if (MainActivity.instance.bitmaps.get(0).getWidth() == 3158) {
-                MainActivity.instance.bitmaps.set(0, Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 79, 79, 3000, 3000));
-            }
-
-            if (MainActivity.instance.bitmaps.get(0).getWidth() != width_DH) {
-                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width_DH, width_DH, true));
-            }
-            if (orderItems.get(currentID).imgs.size() == 2 && MainActivity.instance.bitmaps.get(1).getWidth() != width_DH) {
-                MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), width_DH, width_DH, true));
-            }
 
             bitmapCombine = Bitmap.createBitmap(width_DH * 2 + margin, width_DH, Bitmap.Config.ARGB_8888);
             canvasCombine = new Canvas(bitmapCombine);
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
             canvasCombine.drawColor(0xffffffff);
 
-            canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-            canvasCombine.drawBitmap(bitmapBorderDH, 0, 0, null);
-            canvasCombine.drawBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), width_DH + margin, 0, null);
-            canvasCombine.drawBitmap(bitmapBorderDH, width_DH + margin, 0, null);
-            bitmapBorderDH.recycle();
-            drawTextDH(canvasCombine);
+            bitmapBorderDH = Bitmap.createScaledBitmap(bitmapBorderDH, width_DH, width_DH, true);
+            Bitmap bitmapTemp = null;
+
+            if (MainActivity.instance.bitmaps.get(0).getWidth() == 3158) {
+                bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 79, 79, 3000, 3000);
+                bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_DH, width_DH - 136, true);
+
+                canvasCombine.drawBitmap(bitmapTemp, 0, 136, null);
+                canvasCombine.drawBitmap(bitmapTemp, width_DH + margin, 136, null);
+
+                Bitmap bitmapCut = Bitmap.createBitmap(bitmapTemp, 0, 2, width_DH, 138);
+                Matrix matrix = new Matrix();
+                matrix.postScale(1, -1);
+                bitmapCut = Bitmap.createBitmap(bitmapCut, 0, 0, width_DH, 138, matrix, true);
+                canvasCombine.drawBitmap(bitmapCut, 0, 0, null);
+                canvasCombine.drawBitmap(bitmapCut, width_DH + margin, 0, null);
+
+                canvasCombine.drawBitmap(bitmapBorderDH, 0, 0, null);
+                canvasCombine.drawBitmap(bitmapBorderDH, width_DH + margin, 0, null);
+                drawTextDH(canvasCombine);
+
+                bitmapBorderDH.recycle();
+                bitmapTemp.recycle();
+                bitmapCut.recycle();
+
+            } else if (MainActivity.instance.bitmaps.get(0).getWidth() == 3005) {
+                bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width_DH, width_DH, true);
+
+                canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+                canvasCombine.drawBitmap(bitmapTemp, width_DH + margin, 0, null);
+
+                canvasCombine.drawBitmap(bitmapBorderDH, 0, 0, null);
+                canvasCombine.drawBitmap(bitmapBorderDH, width_DH + margin, 0, null);
+                drawTextDH(canvasCombine);
+
+                bitmapBorderDH.recycle();
+                bitmapTemp.recycle();
+
+            } else if (!orderItems.get(currentID).isPPSL) {
+                bitmapTemp = Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width_DH, width_DH - 136, true);
+
+                canvasCombine.drawBitmap(bitmapTemp, 0, 136, null);
+                canvasCombine.drawBitmap(bitmapTemp, width_DH + margin, 136, null);
+
+                Bitmap bitmapCut = Bitmap.createBitmap(bitmapTemp, 0, 2, width_DH, 138);
+                Matrix matrix = new Matrix();
+                matrix.postScale(1, -1);
+                bitmapCut = Bitmap.createBitmap(bitmapCut, 0, 0, width_DH, 138, matrix, true);
+                canvasCombine.drawBitmap(bitmapCut, 0, 0, null);
+                canvasCombine.drawBitmap(bitmapCut, width_DH + margin, 0, null);
+
+                canvasCombine.drawBitmap(bitmapBorderDH, 0, 0, null);
+                canvasCombine.drawBitmap(bitmapBorderDH, width_DH + margin, 0, null);
+                drawTextDH(canvasCombine);
+
+                bitmapBorderDH.recycle();
+                bitmapTemp.recycle();
+                bitmapCut.recycle();
+
+            } else {
+                MainActivity.instance.bitmaps.set(0, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(0), width_DH, width_DH, true));
+                if (orderItems.get(currentID).imgs.size() == 2) {
+                    MainActivity.instance.bitmaps.set(1, Bitmap.createScaledBitmap(MainActivity.instance.bitmaps.get(1), width_DH, width_DH, true));
+                }
+
+                canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
+                canvasCombine.drawBitmap(bitmapBorderDH, 0, 0, null);
+                canvasCombine.drawBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), width_DH + margin, 0, null);
+                canvasCombine.drawBitmap(bitmapBorderDH, width_DH + margin, 0, null);
+                bitmapBorderDH.recycle();
+                drawTextDH(canvasCombine);
+            }
+
+
 
             //save bitmap
             String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";

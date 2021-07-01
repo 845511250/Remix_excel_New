@@ -30,7 +30,7 @@ import jxl.write.WritableWorkbook;
  * Created by zuoyun on 2016/11/4.
  */
 
-public class FragmentF21 extends BaseFragment {
+public class FragmentSF_K14 extends BaseFragment {
     Context context;
 //    String sdCardPath = "/mnt/asec/share";
 String sdCardPath = "/storage/emulated/0/Pictures";
@@ -204,95 +204,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapTemp.recycle();
             bitmapDB.recycle();
 
-        } else if (orderItems.get(currentID).imgs.size() == 4) {
-            //main
-            Bitmap bitmapTemp = Bitmap.createBitmap(1607, 1830, Bitmap.Config.ARGB_8888);
-            Canvas canvasTemp = new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
-            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.f21_main);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextMain(canvasTemp, "左");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mainWidth, mainHeight, true);
-            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
-
-            bitmapTemp = Bitmap.createBitmap(1607, 1830, Bitmap.Config.ARGB_8888);
-            canvasTemp = new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, null);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextMain(canvasTemp, "右");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mainWidth, mainHeight, true);
-            canvasCombine.drawBitmap(bitmapTemp, mainWidth + margin, 0, null);
-
-            //tongue
-            bitmapTemp = Bitmap.createBitmap(521, 581, Bitmap.Config.ARGB_8888);
-            canvasTemp = new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(1), 0, 0, null);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.f21_tongue);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextTongue(canvasTemp, "左");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, tongueWidth, tongueHeight, true);
-            canvasCombine.drawBitmap(bitmapTemp, mainWidth * 2 + margin, mainHeight - tongueHeight * 2 - margin * 2, null);
-
-            bitmapTemp = Bitmap.createBitmap(521, 581, Bitmap.Config.ARGB_8888);
-            canvasTemp = new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(3), 0, 0, null);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextTongue(canvasTemp, "右");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, tongueWidth, tongueHeight, true);
-            canvasCombine.drawBitmap(bitmapTemp, mainWidth * 2 + margin, mainHeight - tongueHeight, null);
-
-            bitmapTemp.recycle();
-            bitmapDB.recycle();
-        } else if (orderItems.get(currentID).imgs.size() == 1) {
-            //main
-            Bitmap bitmapTemp = Bitmap.createBitmap(1607, 1830, Bitmap.Config.ARGB_8888);
-            Canvas canvasTemp = new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -1725, -625, null);
-            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.f21_main);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextMain(canvasTemp, "左");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mainWidth, mainHeight, true);
-            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
-
-            bitmapTemp = Bitmap.createBitmap(1607, 1830, Bitmap.Config.ARGB_8888);
-            canvasTemp = new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -68, -625, null);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextMain(canvasTemp, "右");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, mainWidth, mainHeight, true);
-            canvasCombine.drawBitmap(bitmapTemp, mainWidth + margin, 0, null);
-
-            //tongue
-            bitmapTemp = Bitmap.createBitmap(521, 581, Bitmap.Config.ARGB_8888);
-            canvasTemp = new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -2268, -44, null);
-            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.f21_tongue);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextTongue(canvasTemp, "左");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, tongueWidth, tongueHeight, true);
-            canvasCombine.drawBitmap(bitmapTemp, mainWidth * 2 + margin, mainHeight - tongueHeight * 2 - margin * 2, null);
-
-            bitmapTemp = Bitmap.createBitmap(521, 581, Bitmap.Config.ARGB_8888);
-            canvasTemp = new Canvas(bitmapTemp);
-            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), -611, -44, null);
-            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextTongue(canvasTemp, "右");
-            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, tongueWidth, tongueHeight, true);
-            canvasCombine.drawBitmap(bitmapTemp, mainWidth * 2 + margin, mainHeight - tongueHeight, null);
-
-            bitmapTemp.recycle();
-            bitmapDB.recycle();
-
         }
-
 
 
         try {

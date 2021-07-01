@@ -134,22 +134,45 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        Bitmap bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
-        Canvas canvasTemp = new Canvas(bitmapTemp);
-        canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z7);
-        canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-        drawText(canvasTemp);
-        canvasCombine.drawBitmap(bitmapTemp, 32, 32, null);
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {//jj
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 41, 952, 1949, 2096);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z7);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawText(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 32, 32, null);
 
-        bitmapTemp = (orderItems.get(currentID).imgs.size() == 2 ? MainActivity.instance.bitmaps.get(1) : MainActivity.instance.bitmaps.get(0)).copy(Bitmap.Config.ARGB_8888, true);
-        canvasTemp = new Canvas(bitmapTemp);
-        canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-        drawText(canvasTemp);
-        canvasCombine.drawBitmap(bitmapTemp, 2017, 32, null);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 2011, 952, 1949, 2096);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawText(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 2017, 32, null);
 
-        bitmapDB.recycle();
+            bitmapDB.recycle();
+            bitmapTemp.recycle();
+
+        } else{
+            Bitmap bitmapTemp = MainActivity.instance.bitmaps.get(0).copy(Bitmap.Config.ARGB_8888, true);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.z7);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawText(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 32, 32, null);
+
+            bitmapTemp = (orderItems.get(currentID).imgs.size() == 2 ? MainActivity.instance.bitmaps.get(1) : MainActivity.instance.bitmaps.get(0)).copy(Bitmap.Config.ARGB_8888, true);
+            canvasTemp = new Canvas(bitmapTemp);
+            canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            drawText(canvasTemp);
+            canvasCombine.drawBitmap(bitmapTemp, 2017, 32, null);
+
+            bitmapDB.recycle();
+            bitmapTemp.recycle();
+        }
+
 
         try {
             File file=new File(sdCardPath+"/生产图/"+childPath+"/");
@@ -166,7 +189,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             if(!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 150);
+            BitmapToJpg.save(bitmapCombine, fileSave, 149);
 
             //释放bitmap
             bitmapCombine.recycle();

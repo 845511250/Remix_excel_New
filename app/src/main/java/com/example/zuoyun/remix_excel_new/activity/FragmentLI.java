@@ -70,8 +70,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(20);
-        paint.setTypeface(Typeface.DEFAULT_BOLD);
+        paint.setTextSize(19);
         paint.setAntiAlias(true);
 
         paintRed = new Paint();
@@ -131,21 +130,43 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawText(Canvas canvas) {
-        canvas.drawRect(100, 1445-20, 100 + 300, 1445, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "   " + time + "  " + orderItems.get(currentID).order_number, 100, 1445 - 2, paint);
+        canvas.drawRect(1000, 3, 1000 + 400, 3 + 19, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku + "瑜伽垫 " + time + " " + orderItems.get(currentID).order_number, 1000, 3 + 17, paint);
     }
 
     public void remixx(){
-        Matrix matrix = new Matrix();
-        matrix.postRotate(90);
-        matrix.postTranslate(MainActivity.instance.bitmaps.get(0).getHeight(), 0);
+        Bitmap bitmapCombine = null;
 
-        Bitmap bitmapCombine = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, MainActivity.instance.bitmaps.get(0).getWidth(), MainActivity.instance.bitmaps.get(0).getHeight(), matrix, true);
-        Canvas canvasCombine= new Canvas(bitmapCombine);
-        canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == 8700) {
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90);
+            matrix.postTranslate(MainActivity.instance.bitmaps.get(0).getHeight(), 0);
 
-        canvasCombine.drawRect(0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), rectBorderPaint);
-        canvasCombine.drawRect(1, 1, bitmapCombine.getWidth() - 1, bitmapCombine.getHeight() - 1, rectBorderPaint);
+            bitmapCombine = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, MainActivity.instance.bitmaps.get(0).getWidth(), MainActivity.instance.bitmaps.get(0).getHeight(), matrix, true);
+            Canvas canvasCombine= new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+
+            canvasCombine.drawRect(0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), rectBorderPaint);
+            canvasCombine.drawRect(1, 1, bitmapCombine.getWidth() - 1, bitmapCombine.getHeight() - 1, rectBorderPaint);
+            drawText(canvasCombine);
+        } else if (MainActivity.instance.bitmaps.get(0).getWidth() == 10800) {
+            bitmapCombine = Bitmap.createBitmap(2930, 8700, Bitmap.Config.ARGB_8888);
+            Canvas canvasCombine= new Canvas(bitmapCombine);
+            canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasCombine.drawColor(0xffffffff);
+
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 0, 3600, 10800, 3600);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 8700, 2930, true);
+
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90);
+            matrix.postTranslate(2930, 0);
+            canvasCombine.drawBitmap(bitmapTemp, matrix, null);
+
+            canvasCombine.drawRect(0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), rectBorderPaint);
+            canvasCombine.drawRect(1, 1, bitmapCombine.getWidth() - 1, bitmapCombine.getHeight() - 1, rectBorderPaint);
+            drawText(canvasCombine);
+        }
 
 
         try {

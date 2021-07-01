@@ -69,7 +69,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(26);
+        paint.setTextSize(40);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setAntiAlias(true);
 
@@ -123,8 +123,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawText(Canvas canvas) {
-        canvas.drawRect(230, 10, 230 + 400, 10 + 26, rectPaint);
-        canvas.drawText(orderItems.get(currentID).sku + "   " + time + "  " + orderItems.get(currentID).order_number, 230, 10 + 23, paint);
+        canvas.drawRect(100, 220 - 40, 100 + 240, 220, rectPaint);
+        canvas.drawText(orderItems.get(currentID).sku, 110, 220 - 4, paint);
+
+        canvas.drawRect(100, 280 - 40, 100 + 240, 280, rectPaint);
+        canvas.drawText(time, 110, 280 - 4, paint);
     }
 
     public void remixx(){
@@ -134,6 +137,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasCombine.drawColor(0xffffffff);
 
         canvasCombine.drawBitmap(MainActivity.instance.bitmaps.get(0), -578, -154, null);
+        drawText(canvasCombine);
+
 
         try {
             File file=new File(sdCardPath+"/生产图/"+childPath+"/");

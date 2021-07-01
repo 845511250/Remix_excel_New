@@ -762,12 +762,12 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 break;
         }
 
-        width_1 += 10;
-        height_1 += 10;
-        width_2 += 10;
-        height_2 += 10;
-        width_side += 10;
-        height_side += 10;
+        width_1 += 16;
+        height_1 += 16;
+        width_2 += 16;
+        height_2 += 16;
+        width_side += 16;
+        height_side += 16;
     }
 
     void converseSize(){

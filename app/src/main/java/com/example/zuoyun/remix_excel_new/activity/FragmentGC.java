@@ -179,6 +179,9 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         if (orderItems.get(currentID).isPPSL) {
             bitmapF = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(1), 78, 97, 3416, 4780);
             bitmapB = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 74, 97, 3448, 4806);
+        } else if (MainActivity.instance.bitmaps.get(0).getWidth() == 7100) {
+            bitmapF = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 90, 1158, 3416, 4780);
+            bitmapB = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3559, 1148, 3448, 4806);
         } else {
             bitmapF = (checkContains("front") ? getBitmapWith("front") : MainActivity.instance.bitmaps.get(0)).copy(Bitmap.Config.ARGB_8888, true);
             if (orderItems.get(currentID).imgs.size() == 1) {
@@ -206,10 +209,10 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gc_back);
         canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-        bitmapDB.recycle();
         drawTextBack(canvasTemp);
         bitmapB = Bitmap.createScaledBitmap(bitmapB, width_back, height_back, true);
         canvasCombine.drawBitmap(bitmapB, width_front + 120, 0, null);
+        bitmapDB.recycle();
         bitmapB.recycle();
 
 
@@ -230,7 +233,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             Log.e("aaa", pathSave + nameCombine);
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 150);
+            BitmapToJpg.save(bitmapCombine, fileSave, 148);
             bitmapCombine.recycle();
 
             //写入excel

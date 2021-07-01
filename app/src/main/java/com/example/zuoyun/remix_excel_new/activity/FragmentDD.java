@@ -564,10 +564,6 @@ public class FragmentDD extends BaseFragment {
             String printColor = orderItems.get(currentID).color.equals("黑") ? "B" : "W";
             String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
-            if (orderItems.get(currentID).platform.equals("zy")) {
-                nameCombine = orderItems.get(currentID).sku + "_" + orderItems.get(currentID).sizeStr + orderItems.get(currentID).color + "(" + MainActivity.instance.orderDate_short + "-" + (currentID + 1) + ")_" + orderItems.get(currentID).order_number + strPlus + "_共" + orderItems.get(currentID).newCode + "个" + ".jpg";
-            }
-
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
                 pathSave = sdCardPath + "/生产图/" + childPath + "/" + orderItems.get(currentID).sku + "/";

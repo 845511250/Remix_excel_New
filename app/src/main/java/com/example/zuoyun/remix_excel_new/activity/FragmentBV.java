@@ -153,14 +153,14 @@ public class FragmentBV extends BaseFragment {
 
     }
 
-    void drawTextFront(Canvas canvas) {
-        canvas.drawRect(200, 3408 - 20, 200 + 500, 3408, rectPaint);
-        canvas.drawText("BV女T恤- " + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode_short, 200, 3408 - 2, paint);
-    }
-    void drawTextBack(Canvas canvas) {
-        canvas.drawRect(1070, 3863 - 20, 1070 + 500, 3863, rectPaint);
-        canvas.drawText("BV女T恤- " + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode_short, 1070, 3863 - 2, paint);
-    }
+//    void drawTextFront(Canvas canvas) {
+//        canvas.drawRect(200, 3408 - 20, 200 + 500, 3408, rectPaint);
+//        canvas.drawText("BV女T恤- " + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode_short, 200, 3408 - 2, paint);
+//    }
+//    void drawTextBack(Canvas canvas) {
+//        canvas.drawRect(1070, 3863 - 20, 1070 + 500, 3863, rectPaint);
+//        canvas.drawText("BV女T恤- " + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number + "  " + orderItems.get(currentID).newCode_short, 1070, 3863 - 2, paint);
+//    }
 
     void drawTextXiuziL(Canvas canvas) {
         canvas.drawRect(500, 1735 - 20, 500 + 500, 1735, rectPaint);
@@ -169,6 +169,48 @@ public class FragmentBV extends BaseFragment {
     void drawTextXiuziR(Canvas canvas) {
         canvas.drawRect(500, 1735 - 20, 500 + 500, 1735, rectPaint);
         canvas.drawText("右袖子" + orderItems.get(currentID).sizeStr + "  " + time + "  " + orderItems.get(currentID).order_number, 500, 1735 - 2, paint);
+    }
+    void drawTextFront(Canvas canvas) {
+        if (id_front == R.drawable.bv_front_s) {
+            canvas.save();
+            canvas.rotate(72f, 49, 1089);
+            canvas.drawRect(49, 1089 - 20, 49 + 500, 1089, rectPaint);
+            canvas.drawText("BV女T恤-前 " + orderItems.get(currentID).sizeStr + " " + time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 49, 1089 - 2, paint);
+            canvas.restore();
+        } else if (id_front == R.drawable.bv_front_xl) {
+            canvas.save();
+            canvas.rotate(78.3f, 7, 993);
+            canvas.drawRect(7, 993 - 20, 7 + 500, 993, rectPaint);
+            canvas.drawText("BV女T恤-前 " + orderItems.get(currentID).sizeStr + " " + time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 7, 993 - 2, paint);
+            canvas.restore();
+        } else if (id_front == R.drawable.bv_front_3xl) {
+            canvas.save();
+            canvas.rotate(80.5f, 11, 1026);
+            canvas.drawRect(11, 1026 - 20, 11 + 500, 1026, rectPaint);
+            canvas.drawText("BV女T恤-前 " + orderItems.get(currentID).sizeStr + " " + time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 11, 1026 - 2, paint);
+            canvas.restore();
+        }
+    }
+    void drawTextBack(Canvas canvas) {
+        if (id_back == R.drawable.bv_back_s) {
+            canvas.save();
+            canvas.rotate(72.3f, 62, 1390);
+            canvas.drawRect(62, 1390 - 20, 62 + 500, 1390, rectPaint);
+            canvas.drawText("BV女T恤-后 " + orderItems.get(currentID).sizeStr + " " + time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 62, 1390 - 2, paint);
+            canvas.restore();
+        } else if (id_back == R.drawable.bv_back_xl) {
+            canvas.save();
+            canvas.rotate(78.3f, 14, 1283);
+            canvas.drawRect(14, 1283 - 20, 14 + 500, 1283, rectPaint);
+            canvas.drawText("BV女T恤-后 " + orderItems.get(currentID).sizeStr + " " + time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 14, 1283 - 2, paint);
+            canvas.restore();
+        } else if (id_back == R.drawable.bv_back_3xl) {
+            canvas.save();
+            canvas.rotate(80f, 10, 1330);
+            canvas.drawRect(10, 1330 - 20, 10 + 500, 1330, rectPaint);
+            canvas.drawText("BV女T恤-后 " + orderItems.get(currentID).sizeStr + " " + time + " " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).newCode_short, 10, 1330 - 2, paint);
+            canvas.restore();
+        }
     }
 
     public void remixx() {
@@ -368,7 +410,7 @@ public class FragmentBV extends BaseFragment {
             if (!new File(pathSave).exists())
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
-            BitmapToJpg.save(bitmapCombine, fileSave, 147);
+            BitmapToJpg.save(bitmapCombine, fileSave, 148);
             bitmapCombine.recycle();
 
             //写入excel
@@ -443,7 +485,7 @@ public class FragmentBV extends BaseFragment {
             case "XS":
                 width_front = 2540;
                 height_front = 3277;
-                width_back = 3542;
+                width_back = 2542;
                 height_back = 3713;
                 width_xiuzi = 1814;
                 height_xiuzi = 1711;

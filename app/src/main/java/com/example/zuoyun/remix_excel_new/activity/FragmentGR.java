@@ -281,9 +281,10 @@ public class FragmentGR extends BaseFragment {
     }
 
     public void remixx(){
-        int margin = 130;
+        int margin = 120;
         Matrix matrix = new Matrix();
         int widthCombine = Math.max(width_front * 2 + height_xiabai + margin * 2, width_arm + width_maozi + margin);
+        widthCombine = Math.max(widthCombine, width_xiukou * 2 + width_maozi + margin * 2);
 
         Bitmap bitmapCombine = Bitmap.createBitmap(widthCombine, height_front + height_back + height_maozi * 4 + margin * 3, Bitmap.Config.ARGB_8888);
         Canvas canvasCombine= new Canvas(bitmapCombine);
@@ -603,6 +604,190 @@ public class FragmentGR extends BaseFragment {
             drawTextXiukouR(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiukou, height_xiukou, true);
             canvasCombine.drawBitmap(bitmapTemp, width_xiukou + margin, height_back + height_front + height_arm * 2 + height_pocket + margin * 5, null);
+            bitmapTemp.recycle();
+        } else if (orderItems.get(currentID).imgs.size() == 1 && MainActivity.instance.bitmaps.get(0).getWidth() == 9600) {//jj GRY
+            //front R
+            Bitmap bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3306, 170, 1482, 3574);
+            Canvas canvasTemp = new Canvas(bitmapTemp);
+            Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gry_front_r);
+            bitmapDB = bitmapDB.copy(Bitmap.Config.ARGB_8888, true);
+            Canvas canvasDB = new Canvas(bitmapDB);
+            drawTextFrontR(canvasDB);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, 1482, 3574, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
+
+            //front L
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4832, 170, 1482, 3574);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gry_front_l);
+            bitmapDB = bitmapDB.copy(Bitmap.Config.ARGB_8888, true);
+            canvasDB = new Canvas(bitmapDB);
+            drawTextFrontL(canvasDB);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, 1482, 3574, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_front + margin, 0, null);
+
+            //back
+            bitmapTemp =  Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1207, 4796, 2938, 3639);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gqy_back);
+            bitmapDB = bitmapDB.copy(Bitmap.Config.ARGB_8888, true);
+            canvasDB = new Canvas(bitmapDB);
+            drawTextBack(canvasDB);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, 2938, 3639, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_front + margin, null);
+
+            //arm_l
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 6384, 759, 2401, 3113);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gqy_arm_l);
+            bitmapDB = bitmapDB.copy(Bitmap.Config.ARGB_8888, true);
+            canvasDB = new Canvas(bitmapDB);
+            drawTextXiuziL(canvasDB);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, 2401, 3113, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_arm, height_arm, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + margin * 2, null);
+
+            //arm_r
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 817, 759, 2401, 3113);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gqy_arm_r);
+            bitmapDB = bitmapDB.copy(Bitmap.Config.ARGB_8888, true);
+            canvasDB = new Canvas(bitmapDB);
+            drawTextXiuziR(canvasDB);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, 2401, 3113, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_arm, height_arm, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_arm + margin * 3, null);
+
+            //pocket
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3667, 2333, 1120, 1410);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gry_pocket_r);
+            bitmapDB = bitmapDB.copy(Bitmap.Config.ARGB_8888, true);
+            canvasDB = new Canvas(bitmapDB);
+            drawTextPocketR(canvasDB);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, 1120, 1410, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket, height_pocket, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_arm * 2 + margin * 4, null);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4834, 2333, 1120, 1410);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gry_pocket_l);
+            bitmapDB = bitmapDB.copy(Bitmap.Config.ARGB_8888, true);
+            canvasDB = new Canvas(bitmapDB);
+            drawTextPocketL(canvasDB);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, 1120, 1410, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_pocket, height_pocket, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_pocket + margin, height_back + height_front + height_arm * 2 + margin * 4, null);
+
+            //maozi_out_l
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 5232, 4792, 1535, 2322);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gry_maozi_in_r);
+            bitmapDB = bitmapDB.copy(Bitmap.Config.ARGB_8888, true);
+            canvasDB = new Canvas(bitmapDB);
+            drawTextMaoziOutL(canvasDB);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, 1535, 2322, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_maozi, height_maozi, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_arm + margin, height_front + height_back + margin * 2, null);
+
+            //maozi_out_r
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 6855, 4792, 1535, 2322);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gry_maozi_in_l);
+            bitmapDB = bitmapDB.copy(Bitmap.Config.ARGB_8888, true);
+            canvasDB = new Canvas(bitmapDB);
+            drawTextMaoziOutR(canvasDB);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, 1535, 2322, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_maozi, height_maozi, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_arm + margin, height_front + height_back + height_maozi + margin * 3, null);
+
+            //maozi_in_r
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 5229, 7106, 1535, 2322);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gry_maozi_in_r);
+            bitmapDB = bitmapDB.copy(Bitmap.Config.ARGB_8888, true);
+            canvasDB = new Canvas(bitmapDB);
+            drawTextMaoziInR(canvasDB);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, 1535, 2322, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_maozi, height_maozi, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_arm + margin, height_front + height_back + height_maozi * 2 + margin * 3, null);
+
+            //maozi_in_l
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 6852, 7106, 1535, 2322);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gr_maozi_in_l);
+            bitmapDB = bitmapDB.copy(Bitmap.Config.ARGB_8888, true);
+            canvasDB = new Canvas(bitmapDB);
+            drawTextMaoziInL(canvasDB);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, 1535, 2322, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_maozi, height_maozi, true);
+            canvasCombine.drawBitmap(bitmapTemp, widthCombine - width_maozi, height_front + height_back + height_maozi * 3 + margin * 3, null);
+
+            //xiabai
+            Bitmap bitmapArm = Bitmap.createBitmap(1273 * 2 + 2553, 834, Bitmap.Config.ARGB_8888);
+            Canvas canvasArm= new Canvas(bitmapArm);
+            canvasArm.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasArm.drawColor(0xffffffff);
+
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 4834, 3792, 1273, 834);
+            canvasArm.drawBitmap(bitmapTemp, 0, 0, null);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1398, 8479, 2553, 834);
+            canvasArm.drawBitmap(bitmapTemp, 1273, 0, null);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 3512, 3792, 1273, 834);
+            canvasArm.drawBitmap(bitmapTemp, 1273 + 2553, 0, null);
+            bitmapTemp.recycle();
+
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_bottom_7907);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, 1273 * 2 + 2553, 834, true);
+            canvasArm.drawBitmap(bitmapDB, 0, 0, null);
+
+            drawTextXiabai(canvasArm);
+            bitmapArm = Bitmap.createScaledBitmap(bitmapArm, width_xiabai, height_xiabai, true);
+
+            matrix.reset();
+            matrix.postRotate(-90);
+            matrix.postTranslate(width_front * 2 + margin * 2, width_xiabai);
+            canvasCombine.drawBitmap(bitmapArm, matrix, null);
+            bitmapArm.recycle();
+
+            //xiukou_l
+            bitmapTemp =  Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 6971, 3910, 1235, 835);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_xiukou);
+            bitmapDB = bitmapDB.copy(Bitmap.Config.ARGB_8888, true);
+            canvasDB = new Canvas(bitmapDB);
+            drawTextXiukouL(canvasDB);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, 1235, 835, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiukou, height_xiukou, true);
+            canvasCombine.drawBitmap(bitmapTemp, 0, height_back + height_front + height_arm * 2 + height_pocket + margin * 5, null);
+
+            //xiukou_r
+            bitmapTemp =  Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1396, 3910, 1235, 835);
+            canvasTemp = new Canvas(bitmapTemp);
+            bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.gq_xiukou);
+            bitmapDB = bitmapDB.copy(Bitmap.Config.ARGB_8888, true);
+            canvasDB = new Canvas(bitmapDB);
+            drawTextXiukouR(canvasDB);
+            bitmapDB = Bitmap.createScaledBitmap(bitmapDB, 1235, 835, true);
+            canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
+            bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_xiukou, height_xiukou, true);
+            canvasCombine.drawBitmap(bitmapTemp, width_xiukou + margin, height_back + height_front + height_arm * 2 + height_pocket + margin * 5, null);
+            bitmapDB.recycle();
             bitmapTemp.recycle();
         } else if (orderItems.get(currentID).isPPSL) {
             //front

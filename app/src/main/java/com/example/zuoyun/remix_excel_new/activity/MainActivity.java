@@ -123,6 +123,7 @@ public class MainActivity extends FragmentActivity {
     RequestQueue requestQueue = NoHttp.newRequestQueue();
 
     public HLPics hlPics;
+    String[] canGoOnSKUS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,10 +174,10 @@ public class MainActivity extends FragmentActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("aaa", orders.get(position).path);
 
-                if(orders.get(position).path.endsWith("xls")){
+                if (orders.get(position).path.endsWith("xls")) {
                     childPath = orders.get(position).name.substring(0, orders.get(position).name.length() - 4);
-                    readExcelOrderOld(orders.get(position).path);
-                }else {
+//                    readExcelOrderOld(orders.get(position).path);
+                } else {
                     childPath = orders.get(position).name.substring(0, orders.get(position).name.length() - 5);
                     readExcelOrderNew(orders.get(position).path);
                 }
@@ -192,6 +193,8 @@ public class MainActivity extends FragmentActivity {
         if (!new File("/storage/emulated/0/Movies/admin.txt").exists()) {
             showDialogPassword();
         }
+
+        initCanGoOnSKUS();
     }
 
     @OnClick(R.id.bt_next)
@@ -253,6 +256,9 @@ public class MainActivity extends FragmentActivity {
     }
 
     void setfg(){
+        if (orderItems.get(currentID).platform.equals("zy")) {
+            orderItems.get(currentID).nameStr = orderItems.get(currentID).nameStr.replace("orderDate_short", orderDate_short);
+        }
         boolean firstOK = true;
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         switch (orderItems.get(currentID).sku) {
@@ -570,7 +576,7 @@ public class MainActivity extends FragmentActivity {
                 break;
             case "DY":
                 tv_title.setText("马丁靴 " + orderItems.get(currentID).order_number);
-                transaction.replace(R.id.frame_main, new FragmentDY148());
+                transaction.replace(R.id.frame_main, new FragmentDY138());
                 break;
             case "DX":
                 tv_title.setText("背包 " + orderItems.get(currentID).order_number);
@@ -1262,7 +1268,7 @@ public class MainActivity extends FragmentActivity {
                 break;
             case "KM":
                 tv_title.setText("KM " + orderItems.get(currentID).order_number);
-                transaction.replace(R.id.frame_main, new FragmentDY());
+                transaction.replace(R.id.frame_main, new FragmentDY138());
                 break;
             case "KN":
                 tv_title.setText("KN " + orderItems.get(currentID).order_number);
@@ -1315,6 +1321,10 @@ public class MainActivity extends FragmentActivity {
             case "KY":
                 tv_title.setText("KYL " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentKVKY());
+                break;
+            case "KYH":
+                tv_title.setText("KYH " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentKYH());
                 break;
             case "KYS":
                 tv_title.setText("KYS " + orderItems.get(currentID).order_number);
@@ -1456,6 +1466,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("MA " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentMA());
                 break;
+            case "MB":
+                tv_title.setText("MB " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentMB());
+                break;
             case "MC":
                 tv_title.setText("MC " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentMC());
@@ -1512,6 +1526,10 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("SF_F21_vans " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentSF_F21());
                 break;
+            case "SF_K14":
+                tv_title.setText("SF_K14 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentSF_K14());
+                break;
             case "SF_G3":
                 tv_title.setText("SF_G3 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentSF_G3());
@@ -1524,13 +1542,25 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("SF_G4 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentSF_G7());
                 break;
+            case "SF_S1":
+                tv_title.setText("SF_S1手机壳 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentSF_S1());
+                break;
             case "SF_S2":
                 tv_title.setText("SF_S2手机壳 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentSF_S2());
                 break;
+            case "SF_S5":
+                tv_title.setText("SF_S5手机壳 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentSF_S6());
+                break;
             case "SF_S6":
                 tv_title.setText("SF_S6手机壳 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentSF_S6());
+                break;
+            case "SF_T3":
+                tv_title.setText("SF_T3连衣裙 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentSF_T3());
                 break;
             case "SF_T10":
                 tv_title.setText("SF_T10卫衣裙 " + orderItems.get(currentID).order_number);
@@ -1725,9 +1755,45 @@ public class MainActivity extends FragmentActivity {
         if (firstOK) {
             transaction.commitAllowingStateLoss();
             tv_progress.setText((currentID + 1) + " / " + totalNum);
-            getsetBitmap();
+            if (check_canGoOn()) {
+                getsetBitmap();
+            } else {
+                showDialogTip("错误！", "订单号 " + orderItems.get(currentID).order_number + " " + orderItems.get(currentID).sku + "新布局暂未添加，跳过并继续？");
+            }
         }
     }
+
+
+    boolean check_canGoOn() {//检查若此SKU是新布局，是否已添加
+        if (orderItems.get(currentID).isPPSL || orderItems.get(currentID).platform.equals("zy") || orderItems.get(currentID).imgs.size() != 1) {
+            return true;
+        } else {
+            boolean canGoOn = false;
+            for (String sku : canGoOnSKUS) {
+                if (sku.length() == 1) {
+                    if (orderItems.get(currentID).sku.equals(sku)) {
+                        canGoOn = true;
+                        break;
+                    }
+                } else {
+                    if (orderItems.get(currentID).sku.contains(sku)) {
+                        canGoOn = true;
+                        break;
+                    }
+                }
+            }
+            return canGoOn;
+        }
+    }
+
+    void initCanGoOnSKUS(){
+        canGoOnSKUS = new String[]{"AA", "AB", "AK", "AG", "AL", "AN", "AP", "AS", "AT", "BV", "BY", "BZ", "C", "CA", "CF", "CN", "D3", "D14", "D18", "D26", "D63", "D69", "D70", "D71", "D82"
+                , "D83", "DD", "DE", "DG", "DH", "DJ", "DK", "DL", "DM", "DN", "DP", "DQ", "DT", "DU", "DV", "DX", "DY", "E", "F2", "F3", "F21", "FA", "FI", "FS", "FV", "FW", "FX", "FY", "GA"
+                , "GB", "GC", "GH", "GI", "GQ", "GR", "GS", "GU", "GV", "GX", "HA", "HB", "HD", "HG", "HI", "HJ", "HK", "HL", "HLL", "HV", "HZ", "KK", "KL", "KM", "KV", "KW", "KY", "LC", "LD", "LG"
+                , "LH", "LI", "LM", "LN", "LEE", "LR", "LS", "LU3", "LX", "ME", "N", "Q", "R", "SF_F8", "SF_F9", "SF_F14", "SF_F21", "SF_K14", "SF_G3", "SF_G4", "SF_G7", "SF_S1"
+                , "SF_S2", "SF_S5", "SF_S6", "SF_T3", "SF_T10", "W", "Z5", "Z7", "Z8", "Z9", "Z21", "Z41", "Z42", "Z70", "Z71"};
+    }
+
 
     public void getsetBitmap(){
         new Thread(new Runnable() {
@@ -1789,143 +1855,144 @@ public class MainActivity extends FragmentActivity {
     }
 
 
-    public void readExcelOrderOld(String path){
-        orderItems.clear();
-        try{
-            org.apache.poi.ss.usermodel.Workbook workbook = WorkbookFactory.create(new File(path));
-            org.apache.poi.ss.usermodel.Sheet sheet = workbook.getSheetAt(0);
-            Row row;
-            int rows = sheet.getLastRowNum() + 1;
-            Log.e("aaa", "total rows: " + rows);
+//    public void readExcelOrderOld(String path){
+//        orderItems.clear();
+//        try{
+//            org.apache.poi.ss.usermodel.Workbook workbook = WorkbookFactory.create(new File(path));
+//            org.apache.poi.ss.usermodel.Sheet sheet = workbook.getSheetAt(0);
+//            Row row;
+//            int rows = sheet.getLastRowNum() + 1;
+//            Log.e("aaa", "total rows: " + rows);
+//
+//            for (int i = 0; i < rows; i++) {
+//                row = sheet.getRow(i);
+//                if (row != null && getContent(row, 0) != "" && getContent(row, 13).contains(".")) {
+//                    OrderItem orderItem = new OrderItem();
+//                    orderItem.newCode = getContent(row, 3);
+//                    orderItem.order_number = getContent(row, 0);
+//                    orderItem.num = Integer.parseInt(getContent(row, 2));
+//                    orderItem.platform = getContent(row, 4);
+//
+//                    orderItem.colorStr = getContent(row, 15);
+//                    orderItem.color = orderItem.colorStr;
+//                    if (orderItem.color.equalsIgnoreCase("Black"))
+//                        orderItem.color = "黑";
+//                    else if (orderItem.color.equalsIgnoreCase("Trans"))
+//                        orderItem.color = "透";
+//                    else if (orderItem.color.equalsIgnoreCase("White"))
+//                        orderItem.color = "白";
+//                    else if (orderItem.color.equalsIgnoreCase("Brown"))
+//                        orderItem.color = "棕色";
+//                    else if (orderItem.color.equalsIgnoreCase("Beige"))
+//                        orderItem.color = "米色";
+//                    else if (orderItem.color.equalsIgnoreCase(""))
+//                        orderItem.color = "白";
+//
+//                    String sizestr = getContent(row, 16);
+//                    orderItem.sizeStr = sizestr;
+//                    if (sizestr != "") {
+//                        if (sizestr.equalsIgnoreCase("S/M")) {
+//                            orderItem.size = 0;
+//                        } else if (sizestr.equalsIgnoreCase("L/XL")) {
+//                            orderItem.size = 1;
+//                        } else if (sizestr.endsWith(")")) {
+//                            try {
+//                                orderItem.size = Integer.parseInt(sizestr.substring(sizestr.length() - 3, sizestr.length() - 1));
+//                            } catch (Exception e) {
+//                                Log.e("aaa", "size parseInt Error!!!");
+//                            }
+//                        } else {
+//                            try {
+//                                orderItem.size = Integer.parseInt(sizestr);
+//                            } catch (Exception e) {
+//                                Log.e("aaa", "size parseInt Error!!!");
+//                            }
+//                        }
+//
+//                    }
+//
+//                    String SKU = getContent(row, 1).trim();
+//                    orderItem.skuStr = SKU;
+//                    orderItem.sku = SKU;
+//                    if (SKU.equals("DD") || SKU.equals("DDDHL") || SKU.equals("DDMEN"))
+//                        orderItem.sku = "DD";
+//                    else if (SKU.equals("ABMEN") || SKU.equals("ABMENDHL") || SKU.equals("ABWOMEN") || SKU.equals("ABWOMENDHL"))
+//                        orderItem.sku = "AB";
+//                    else if (SKU.equals("AZ") || SKU.equals("AZDHL"))
+//                        orderItem.sku = "AZ";
+//                    else if (SKU.equals("DE") || SKU.equals("DEDHL") || SKU.equals("DEMEN"))
+//                        orderItem.sku = "DE";
+//                    else if (SKU.equals("DG") || SKU.equals("DGDHL") || SKU.equals("CHCPC52") || SKU.equals("CHCPC52DHL"))
+//                        orderItem.sku = "DG";
+//                    else if (SKU.equals("DH") || SKU.equals("DHDHL"))
+//                        orderItem.sku = "DH";
+//                    else if (SKU.equals("DL") || SKU.equals("DLDHL"))
+//                        orderItem.sku = "DL";
+//                    else if (SKU.equals("DM") || SKU.equals("DMDHL"))
+//                        orderItem.sku = "DM";
+//                    else if (SKU.equals("DN") || SKU.equals("DNDHL") || SKU.equals("CASB055DHL"))
+//                        orderItem.sku = "DN";
+//                    else if (SKU.equals("DP") || SKU.equals("DPDHL"))
+//                        orderItem.sku = "DP";
+//                    else if (SKU.equals("DQ") || SKU.equals("DQDHL") || SKU.equals("DQMEN"))
+//                        orderItem.sku = "DQ";
+//                    else if (SKU.equals("DT") || SKU.equals("DTDHL") || SKU.equals("DTMEN"))
+//                        orderItem.sku = "DT";
+//                    else if (SKU.equals("DU") || SKU.equals("DUDHL"))
+//                        orderItem.sku = "DU";
+//                    else if (SKU.equals("DV") || SKU.equals("DVDHL"))
+//                        orderItem.sku = "DV";
+//                    else if (SKU.equals("DW") || SKU.equals("DWDHL"))
+//                        orderItem.sku = "DW";
+//                    else if (SKU.equals("E") || SKU.equals("EDHL"))
+//                        orderItem.sku = "E";
+//                    else if (SKU.equals("DB") || SKU.equals("DBDHL"))
+//                        orderItem.sku = "DB";
+//                    else if (SKU.equals("DC") || SKU.equals("DCDHL"))
+//                        orderItem.sku = "DC";
+//                    else if (SKU.equals("DK") || SKU.equals("DKDHL"))
+//                        orderItem.sku = "DK";
+//                    else if (SKU.equals("AG") || SKU.equals("AGDHL"))
+//                        orderItem.sku = "AG";
+//                    else if (SKU.equals("R") || SKU.equals("RDHL"))
+//                        orderItem.sku = "R";
+//                    else if (SKU.equals("AM") || SKU.equals("AMDHL"))
+//                        orderItem.sku = "AM";
+//                    else if (SKU.equals("FA") || SKU.equals("FADHL"))
+//                        orderItem.sku = "FA";//被套
+//                    else if (SKU.equals("DX") || SKU.equals("DXDHL"))
+//                        orderItem.sku = "DX";//背包
+//                    else if (SKU.equals("DJ") || SKU.equals("DJDHL"))
+//                        orderItem.sku = "DJ";//Toms
+//                    else if (SKU.equals("DZ") || SKU.equals("DZDHL"))
+//                        orderItem.sku = "DZ";//行李包套
+//                    else if (SKU.equals("BT") || SKU.equals("BTDHL"))
+//                        orderItem.sku = "BT";//化妆包
+//                    else if (SKU.equals("V") || SKU.equals("VDHL"))
+//                        orderItem.sku = "V";//鼠标垫
+//                    else if (SKU.equals("I") || SKU.equals("IDHL"))
+//                        orderItem.sku = "I";//圆包
+//                    else if (SKU.equals("Q") || SKU.equals("QDHL"))
+//                        orderItem.sku = "Q";//背包
+//                    else if (SKU.equals("HEELS") || SKU.equals("HEELSDHL") || SKU.equals("HEELSFEDEX"))
+//                        orderItem.sku = "FB";//高跟鞋
+//
+//                    String[] images = getContent(row, 13).trim().split(" ");
+//                    for (String str : images) {
+//                        orderItem.imgs.add(getImageName(str));
+//                    }
+//
+//                    orderItems.add(orderItem);
+//                }
+//            }
+//            workbook.close();
+//        }
+//        catch (Exception e){
+//            Toast.makeText(context, "读取订单失败！", Toast.LENGTH_SHORT).show();
+//            Log.e("aaa", e.getMessage());
+//        }
+//    }
 
-            for (int i = 0; i < rows; i++) {
-                row = sheet.getRow(i);
-                if (row != null && getContent(row, 0) != "" && getContent(row, 13).contains(".")) {
-                    OrderItem orderItem = new OrderItem();
-                    orderItem.newCode = getContent(row, 3);
-                    orderItem.order_number = getContent(row, 0);
-                    orderItem.num = Integer.parseInt(getContent(row, 2));
-                    orderItem.platform = getContent(row, 4);
-
-                    orderItem.colorStr = getContent(row, 15);
-                    orderItem.color = orderItem.colorStr;
-                    if (orderItem.color.equalsIgnoreCase("Black"))
-                        orderItem.color = "黑";
-                    else if (orderItem.color.equalsIgnoreCase("Trans"))
-                        orderItem.color = "透";
-                    else if (orderItem.color.equalsIgnoreCase("White"))
-                        orderItem.color = "白";
-                    else if (orderItem.color.equalsIgnoreCase("Brown"))
-                        orderItem.color = "棕色";
-                    else if (orderItem.color.equalsIgnoreCase("Beige"))
-                        orderItem.color = "米色";
-                    else if (orderItem.color.equalsIgnoreCase(""))
-                        orderItem.color = "白";
-
-                    String sizestr = getContent(row, 16);
-                    orderItem.sizeStr = sizestr;
-                    if (sizestr != "") {
-                        if (sizestr.equalsIgnoreCase("S/M")) {
-                            orderItem.size = 0;
-                        } else if (sizestr.equalsIgnoreCase("L/XL")) {
-                            orderItem.size = 1;
-                        } else if (sizestr.endsWith(")")) {
-                            try {
-                                orderItem.size = Integer.parseInt(sizestr.substring(sizestr.length() - 3, sizestr.length() - 1));
-                            } catch (Exception e) {
-                                Log.e("aaa", "size parseInt Error!!!");
-                            }
-                        } else {
-                            try {
-                                orderItem.size = Integer.parseInt(sizestr);
-                            } catch (Exception e) {
-                                Log.e("aaa", "size parseInt Error!!!");
-                            }
-                        }
-
-                    }
-
-                    String SKU = getContent(row, 1).trim();
-                    orderItem.skuStr = SKU;
-                    orderItem.sku = SKU;
-                    if (SKU.equals("DD") || SKU.equals("DDDHL") || SKU.equals("DDMEN"))
-                        orderItem.sku = "DD";
-                    else if (SKU.equals("ABMEN") || SKU.equals("ABMENDHL") || SKU.equals("ABWOMEN") || SKU.equals("ABWOMENDHL"))
-                        orderItem.sku = "AB";
-                    else if (SKU.equals("AZ") || SKU.equals("AZDHL"))
-                        orderItem.sku = "AZ";
-                    else if (SKU.equals("DE") || SKU.equals("DEDHL") || SKU.equals("DEMEN"))
-                        orderItem.sku = "DE";
-                    else if (SKU.equals("DG") || SKU.equals("DGDHL") || SKU.equals("CHCPC52") || SKU.equals("CHCPC52DHL"))
-                        orderItem.sku = "DG";
-                    else if (SKU.equals("DH") || SKU.equals("DHDHL"))
-                        orderItem.sku = "DH";
-                    else if (SKU.equals("DL") || SKU.equals("DLDHL"))
-                        orderItem.sku = "DL";
-                    else if (SKU.equals("DM") || SKU.equals("DMDHL"))
-                        orderItem.sku = "DM";
-                    else if (SKU.equals("DN") || SKU.equals("DNDHL") || SKU.equals("CASB055DHL"))
-                        orderItem.sku = "DN";
-                    else if (SKU.equals("DP") || SKU.equals("DPDHL"))
-                        orderItem.sku = "DP";
-                    else if (SKU.equals("DQ") || SKU.equals("DQDHL") || SKU.equals("DQMEN"))
-                        orderItem.sku = "DQ";
-                    else if (SKU.equals("DT") || SKU.equals("DTDHL") || SKU.equals("DTMEN"))
-                        orderItem.sku = "DT";
-                    else if (SKU.equals("DU") || SKU.equals("DUDHL"))
-                        orderItem.sku = "DU";
-                    else if (SKU.equals("DV") || SKU.equals("DVDHL"))
-                        orderItem.sku = "DV";
-                    else if (SKU.equals("DW") || SKU.equals("DWDHL"))
-                        orderItem.sku = "DW";
-                    else if (SKU.equals("E") || SKU.equals("EDHL"))
-                        orderItem.sku = "E";
-                    else if (SKU.equals("DB") || SKU.equals("DBDHL"))
-                        orderItem.sku = "DB";
-                    else if (SKU.equals("DC") || SKU.equals("DCDHL"))
-                        orderItem.sku = "DC";
-                    else if (SKU.equals("DK") || SKU.equals("DKDHL"))
-                        orderItem.sku = "DK";
-                    else if (SKU.equals("AG") || SKU.equals("AGDHL"))
-                        orderItem.sku = "AG";
-                    else if (SKU.equals("R") || SKU.equals("RDHL"))
-                        orderItem.sku = "R";
-                    else if (SKU.equals("AM") || SKU.equals("AMDHL"))
-                        orderItem.sku = "AM";
-                    else if (SKU.equals("FA") || SKU.equals("FADHL"))
-                        orderItem.sku = "FA";//被套
-                    else if (SKU.equals("DX") || SKU.equals("DXDHL"))
-                        orderItem.sku = "DX";//背包
-                    else if (SKU.equals("DJ") || SKU.equals("DJDHL"))
-                        orderItem.sku = "DJ";//Toms
-                    else if (SKU.equals("DZ") || SKU.equals("DZDHL"))
-                        orderItem.sku = "DZ";//行李包套
-                    else if (SKU.equals("BT") || SKU.equals("BTDHL"))
-                        orderItem.sku = "BT";//化妆包
-                    else if (SKU.equals("V") || SKU.equals("VDHL"))
-                        orderItem.sku = "V";//鼠标垫
-                    else if (SKU.equals("I") || SKU.equals("IDHL"))
-                        orderItem.sku = "I";//圆包
-                    else if (SKU.equals("Q") || SKU.equals("QDHL"))
-                        orderItem.sku = "Q";//背包
-                    else if (SKU.equals("HEELS") || SKU.equals("HEELSDHL") || SKU.equals("HEELSFEDEX"))
-                        orderItem.sku = "FB";//高跟鞋
-
-                    String[] images = getContent(row, 13).trim().split(" ");
-                    for (String str : images) {
-                        orderItem.imgs.add(getImageName(str));
-                    }
-
-                    orderItems.add(orderItem);
-                }
-            }
-            workbook.close();
-        }
-        catch (Exception e){
-            Toast.makeText(context, "读取订单失败！", Toast.LENGTH_SHORT).show();
-            Log.e("aaa", e.getMessage());
-        }
-    }
     public void readExcelOrderNew(String path){
         orderItems.clear();
         try {
@@ -1938,6 +2005,7 @@ public class MainActivity extends FragmentActivity {
             for (int i = 0; i < rows; i++) {
                 row = sheet.getRow(i);
                 if (row != null && getContent(row, 0) != "" && getContent(row, 5).contains(".")) {
+                    totalNum += 1;
                     OrderItem orderItem = new OrderItem();
                     orderItem.order_number = getContent(row, 0);
                     orderItem.num = Integer.parseInt(getContent(row, 2));
@@ -1955,9 +2023,7 @@ public class MainActivity extends FragmentActivity {
                     orderItem.remark = getContent(row, 12);
 
 
-                    if (orderItem.platform.equals("rework")) {
-                        orderItem.platform = "4u2";
-                    } else if (orderItem.platform.equals("zy")) {
+                    if (orderItem.platform.equals("zy")) {
                         orderItem.newCode = orderItem.num + "";
                         orderItem.num = 1;
                         orderItem.order_number = "本厂" + orderItem.order_number;
@@ -2121,6 +2187,8 @@ public class MainActivity extends FragmentActivity {
                     else if (SKU.equalsIgnoreCase("D48") && orderItem.platform.endsWith("jj")) {
                         orderItem.sku = "GX";
                     }
+                    else if (SKU.equalsIgnoreCase("D49"))
+                        orderItem.sku = "W";
                     else if (SKU.equalsIgnoreCase("D51"))
                         orderItem.sku = "HLL";
                     else if (SKU.equalsIgnoreCase("D52"))
@@ -2157,6 +2225,8 @@ public class MainActivity extends FragmentActivity {
                         orderItem.sku = "HA";
                     else if (SKU.equalsIgnoreCase("SF_D65"))
                         orderItem.sku = "BV";
+                    else if (SKU.equalsIgnoreCase("SF_D74"))
+                        orderItem.sku = "KYS";
                     else if (SKU.equalsIgnoreCase("SF_D75"))
                         orderItem.sku = "HGW";
                     else if (SKU.equalsIgnoreCase("SF_D80"))
@@ -2185,6 +2255,8 @@ public class MainActivity extends FragmentActivity {
                         orderItem.sku = "DM";
                     else if (SKU.equalsIgnoreCase("SF_D93"))
                         orderItem.sku = "HL";
+                    else if (SKU.equalsIgnoreCase("SF_D94"))
+                        orderItem.sku = "GC";
                     else if (SKU.equalsIgnoreCase("SF_D95"))
                         orderItem.sku = "HGM";
                     else if (SKU.equalsIgnoreCase("SF_D96"))
@@ -2203,13 +2275,18 @@ public class MainActivity extends FragmentActivity {
                         orderItem.sku = "AA";
                     else if (SKU.equalsIgnoreCase("SF_F7"))
                         orderItem.sku = "FA";
+                    else if (SKU.equalsIgnoreCase("SF_F15"))
+                        orderItem.sku = "FY";
                     else if (SKU.equalsIgnoreCase("SF_F29"))
                         orderItem.sku = "U";
                     else if (SKU.equalsIgnoreCase("SF_F50"))
                         orderItem.sku = "LI";
+                    else if (SKU.equalsIgnoreCase("SF_F67"))
+                        orderItem.sku = "E";
                     else if (SKU.equalsIgnoreCase("SF_K11"))
                         orderItem.sku = "GL";
-
+                    else if (SKU.equalsIgnoreCase("SF_K15"))
+                        orderItem.sku = "KW";
                     else
                         isDifferentSKU = false;
 
@@ -2238,6 +2315,12 @@ public class MainActivity extends FragmentActivity {
                         if (SKU.equals("LG") || SKU.equals("LH") || SKU.equals("LX") || SKU.equals("HV") || SKU.equals("DY") || SKU.equals("F3") || SKU.equals("ME") || SKU.equals("HI") || SKU.equals("LR") || SKU.equals("LX")) {
                             orderItem.nameStr = orderItem.sku + "-" + name_size + "码-" + name_AB + "-" + orderItem.color + "-" + name_order + "-" + orderItem.order_number;
                         }
+                    }
+
+                    //保存的生产图名字(批发订单)
+                    if (orderItem.platform.equals("zy")) {
+                        orderItem.newCode_short = "共" + orderItem.newCode + "个";
+                        orderItem.nameStr = orderItem.sku + (isDifferentSKU ? "(" + SKU + ")" : "") + "-" + "(orderDate_short_" + totalNum + ")" + "-" + name_size + "-" + orderItem.color + "-" + name_order + "-" + orderItem.order_number + "_共" + orderItem.newCode + "个";
                     }
 
 
@@ -2301,6 +2384,9 @@ public class MainActivity extends FragmentActivity {
                 str = str.substring(0, endIndex);
             } else if (str.lastIndexOf(".jpg") > -1) {
                 endIndex = str.lastIndexOf(".jpg") + 4;
+                str = str.substring(0, endIndex);
+            } else if (str.lastIndexOf(".jpeg") > -1) {
+                endIndex = str.lastIndexOf(".jpeg") + 5;
                 str = str.substring(0, endIndex);
             }
         }

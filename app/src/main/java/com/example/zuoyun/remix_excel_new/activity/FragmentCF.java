@@ -83,7 +83,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
         paint = new Paint();
         paint.setColor(0xff000000);
-        paint.setTextSize(25);
+        paint.setTextSize(21);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         paint.setAntiAlias(true);
 
@@ -159,23 +159,39 @@ String sdCardPath = "/storage/emulated/0/Pictures";
     }
 
     void drawTextFront(Canvas canvas) {
-        canvas.drawRect(200, 4330 - 25, 700, 4330, rectPaint);
+        canvas.drawRect(200, 4330 - 21, 700, 4330, rectPaint);
         canvas.drawText("CF紧身T恤  " + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 200, 4330 - 2, paint);
     }
 
     void drawTextBack(Canvas canvas) {
-        canvas.drawRect(200, 4490 - 25, 700, 4490, rectPaint);
+        canvas.drawRect(200, 4490 - 21, 700, 4490, rectPaint);
         canvas.drawText("CF紧身T恤  " + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 200, 4490 - 2, paint);
     }
 
     void drawTextXiuziR(Canvas canvas) {
-        canvas.drawRect(1060, 11, 1060 + 90, 11 + 23, rectPaint);
+        canvas.drawRect(1060, 11, 1060 + 90, 11 + 21, rectPaint);
         canvas.drawText(" 右" + orderItems.get(currentID).sizeStr, 1060, 11 + 21, paint);
     }
 
     void drawTextXiuziL(Canvas canvas) {
-        canvas.drawRect(1060, 11, 1060 + 90, 11 + 23, rectPaint);
-        canvas.drawText(" 左" + orderItems.get(currentID).sizeStr, 1060, 11 + 21, paint);
+        canvas.drawRect(1060, 11, 1060 + 90, 11 + 21, rectPaint);
+        canvas.drawText(" 左" + orderItems.get(currentID).sizeStr, 1060, 11 + 19, paint);
+    }
+
+    void drawTextFrontPOP(Canvas canvas) {
+        canvas.save();
+        canvas.rotate(-89.7f, 3021, 3802);
+        canvas.drawRect(3021, 3802 - 21, 3021 + 500, 3802, rectPaint);
+        canvas.drawText("CF紧身T恤  " + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 3021, 3802 - 2, paint);
+        canvas.restore();
+    }
+
+    void drawTextBackPOP(Canvas canvas) {
+        canvas.save();
+        canvas.rotate(-89.4f, 3016, 4119);
+        canvas.drawRect(3016, 4119 - 21, 3016 + 500, 4119, rectPaint);
+        canvas.drawText("CF紧身T恤  " + orderItems.get(currentID).sizeStr + "   " + time + "  " + orderItems.get(currentID).order_number, 3016, 4119 - 2, paint);
+        canvas.restore();
     }
 
     public void remixx(){
@@ -196,7 +212,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             Canvas canvasTemp = new Canvas(bitmapTemp);
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.cf_front);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextFront(canvasTemp);
+            drawTextFrontPOP(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_front, height_front, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, 0, null);
 
@@ -205,7 +221,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasTemp = new Canvas(bitmapTemp);
             bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.cf_back);
             canvasTemp.drawBitmap(bitmapDB, 0, 0, null);
-            drawTextBack(canvasTemp);
+            drawTextBackPOP(canvasTemp);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_back, height_back, true);
             canvasCombine.drawBitmap(bitmapTemp, width_front + margin, 0, null);
 

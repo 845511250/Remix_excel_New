@@ -588,7 +588,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             matrix2.postRotate(90, bitmapCombine.getWidth() / 2, bitmapCombine.getHeight() / 2);
             bitmapCombine = Bitmap.createBitmap(bitmapCombine, 0, 0, bitmapCombine.getWidth(), bitmapCombine.getHeight(), matrix2, true);
 
-            String nameCombine = "Polo衫女" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
+            String nameCombine = orderItems.get(currentID).nameStr + strPlus + ".jpg";
 
             String pathSave;
             if(MainActivity.instance.cb_classify.isChecked()){
