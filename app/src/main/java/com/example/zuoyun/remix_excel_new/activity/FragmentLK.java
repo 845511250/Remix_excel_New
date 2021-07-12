@@ -201,7 +201,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
         File fileSave = new File(pathSave + nameCombine);
         BitmapToJpg.save(bitmapCombine, fileSave, 300);
-        bitmapCombine.recycle();
+
 
         //2
         bitmapCombine = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
@@ -233,7 +233,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
         fileSave = new File(pathSave + nameCombine);
         BitmapToJpg.save(bitmapCombine, fileSave, 300);
-        bitmapCombine.recycle();
+
 
         //3
         bitmapCombine = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
@@ -265,7 +265,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
         fileSave = new File(pathSave + nameCombine);
         BitmapToJpg.save(bitmapCombine, fileSave, 300);
-        bitmapCombine.recycle();
+
 
 
         try {

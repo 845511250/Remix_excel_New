@@ -276,7 +276,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 100);
-            bitmapCombine.recycle();
+
 
         } else if (orderItems.get(currentID).sku.equals("HO5")) {
             Matrix matrix = new Matrix();
@@ -334,7 +334,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 100);
-            bitmapCombine.recycle();
+
 
         } else {
             //side
@@ -395,7 +395,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 100);
-            bitmapCombine.recycle();
+
 
             //main
             matrix.reset();
@@ -448,7 +448,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapTemp, fileSave, 100);
-            bitmapTemp.recycle();
+
 
         }
 

@@ -243,7 +243,8 @@ public class FragmentHV extends BaseFragment {
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 150);
-            bitmapCombine.recycle();
+
+
 
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";

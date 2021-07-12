@@ -287,7 +287,7 @@ public class FragmentFF extends BaseFragment {
             bitmapRight1.recycle();
             bitmapRight2.recycle();
             bitmapRight3.recycle();
-            bitmapCombine.recycle();
+
 
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";

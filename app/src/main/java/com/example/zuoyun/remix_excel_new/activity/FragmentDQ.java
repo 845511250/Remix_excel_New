@@ -434,14 +434,14 @@ public class FragmentDQ extends BaseFragment {
             Bitmap bitmapTemp = Bitmap.createBitmap(885, 1099, Bitmap.Config.ARGB_8888);
             Canvas canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(0), 0, 0, null);
+            canvasTemp.drawBitmap(checkContains("left_side") ? getBitmapWith("left_side") : MainActivity.instance.bitmaps.get(0), 0, 0, null);
             canvasTemp.drawBitmap(bitmapDB_main, 0, 0, null);
             drawTextMain(canvasTemp, "左");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_main, height_main, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, height_tongue + 59 + height_main + 10, null);
 
             //leftTongue
-            bitmapTemp = MainActivity.instance.bitmaps.get(1).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapTemp = (checkContains("left_tongue") ? getBitmapWith("left_tongue") : MainActivity.instance.bitmaps.get(1)).copy(Bitmap.Config.ARGB_8888, true);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 341, 455, true);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
@@ -457,14 +457,14 @@ public class FragmentDQ extends BaseFragment {
             bitmapTemp = Bitmap.createBitmap(885, 1099, Bitmap.Config.ARGB_8888);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvasTemp.drawBitmap(MainActivity.instance.bitmaps.get(2), 0, 0, null);
+            canvasTemp.drawBitmap(checkContains("right_side") ? getBitmapWith("right_side") : MainActivity.instance.bitmaps.get(2), 0, 0, null);
             canvasTemp.drawBitmap(bitmapDB_main, 0, 0, null);
             drawTextMain(canvasTemp, "右");
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, width_main, height_main, true);
             canvasCombine.drawBitmap(bitmapTemp, 0, height_tongue + 59, null);
 
             //rightTongue
-            bitmapTemp = MainActivity.instance.bitmaps.get(3).copy(Bitmap.Config.ARGB_8888, true);
+            bitmapTemp = (checkContains("right_tongue") ? getBitmapWith("right_tongue") : MainActivity.instance.bitmaps.get(3)).copy(Bitmap.Config.ARGB_8888, true);
             bitmapTemp = Bitmap.createScaledBitmap(bitmapTemp, 341, 455, true);
             canvasTemp = new Canvas(bitmapTemp);
             canvasTemp.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
@@ -503,7 +503,8 @@ public class FragmentDQ extends BaseFragment {
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 150);
-            bitmapCombine.recycle();
+
+
 
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";
@@ -575,6 +576,23 @@ public class FragmentDQ extends BaseFragment {
         if (MainActivity.instance.tb_auto.isChecked()){
             remix();
         }
+    }
+
+    boolean checkContains(String nameContains){
+        for (int i = 0; i < orderItems.get(currentID).imgs.size(); i++) {
+            if (orderItems.get(currentID).imgs.get(i).contains(nameContains)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    Bitmap getBitmapWith(String nameContains){
+        for (int i = 0; i < orderItems.get(currentID).imgs.size(); i++) {
+            if (orderItems.get(currentID).imgs.get(i).contains(nameContains)) {
+                return MainActivity.instance.bitmaps.get(i);
+            }
+        }
+        return null;
     }
 
     void setSize(int size){

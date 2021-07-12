@@ -244,8 +244,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 File fileSave = new File(pathSave + nameCombine);
                 BitmapToJpg.save(bitmapCombine, fileSave, 90);
 
-                //释放bitmap
-                bitmapCombine.recycle();
+
             } else {
                 int width = 1789 + 35;//90dpi,35=1cm
                 int height = 4803 + 35;
@@ -301,8 +300,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 File fileSave = new File(pathSave + nameCombine);
                 BitmapToJpg.save(bitmapCombine, fileSave, 90);
 
-                //释放bitmap
-                bitmapCombine.recycle();
+
             }
 
         } else if (Config.FV_type == 1) {
@@ -342,8 +340,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 90);
 
-            //释放bitmap
-            bitmapCombine.recycle();
+
 
         } else if (Config.FV_type == 2) {
             Bitmap bitmapDB = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.fv_blackborder);
@@ -351,8 +348,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             Bitmap bitmapCombine;
             bitmapCombine = Bitmap.createBitmap(1789, 4803, Bitmap.Config.ARGB_8888);
             Canvas canvasCombine = new Canvas(bitmapCombine);
-            canvasCombine.drawColor(0xffffffff);
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasCombine.drawColor(0xffffffff);
 
             Rect rectCut = new Rect(0, 0, 1757, 4700);
             Rect rectDraw = new Rect(0, 0, 1789, 4803);
@@ -377,9 +374,11 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             BitmapToJpg.save(bitmapCombine, fileSave, 90);
 
             //
+            bitmapCombine = Bitmap.createBitmap(1789, 4803, Bitmap.Config.ARGB_8888);
             canvasCombine = new Canvas(bitmapCombine);
-            canvasCombine.drawColor(0xffffffff);
             canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+            canvasCombine.drawColor(0xffffffff);
+
             canvasCombine.drawBitmap(orderItems.get(currentID).imgs.size() == 1 ? MainActivity.instance.bitmaps.get(0) : MainActivity.instance.bitmaps.get(1), rectCut, rectDraw, null);
             canvasCombine.drawBitmap(bitmapDB, 0, 0, null);
             drawTextBlackBorder(canvasCombine, "右");
@@ -399,7 +398,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             //释放bitmap
             bitmapDB.recycle();
-            bitmapCombine.recycle();
         }
 
 

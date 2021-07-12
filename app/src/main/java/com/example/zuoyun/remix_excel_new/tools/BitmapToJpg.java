@@ -16,8 +16,12 @@ public class BitmapToJpg {
         try {
             ByteArrayOutputStream imageByteArray = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, imageByteArray);
+            bitmap.recycle();//释放bitmap内存
+
             byte[] imageData = imageByteArray.toByteArray();
+            imageByteArray.flush();
             imageByteArray.close();
+
             setDpi(imageData, dpi);
 
             FileOutputStream fileOutputStream = new FileOutputStream(file);
@@ -26,19 +30,6 @@ public class BitmapToJpg {
             fileOutputStream.close();
             imageData = null;
             Log.e("BitmapToJpg", "saved");
-
-//            ByteArrayOutputStream imageByteArray = new ByteArrayOutputStream();
-//            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, imageByteArray);
-//            bitmap.recycle();
-//            byte[] imageData = imageByteArray.toByteArray();
-//            imageByteArray.close();
-//            setDpi(imageData, dpi);
-//            bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
-//            imageData = null;
-//            FileOutputStream fileOutputStream = new FileOutputStream(file);
-//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
-//            fileOutputStream.flush();
-//            fileOutputStream.close();
 
         }catch (Exception e){
             Log.e("BitmapToJpg", "Wrong in Class 'BitmapToJpg'\n" + e.getMessage());

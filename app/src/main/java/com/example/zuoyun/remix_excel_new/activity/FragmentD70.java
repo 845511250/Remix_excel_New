@@ -30,6 +30,8 @@ import jxl.write.Number;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
+import static android.graphics.Bitmap.createScaledBitmap;
+
 /**
  * Created by zuoyun on 2016/10/6.
  */
@@ -173,7 +175,11 @@ public class FragmentD70 extends BaseFragment {
         canvasCombine.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         canvasCombine.drawColor(0xffffffff);
 
-        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight() && MainActivity.instance.bitmaps.get(0).getWidth() == 3500) {
+        if (MainActivity.instance.bitmaps.get(0).getWidth() == MainActivity.instance.bitmaps.get(0).getHeight()) {
+            if (MainActivity.instance.bitmaps.get(0).getWidth() != 3500) {//jj
+                MainActivity.instance.bitmaps.set(0, createScaledBitmap(MainActivity.instance.bitmaps.get(0), 3500, 3500, true));
+            }
+
             //outside_left
             Bitmap bitmapTemp = Bitmap.createBitmap(1559, 883, Bitmap.Config.ARGB_8888);
             Canvas canvasTemp = new Canvas(bitmapTemp);
@@ -259,8 +265,7 @@ public class FragmentD70 extends BaseFragment {
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 149);
 
-            //释放bitmap
-            bitmapCombine.recycle();
+
 
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";

@@ -147,8 +147,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapremix, fileSave, 150);
 
-            //释放bitmap
-            bitmapremix.recycle();
+
 
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";

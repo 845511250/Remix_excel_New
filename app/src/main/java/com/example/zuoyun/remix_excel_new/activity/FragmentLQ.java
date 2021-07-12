@@ -282,7 +282,7 @@ public class FragmentLQ extends BaseFragment {
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 149);
-            bitmapCombine.recycle();
+
 
             String printColor = orderItems.get(currentID).color.equals("白") ? "W" : "B";
 

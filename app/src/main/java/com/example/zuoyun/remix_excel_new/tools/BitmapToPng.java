@@ -28,11 +28,14 @@ public class BitmapToPng {
         try {
             ByteArrayOutputStream imageByteArray = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, imageByteArray);
+            bitmap.recycle();
             byte[] imageData = imageByteArray.toByteArray();
+            imageByteArray.flush();
             imageByteArray.close();
 
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             fileOutputStream.write(setDpi(imageData, dpi));
+            fileOutputStream.flush();
             fileOutputStream.close();
             imageData = null;
             Log.e("aaa", "saved");

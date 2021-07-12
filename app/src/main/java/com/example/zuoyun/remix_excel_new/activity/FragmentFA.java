@@ -232,7 +232,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             File fileSavePillow = new File(pathSave + nameCombinePillow);
             BitmapToJpg.save(bitmapPrintPillow, fileSavePillow, 110);
-            bitmapPrintPillow.recycle();
+
 
 
             //bitmapPrintQuilt
@@ -271,7 +271,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             String nameCombine = "被套" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapPrintQuilt, fileSave, 110);
-            bitmapPrintQuilt.recycle();
+
         } else if (orderItems.get(currentID).imgs.size() == 1 && MainActivity.instance.bitmaps.get(0).getWidth() == 12000) {//adam
             pillowWidthPrint = 3300 + (int) (43 * 3.5);
             pillowHeightPrint = 2200 + (int) (43 * 3.5);
@@ -310,7 +310,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             File fileSavePillow = new File(pathSave + nameCombinePillow);
             BitmapToJpg.save(bitmapPrintPillow, fileSavePillow, 110);
-            bitmapPrintPillow.recycle();
+
 
 
             //bitmapPrintQuilt
@@ -345,7 +345,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
 
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapPrintQuilt, fileSave, 110);
-            bitmapPrintQuilt.recycle();
+
         } else if (orderItems.get(currentID).imgs.size() == 1 && MainActivity.instance.bitmaps.get(0).getWidth() == 12600) {//jj
             //bitmapPrintPillow
             Bitmap bitmapPrintPillow = Bitmap.createBitmap(pillowWidthPrint + 6, pillowHeightPrint * 2 + 6, Bitmap.Config.ARGB_8888);
@@ -381,7 +381,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             File fileSavePillow = new File(pathSave + nameCombinePillow);
             BitmapToJpg.save(bitmapPrintPillow, fileSavePillow, 110);
-            bitmapPrintPillow.recycle();
 
 
             //bitmapPrintQuilt
@@ -416,7 +415,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             String nameCombine = "被套(" + orderItems.get(currentID).sizeStr + ")" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapPrintQuilt, fileSave, 110);
-            bitmapPrintQuilt.recycle();
+
         } else if (orderItems.get(currentID).imgs.size() == 1) {//4u2
             //bitmapPrintPillow
             Bitmap bitmapPrintPillow = Bitmap.createBitmap(pillowWidthPrint + 6, pillowHeightPrint * 2 + 6, Bitmap.Config.ARGB_8888);
@@ -452,7 +451,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             File fileSavePillow = new File(pathSave + nameCombinePillow);
             BitmapToJpg.save(bitmapPrintPillow, fileSavePillow, 110);
-            bitmapPrintPillow.recycle();
 
 
             //bitmapPrintQuilt
@@ -487,7 +485,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             String nameCombine = "被套" + orderItems.get(currentID).nameStr + strPlus + ".jpg";
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapPrintQuilt, fileSave, 110);
-            bitmapPrintQuilt.recycle();
+
         }
 
 

@@ -1338,7 +1338,7 @@ public class FragmentGR extends BaseFragment {
             new File(pathSave).mkdirs();
         File fileSave = new File(pathSave + nameCombine);
         BitmapToJpg.save(bitmapCombine, fileSave, 148);
-        bitmapCombine.recycle();
+
 
 
         try {

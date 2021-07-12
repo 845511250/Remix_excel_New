@@ -417,8 +417,7 @@ public class FragmentDV extends BaseFragment {
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 148);
 
-            //释放bitmap
-            bitmapCombine.recycle();
+
 
             String printColor = orderItems.get(currentID).color.equals("黑") ? "B" : "W";
 

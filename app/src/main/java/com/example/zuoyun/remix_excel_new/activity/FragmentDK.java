@@ -245,7 +245,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             bitmapRBack.recycle();
             bitmapLFront.recycle();
             bitmapLBack.recycle();
-            bitmapComnine.recycle();
+
 
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";

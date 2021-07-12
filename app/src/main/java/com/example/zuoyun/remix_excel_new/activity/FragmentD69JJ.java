@@ -293,8 +293,7 @@ public class FragmentD69JJ extends BaseFragment {
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 150);
 
-            //释放bitmap
-            bitmapCombine.recycle();
+
 
             String printColor = orderItems.get(currentID).color.equals("白") ? "W" : "B";
 

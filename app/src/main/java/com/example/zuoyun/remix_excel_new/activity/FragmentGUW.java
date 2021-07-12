@@ -551,7 +551,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             new File(pathSave).mkdirs();
         File fileSave = new File(pathSave + nameCombine);
         BitmapToJpg.save(bitmapCombine, fileSave, 148);
-        bitmapCombine.recycle();
 
 
 

@@ -9,7 +9,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -230,7 +229,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         }
         File fileSave = new File(pathSave + nameCombine);
         BitmapToJpg.save(bitmapCombine, fileSave, 149);
-        bitmapCombine.recycle();
+
 
         //2
         bitmapCombine = Bitmap.createBitmap(width, height * 2, Bitmap.Config.ARGB_8888);
@@ -279,7 +278,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         nameCombine = orderItems.get(currentID).nameStr + "(3_2)" + strPlus + ".jpg";
         fileSave = new File(pathSave + nameCombine);
         BitmapToJpg.save(bitmapCombine, fileSave, 149);
-        bitmapCombine.recycle();
+
 
         //3
         bitmapCombine = Bitmap.createBitmap(width, height * 2, Bitmap.Config.ARGB_8888);
@@ -327,8 +326,6 @@ String sdCardPath = "/storage/emulated/0/Pictures";
         nameCombine = orderItems.get(currentID).nameStr + "(3_3)" + strPlus + ".jpg";
         fileSave = new File(pathSave + nameCombine);
         BitmapToJpg.save(bitmapCombine, fileSave, 149);
-        bitmapCombine.recycle();
-
 
 
 

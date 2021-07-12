@@ -243,7 +243,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapTemp, fileSave, dpi);
-            bitmapTemp.recycle();
+
         } else if (orderItems.get(currentID).platform.endsWith("jj") && MainActivity.instance.bitmaps.get(0).getWidth() == 12000) {
             //空调毯
             Matrix matrix = new Matrix();
@@ -284,7 +284,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapTemp, fileSave, dpi);
-            bitmapTemp.recycle();
+
         } else if (orderItems.get(currentID).platform.endsWith("jj") && MainActivity.instance.bitmaps.get(0).getWidth() == 11000 && MainActivity.instance.bitmaps.get(0).getHeight() == 14800) {//super平台
             //空调毯
             Matrix matrix = new Matrix();
@@ -325,7 +325,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapTemp, fileSave, dpi);
-            bitmapTemp.recycle();
+
         } else if (orderItems.get(currentID).platform.endsWith("jj")) {
             //空调毯
             Matrix matrix = new Matrix();
@@ -357,7 +357,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapTemp, fileSave, dpi);
-            bitmapTemp.recycle();
+
         } else {
             //空调毯
             Matrix matrix = new Matrix();
@@ -389,7 +389,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapTemp, fileSave, dpi);
-            bitmapTemp.recycle();
+
         }
 
 
@@ -437,7 +437,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 116);
-            bitmapCombine.recycle();
+
         } else if (orderItems.get(currentID).platform.endsWith("jj")  && MainActivity.instance.bitmaps.get(0).getWidth() == 11000 && MainActivity.instance.bitmaps.get(0).getHeight() == 14800) {
             rectBorderPaint.setStrokeWidth(4);
 
@@ -480,7 +480,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 116);
-            bitmapCombine.recycle();
+
         } else if (orderItems.get(currentID).platform.endsWith("-jj") && MainActivity.instance.bitmaps.get(0).getWidth() == 12000) {
             rectBorderPaint.setStrokeWidth(4);
 
@@ -525,7 +525,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 116);
-            bitmapCombine.recycle();
+
         } else {
             rectBorderPaint.setStrokeWidth(4);
 
@@ -569,7 +569,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 116);
-            bitmapCombine.recycle();
+
         }
 
 

@@ -145,7 +145,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             canvasCombine.drawBitmap(bitmapTemp, 180, 134, null);
 
             //top
-            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 1772, 27, 1356, 1745);
+            bitmapTemp = Bitmap.createBitmap(MainActivity.instance.bitmaps.get(0), 924, 728, 1356, 1745);
             canvasCombine.drawBitmap(bitmapTemp, 2099, 134, null);
 
             //right
@@ -222,8 +222,7 @@ String sdCardPath = "/storage/emulated/0/Pictures";
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 150);
 
-            //释放bitmap
-            bitmapCombine.recycle();
+
 
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";

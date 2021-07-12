@@ -340,7 +340,8 @@ public class FragmentB3 extends BaseFragment {
             Log.e("aaa", pathSave + nameCombine);
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 120);
-            bitmapCombine.recycle();
+
+
 
             //写入excel
             String writePath = sdCardPath + "/生产图/" + childPath + "/生产单.xls";

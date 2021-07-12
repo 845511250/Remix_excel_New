@@ -172,7 +172,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     new File(pathSave).mkdirs();
                 File fileSave = new File(pathSave + nameCombine);
                 BitmapToJpg.save(bitmapCombine, fileSave, 150);
-                bitmapCombine.recycle();
+
+
             } else if (orderItems.get(currentID).imgs.size() == 2){
                 bitmapCombine = Bitmap.createBitmap(2924 * 2 + 100, 2924, Bitmap.Config.ARGB_8888);//49.5
                 canvasCombine = new Canvas(bitmapCombine);
@@ -206,7 +207,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                     new File(pathSave).mkdirs();
                 File fileSave = new File(pathSave + nameCombine);
                 BitmapToJpg.save(bitmapCombine, fileSave, 150);
-                bitmapCombine.recycle();
+
+
             }
 
 
@@ -306,7 +308,8 @@ String sdCardPath = "/storage/emulated/0/Pictures";
                 new File(pathSave).mkdirs();
             File fileSave = new File(pathSave + nameCombine);
             BitmapToJpg.save(bitmapCombine, fileSave, 150);
-            bitmapCombine.recycle();
+
+
         }
 
 

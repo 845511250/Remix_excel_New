@@ -1215,16 +1215,16 @@ public class MainActivity extends FragmentActivity {
                 transaction.replace(R.id.frame_main, new FragmentK());
                 break;
             case "KA1":
-                tv_title.setText("K笔袋 " + orderItems.get(currentID).order_number);
-                transaction.replace(R.id.frame_main, new FragmentKA());
+                tv_title.setText("KA1 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentKA1());
                 break;
             case "KA2":
-                tv_title.setText("K笔袋 " + orderItems.get(currentID).order_number);
-                transaction.replace(R.id.frame_main, new FragmentKA());
+                tv_title.setText("KA2 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentKA2());
                 break;
             case "KA3":
-                tv_title.setText("K笔袋 " + orderItems.get(currentID).order_number);
-                transaction.replace(R.id.frame_main, new FragmentKA());
+                tv_title.setText("KA3 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentKA3());
                 break;
             case "KC":
                 tv_title.setText("瑜伽短裤 " + orderItems.get(currentID).order_number);
@@ -1506,13 +1506,17 @@ public class MainActivity extends FragmentActivity {
                 tv_title.setText("围裙 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentR());
                 break;
+            case "SF_D70":
+                tv_title.setText("D70 " + orderItems.get(currentID).order_number);
+                transaction.replace(R.id.frame_main, new FragmentD70());
+                break;
             case "SF_D71":
                 tv_title.setText("D71 " + orderItems.get(currentID).order_number);
                 transaction.replace(R.id.frame_main, new FragmentD70());
                 break;
             case "SF_F8":
                 tv_title.setText("SF_F8_低帮空军 " + orderItems.get(currentID).order_number);
-                transaction.replace(R.id.frame_main, new FragmentSF_F8());
+                transaction.replace(R.id.frame_main, new FragmentSF_F8_137());
                 break;
             case "SF_F9":
                 tv_title.setText("SF_F9_高帮空军 " + orderItems.get(currentID).order_number);
@@ -1787,9 +1791,9 @@ public class MainActivity extends FragmentActivity {
     }
 
     void initCanGoOnSKUS(){
-        canGoOnSKUS = new String[]{"AA", "AB", "AK", "AG", "AL", "AN", "AP", "AS", "AT", "BV", "BY", "BZ", "C", "CA", "CF", "CN", "D3", "D14", "D18", "D26", "D63", "D69", "D70", "D71", "D82"
+        canGoOnSKUS = new String[]{"AA", "AB", "AK", "AG", "AL", "AN", "AP", "AS", "AT", "BN", "BV", "BY", "BZ", "C", "CA", "CF", "CN", "D3", "D14", "D18", "D26", "D63", "D69", "D70", "D71", "D82"
                 , "D83", "DD", "DE", "DG", "DH", "DJ", "DK", "DL", "DM", "DN", "DP", "DQ", "DT", "DU", "DV", "DX", "DY", "E", "F2", "F3", "F21", "FA", "FI", "FS", "FV", "FW", "FX", "FY", "GA"
-                , "GB", "GC", "GH", "GI", "GQ", "GR", "GS", "GU", "GV", "GX", "HA", "HB", "HD", "HG", "HI", "HJ", "HK", "HL", "HLL", "HV", "HZ", "KK", "KL", "KM", "KV", "KW", "KY", "LC", "LD", "LG"
+                , "GB", "GC", "GH", "GI", "GQ", "GR", "GS", "GU", "GV", "GX", "HA", "HB", "HD", "HG", "HI", "HJ", "HK", "HL", "HLL", "HV", "HZ", "KA", "KK", "KL", "KM", "KV", "KW", "KY", "LC", "LD", "LG"
                 , "LH", "LI", "LM", "LN", "LEE", "LR", "LS", "LU3", "LX", "ME", "N", "Q", "R", "SF_F8", "SF_F9", "SF_F14", "SF_F21", "SF_K14", "SF_G3", "SF_G4", "SF_G7", "SF_S1"
                 , "SF_S2", "SF_S5", "SF_S6", "SF_T3", "SF_T10", "W", "Z5", "Z7", "Z8", "Z9", "Z21", "Z41", "Z42", "Z70", "Z71"};
     }
